@@ -1,0 +1,11 @@
+nsIDOMAbstractView    Mozilla::DOM::AbstractView
+nsIDOMDocumentView    Mozilla::DOM::DocumentView
+nsIDOMEvent           Mozilla::DOM::Event
+nsIDOMUIEvent         Mozilla::DOM::UIEvent
+nsIDOMKeyEvent        Mozilla::DOM::KeyEvent
+nsIDOMMouseEvent      Mozilla::DOM::MouseEvent
+PRBool                a boolean
+PRUint32              an unsigned 32-bit integer (long)
+PRUint16              an unsigned 16-big integer (short)
+PRInt32               a signed 32-bit integer (long)
+I32                   a 32-bit integer (long)

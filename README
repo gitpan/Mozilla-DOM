@@ -1,0 +1,38 @@
+Mozilla::DOM
+------------
+
+This module wraps the Mozilla DOM interface in Perl.
+Currently it's very limited, intended mainly to support
+the DOM key and mouse signals in Gtk2::MozEmbed (> 0.03).
+See `perldoc Mozilla::DOM` for more details.
+
+Mozilla::DOM comes with automatically generated API documentation:
+
+  perldoc Mozilla::DOM::index
+
+Installation
+------------
+
+To install Mozilla::DOM, run the following commands:
+
+  perl Makefile.PL
+  make
+  make test
+  make install   (as root)
+
+For this module to be useful, you'll probably also want
+to install Gtk2::MozEmbed (> 0.03) after you install this.
+
+Dependencies
+------------
+
+Mozilla::DOM depends on:
+
+  ExtUtils::Depends
+  ExtUtils::PkgConfig
+  Glib.pm
+  `pkg-config --modversion mozilla-gtkmozembed` >= 1.7
+
+I hope to remove Glib and change mozilla-gtkmozembed to something
+that doesn't depend on GtkMozEmbed (mozilla-xpcom?) and add the
+equivalent for Firefox.

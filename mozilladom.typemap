@@ -1,0 +1,35 @@
+TYPEMAP
+
+nsIDOMAbstractView *      T_MOZDOM_GENERIC_WRAPPER
+nsIDOMDocumentView *      T_MOZDOM_GENERIC_WRAPPER
+nsIDOMEvent *             T_MOZDOM_GENERIC_WRAPPER
+nsIDOMUIEvent *           T_MOZDOM_GENERIC_WRAPPER
+nsIDOMKeyEvent *          T_MOZDOM_GENERIC_WRAPPER
+nsIDOMMouseEvent *        T_MOZDOM_GENERIC_WRAPPER
+nsIDOMEventTarget *       T_MOZDOM_GENERIC_WRAPPER
+nsIDOMEventListener *     T_MOZDOM_GENERIC_WRAPPER
+
+PRUint32                  T_UV
+PRInt32                   T_IV
+PRUint16                  T_UV
+PRBool                    T_BOOL
+
+
+INPUT
+
+# (T_GPERL_GENERIC_WRAPPER from Glib/typemap; I wasn't sure if having the
+# same name would conflict or something)
+# a general-purpose typemap... strips any trailing star and/or leading "const",
+# leaving only the type name in the form SvMyType.  this allows you to make a
+# typedef such as "typedef MyType MyType_ornull", and SvMyType_ornull will be
+# called for those.
+T_MOZDOM_GENERIC_WRAPPER
+	$var = Sv${(my $ntype = $type) =~ s/(?:const\s+)?([:\w]+)(?:\s*\*)$/$1/x;
+	           \$ntype} ($arg);
+
+
+OUTPUT
+
+T_MOZDOM_GENERIC_WRAPPER
+	$arg = newSV${(my $ntype = $type) =~ s/(?:const\s+)?([:\w]+)(?:\s*\*)$/$1/;
+		      \$ntype} ($var);

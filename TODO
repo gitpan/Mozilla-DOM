@@ -1,0 +1,8 @@
+Future plans include wrapping more DOM interfaces such as nsIWebBrowser
+(requiring support in Gtk2::MozEmbed for gtk_moz_embed_get_nsIWebBrowser),
+nsIDOMWindow, and nsIDOMDocument. With this, you'd get access to the DOM,
+with methods such as GetElementsByTagName. Adding more support for DOM
+events would allow finding out more about an event and its targets,
+initiating events, and adding listeners.
+
+Add tests somehow...

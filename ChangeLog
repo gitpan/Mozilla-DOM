@@ -1,0 +1,3 @@
+0.01  2005-04-02
+  - initial release, with much help from Torsten Schoenfeld
+    o  wrappings for nsIDOMKeyEvent and nsIDOMMouseEvent

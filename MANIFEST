@@ -1,0 +1,15 @@
+ChangeLog
+DOM.pm
+LICENSE
+MANIFEST			This list of files
+MANIFEST.SKIP
+Makefile.PL
+README
+TODO
+copyright.pod
+doctypes
+mozilladom.typemap
+mozilladom2perl.h
+t/DOM.t
+xs/DOM.xs
+META.yml                                 Module meta-data (added by MakeMaker)
