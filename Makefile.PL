@@ -8,14 +8,15 @@ use Config;
 use Cwd qw(cwd);
 use File::Spec;
 
-# $Id: Makefile.PL,v 1.4 2005/04/02 12:23:20 slanning Exp $
+# $Id: Makefile.PL,v 1.5 2005/04/03 23:00:29 slanning Exp $
 
+my $mozpkg = 'mozilla-xpcom';
 
 our %build_reqs = (
   'perl-ExtUtils-Depends'   => '0.205',
   'perl-ExtUtils-PkgConfig' => '1.07',
   'perl-Glib'               => '1.06',
-  'GtkMozEmbed'             => '1.7',    # XXX: mozilla-xpcom instead?
+  $mozpkg                   => '1.7',
 );
 
 unless (eval "use ExtUtils::Depends '$build_reqs{'perl-ExtUtils-Depends'}';"
@@ -41,7 +42,7 @@ my $package = 'Mozilla::DOM';
 (my $path = "$package.pm") =~ s{::}{/}g;
 (my $pmfile = $path) =~ s{.*/}{};
 
-my %pkgcfg = ExtUtils::PkgConfig->find("mozilla-gtkmozembed >= $build_reqs{'GtkMozEmbed'}");
+my %pkgcfg = ExtUtils::PkgConfig->find("$mozpkg >= " . $build_reqs{$mozpkg});
 
 mkdir 'build', 0777;
 
@@ -51,20 +52,17 @@ our %pod_files = (
 	Glib::MakeHelper->do_pod_files (@xs_files),   # XXX: Glib dependency
 );
 
-# XXX: what does this do? (how to change for mozilla-xpcom)
 ExtUtils::PkgConfig->write_version_macros (
   "build/${label}2perl-version.h",
-  "mozilla-gtkmozembed" => "GTK_MOZ_EMBED",
+  $mozpkg => "MOZ_DOM",
 );
 
 # $incdir is for "nsIDOMKeyEvent.h", etc.
-my $incdir = `pkg-config --variable=includedir mozilla-gtkmozembed`;
-my $libdir = `pkg-config --variable=libdir mozilla-gtkmozembed`;
+my $incdir = `pkg-config --variable=includedir $mozpkg`;
+my $libdir = `pkg-config --variable=libdir $mozpkg`;
 chomp($incdir, $libdir);
 
 my $mozdom = ExtUtils::Depends->new($package);
-# XXX: -I. is hacky but I couldn't figure out why mozilladom2perl.h
-# isn't being found (in blib/arch/Mozilla/DOM/Install/).
 $mozdom->set_inc($pkgcfg{cflags}, '-I.', '-I./build', "-I$incdir", "-I$incdir/dom");
 $mozdom->set_libs($pkgcfg{libs});
 $mozdom->add_xs(@xs_files);

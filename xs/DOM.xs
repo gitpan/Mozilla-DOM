@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $CVSHeader: Mozilla-DOM/xs/DOM.xs,v 1.2 2005/04/02 12:23:43 slanning Exp $
+ * $CVSHeader: Mozilla-DOM/xs/DOM.xs,v 1.3 2005/04/03 23:00:36 slanning Exp $
  */
 
 #ifdef __cplusplus
@@ -131,7 +131,7 @@ Differences from the Mozilla interface: method names in StudlyCaps have been
 changed to underscore_style, and instead of passing values by pointer
 the value is returned.
 
-The GetType, GetTimeStamp, and InitEvent methods are not wrapped yet.
+The InitEvent method is not wrapped yet.
 
 The constants CAPTURING_PHASE, AT_TARGET, and BUBBLING_PHASE are available
 for comparing with L</get_event_phase>. Currently these are accessed through
@@ -140,22 +140,30 @@ should be exportable class constants (if I can figure out how to do that).
 
 =cut
 
-## http://www.mozilla.org/projects/xpcom/book/cxc/html/tools.html#1010737
-## http://www.mozilla.org/projects/xpcom/string-guide.html ?
+=for apidoc Mozilla::DOM::Event::get_type
 
-#wchar_t *
-#moz_dom_get_type (event)
-#	nsIDOMEvent *event;
-#    PREINIT:
-#	nsEmbedString data;      /* nsEmbedString implements nsAString */
-#	const PRUnichar *type;
-#    CODE:
-#	event->GetType(data);    /* &data ? */
-#	type = data.get();
-#	/* XXX: somehow convert PRUnichar * to something Perl knows */
-#	RETVAL = type;
-#    OUTPUT:
-#	RETVAL
+=signature $type = $event->get_type
+
+The name of the event (case-insensitive). The name must be an XML name.
+
+=cut
+
+## GetType(nsAString & aType)
+const char *
+moz_dom_get_type (event)
+	nsIDOMEvent *event;
+    PREINIT:
+	nsEmbedString u16container;  /* nsEmbedString implements nsAString */
+	nsEmbedCString u8container;
+	const char *u8str;
+    CODE:
+	event->GetType(u16container);
+	/* use nsStringAPI to go from UTF-16 to UTF-8 */
+	NS_UTF16ToCString(u16container, NS_CSTRING_ENCODING_UTF8, u8container);
+	u8str = u8container.get();
+	RETVAL = u8str;
+    OUTPUT:
+	RETVAL
 
 =for apidoc Mozilla::DOM::Event::get_target
 
@@ -248,6 +256,37 @@ moz_dom_get_bubbles (event)
 		default: can = 0;
 	}
 	RETVAL = can;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Event::get_time_stamp
+
+=signature $event->get_time_stamp
+
+Used to specify the time (in milliseconds relative to the epoch) at
+which the event was created. Due to the fact that some systems may
+not provide this information the value of timestamp may be not
+available for all events. When not available, a value of 0 will be
+returned. Examples of epoch time are the time of the system start or
+00:00:00 UTC 1st January 1970.
+
+XXX: I'm doing something wrong, because it seems to only keep the
+bottom half of the (64-bit) number. As long as the time between
+events your comparing isn't too long, it shouldn't matter.
+Let me know if you see what I'm doing wrong. I was thinking
+also of splitting the number in half and returning a list.
+
+=cut
+
+## GetTimeStamp(DOMTimeStamp *aTimeStamp)
+DOMTimeStamp
+moz_dom_get_time_stamp (event)
+	nsIDOMEvent *event;
+    PREINIT:
+	DOMTimeStamp ts;
+    CODE:
+	event->GetTimeStamp(&ts);
+	RETVAL = ts;
     OUTPUT:
 	RETVAL
 
@@ -366,8 +405,7 @@ of Mozilla's nsIDOMMouseEvent interface.
 
 Differences from the Mozilla interface: method names in StudlyCaps have been
 changed to underscore_style, and instead of passing values by pointer
-the value is returned. The GetRelatedTarget and InitMouseEvent methods
-are not wrapped yet.
+the value is returned. The InitMouseEvent methods is not wrapped yet.
 
 =cut
 
@@ -531,7 +569,27 @@ moz_dom_get_button (event)
     OUTPUT:
 	RETVAL
 
+=for apidoc Mozilla::DOM::MouseEvent::get_related_target
+
+=signature $target = $event->get_related_target
+
+Gets an L<EventTarget|EventTarget>, but I don't know what's
+"related" about it since I didn't find any documentation.
+
+=cut
+
 ## GetRelatedTarget(nsIDOMEventTarget * *aRelatedTarget)
+nsIDOMEventTarget *
+moz_dom_get_target (event)
+	nsIDOMMouseEvent *event
+    PREINIT:
+	nsIDOMEventTarget *target;
+    CODE:
+	event->GetRelatedTarget(&target);
+	RETVAL = target;
+    OUTPUT:
+	RETVAL
+
 ## InitMouseEvent(const nsAString & typeArg, PRBool canBubbleArg, PRBool cancelableArg, nsIDOMAbstractView *viewArg, PRInt32 detailArg, PRInt32 screenXArg, PRInt32 screenYArg, PRInt32 clientXArg, PRInt32 clientYArg, PRBool ctrlKeyArg, PRBool altKeyArg, PRBool shiftKeyArg, PRBool metaKeyArg, PRUint16 buttonArg, nsIDOMEventTarget *relatedTargetArg)
 
 # -----------------------------------------------------------------------------
@@ -547,6 +605,110 @@ of Mozilla's nsIDOMKeyEvent interface.
 Differences from the Mozilla interface: method names in StudlyCaps have been
 changed to underscore_style, and instead of passing values by pointer
 the value is returned. The InitKeyEvent method is not wrapped yet.
+
+The following constants are available to be compared with L</get_key_code>:
+
+=over 4
+
+=item DOM_VK_CANCEL
+
+=item DOM_VK_HELP
+
+=item DOM_VK_BACK_SPACE
+
+=item DOM_VK_TAB
+
+=item DOM_VK_CLEAR
+
+=item DOM_VK_RETURN
+
+=item DOM_VK_ENTER
+
+=item DOM_VK_SHIFT
+
+=item DOM_VK_CONTROL
+
+=item DOM_VK_ALT
+
+=item DOM_VK_PAUSE
+
+=item DOM_VK_CAPS_LOCK
+
+=item DOM_VK_ESCAPE
+
+=item DOM_VK_SPACE
+
+=item DOM_VK_PAGE_UP
+
+=item DOM_VK_PAGE_DOWN
+
+=item DOM_VK_END
+
+=item DOM_VK_HOME
+
+=item DOM_VK_LEFT
+
+=item DOM_VK_UP
+
+=item DOM_VK_RIGHT
+
+=item DOM_VK_DOWN
+
+=item DOM_VK_PRINTSCREEN
+
+=item DOM_VK_INSERT
+
+=item DOM_VK_DELETE
+
+=item DOM_VK_x, where x = 0 - 9
+
+=item DOM_VK_SEMICOLON
+
+=item DOM_VK_EQUALS
+
+=item DOM_VK_x, where x = A - Z
+
+=item DOM_VK_CONTEXT_MENU
+
+=item DOM_VK_NUMPADx, where x = 0 - 9
+
+=item DOM_VK_MULTIPLY
+
+=item DOM_VK_ADD
+
+=item DOM_VK_SEPARATOR
+
+=item DOM_VK_SUBTRACT
+
+=item DOM_VK_DECIMAL
+
+=item DOM_VK_DIVIDE
+
+=item DOM_VK_Fx, where x = 1 - 24
+
+=item DOM_VK_NUM_LOCK
+
+=item DOM_VK_SCROLL_LOCK
+
+=item DOM_VK_COMMA
+
+=item DOM_VK_PERIOD
+
+=item DOM_VK_SLASH
+
+=item DOM_VK_BACK_QUOTE
+
+=item DOM_VK_OPEN_BRACKET
+
+=item DOM_VK_BACK_SLASH
+
+=item DOM_VK_CLOSE_BRACKET
+
+=item DOM_VK_QUOTE
+
+=item DOM_VK_META
+
+=back
 
 =cut
 

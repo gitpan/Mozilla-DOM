@@ -13,6 +13,7 @@ PRUint32                  T_UV
 PRInt32                   T_IV
 PRUint16                  T_UV
 PRBool                    T_BOOL
+DOMTimeStamp              T_UV
 
 
 INPUT

@@ -1,3 +1,11 @@
+0.02  2005-04-03
+  - changed mozilla-gtkmozembed dependency to mozilla-xpcom
+    so that GtkMozEmbed is no longer required
+  - finished event class methods except for the "Init*" methods
+    o  added get_type and get_time_stamp to the Event class
+    o  added get_related_target to the MouseEvent class
+  - added `get_key_code' constants to the KeyEvent class
+
 0.01  2005-04-02
   - initial release, with much help from Torsten Schoenfeld
     o  wrappings for nsIDOMKeyEvent and nsIDOMMouseEvent

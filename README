@@ -10,6 +10,7 @@ Mozilla::DOM comes with automatically generated API documentation:
 
   perldoc Mozilla::DOM::index
 
+
 Installation
 ------------
 
@@ -23,6 +24,7 @@ To install Mozilla::DOM, run the following commands:
 For this module to be useful, you'll probably also want
 to install Gtk2::MozEmbed (> 0.03) after you install this.
 
+
 Dependencies
 ------------
 
@@ -31,8 +33,12 @@ Mozilla::DOM depends on:
   ExtUtils::Depends
   ExtUtils::PkgConfig
   Glib.pm
-  `pkg-config --modversion mozilla-gtkmozembed` >= 1.7
+  `pkg-config --modversion mozilla-xpcom` >= 1.7
 
-I hope to remove Glib and change mozilla-gtkmozembed to something
-that doesn't depend on GtkMozEmbed (mozilla-xpcom?) and add the
-equivalent for Firefox.
+I hope to remove Glib and add the equivalent of mozilla-xpcom for Firefox.
+
+
+Contact
+-------
+
+Scott Lanning  lannings at who dot int

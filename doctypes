@@ -4,8 +4,12 @@ nsIDOMEvent           Mozilla::DOM::Event
 nsIDOMUIEvent         Mozilla::DOM::UIEvent
 nsIDOMKeyEvent        Mozilla::DOM::KeyEvent
 nsIDOMMouseEvent      Mozilla::DOM::MouseEvent
+nsIDOMEventTarget     Mozilla::DOM::EventTarget
+nsIDOMEventListener   Mozilla::DOM::EventListener
 PRBool                a boolean
+PRUint64              an unsigned 64-bit integer (long long)
 PRUint32              an unsigned 32-bit integer (long)
 PRUint16              an unsigned 16-big integer (short)
 PRInt32               a signed 32-bit integer (long)
 I32                   a 32-bit integer (long)
+DOMTimeStamp          seconds from Unix epoch (PRUint64)
