@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $CVSHeader: Mozilla-DOM/mozilladom2perl.h,v 1.5 2005/04/05 01:52:05 slanning Exp $
+ * $CVSHeader: Mozilla-DOM/mozilladom2perl.h,v 1.6 2005/04/06 12:05:36 slanning Exp $
  */
 
 #ifndef _MOZILLADOM2PERL_H_
@@ -24,12 +24,17 @@
 
 #include "nsEmbedString.h"           /* for nsAString */
 
+#include "nsIWebBrowser.h"
+
 #include "nsIDOMAbstractView.h"
 #include "nsIDOMDocumentView.h"
 #include "nsIDOMEvent.h"
+#include "nsIDOMDocumentEvent.h"
+#include "nsIDOMMutationEvent.h"
 #include "nsIDOMUIEvent.h"
 #include "nsIDOMKeyEvent.h"
 #include "nsIDOMMouseEvent.h"
+#include "nsIDOMWindow.h"
 
 
 #define MOZDOM_DECL_DOM_TYPEMAPPERS(name)                           \
@@ -49,10 +54,11 @@
    something like nsIDOMEvent *):
    1. add a declaration macro below
    2. add a definition macro to the top of xs/DOM.xs
-   3. add a MODULE section to the bottom of xs/DOM.xs
+   3. add a MODULE section to xs/DOM.xs
       (e.g. Mozilla::DOM::Event for nsIDOMEvent)
    4. add a T_MOZDOM_GENERIC_WRAPPER line to the TYPEMAP section
       in mozilladom.typemap
+   5. add an entry to doctypes
  */
 
 
@@ -60,6 +66,8 @@ MOZDOM_DECL_DOM_TYPEMAPPERS(AbstractView)
 MOZDOM_DECL_DOM_TYPEMAPPERS(DocumentView)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Event)
 MOZDOM_DECL_DOM_TYPEMAPPERS(UIEvent)
+MOZDOM_DECL_DOM_TYPEMAPPERS(DocumentEvent)
+MOZDOM_DECL_DOM_TYPEMAPPERS(MutationEvent)
 MOZDOM_DECL_DOM_TYPEMAPPERS(KeyEvent)
 MOZDOM_DECL_DOM_TYPEMAPPERS(MouseEvent)
 MOZDOM_DECL_DOM_TYPEMAPPERS(EventTarget)
@@ -82,8 +90,11 @@ MOZDOM_DECL_DOM_TYPEMAPPERS(Text)
 MOZDOM_DECL_DOM_TYPEMAPPERS(DOMImplementation)
 
 
-#include "mozilladom2perl-version.h"
+SV * newSVnsIWebBrowser (nsIWebBrowser *browser);
+nsIWebBrowser * SvnsIWebBrowser (SV *browser);
 
+
+#include "mozilladom2perl-version.h"
 /* #include "mozilladom2perl-autogen.h" */
 
 #endif /* _MOZILLADOM2PERL_H_ */

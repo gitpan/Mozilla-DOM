@@ -11,3 +11,11 @@ Add tests somehow...
 Document how to add this to a module using ExtUtils::Depends.
 
 Split DOM.xs into separate files.
+
+Create aliases for the StudlyCaps names of methods? In retrospect,
+I'm not sure if I like that the names were changed, as it makes
+reading (and creating!) documentation more difficult.
+
+Figure out EventListener and EventTarget.
+
+Figure out how to typemap nsAString.

@@ -1,8 +1,10 @@
-nsIDOMAbstractView    Mozilla::DOM::AbstractView
-nsIDOMDocumentView    Mozilla::DOM::DocumentView
-nsIDOMEvent           Mozilla::DOM::Event
-nsIDOMUIEvent         Mozilla::DOM::UIEvent
-nsIDOMKeyEvent        Mozilla::DOM::KeyEvent
+nsIDOMAbstractView           Mozilla::DOM::AbstractView
+nsIDOMDocumentView           Mozilla::DOM::DocumentView
+nsIDOMEvent                  Mozilla::DOM::Event
+nsIDOMUIEvent                Mozilla::DOM::UIEvent
+nsIDOMDocumentEvent          Mozilla::DOM::DocumentEvent
+nsIDOMMutationEvent          Mozilla::DOM::MutationEvent
+nsIDOMKeyEvent               Mozilla::DOM::KeyEvent
 nsIDOMMouseEvent             Mozilla::DOM::MouseEvent
 nsIDOMEventTarget            Mozilla::DOM::EventTarget
 nsIDOMEventListener          Mozilla::DOM::EventListener
@@ -22,6 +24,8 @@ nsIDOMComment                Mozilla::DOM::Comment
 nsIDOMCharacterData          Mozilla::DOM::CharacterData
 nsIDOMText                   Mozilla::DOM::Text
 nsIDOMDOMImplementation      Mozilla::DOM::DOMImplementation
+
+nsIWebBrowser                Mozilla::DOM::WebBrowser
 
 PRBool                a boolean
 PRUint64              an unsigned 64-bit integer (long long)

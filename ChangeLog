@@ -1,3 +1,14 @@
+0.04  2005-04-06
+  - added support for creating events
+    o  wrapped the DocumentEvent class, namely its create_event method
+    o  added MutationEvent; still need to wrap methods
+    o  wrapped Init* methods: init_event, init_uievent, init_mouseevent,
+       init_keyevent, init_mutationevent
+  - added 'types' constants to Node class,
+  - added WebBrowser; not sure if that will stay in Mozilla::DOM
+    or be in Gtk2::MozEmbed
+  - wrapped a couple Window methods: get_name, set_name, size_to_content
+
 0.03  2005-04-05
   - added typemapping support so that gtk_moz_embed_get_nsIWebBrowser
     can be wrapped in Gtk2::MozEmbed, and thus nsIWebBrowser's
