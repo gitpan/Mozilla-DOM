@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $CVSHeader: Mozilla-DOM/mozilladom2perl.h,v 1.4 2005/04/03 23:00:29 slanning Exp $
+ * $CVSHeader: Mozilla-DOM/mozilladom2perl.h,v 1.5 2005/04/05 01:52:05 slanning Exp $
  */
 
 #ifndef _MOZILLADOM2PERL_H_
@@ -64,6 +64,22 @@ MOZDOM_DECL_DOM_TYPEMAPPERS(KeyEvent)
 MOZDOM_DECL_DOM_TYPEMAPPERS(MouseEvent)
 MOZDOM_DECL_DOM_TYPEMAPPERS(EventTarget)
 MOZDOM_DECL_DOM_TYPEMAPPERS(EventListener)
+MOZDOM_DECL_DOM_TYPEMAPPERS(Window)
+MOZDOM_DECL_DOM_TYPEMAPPERS(WindowCollection)
+MOZDOM_DECL_DOM_TYPEMAPPERS(Document)
+MOZDOM_DECL_DOM_TYPEMAPPERS(DocumentFragment)
+MOZDOM_DECL_DOM_TYPEMAPPERS(DocumentType)
+MOZDOM_DECL_DOM_TYPEMAPPERS(Node)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NodeList)
+MOZDOM_DECL_DOM_TYPEMAPPERS(Element)
+MOZDOM_DECL_DOM_TYPEMAPPERS(EntityReference)
+MOZDOM_DECL_DOM_TYPEMAPPERS(Attr)
+MOZDOM_DECL_DOM_TYPEMAPPERS(ProcessingInstruction)
+MOZDOM_DECL_DOM_TYPEMAPPERS(CDATASection)
+MOZDOM_DECL_DOM_TYPEMAPPERS(Comment)
+MOZDOM_DECL_DOM_TYPEMAPPERS(CharacterData)
+MOZDOM_DECL_DOM_TYPEMAPPERS(Text)
+MOZDOM_DECL_DOM_TYPEMAPPERS(DOMImplementation)
 
 
 #include "mozilladom2perl-version.h"

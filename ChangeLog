@@ -1,3 +1,15 @@
+0.03  2005-04-05
+  - added typemapping support so that gtk_moz_embed_get_nsIWebBrowser
+    can be wrapped in Gtk2::MozEmbed, and thus nsIWebBrowser's
+    GetContentDOMWindow method can be wrapped
+  - wrapped the following nsIDOM* classes: UIEvent, AbstractView,
+    DocumentView
+  - copied documentation in place and added typemap conversions for:
+    EventTarget, EventListener, Window, WindowCollection, Document,
+    Node, NodeList, Element, EntityReference, Attr, ProcessingInstruction,
+    CDATASection, Comment, CharacterData, Text, DocumentFragment,
+    DocumentType, DOMImplementation
+
 0.02  2005-04-03
   - changed mozilla-gtkmozembed dependency to mozilla-xpcom
     so that GtkMozEmbed is no longer required

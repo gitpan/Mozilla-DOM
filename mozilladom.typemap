@@ -1,13 +1,29 @@
 TYPEMAP
 
-nsIDOMAbstractView *      T_MOZDOM_GENERIC_WRAPPER
-nsIDOMDocumentView *      T_MOZDOM_GENERIC_WRAPPER
-nsIDOMEvent *             T_MOZDOM_GENERIC_WRAPPER
-nsIDOMUIEvent *           T_MOZDOM_GENERIC_WRAPPER
-nsIDOMKeyEvent *          T_MOZDOM_GENERIC_WRAPPER
-nsIDOMMouseEvent *        T_MOZDOM_GENERIC_WRAPPER
-nsIDOMEventTarget *       T_MOZDOM_GENERIC_WRAPPER
-nsIDOMEventListener *     T_MOZDOM_GENERIC_WRAPPER
+nsIDOMAbstractView *           T_MOZDOM_GENERIC_WRAPPER
+nsIDOMDocumentView *           T_MOZDOM_GENERIC_WRAPPER
+nsIDOMEvent *                  T_MOZDOM_GENERIC_WRAPPER
+nsIDOMUIEvent *                T_MOZDOM_GENERIC_WRAPPER
+nsIDOMKeyEvent *               T_MOZDOM_GENERIC_WRAPPER
+nsIDOMMouseEvent *             T_MOZDOM_GENERIC_WRAPPER
+nsIDOMEventTarget *            T_MOZDOM_GENERIC_WRAPPER
+nsIDOMEventListener *          T_MOZDOM_GENERIC_WRAPPER
+nsIDOMWindow *                 T_MOZDOM_GENERIC_WRAPPER
+nsIDOMWindowCollection *       T_MOZDOM_GENERIC_WRAPPER
+nsIDOMDocument *               T_MOZDOM_GENERIC_WRAPPER
+nsIDOMDocumentFragment *       T_MOZDOM_GENERIC_WRAPPER
+nsIDOMDocumentType *           T_MOZDOM_GENERIC_WRAPPER
+nsIDOMNode *                   T_MOZDOM_GENERIC_WRAPPER
+nsIDOMNodeList *               T_MOZDOM_GENERIC_WRAPPER
+nsIDOMElement *                T_MOZDOM_GENERIC_WRAPPER
+nsIDOMEntityReference *        T_MOZDOM_GENERIC_WRAPPER
+nsIDOMAttr *                   T_MOZDOM_GENERIC_WRAPPER
+nsIDOMProcessingInstruction *  T_MOZDOM_GENERIC_WRAPPER
+nsIDOMCDATASection *           T_MOZDOM_GENERIC_WRAPPER
+nsIDOMComment *                T_MOZDOM_GENERIC_WRAPPER
+nsIDOMCharacterData *          T_MOZDOM_GENERIC_WRAPPER
+nsIDOMText *                   T_MOZDOM_GENERIC_WRAPPER
+nsIDOMDOMImplementation *      T_MOZDOM_GENERIC_WRAPPER
 
 PRUint32                  T_UV
 PRInt32                   T_IV

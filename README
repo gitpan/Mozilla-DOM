@@ -10,6 +10,8 @@ Mozilla::DOM comes with automatically generated API documentation:
 
   perldoc Mozilla::DOM::index
 
+Most of this documentation was copied from Mozilla headers.
+
 
 Installation
 ------------

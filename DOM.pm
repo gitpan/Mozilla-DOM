@@ -1,6 +1,6 @@
 package Mozilla::DOM;
 
-# $Id: DOM.pm,v 1.4 2005/04/03 23:00:29 slanning Exp $
+# $Id: DOM.pm,v 1.5 2005/04/05 01:52:05 slanning Exp $
 
 use 5.008;
 use strict;
@@ -10,7 +10,7 @@ require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 
@@ -177,6 +177,78 @@ our @ISA = qw(Mozilla::DOM::UIEvent);
 
 # -----------------------------------------------------------------------------
 
+package Mozilla::DOM::Document;
+
+our @ISA = qw(Mozilla::DOM::Node);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::Element;
+
+our @ISA = qw(Mozilla::DOM::Node);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::EntityReference;
+
+our @ISA = qw(Mozilla::DOM::Node);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::Attr;
+
+our @ISA = qw(Mozilla::DOM::Node);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::ProcessingInstruction;
+
+our @ISA = qw(Mozilla::DOM::Node);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::CDATASection;
+
+our @ISA = qw(Mozilla::DOM::Text);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::Comment;
+
+our @ISA = qw(Mozilla::DOM::CharacterData);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::CharacterData;
+
+our @ISA = qw(Mozilla::DOM::Node);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::Text;
+
+our @ISA = qw(Mozilla::DOM::CharacterData);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::DocumentFragment;
+
+our @ISA = qw(Mozilla::DOM::Node);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::DocumentType;
+
+our @ISA = qw(Mozilla::DOM::Node);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::Node;
+
+# just to quiet down Glib::GenPod
+
+# -----------------------------------------------------------------------------
+
 package Mozilla::DOM;
 
 1;
@@ -189,7 +261,18 @@ Mozilla::DOM - Perl interface to the Mozilla DOM interface
 
 =head1 SYNOPSIS
 
-  use Mozilla::DOM;  # XXX: ??
+  # In Makefile.PL (see Gtk2::MozEmbed for an example)
+  my $embed = ExtUtils::Depends->new('Mozilla::DOM');
+  $embed->set_inc(...);
+  ...
+
+  # You also need to compile with C++
+  WriteMakefile(
+      ...
+      CC => 'c++',
+      XSOPT => '-C++',
+      $embed->get_makefile_vars,
+  );
 
 =head1 ABSTRACT
 

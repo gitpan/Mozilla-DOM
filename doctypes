@@ -3,9 +3,26 @@ nsIDOMDocumentView    Mozilla::DOM::DocumentView
 nsIDOMEvent           Mozilla::DOM::Event
 nsIDOMUIEvent         Mozilla::DOM::UIEvent
 nsIDOMKeyEvent        Mozilla::DOM::KeyEvent
-nsIDOMMouseEvent      Mozilla::DOM::MouseEvent
-nsIDOMEventTarget     Mozilla::DOM::EventTarget
-nsIDOMEventListener   Mozilla::DOM::EventListener
+nsIDOMMouseEvent             Mozilla::DOM::MouseEvent
+nsIDOMEventTarget            Mozilla::DOM::EventTarget
+nsIDOMEventListener          Mozilla::DOM::EventListener
+nsIDOMWindow                 Mozilla::DOM::Window
+nsIDOMWindowCollection       Mozilla::DOM::WindowCollection
+nsIDOMDocument               Mozilla::DOM::Document
+nsIDOMDocumentFragment       Mozilla::DOM::DocumentFragment
+nsIDOMDocumentType           Mozilla::DOM::DocumentType
+nsIDOMNode                   Mozilla::DOM::Node
+nsIDOMNodeList               Mozilla::DOM::NodeList
+nsIDOMElement                Mozilla::DOM::Element
+nsIDOMEntityReference        Mozilla::DOM::EntityReference
+nsIDOMAttr                   Mozilla::DOM::Attr
+nsIDOMProcessingInstruction  Mozilla::DOM::ProcessingInstruction
+nsIDOMCDATASection           Mozilla::DOM::CDATASection
+nsIDOMComment                Mozilla::DOM::Comment
+nsIDOMCharacterData          Mozilla::DOM::CharacterData
+nsIDOMText                   Mozilla::DOM::Text
+nsIDOMDOMImplementation      Mozilla::DOM::DOMImplementation
+
 PRBool                a boolean
 PRUint64              an unsigned 64-bit integer (long long)
 PRUint32              an unsigned 32-bit integer (long)
