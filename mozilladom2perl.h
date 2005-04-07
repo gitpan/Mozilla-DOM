@@ -34,7 +34,10 @@
 #include "nsIDOMUIEvent.h"
 #include "nsIDOMKeyEvent.h"
 #include "nsIDOMMouseEvent.h"
+#include "nsIDOMEventTarget.h"
 #include "nsIDOMWindow.h"
+#include "nsIDOMWindowCollection.h"
+#include "nsIDOMDocument.h"
 
 
 #define MOZDOM_DECL_DOM_TYPEMAPPERS(name)                           \

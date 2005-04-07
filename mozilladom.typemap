@@ -35,7 +35,17 @@ PRUint16	T_UV
 PRBool	T_BOOL
 DOMTimeStamp	T_UV
 
-#nsEmbedString	T_NSASTRING
+# Use this for methods with "const nsAString &" arguments;
+# e.g. for InitEvent(const nsAString &evtType, ...)
+# do something like
+# void
+# moz_dom_init_event (event, type, ...)
+# 	nsIDOMEvent *event;
+# 	nsEmbedString type;
+# 	...
+#     CODE:
+# 	event->InitEvent(type, ...)
+nsEmbedString	T_NSASTRING
 
 INPUT
 
@@ -49,11 +59,15 @@ T_MOZDOM_GENERIC_WRAPPER
 	$var = Sv${(my $ntype = $type) =~ s/(?:const\s+)?([:\w]+)(?:\s*\*)$/$1/x;
 		   \$ntype} ($arg);
 
-#T_NSASTRING
-#	nsEmbedString $var;
-#	char *str$var = (char *) SvPV_nolen($arg);
-#	nsEmbedCString u8str$var(str$var);
-#	NS_CStringToUTF16(u8str$var, NS_CSTRING_ENCODING_UTF8, $var);
+
+# For "nsEmbedString arg", this converts the incoming SV* arg
+# to a UTF-16 nsEmbedString, suitable for "const nsAString &"
+# input parameters.
+
+T_NSASTRING
+	char * str$var = (char *) SvPV_nolen($arg);
+	nsEmbedCString u8$var(str$var);
+	NS_CStringToUTF16(u8$var, NS_CSTRING_ENCODING_UTF8, $var);
 
 
 OUTPUT
@@ -61,3 +75,28 @@ OUTPUT
 T_MOZDOM_GENERIC_WRAPPER
 	$arg = newSV${(my $ntype = $type) =~ s/(?:const\s+)?([:\w]+)(?:\s*\*)$/$1/;
 		      \$ntype} ($var);
+
+
+# For a "nsEmbedString" return value, takes care of converting
+# a UTF-16 nsEmbedString to a UTF-8 SV * (const char *).
+# Generally this is necessary for methods with "nsAString &"
+# arguments that are passed in by reference; for example,
+# GetType(nsAString &type):
+#
+# nsEmbedString
+# moz_dom_get_type (event)
+# 	nsIDOMEvent *event;
+#     PREINIT:
+# 	nsEmbedString type;
+#     CODE:
+#	event->GetType(type);
+# 	RETVAL = type;
+#     OUTPUT:
+# 	RETVAL
+
+T_NSASTRING
+	nsEmbedCString u8$var;
+	const char * u8str$var;
+	NS_UTF16ToCString($var, NS_CSTRING_ENCODING_UTF8, u8$var);
+	u8str$var = u8$var.get();
+	sv_setpv((SV*)$arg, u8str$var);

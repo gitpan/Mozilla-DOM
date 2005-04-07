@@ -26,6 +26,7 @@ nsIDOMText                   Mozilla::DOM::Text
 nsIDOMDOMImplementation      Mozilla::DOM::DOMImplementation
 
 nsIWebBrowser                Mozilla::DOM::WebBrowser
+nsEmbedString                nsAString &
 
 PRBool                a boolean
 PRUint64              an unsigned 64-bit integer (long long)

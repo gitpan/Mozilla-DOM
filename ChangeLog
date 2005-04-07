@@ -1,10 +1,20 @@
+0.05  2005-04-07
+  - made typemaps for nsAString args (nsEmbedString),
+    which simplifies the XSUBs a good bit
+  - wrapped methods:
+    o  Document: get_element_by_id/tag_name, create_element, ...
+    o  EventTarget: add_event_listener, remove_event_listener,
+       dispatch_event
+    o  Window: get_document, get_frames, get_parent, get_top (not done)
+    o  WindowCollection: get_length, item, named_item
+
 0.04  2005-04-06
   - added support for creating events
     o  wrapped the DocumentEvent class, namely its create_event method
     o  added MutationEvent; still need to wrap methods
     o  wrapped Init* methods: init_event, init_uievent, init_mouseevent,
        init_keyevent, init_mutationevent
-  - added 'types' constants to Node class,
+  - added 'types' constants to Node class
   - added WebBrowser; not sure if that will stay in Mozilla::DOM
     or be in Gtk2::MozEmbed
   - wrapped a couple Window methods: get_name, set_name, size_to_content
