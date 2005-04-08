@@ -1,6 +1,6 @@
 package Mozilla::DOM;
 
-# $Id: DOM.pm,v 1.6 2005/04/06 12:05:36 slanning Exp $
+# $Id: DOM.pm,v 1.8 2005/04/08 03:01:11 slanning Exp $
 
 use 5.008;
 use strict;
@@ -10,7 +10,7 @@ require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 
@@ -169,11 +169,31 @@ use constant DOM_VK_CLOSE_BRACKET => 221;
 use constant DOM_VK_QUOTE => 222;
 use constant DOM_VK_META => 224;
 
+*get_char_code = \&GetCharCode;
+*get_key_code = \&GetKeyCode;
+*get_ctrl_key = \&GetCtrlKey;
+*get_shift_key = \&GetShiftKey;
+*get_alt_key = \&GetAltKey;
+*get_meta_key = \&GetMetaKey;
+*init_key_event = \&InitKeyEvent;
+
 # -----------------------------------------------------------------------------
 
 package Mozilla::DOM::MouseEvent;
 
 our @ISA = qw(Mozilla::DOM::UIEvent);
+
+*get_screen_x = \&GetScreenX;
+*get_screen_y = \&GetScreenY;
+*get_client_x = \&GetClientX;
+*get_client_y = \&GetClientY;
+*get_ctrl_key = \&GetCtrlKey;
+*get_shift_key = \&GetShiftKey;
+*get_alt_key = \&GetAltKey;
+*get_meta_key = \&GetMetaKey;
+*get_button = \&GetButton;
+*get_related_target = \&GetRelatedTarget;
+*init_mouse_event = \&InitMouseEvent;
 
 # -----------------------------------------------------------------------------
 
@@ -298,6 +318,12 @@ our %EXPORT_TAGS = (
 );
 our @EXPORT_OK = map { @$_ } values(%EXPORT_TAGS);
 $EXPORT_TAGS{all} = \@EXPORT_OK;
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::WebBrowser;
+
+*get_content_domwindow = \&GetContentDOMWindow;
 
 # -----------------------------------------------------------------------------
 

@@ -15,11 +15,22 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $CVSHeader: Mozilla-DOM/mozilladom2perl.h,v 1.6 2005/04/06 12:05:36 slanning Exp $
+ * $CVSHeader: Mozilla-DOM/mozilladom2perl.h,v 1.8 2005/04/08 03:01:11 slanning Exp $
  */
 
 #ifndef _MOZILLADOM2PERL_H_
 #define _MOZILLADOM2PERL_H_
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+#include "EXTERN.h"
+#include "perl.h"
+#include "XSUB.h"
+#ifdef __cplusplus
+}
+#endif
 
 
 #include "nsEmbedString.h"           /* for nsAString */
@@ -38,6 +49,8 @@
 #include "nsIDOMWindow.h"
 #include "nsIDOMWindowCollection.h"
 #include "nsIDOMDocument.h"
+#include "nsIDOMNodeList.h"
+#include "nsIDOMElement.h"
 
 
 #define MOZDOM_DECL_DOM_TYPEMAPPERS(name)                           \
@@ -82,6 +95,7 @@ MOZDOM_DECL_DOM_TYPEMAPPERS(DocumentFragment)
 MOZDOM_DECL_DOM_TYPEMAPPERS(DocumentType)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Node)
 MOZDOM_DECL_DOM_TYPEMAPPERS(NodeList)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NamedNodeMap)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Element)
 MOZDOM_DECL_DOM_TYPEMAPPERS(EntityReference)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Attr)

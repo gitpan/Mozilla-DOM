@@ -15,6 +15,7 @@ nsIDOMDocumentFragment       Mozilla::DOM::DocumentFragment
 nsIDOMDocumentType           Mozilla::DOM::DocumentType
 nsIDOMNode                   Mozilla::DOM::Node
 nsIDOMNodeList               Mozilla::DOM::NodeList
+nsIDOMNamedNodeMap           Mozilla::DOM::NamedNodeMap
 nsIDOMElement                Mozilla::DOM::Element
 nsIDOMEntityReference        Mozilla::DOM::EntityReference
 nsIDOMAttr                   Mozilla::DOM::Attr

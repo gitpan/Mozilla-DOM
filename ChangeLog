@@ -1,6 +1,22 @@
+0.06  2005-04-08
+  - switched method names to StudlyCaps style instead of under_score,
+    because it was too tedious when reading/creating documentation
+    and XSUBs; provided aliases for KeyEvent, MouseEvent, and WebBrowser
+    because Torsten doesn't like StudlyCaps :) Otherwise, they should
+    be considered deprecated (not that anyone is actually using this
+    module yet).
+  - wrapped methods:
+    o  Element: GetTagName, GetAttribute, GetElementsByTagName, ...
+    o  Node: GetNode(Name|Value|Type), GetChildNodes, InsertBefore, ...
+    o  NodeList: GetLength, Item
+    With these, you're now able to insert elements (e.g. text)
+    into the document (e.g. from within Gtk2::MozEmbed's new_window
+    signal handler).
+  - fixed Document::GetImplementation args
+
 0.05  2005-04-07
   - made typemaps for nsAString args (nsEmbedString),
-    which simplifies the XSUBs a good bit
+    which simplifies making XSUBs
   - wrapped methods:
     o  Document: get_element_by_id/tag_name, create_element, ...
     o  EventTarget: add_event_listener, remove_event_listener,
