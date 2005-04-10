@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $CVSHeader: Mozilla-DOM/mozilladom2perl.h,v 1.9 2005/04/09 20:50:35 slanning Exp $
+ * $CVSHeader: Mozilla-DOM/mozilladom2perl.h,v 1.10 2005/04/10 23:48:18 slanning Exp $
  */
 
 #ifndef _MOZILLADOM2PERL_H_
@@ -59,7 +59,6 @@ extern "C" {
 #include "nsIDOMText.h"
 #include "nsIDOMDocumentType.h"
 #include "nsIDOMDOMImplementation.h"
-#include "nsISelection.h"
 #include "nsIDOMRange.h"
 
 

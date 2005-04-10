@@ -1,0 +1,25 @@
+The following people have made contributions to Mozilla::DOM.
+Please email me at "lannings at who dot int" if I've omitted
+someone or otherwise made a mistake.
+
+Scott Lanning
+Torsten Schoenfeld
+Y. Selkowitz
+
+
+In addition, I'd like to acknowledge copying from the following
+sources of code or documentation. I haven't intentionally violated
+any licenses. Let me know if there are problems.
+
+Document Object Model specifications
+http://www.w3.org/DOM/DOMTR
+
+Mozilla header files
+http://lxr.mozilla.org/seamonkey/source/
+(*.h are normally installed under /usr/include/mozilla/ )
+
+Gtk2::MozEmbed
+http://search.cpan.org/dist/Gtk2-MozEmbed/
+
+and other gtk-perl projects
+http://gtk2-perl.sourceforge.net/

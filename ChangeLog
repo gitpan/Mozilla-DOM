@@ -1,12 +1,21 @@
+0.08  2005-04-10
+  - header includes - added two directories to set_inc in Makefile.PL:
+    o  Torsten Schoenfeld noted that nsIWebBrowser.h is under the 'webbrwsr'
+       directory on his system, so added that to the includes in Makefile.PL.
+    o  another Gentoo user found that nsISelection.h was in the 'contents'
+       directory
+  - added Credits file
+
 0.07  2005-04-10
   - wrapped methods for: MutationEvent, NamedNodeMap, Attr,
     ProcessingInstruction, CharacterData, Text, DocumentType,
-    DOMImplementation, Selection, Range, Supports
+    DOMImplementation, Selection, Range
   - made everything inherit from Supports, though QueryInterface still
     needs to be implemented
   - added some examples in 'examples' directory:
     o  Minilla - minimal Gtk2::MozEmbed
     o  Signals - demo signals in Gtk2::MozEmbed
+  - changed several doctypes to something more comprehensible
 
 0.06  2005-04-08
   - switched method names to StudlyCaps style instead of under_score,

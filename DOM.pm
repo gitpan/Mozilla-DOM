@@ -1,6 +1,6 @@
 package Mozilla::DOM;
 
-# $Id: DOM.pm,v 1.9 2005/04/09 20:50:35 slanning Exp $
+# $Id: DOM.pm,v 1.10 2005/04/10 23:48:18 slanning Exp $
 
 use 5.008;
 use strict;
@@ -10,7 +10,7 @@ require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 

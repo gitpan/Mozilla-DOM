@@ -8,7 +8,7 @@ use Config;
 use Cwd qw(cwd);
 use File::Spec;
 
-# $Id: Makefile.PL,v 1.7 2005/04/09 20:50:35 slanning Exp $
+# $Id: Makefile.PL,v 1.8 2005/04/10 23:48:18 slanning Exp $
 
 my $mozpkg = 'mozilla-xpcom';
 
@@ -74,7 +74,9 @@ my $libdir = `pkg-config --variable=libdir $mozpkg`;
 chomp($incdir, $libdir);
 
 my $mozdom = ExtUtils::Depends->new($mainpkg->{name});
-$mozdom->set_inc($pkgcfg{cflags}, '-I.', '-I./build', "-I$incdir", "-I$incdir/dom");
+$mozdom->set_inc($pkgcfg{cflags}, '-I.', '-I./build',
+                 "-I$incdir", "-I$incdir/dom", "-I$incdir/webbrwsr",
+                 "-I$incdir/content");
 $mozdom->set_libs($pkgcfg{libs});
 $mozdom->add_xs(@xs_files);
 $mozdom->add_pm(map {$pkgs{$_}{pmfile} => "\$(INST_LIBDIR)/$pkgs{$_}{path}"}
