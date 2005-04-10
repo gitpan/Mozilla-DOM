@@ -1,19 +1,10 @@
-Plans include wrapping more DOM interfaces such as nsIWebBrowser
-(requiring support in Gtk2::MozEmbed for gtk_moz_embed_get_nsIWebBrowser),
-nsIDOMWindow, and nsIDOMDocument. With this, you'd get access to the DOM,
-with methods such as GetElementsByTagName. Adding more support for DOM
-events would allow finding out more about an event and its targets,
-initiating events, and adding listeners. Then you could presumably
-script a browser from Perl.
-
 Add tests somehow...
+
+Add more examples.
 
 Document how to add this to a module using ExtUtils::Depends.
 
-Split DOM.xs into separate files.
+Split DOM.xs into separate files. Work out how to export constants
+from various packages.
 
-Create aliases for the StudlyCaps names of methods? In retrospect,
-I'm not sure if I like that the names were changed, as it makes
-reading (and creating!) documentation more difficult.
-
-Figure out EventListener and EventTarget.
+Figure out EventListener, EventTarget, DOMException, ISupports.

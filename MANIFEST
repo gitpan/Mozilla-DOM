@@ -13,3 +13,7 @@ mozilladom2perl.h
 t/DOM.t
 xs/DOM.xs
 META.yml                                 Module meta-data (added by MakeMaker)
+examples/README
+examples/startapp.pl
+examples/Minilla.pm
+examples/Signals.pm

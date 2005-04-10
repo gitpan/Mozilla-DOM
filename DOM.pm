@@ -1,6 +1,6 @@
 package Mozilla::DOM;
 
-# $Id: DOM.pm,v 1.8 2005/04/08 03:01:11 slanning Exp $
+# $Id: DOM.pm,v 1.9 2005/04/09 20:50:35 slanning Exp $
 
 use 5.008;
 use strict;
@@ -10,7 +10,7 @@ require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 
@@ -18,19 +18,34 @@ __PACKAGE__->bootstrap($VERSION);
 
 # -----------------------------------------------------------------------------
 
+package Mozilla::DOM::AbstractView;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::DocumentView;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
 package Mozilla::DOM::Event;
+
+our @ISA = qw(Mozilla::DOM::Supports Exporter);
 
 # XXX: how do I make it where a program can export things,
 # like with `use Mozilla::DOM::Event qw(:phases);'  ???
 # With this, you have to use $event->BUBBLING_PHASE,
 # where $event is a MouseEvent or KeyEvent in a signal handler.
 # Also can I directly export the class constants from the C++ header?
+# Update: I found you can put 'static' before the XSUB return type,
+# and this will behave as a class method.
 
 use constant CAPTURING_PHASE => 1;
 use constant AT_TARGET       => 2;
 use constant BUBBLING_PHASE  => 3;
 
-our @ISA = qw(Exporter);
 our %EXPORT_TAGS = (
     phases => [qw(
         CAPTURING_PHASE
@@ -46,6 +61,30 @@ $EXPORT_TAGS{all} = \@EXPORT_OK;
 package Mozilla::DOM::UIEvent;
 
 our @ISA = qw(Mozilla::DOM::Event);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::DocumentEvent;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::MouseEvent;
+
+our @ISA = qw(Mozilla::DOM::UIEvent);
+
+*get_screen_x = \&GetScreenX;
+*get_screen_y = \&GetScreenY;
+*get_client_x = \&GetClientX;
+*get_client_y = \&GetClientY;
+*get_ctrl_key = \&GetCtrlKey;
+*get_shift_key = \&GetShiftKey;
+*get_alt_key = \&GetAltKey;
+*get_meta_key = \&GetMetaKey;
+*get_button = \&GetButton;
+*get_related_target = \&GetRelatedTarget;
+*init_mouse_event = \&InitMouseEvent;
 
 # -----------------------------------------------------------------------------
 
@@ -179,24 +218,6 @@ use constant DOM_VK_META => 224;
 
 # -----------------------------------------------------------------------------
 
-package Mozilla::DOM::MouseEvent;
-
-our @ISA = qw(Mozilla::DOM::UIEvent);
-
-*get_screen_x = \&GetScreenX;
-*get_screen_y = \&GetScreenY;
-*get_client_x = \&GetClientX;
-*get_client_y = \&GetClientY;
-*get_ctrl_key = \&GetCtrlKey;
-*get_shift_key = \&GetShiftKey;
-*get_alt_key = \&GetAltKey;
-*get_meta_key = \&GetMetaKey;
-*get_button = \&GetButton;
-*get_related_target = \&GetRelatedTarget;
-*init_mouse_event = \&InitMouseEvent;
-
-# -----------------------------------------------------------------------------
-
 package Mozilla::DOM::MutationEvent;
 
 our @ISA = qw(Mozilla::DOM::Event Exporter);
@@ -214,6 +235,80 @@ our %EXPORT_TAGS = (
 );
 our @EXPORT_OK = map { @$_ } values(%EXPORT_TAGS);
 $EXPORT_TAGS{all} = \@EXPORT_OK;
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::EventTarget;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::EventListener;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::Window;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::WindowCollection;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::Node;
+
+our @ISA = qw(Mozilla::DOM::Supports Exporter);
+
+use constant ELEMENT_NODE                => 1;
+use constant ATTRIBUTE_NODE              => 2;
+use constant TEXT_NODE                   => 3;
+use constant CDATA_SECTION_NODE          => 4;
+use constant ENTITY_REFERENCE_NODE       => 5;
+use constant ENTITY_NODE                 => 6;
+use constant PROCESSING_INSTRUCTION_NODE => 7;
+use constant COMMENT_NODE                => 8;
+use constant DOCUMENT_NODE               => 9;
+use constant DOCUMENT_TYPE_NODE          => 10;
+use constant DOCUMENT_FRAGMENT_NODE      => 11;
+use constant NOTATION_NODE               => 12;
+
+our %EXPORT_TAGS = (
+    types => [qw(
+        ELEMENT_NODE
+        ATTRIBUTE_NODE
+        TEXT_NODE
+        CDATA_SECTION_NODE
+        ENTITY_REFERENCE_NODE
+        ENTITY_NODE
+        PROCESSING_INSTRUCTION_NODE
+        COMMENT_NODE
+        DOCUMENT_NODE
+        DOCUMENT_TYPE_NODE
+        DOCUMENT_FRAGMENT_NODE
+        NOTATION_NODE
+    )],
+);
+our @EXPORT_OK = map { @$_ } values(%EXPORT_TAGS);
+$EXPORT_TAGS{all} = \@EXPORT_OK;
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::NodeList;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::NamedNodeMap;
+
+our @ISA = qw(Mozilla::DOM::Supports);
 
 # -----------------------------------------------------------------------------
 
@@ -283,47 +378,46 @@ our @ISA = qw(Mozilla::DOM::Node);
 
 # -----------------------------------------------------------------------------
 
-package Mozilla::DOM::Node;
+package Mozilla::DOM::DOMImplementation;
 
-our @ISA = qw(Exporter);
+our @ISA = qw(Mozilla::DOM::Supports);
 
-use constant ELEMENT_NODE                => 1;
-use constant ATTRIBUTE_NODE              => 2;
-use constant TEXT_NODE                   => 3;
-use constant CDATA_SECTION_NODE          => 4;
-use constant ENTITY_REFERENCE_NODE       => 5;
-use constant ENTITY_NODE                 => 6;
-use constant PROCESSING_INSTRUCTION_NODE => 7;
-use constant COMMENT_NODE                => 8;
-use constant DOCUMENT_NODE               => 9;
-use constant DOCUMENT_TYPE_NODE          => 10;
-use constant DOCUMENT_FRAGMENT_NODE      => 11;
-use constant NOTATION_NODE               => 12;
+# -----------------------------------------------------------------------------
 
-our %EXPORT_TAGS = (
-    types => [qw(
-        ELEMENT_NODE
-        ATTRIBUTE_NODE
-        TEXT_NODE
-        CDATA_SECTION_NODE
-        ENTITY_REFERENCE_NODE
-        ENTITY_NODE
-        PROCESSING_INSTRUCTION_NODE
-        COMMENT_NODE
-        DOCUMENT_NODE
-        DOCUMENT_TYPE_NODE
-        DOCUMENT_FRAGMENT_NODE
-        NOTATION_NODE
-    )],
-);
-our @EXPORT_OK = map { @$_ } values(%EXPORT_TAGS);
-$EXPORT_TAGS{all} = \@EXPORT_OK;
+package Mozilla::DOM::DOMException;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::Selection;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::Range;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+use constant START_TO_START          => 0;
+use constant START_TO_END            => 1;
+use constant END_TO_END              => 2;
+use constant END_TO_START            => 3;
 
 # -----------------------------------------------------------------------------
 
 package Mozilla::DOM::WebBrowser;
 
+our @ISA = qw(Mozilla::DOM::Supports);
+
 *get_content_domwindow = \&GetContentDOMWindow;
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::Supports;
+
+# every interface inherits from this eventually
 
 # -----------------------------------------------------------------------------
 
@@ -335,7 +429,7 @@ __END__
 
 =head1 NAME
 
-Mozilla::DOM - Perl interface to the Mozilla DOM interface
+Mozilla::DOM - Perl wrapping of the Mozilla/Gecko DOM
 
 =head1 SYNOPSIS
 
@@ -394,11 +488,12 @@ The header files for GtkMozEmbed.
 
 A C++ example of using GtkMozEmbed to make a minimal browser.
 
-=item F<E<sol>usrE<sol>includeE<sol>mozillaE<sol>nsIDOMKeyEvent.h>
+=item F<E<sol>usrE<sol>includeE<sol>mozillaE<sol>*.h>
 
-=item F<E<sol>usrE<sol>includeE<sol>mozillaE<sol>nsIDOMMouseEvent.h>
-
-The header files for Mozilla's KeyEvent and MouseEvent interfaces.
+The header files for Mozilla's interfaces. Generally, if a module
+is called Mozilla::DOM::Something, the corresponding header file
+is named 'nsIDOMSomething.h'. Three exceptions are nsISupports,
+nsIWebBrowser, and nsISelection.
 
 =item L<http:E<sol>E<sol>mozilla.orgE<sol>htmlE<sol>projectsE<sol>embeddingE<sol>PublicAPIs.html>
 

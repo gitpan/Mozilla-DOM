@@ -1,3 +1,13 @@
+0.07  2005-04-10
+  - wrapped methods for: MutationEvent, NamedNodeMap, Attr,
+    ProcessingInstruction, CharacterData, Text, DocumentType,
+    DOMImplementation, Selection, Range, Supports
+  - made everything inherit from Supports, though QueryInterface still
+    needs to be implemented
+  - added some examples in 'examples' directory:
+    o  Minilla - minimal Gtk2::MozEmbed
+    o  Signals - demo signals in Gtk2::MozEmbed
+
 0.06  2005-04-08
   - switched method names to StudlyCaps style instead of under_score,
     because it was too tedious when reading/creating documentation

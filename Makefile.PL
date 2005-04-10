@@ -8,7 +8,7 @@ use Config;
 use Cwd qw(cwd);
 use File::Spec;
 
-# $Id: Makefile.PL,v 1.6 2005/04/08 03:01:11 slanning Exp $
+# $Id: Makefile.PL,v 1.7 2005/04/09 20:50:35 slanning Exp $
 
 my $mozpkg = 'mozilla-xpcom';
 
@@ -37,6 +37,7 @@ unless (eval "use ExtUtils::Depends '$build_reqs{'perl-ExtUtils-Depends'}';"
 }
 
 my %pkgcfg = ExtUtils::PkgConfig->find("$mozpkg >= " . $build_reqs{$mozpkg});
+
 
 my %pkgs = (                                                         # name
     main  => { name => 'Mozilla::DOM' },
@@ -100,7 +101,7 @@ WriteMakefile(
 );
 
 # XXX: this could probably be removed to get rid of Glib dependence;
-# however, see NOTICE in `perldoc Glib::MakeHelper`.
+# however, see NOTICE in `perldoc Glib::MakeHelper` on const_cccmd.
 sub MY::postamble {
     return Glib::MakeHelper->postamble_clean ()
          . Glib::MakeHelper->postamble_docs_full (

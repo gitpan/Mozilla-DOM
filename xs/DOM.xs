@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $CVSHeader: Mozilla-DOM/xs/DOM.xs,v 1.11 2005/04/08 03:01:14 slanning Exp $
+ * $CVSHeader: Mozilla-DOM/xs/DOM.xs,v 1.12 2005/04/09 20:50:38 slanning Exp $
  */
 
 #include "mozilladom2perl.h"
@@ -51,24 +51,43 @@ MOZDOM_DEF_DOM_TYPEMAPPERS(Comment)
 MOZDOM_DEF_DOM_TYPEMAPPERS(CharacterData)
 MOZDOM_DEF_DOM_TYPEMAPPERS(Text)
 MOZDOM_DEF_DOM_TYPEMAPPERS(DOMImplementation)
+MOZDOM_DEF_DOM_TYPEMAPPERS(Range)
 
 SV * newSVnsIWebBrowser (nsIWebBrowser *browser) {
 	SV *sv = newSV (0);
 	return sv_setref_pv (sv, "Mozilla::DOM::WebBrowser", browser);
 }
-
 nsIWebBrowser * SvnsIWebBrowser (SV *browser) {
 	return INT2PTR (nsIWebBrowser *, SvIV (SvRV (browser)));
+}
+
+SV * newSVnsISelection (nsISelection *selection) {
+	SV *sv = newSV (0);
+	return sv_setref_pv (sv, "Mozilla::DOM::Selection", selection);
+}
+nsISelection * SvnsISelection (SV *selection) {
+	return INT2PTR (nsISelection *, SvIV (SvRV (selection)));
+}
+
+SV * newSVnsISupports (nsISupports *supports) {
+	SV *sv = newSV (0);
+	return sv_setref_pv (sv, "Mozilla::DOM::Supports", supports);
+}
+nsISupports * SvnsISupports (SV *supports) {
+	return INT2PTR (nsISelection *, SvIV (SvRV (supports)));
 }
 
 /* ------------------------------------------------------------------------- */
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::AbstractView	PREFIX = moz_dom_
 
+# /usr/include/mozilla/nsIDOMAbstractView.h
+
 =for object Mozilla::DOM::AbstractView
 
 Mozilla::DOM::UIEvent is a wrapper around an instance of Mozilla's
-nsIDOMAbstractView interface.
+nsIDOMAbstractView interface. This inherits from
+L<Supports|Mozilla::DOM::Supports>.
 
 =cut
 
@@ -98,10 +117,13 @@ moz_dom_GetDocument (view)
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::DocumentView	PREFIX = moz_dom_
 
+# /usr/include/mozilla/nsIDOMDocumentView.h
+
 =for object Mozilla::DOM::DocumentView
 
 Mozilla::DOM::DocumentView is a wrapper around an instance of Mozilla's
-nsIDOMDocumentView interface.
+nsIDOMDocumentView interface. This inherits from
+L<Supports|Mozilla::DOM::Supports>.
 
 =cut
 
@@ -131,11 +153,13 @@ moz_dom_GetDefaultView (docview)
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Event	PREFIX = moz_dom_
 
+# /usr/include/mozilla/nsIDOMEvent.h
+
 =for object Mozilla::DOM::Event
 
 Mozilla::DOM::Event is a wrapper around an instance of Mozilla's
 nsIDOMEvent interface, from which L<Mozilla::DOM::UIEvent|Mozilla::DOM::UIEvent>
-inherits.
+inherits. This class inherits from L<Supports|Mozilla::DOM::Supports>.
 
  * The nsIDOMEvent interface is the primary datatype for all events in
  * the Document Object Model.
@@ -740,11 +764,14 @@ moz_dom_InitEvent (event, eventtype, canbubble, cancelable)
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::UIEvent	PREFIX = moz_dom_
 
+# /usr/include/mozilla/nsIDOMUIEvent.h
+
 =for object Mozilla::DOM::UIEvent
 
 Mozilla::DOM::UIEvent is a wrapper around an instance of Mozilla's
 nsIDOMUIEvent interface, from which L<Mozilla::DOM::KeyEvent|Mozilla::DOM::KeyEvent>
 and L<Mozilla::DOM::MouseEvent|Mozilla::DOM::MouseEvent> inherit.
+This class inherits from L<Event|Mozilla::DOM::Event>.
 
  * The nsIDOMUIEvent interface is the datatype for all UI events in the
  * Document Object Model.
@@ -759,7 +786,8 @@ and L<Mozilla::DOM::MouseEvent|Mozilla::DOM::MouseEvent> inherit.
 =for signature $int = $event->GetDetail
 
 I don't know what a "detail" is. (Apparently it isn't used during
-dom_mouse_over or dom_mouse_out signals.)
+dom_mouse_over or dom_mouse_out signals. When clicking the mouse,
+it seems to be the number of consecutive clicks, up to 3.)
 
 =cut
 
@@ -822,10 +850,13 @@ moz_dom_InitUIEvent (event, eventtype, canbubble, cancelable, view, detail)
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::DocumentEvent	PREFIX = moz_dom_
 
+# /usr/include/mozilla/nsIDOMDocumentEvent.h
+
 =for object Mozilla::DOM::DocumentEvent
 
 Mozilla::DOM::DocumentEvent is a wrapper around an instance of Mozilla's
-nsIDOMDocumentEvent interface.
+nsIDOMDocumentEvent interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
 
  * The nsIDOMDocumentEvent interface is the interface to the event
  * factory method on a DOM document object.
@@ -842,9 +873,7 @@ if you want to understand how to create an L<Event|Mozilla::DOM::Event>.)
 
 =for signature $domevent = $docevent->CreateEvent($eventType)
 
-Where do you get a "DocumentEvent" object from? It seems that
-it's the same as a L<Document|Mozilla::DOM::Document> object,
-but I didn't confirm that yet.
+XXX: Where do you get a "DocumentEvent" object from?
 
 $event_type is a string, one of 'Events', 'UIEvents',
 'HTMLEvents', 'MutationEvents', 'MouseEvents'. See section 1.6 of
@@ -875,6 +904,8 @@ moz_dom_CreateEvent (docevent, eventtype)
 # -----------------------------------------------------------------------------
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::MouseEvent	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMMouseEvent.h
 
 =for object Mozilla::DOM::MouseEvent
 
@@ -1084,7 +1115,6 @@ but with ten extra arguments. (!)
 
 =cut
 
-## XXX: duh, this XSUB could be shortened, no doubt
 ## InitMouseEvent(const nsAString & typeArg, PRBool canBubbleArg, PRBool cancelableArg, nsIDOMAbstractView *viewArg, PRInt32 detailArg, PRInt32 screenXArg, PRInt32 screenYArg, PRInt32 clientXArg, PRInt32 clientYArg, PRBool ctrlKeyArg, PRBool altKeyArg, PRBool shiftKeyArg, PRBool metaKeyArg, PRUint16 buttonArg, nsIDOMEventTarget *relatedTargetArg)
 void
 moz_dom_InitMouseEvent (event, eventtype, canbubble, cancelable, view, detail, screenx, screeny, clientx, clienty, ctrlkey, altkey, shiftkey, metakey, button, target)
@@ -1113,6 +1143,8 @@ moz_dom_InitMouseEvent (event, eventtype, canbubble, cancelable, view, detail, s
 # -----------------------------------------------------------------------------
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::KeyEvent	PREFIX = moz_dom_
+
+# /usr/include/mozilla/dom/nsIDOMKeyEvent.h
 
 =for object Mozilla::DOM::KeyEvent
 
@@ -1342,7 +1374,6 @@ but with seven extra arguments.
 
 =cut
 
-## XXX: duh, this XSUB could be shortened, no doubt
 ## InitKeyEvent(const nsAString & typeArg, PRBool canBubbleArg, PRBool cancelableArg, nsIDOMAbstractView *viewArg, PRBool ctrlKeyArg, PRBool altKeyArg, PRBool shiftKeyArg, PRBool metaKeyArg, PRUint32 keyCodeArg, PRUint32 charCodeArg)
 void
 moz_dom_InitKeyEvent (event, eventtype, canbubble, cancelable, view, ctrlkey, altkey, shiftkey, metakey, keycode, charcode)
@@ -1366,6 +1397,8 @@ moz_dom_InitKeyEvent (event, eventtype, canbubble, cancelable, view, ctrlkey, al
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::MutationEvent	PREFIX = moz_dom_
 
+# /usr/include/mozilla/dom/nsIDOMMutationEvent.h
+
 =for object Mozilla::DOM::MutationEvent
 
 Mozilla::DOM::MutationEvent is a wrapper around an instance of Mozilla's
@@ -1388,122 +1421,105 @@ mutation event object.
 
 =cut
 
-=begin comment
+=for apidoc Mozilla::DOM::MutationEvent::GetRelatedNode
 
-  /* readonly attribute nsIDOMNode relatedNode; */
-#=for apidoc Mozilla::DOM::MutationEvent::GetRelatedNode
-#
-#=for signature $mutationevent->GetRelatedNode(nsIDOMNode * *aRelatedNode)
-#
-#
-#
-#=cut
-#
-### GetRelatedNode(nsIDOMNode * *aRelatedNode)
-#somereturn *
-#moz_dom_GetRelatedNode (mutationevent, aRelatedNode)
-#	nsIDOMmutationevent *mutationevent;
-#	nsIDOMNode * *aRelatedNode ;
-#    PREINIT:
-#	
-#    CODE:
-#	mutationevent->GetRelatedNode(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
+=for signature $node = $mutationevent->GetRelatedNode()
 
 
-  /* readonly attribute DOMString prevValue; */
-#=for apidoc Mozilla::DOM::MutationEvent::GetPrevValue
-#
-#=for signature $mutationevent->GetPrevValue(nsAString & aPrevValue)
-#
-#
-#
-#=cut
-#
-### GetPrevValue(nsAString & aPrevValue)
-#somereturn *
-#moz_dom_GetPrevValue (mutationevent, aPrevValue)
-#	nsIDOMmutationevent *mutationevent;
-#	nsEmbedString aPrevValue ;
-#    PREINIT:
-#	
-#    CODE:
-#	mutationevent->GetPrevValue(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
+
+=cut
+
+## GetRelatedNode(nsIDOMNode * *aRelatedNode)
+nsIDOMNode *
+moz_dom_GetRelatedNode (mutationevent)
+	nsIDOMMutationEvent *mutationevent;
+    PREINIT:
+	nsIDOMNode *node;
+    CODE:
+	mutationevent->GetRelatedNode(&node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::MutationEvent::GetPrevValue
+
+=for signature $value = $mutationevent->GetPrevValue()
 
 
-  /* readonly attribute DOMString newValue; */
-#=for apidoc Mozilla::DOM::MutationEvent::GetNewValue
-#
-#=for signature $mutationevent->GetNewValue(nsAString & aNewValue)
-#
-#
-#
-#=cut
-#
-### GetNewValue(nsAString & aNewValue)
-#somereturn *
-#moz_dom_GetNewValue (mutationevent, aNewValue)
-#	nsIDOMmutationevent *mutationevent;
-#	nsEmbedString aNewValue ;
-#    PREINIT:
-#	
-#    CODE:
-#	mutationevent->GetNewValue(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
+
+=cut
+
+## GetPrevValue(nsAString & aPrevValue)
+nsEmbedString
+moz_dom_GetPrevValue (mutationevent)
+	nsIDOMMutationEvent *mutationevent;
+    PREINIT:
+	nsEmbedString value;
+    CODE:
+	mutationevent->GetPrevValue(value);
+	RETVAL = value;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::MutationEvent::GetNewValue
+
+=for signature $value = $mutationevent->GetNewValue()
 
 
-  /* readonly attribute DOMString attrName; */
-#=for apidoc Mozilla::DOM::MutationEvent::GetAttrName
-#
-#=for signature $mutationevent->GetAttrName(nsAString & aAttrName)
-#
-#
-#
-#=cut
-#
-### GetAttrName(nsAString & aAttrName)
-#somereturn *
-#moz_dom_GetAttrName (mutationevent, aAttrName)
-#	nsIDOMmutationevent *mutationevent;
-#	nsEmbedString aAttrName ;
-#    PREINIT:
-#	
-#    CODE:
-#	mutationevent->GetAttrName(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
+
+=cut
+
+## GetNewValue(nsAString & aNewValue)
+nsEmbedString
+moz_dom_GetNewValue (mutationevent)
+	nsIDOMMutationEvent *mutationevent;
+    PREINIT:
+	nsEmbedString value;
+    CODE:
+	mutationevent->GetNewValue(value);
+	RETVAL = value;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::MutationEvent::GetAttrName
+
+=for signature $name = $mutationevent->GetAttrName()
 
 
-  /* readonly attribute unsigned short attrChange; */
-#=for apidoc Mozilla::DOM::MutationEvent::GetAttrChange
-#
-#=for signature $mutationevent->GetAttrChange(PRUint16 *aAttrChange)
-#
-#
-#
-#=cut
-#
-### GetAttrChange(PRUint16 *aAttrChange)
-#somereturn *
-#moz_dom_GetAttrChange (mutationevent, aAttrChange)
-#	nsIDOMmutationevent *mutationevent;
-#	PRUint16 *aAttrChange ;
-#    PREINIT:
-#	
-#    CODE:
-#	mutationevent->GetAttrChange(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
 
+=cut
+
+## GetAttrName(nsAString & aAttrName)
+nsEmbedString
+moz_dom_GetAttrName (mutationevent)
+	nsIDOMMutationEvent *mutationevent;
+    PREINIT:
+	nsEmbedString name;
+    CODE:
+	mutationevent->GetAttrName(name);
+	RETVAL = name;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::MutationEvent::GetAttrChange
+
+=for signature $mutationevent->GetAttrChange()
+
+
+
+=cut
+
+## GetAttrChange(PRUint16 *aAttrChange)
+PRUint16
+moz_dom_GetAttrChange (mutationevent)
+	nsIDOMMutationEvent *mutationevent;
+    PREINIT:
+	PRUint16 change;
+    CODE:
+	mutationevent->GetAttrChange(&change);
+	RETVAL = change;
+    OUTPUT:
+	RETVAL
 
 =end comment
 
@@ -1520,7 +1536,6 @@ but with five extra arguments.
 
 =cut
 
-## XXX: duh, this XSUB could be shortened, no doubt
 ## InitMutationEvent(const nsAString & typeArg, PRBool canBubbleArg, PRBool cancelableArg, nsIDOMNode *relatedNodeArg, const nsAString & prevValueArg, const nsAString & newValueArg, const nsAString & attrNameArg, PRUint16 attrChangeArg)
 void
 moz_dom_InitMutationEvent (event, eventtype, canbubble, cancelable, node, prevval, newval, attrname, attrchange)
@@ -1541,10 +1556,13 @@ moz_dom_InitMutationEvent (event, eventtype, canbubble, cancelable, node, prevva
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::EventTarget	PREFIX = moz_dom_
 
+# /usr/include/mozilla/nsIDOMEventTarget.h
+
 =for object Mozilla::DOM::EventTarget
 
 Mozilla::DOM::EventTarget is a wrapper around an instance of Mozilla's
-nsIDOMEventTarget interface.
+nsIDOMEventTarget interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
 
  * The nsIDOMEventTarget interface is the interface implemented by all
  * event targets in the Document Object Model.
@@ -1561,7 +1579,8 @@ an EventTarget argument to a method, you can pass in a
 L<Node|Mozilla::DOM::Node> object, and the methods for EventTarget
 can be called on Node objects. (?)
 
-None of the methods are implemented yet.
+XXX: since you can't create EventListener objects,
+AddEventListener and RemoveEventListener are currently useless.
 
 =cut
 
@@ -1580,6 +1599,8 @@ EventTarget with the same parameters, the duplicate instances are
 discarded. They do not cause the EventListener to be called twice,
 and since they are discarded they do not need to be removed with the
 L</RemoveEventListener> method.
+
+XXX: but how do you create an event listener?
 
 =over 4
 
@@ -1708,10 +1729,13 @@ moz_dom_DispatchEvent (target, event)
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::EventListener	PREFIX = moz_dom_
 
+# /usr/include/mozilla/nsIDOMEventListener.h
+
 =for object Mozilla::DOM::EventListener
 
 Mozilla::DOM::EventListener is a wrapper around an instance of Mozilla's
-nsIDOMEventListener interface.
+nsIDOMEventListener interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
 
  * The nsIDOMEventListener interface is a callback interface for
  * listening to events in the Document Object Model.
@@ -1719,7 +1743,18 @@ nsIDOMEventListener interface.
  * For more information on this interface please see 
  * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-EventsE<sol>>
 
-None of the methods are implemented yet.
+XXX: this isn't wrapped/implemented yet.
+
+From DOM 2 spec:
+The EventListener interface is the primary method
+for handling events. Users implement the EventListener interface and
+register their listener on an EventTarget using the AddEventListener
+method. The users should also remove their EventListener from its
+EventTarget after they have completed using the listener.
+
+Trying to find an "event listener factory".
+Looking thru mozilla headers, I found nsIDOM(Mouse|Key|Text|*)Listener.
+I see nsIDOMScriptObjectFactory/nsIJSEventListener (not sure it's relevant).
 
 =cut
 
@@ -1754,8 +1789,11 @@ MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Window	PREFIX = moz_dom_
 
 =for object Mozilla::DOM::Window
 
+# /usr/include/mozilla/nsIDOMWindow.h
+
 Mozilla::DOM::Window is a wrapper around an instance of Mozilla's
-nsIDOMWindow interface.
+nsIDOMWindow interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
 
  * The nsIDOMWindow interface is the primary interface for a DOM
  * window object. It represents a single window object that may
@@ -1908,6 +1946,67 @@ moz_dom_GetParent (window)
     OUTPUT:
 	RETVAL
 
+=for apidoc Mozilla::DOM::Window::GetTextZoom
+
+=for signature $num = $window->GetTextZoom()
+
+   * Set/Get the document scale factor as a multiplier on the default
+   * size. When setting this attribute, a NS_ERROR_NOT_IMPLEMENTED
+   * error may be returned by implementations not supporting
+   * zoom. Implementations not supporting zoom should return 1.0 all
+   * the time for the Get operation. 1.0 is equals normal size,
+   * i.e. no zoom.
+
+=cut
+
+## GetTextZoom(float *aTextZoom)
+float
+moz_dom_GetTextZoom (window)
+	nsIDOMWindow *window;
+    PREINIT:
+	float zoom;
+    CODE:
+	window->GetTextZoom(&zoom);
+	RETVAL = zoom;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Window::SetTextZoom
+
+=for signature $window->SetTextZoom($num)
+
+
+
+=cut
+
+## SetTextZoom(float aTextZoom)
+void
+moz_dom_SetTextZoom (window, zoom)
+	nsIDOMWindow *window;
+	float zoom;
+    CODE:
+	window->SetTextZoom(zoom);
+
+=for apidoc Mozilla::DOM::Window::GetSelection
+
+=for signature $selection = $window->GetSelection()
+
+   * Method for accessing this window's selection object.
+
+=cut
+
+## GetSelection(nsISelection **_retval)
+nsISelection *
+moz_dom_GetSelection (window)
+	nsIDOMWindow *window;
+    PREINIT:
+	nsISelection *sel;
+    CODE:
+	window->GetSelection(&sel);
+	RETVAL = sel;
+    OUTPUT:
+	RETVAL
+
 =begin comment
 
   /**
@@ -1928,7 +2027,7 @@ moz_dom_GetParent (window)
 ### GetScrollbars(nsIDOMBarProp * *aScrollbars)
 #somereturn *
 #moz_dom_GetScrollbars (window, aScrollbars)
-#	nsIDOMwindow *window;
+#	nsIDOMWindow *window;
 #	nsIDOMBarProp * *aScrollbars ;
 #    PREINIT:
 #	
@@ -1937,59 +2036,6 @@ moz_dom_GetParent (window)
 #	RETVAL = ;
 #    OUTPUT:
 #	RETVAL
-
-
-  /**
-   * Set/Get the document scale factor as a multiplier on the default
-   * size. When setting this attribute, a NS_ERROR_NOT_IMPLEMENTED
-   * error may be returned by implementations not supporting
-   * zoom. Implementations not supporting zoom should return 1.0 all
-   * the time for the Get operation. 1.0 is equals normal size,
-   * i.e. no zoom.
-   */
-  /* [noscript] attribute float textZoom; */
-#=for apidoc Mozilla::DOM::Window::GetTextZoom
-#
-#=for signature $window->GetTextZoom(float *aTextZoom)
-#
-#
-#
-#=cut
-#
-### GetTextZoom(float *aTextZoom)
-#somereturn *
-#moz_dom_GetTextZoom (window, aTextZoom)
-#	nsIDOMwindow *window;
-#	float *aTextZoom ;
-#    PREINIT:
-#	
-#    CODE:
-#	window->GetTextZoom(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-#=for apidoc Mozilla::DOM::Window::SetTextZoom
-#
-#=for signature $window->SetTextZoom(float aTextZoom)
-#
-#
-#
-#=cut
-#
-### SetTextZoom(float aTextZoom)
-#somereturn *
-#moz_dom_SetTextZoom (window, aTextZoom)
-#	nsIDOMwindow *window;
-#	float aTextZoom ;
-#    PREINIT:
-#	
-#    CODE:
-#	window->SetTextZoom(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
 
   /**
    * Accessor for the current x scroll position in this window in
@@ -2009,7 +2055,7 @@ moz_dom_GetParent (window)
 ### GetScrollX(PRInt32 *aScrollX)
 #somereturn *
 #moz_dom_GetScrollX (window, aScrollX)
-#	nsIDOMwindow *window;
+#	nsIDOMWindow *window;
 #	PRInt32 *aScrollX ;
 #    PREINIT:
 #	
@@ -2018,7 +2064,6 @@ moz_dom_GetParent (window)
 #	RETVAL = ;
 #    OUTPUT:
 #	RETVAL
-
 
   /**
    * Accessor for the current y scroll position in this window in
@@ -2038,7 +2083,7 @@ moz_dom_GetParent (window)
 ### GetScrollY(PRInt32 *aScrollY)
 #somereturn *
 #moz_dom_GetScrollY (window, aScrollY)
-#	nsIDOMwindow *window;
+#	nsIDOMWindow *window;
 #	PRInt32 *aScrollY ;
 #    PREINIT:
 #	
@@ -2047,7 +2092,6 @@ moz_dom_GetParent (window)
 #	RETVAL = ;
 #    OUTPUT:
 #	RETVAL
-
 
   /**
    * Method for scrolling this window to an absolute pixel offset.
@@ -2064,7 +2108,7 @@ moz_dom_GetParent (window)
 ### ScrollTo(PRInt32 xScroll, PRInt32 yScroll)
 #somereturn *
 #moz_dom_ScrollTo (window, xScroll, yScroll)
-#	nsIDOMwindow *window;
+#	nsIDOMWindow *window;
 #	PRInt32 xScroll ;
 #	PRInt32 yScroll ;
 #    PREINIT:
@@ -2074,7 +2118,6 @@ moz_dom_GetParent (window)
 #	RETVAL = ;
 #    OUTPUT:
 #	RETVAL
-
 
   /**
    * Method for scrolling this window to a pixel offset relative to
@@ -2092,7 +2135,7 @@ moz_dom_GetParent (window)
 ### ScrollBy(PRInt32 xScrollDif, PRInt32 yScrollDif)
 #somereturn *
 #moz_dom_ScrollBy (window, xScrollDif, yScrollDif)
-#	nsIDOMwindow *window;
+#	nsIDOMWindow *window;
 #	PRInt32 xScrollDif ;
 #	PRInt32 yScrollDif ;
 #    PREINIT:
@@ -2102,33 +2145,6 @@ moz_dom_GetParent (window)
 #	RETVAL = ;
 #    OUTPUT:
 #	RETVAL
-
-
-  /**
-   * Method for accessing this window's selection object.
-   */
-  /* nsISelection getSelection (); */
-#=for apidoc Mozilla::DOM::Window::GetSelection
-#
-#=for signature $window->GetSelection(nsISelection **_retval)
-#
-#
-#
-#=cut
-#
-### GetSelection(nsISelection **_retval)
-#somereturn *
-#moz_dom_GetSelection (window, _retval)
-#	nsIDOMwindow *window;
-#	nsISelection **_retval ;
-#    PREINIT:
-#	
-#    CODE:
-#	window->GetSelection(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
 
   /**
    * Method for scrolling this window by a number of lines.
@@ -2145,7 +2161,7 @@ moz_dom_GetParent (window)
 ### ScrollByLines(PRInt32 numLines)
 #somereturn *
 #moz_dom_ScrollByLines (window, numLines)
-#	nsIDOMwindow *window;
+#	nsIDOMWindow *window;
 #	PRInt32 numLines ;
 #    PREINIT:
 #	
@@ -2154,7 +2170,6 @@ moz_dom_GetParent (window)
 #	RETVAL = ;
 #    OUTPUT:
 #	RETVAL
-
 
   /**
    * Method for scrolling this window by a number of pages.
@@ -2171,7 +2186,7 @@ moz_dom_GetParent (window)
 ### ScrollByPages(PRInt32 numPages)
 #somereturn *
 #moz_dom_ScrollByPages (window, numPages)
-#	nsIDOMwindow *window;
+#	nsIDOMWindow *window;
 #	PRInt32 numPages ;
 #    PREINIT:
 #	
@@ -2181,7 +2196,6 @@ moz_dom_GetParent (window)
 #    OUTPUT:
 #	RETVAL
 
-
 =end comment
 
 =cut
@@ -2190,10 +2204,13 @@ moz_dom_GetParent (window)
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::WindowCollection	PREFIX = moz_dom_
 
+# /usr/include/mozilla/nsIDOMWindowCollection.h
+
 =for object Mozilla::DOM::WindowCollection
 
 Mozilla::DOM::WindowCollection is a wrapper around an instance of Mozilla's
-nsIDOMWindowCollection interface.
+nsIDOMWindowCollection interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
 
  * The nsIDOMWindowCollection interface is an interface for a
  * collection of DOM window objects.
@@ -2264,401 +2281,15 @@ moz_dom_NamedItem (coll, name)
 
 # -----------------------------------------------------------------------------
 
-MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Document	PREFIX = moz_dom_
-
-=for object Mozilla::DOM::Document
-
-Mozilla::DOM::Document is a wrapper around an instance of Mozilla's
-nsIDOMDocument interface. This inherits from
-L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
-
- * The nsIDOMDocument interface represents the entire HTML or XML document.
- * Conceptually, it is the root of the document tree, and provides the 
- * primary access to the document's data.
- * Since elements, text nodes, comments, processing instructions, etc. 
- * cannot exist outside the context of a Document, the nsIDOMDocument 
- * interface also contains the factory methods needed to create these 
- * objects.
- *
- * For more information on this interface please see 
- * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-CoreE<sol>>
-
-=cut
-
-=for apidoc Mozilla::DOM::Document::GetDoctype
-
-=for signature $document_type = $document->GetDoctype()
-
-
-
-=cut
-
-## GetDoctype(nsIDOMDocumentType * *aDoctype)
-nsIDOMDocumentType *
-moz_dom_GetDoctype (document)
-	nsIDOMDocument *document;
-    PREINIT:
-	nsIDOMDocumentType *doctype ;
-    CODE:
-	document->GetDoctype(&doctype);
-	RETVAL = doctype;
-    OUTPUT:
-	RETVAL
-
-=for apidoc Mozilla::DOM::Document::GetImplementation
-
-=for signature $dom_implementation = $document->GetImplementation()
-
-
-
-=cut
-
-## GetImplementation(nsIDOMDOMImplementation * *aImplementation)
-nsIDOMDOMImplementation *
-moz_dom_GetImplementation (document)
-	nsIDOMDocument *document;
-    PREINIT:
-	nsIDOMDOMImplementation *implementation;
-    CODE:
-	document->GetImplementation(&implementation);
-	RETVAL = implementation;
-    OUTPUT:
-	RETVAL
-
-=for apidoc Mozilla::DOM::Document::GetDocumentElement
-
-=for signature $element = $document->GetDocumentElement()
-
-
-
-=cut
-
-## GetDocumentElement(nsIDOMElement * *aDocumentElement)
-nsIDOMElement *
-moz_dom_GetDocumentElement (document)
-	nsIDOMDocument *document;
-    PREINIT:
-	nsIDOMElement *element;
-    CODE:
-	document->GetDocumentElement(&element);
-	RETVAL = element;
-    OUTPUT:
-	RETVAL
-
-=for apidoc Mozilla::DOM::Document::CreateElement
-
-=for signature $element = $document->CreateElement($tagname)
-
-
-
-=cut
-
-## CreateElement(const nsAString & tagName, nsIDOMElement **_retval)
-nsIDOMElement *
-moz_dom_CreateElement (document, tagname)
-	nsIDOMDocument *document;
-	nsEmbedString tagname;
-    PREINIT:
-	nsIDOMElement *element;
-    CODE:
-	/* raises (DOMException) */
-	document->CreateElement(tagname, &element);
-	RETVAL = element;
-    OUTPUT:
-	RETVAL
-
-=for apidoc Mozilla::DOM::Document::CreateDocumentFragment
-
-=for signature $doc_fragment = $document->CreateDocumentFragment()
-
-
-
-=cut
-
-## CreateDocumentFragment(nsIDOMDocumentFragment **_retval)
-nsIDOMDocumentFragment *
-moz_dom_CreateDocumentFragment (document)
-	nsIDOMDocument *document;
-    PREINIT:
-	nsIDOMDocumentFragment *fragment;
-    CODE:
-	document->CreateDocumentFragment(&fragment);
-	RETVAL = fragment;
-    OUTPUT:
-	RETVAL
-
-=for apidoc Mozilla::DOM::Document::CreateTextNode
-
-=for signature $textnode = $document->CreateTextNode($text)
-
-
-
-=cut
-
-## CreateTextNode(const nsAString & data, nsIDOMText **_retval)
-nsIDOMText *
-moz_dom_CreateTextNode (document, data)
-	nsIDOMDocument *document;
-	nsEmbedString data;
-    PREINIT:
-	nsIDOMText *node;
-    CODE:
-	document->CreateTextNode(data, &node);
-	RETVAL = node;
-    OUTPUT:
-	RETVAL
-
-=for apidoc Mozilla::DOM::Document::CreateComment
-
-=for signature $node = $document->CreateComment($text)
-
-
-
-=cut
-
-## CreateComment(const nsAString & data, nsIDOMComment **_retval)
-nsIDOMComment *
-moz_dom_CreateComment (document, data)
-	nsIDOMDocument *document;
-	nsEmbedString data;
-    PREINIT:
-	nsIDOMComment *comment;
-    CODE:
-	document->CreateComment(data, &comment);
-	RETVAL = comment;
-    OUTPUT:
-	RETVAL
-
-=for apidoc Mozilla::DOM::Document::CreateCDATASection
-
-=for signature $node = $document->CreateCDATASection($text)
-
-
-
-=cut
-
-## CreateCDATASection(const nsAString & data, nsIDOMCDATASection **_retval)
-nsIDOMCDATASection *
-moz_dom_CreateCDATASection (document, data)
-	nsIDOMDocument *document;
-	nsEmbedString data;
-    PREINIT:
-	nsIDOMCDATASection *node;
-    CODE:
-	/* raises (DOMException) */
-	document->CreateCDATASection(data, &node);
-	RETVAL = node;
-    OUTPUT:
-	RETVAL
-
-=for apidoc Mozilla::DOM::Document::CreateProcessingInstruction
-
-=for signature $node = $node = $document->CreateProcessingInstruction($target, $text)
-
-
-
-=cut
-
-## CreateProcessingInstruction(const nsAString & target, const nsAString & data, nsIDOMProcessingInstruction **_retval)
-nsIDOMProcessingInstruction *
-moz_dom_CreateProcessingInstruction (document, target, data)
-	nsIDOMDocument *document;
-	nsEmbedString target;
-	nsEmbedString data;
-    PREINIT:
-	nsIDOMProcessingInstruction *node;
-    CODE:
-	/* raises (DOMException) */
-	document->CreateProcessingInstruction(target, data, &node);
-	RETVAL = node;
-    OUTPUT:
-	RETVAL
-
-=for apidoc Mozilla::DOM::Document::CreateAttribute
-
-=for signature $node = $document->CreateAttribute($name)
-
-
-
-=cut
-
-## CreateAttribute(const nsAString & name, nsIDOMAttr **_retval)
-nsIDOMAttr *
-moz_dom_CreateAttribute (document, name)
-	nsIDOMDocument *document;
-	nsEmbedString name;
-    PREINIT:
-	nsIDOMAttr *node;
-    CODE:
-	/* raises (DOMException) */
-	document->CreateAttribute(name, &node);
-	RETVAL = node;
-    OUTPUT:
-	RETVAL
-
-=for apidoc Mozilla::DOM::Document::CreateEntityReference
-
-=for signature $node = $document->CreateEntityReference($name)
-
-
-
-=cut
-
-## CreateEntityReference(const nsAString & name, nsIDOMEntityReference **_retval)
-nsIDOMEntityReference *
-moz_dom_CreateEntityReference (document, name)
-	nsIDOMDocument *document;
-	nsEmbedString name;
-    PREINIT:
-	nsIDOMEntityReference *node;
-    CODE:
-	/* raises (DOMException) */
-	document->CreateEntityReference(name, &node);
-	RETVAL = node;
-    OUTPUT:
-	RETVAL
-
-=for apidoc Mozilla::DOM::Document::GetElementsByTagName
-
-=for signature $domlist = $document->GetElementsByTagName($tagname)
-
-
-
-=cut
-
-## GetElementsByTagName(const nsAString & tagname, nsIDOMNodeList **_retval)
-nsIDOMNodeList *
-moz_dom_GetElementsByTagName (document, tagname)
-	nsIDOMDocument *document;
-	nsEmbedString tagname;
-    PREINIT:
-	nsIDOMNodeList *nodelist;
-    CODE:
-	document->GetElementsByTagName(tagname, &nodelist);
-	RETVAL = nodelist;
-    OUTPUT:
-	RETVAL
-
-=for apidoc Mozilla::DOM::Document::ImportNode
-
-=for signature $document->ImportNode($node, $deep)
-
-$deep = boolean
-
-=cut
-
-## ImportNode(nsIDOMNode *importedNode, PRBool deep, nsIDOMNode **_retval)
-nsIDOMNode *
-moz_dom_ImportNode (document, importedNode, deep)
-	nsIDOMDocument *document;
-	nsIDOMNode *importedNode;
-	PRBool deep;
-    PREINIT:
-	nsIDOMNode *node;
-    CODE:
-	/* raises (DOMException) */
-	document->ImportNode(importedNode, deep, &node);
-	RETVAL = node;
-    OUTPUT:
-	RETVAL
-
-=for apidoc Mozilla::DOM::Document::CreateElementNS
-
-=for signature $element = $document->CreateElementNS($namespaceURI, $qualifiedName)
-
-
-
-=cut
-
-## CreateElementNS(const nsAString & namespaceURI, const nsAString & qualifiedName, nsIDOMElement **_retval)
-nsIDOMElement *
-moz_dom_CreateElementNS (document, namespaceURI, qualifiedName)
-	nsIDOMDocument *document;
-	nsEmbedString namespaceURI;
-	nsEmbedString qualifiedName;
-    PREINIT:
-	nsIDOMElement *element;
-    CODE:
-	/* raises (DOMException) */
-	document->CreateElementNS(namespaceURI, qualifiedName, &element);
-	RETVAL = element;
-    OUTPUT:
-	RETVAL
-
-=for apidoc Mozilla::DOM::Document::CreateAttributeNS
-
-=for signature $attr = $document->CreateAttributeNS($namespaceURI, $qualifiedName)
-
-
-
-=cut
-
-## CreateAttributeNS(const nsAString & namespaceURI, const nsAString & qualifiedName, nsIDOMAttr **_retval)
-nsIDOMAttr *
-moz_dom_CreateAttributeNS (document, namespaceURI, qualifiedName)
-	nsIDOMDocument *document;
-	nsEmbedString namespaceURI;
-	nsEmbedString qualifiedName;
-    PREINIT:
-	nsIDOMAttr *attr;
-    CODE:
-	/* raises (DOMException) */
-	document->CreateAttributeNS(namespaceURI, qualifiedName, &attr);
-	RETVAL = attr;
-    OUTPUT:
-	RETVAL
-
-=for apidoc Mozilla::DOM::Document::GetElementsByTagNameNS
-
-=for signature $element = $document->GetElementsByTagNameNS($namespaceURI, $localName)
-
-
-
-=cut
-
-## GetElementsByTagNameNS(const nsAString & namespaceURI, const nsAString & localName, nsIDOMNodeList **_retval)
-nsIDOMNodeList *
-moz_dom_GetElementsByTagNameNS (document, namespaceURI, localName)
-	nsIDOMDocument *document;
-	nsEmbedString namespaceURI;
-	nsEmbedString localName;
-    PREINIT:
-	nsIDOMNodeList *nodelist;
-    CODE:
-	document->GetElementsByTagNameNS(namespaceURI, localName, &nodelist);
-	RETVAL = nodelist;
-    OUTPUT:
-	RETVAL
-
-=for apidoc Mozilla::DOM::Document::GetElementById
-
-=for signature $element = $document->GetElementById($elementId)
-
-
-
-=cut
-
-## GetElementById(const nsAString & elementId, nsIDOMElement **_retval)
-nsIDOMElement *
-moz_dom_GetElementById (document, elementId)
-	nsIDOMDocument *document;
-	nsEmbedString elementId;
-    PREINIT:
-	nsIDOMElement *element;
-    CODE:
-	document->GetElementById(elementId, &element);
-	RETVAL = element;
-    OUTPUT:
-	RETVAL
-
-# -----------------------------------------------------------------------------
-
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Node	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMNode.h
 
 =for object Mozilla::DOM::Node
 
 Mozilla::DOM::Node is a wrapper around an instance of Mozilla's
-nsIDOMNode interface.
+nsIDOMNode interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
 
  * The nsIDOMNode interface is the primary datatype for the entire 
  * Document Object Model.
@@ -3054,6 +2685,12 @@ moz_dom_HasChildNodes (node)
 
 $deep is a boolean
 
+DOM 2 spec:
+When a Node is copied using the cloneNode method the EventListeners
+attached to the source Node are not attached to the copied Node. If
+the user wishes the same EventListeners to be added to the newly
+created copy the user must add them manually.
+
 =cut
 
 ## CloneNode(PRBool deep, nsIDOMNode **_retval)
@@ -3206,10 +2843,13 @@ moz_dom_HasAttributes (node)
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::NodeList	PREFIX = moz_dom_
 
+# /usr/include/mozilla/nsIDOMNodeList.h
+
 =for object Mozilla::DOM::NodeList
 
 Mozilla::DOM::NodeList is a wrapper around an instance of Mozilla's
-nsIDOMNodeList interface.
+nsIDOMNodeList interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
 
  * The nsIDOMNodeList interface provides the abstraction of an ordered 
  * collection of nodes, without defining or constraining how this collection 
@@ -3262,18 +2902,17 @@ moz_dom_GetLength (nodelist)
     OUTPUT:
 	RETVAL
 
-=end comment
-
-=cut
-
 # -----------------------------------------------------------------------------
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::NamedNodeMap	PREFIX = moz_dom_
 
+# /usr/include/mozilla/nsIDOMNamedNodeMap.h
+
 =for object Mozilla::DOM::NamedNodeMap
 
 Mozilla::DOM::NamedNodeMap is a wrapper around an instance of Mozilla's
-nsIDOMNamedNodeMap interface.
+nsIDOMNamedNodeMap interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
 
  * Objects implementing the nsIDOMNamedNodeMap interface are used to 
  * represent collections of nodes that can be accessed by name.
@@ -3283,39 +2922,575 @@ nsIDOMNamedNodeMap interface.
 
 =cut
 
-=begin comment
+=for apidoc Mozilla::DOM::NamedNodeMap::GetNamedItem
 
-  /* nsIDOMNode getNamedItem (in DOMString name); */
-  NS_IMETHOD GetNamedItem(const nsAString & name, nsIDOMNode **_retval) = 0;
+=signature $node = $namednodemap->GetNamedItem($name)
 
-  /* nsIDOMNode setNamedItem (in nsIDOMNode arg)  raises (DOMException); */
-  NS_IMETHOD SetNamedItem(nsIDOMNode *arg, nsIDOMNode **_retval) = 0;
 
-  /* nsIDOMNode removeNamedItem (in DOMString name)  raises (DOMException); */
-  NS_IMETHOD RemoveNamedItem(const nsAString & name, nsIDOMNode **_retval) = 0;
-
-  /* nsIDOMNode item (in unsigned long index); */
-  NS_IMETHOD Item(PRUint32 index, nsIDOMNode **_retval) = 0;
-
-  /* readonly attribute unsigned long length; */
-  NS_IMETHOD GetLength(PRUint32 *aLength) = 0;
-
-  /* nsIDOMNode getNamedItemNS (in DOMString namespaceURI, in DOMString localName); */
-  NS_IMETHOD GetNamedItemNS(const nsAString & namespaceURI, const nsAString & localName, nsIDOMNode **_retval) = 0;
-
-  /* nsIDOMNode setNamedItemNS (in nsIDOMNode arg)  raises (DOMException); */
-  NS_IMETHOD SetNamedItemNS(nsIDOMNode *arg, nsIDOMNode **_retval) = 0;
-
-  /* nsIDOMNode removeNamedItemNS (in DOMString namespaceURI, in DOMString localName)  raises (DOMException); */
-  NS_IMETHOD RemoveNamedItemNS(const nsAString & namespaceURI, const nsAString & localName, nsIDOMNode **_retval) = 0;
-
-=end comment
 
 =cut
+
+## GetNamedItem(const nsAString & name, nsIDOMNode **_retval)
+nsIDOMNode *
+moz_dom_GetNamedItem (namednodemap, name)
+	nsIDOMNamedNodeMap *namednodemap;
+	nsEmbedString name;
+    PREINIT:
+	nsIDOMNode *node;
+    CODE:
+	namednodemap->GetNamedItem(name, &node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::NamedNodeMap::SetNamedItem
+
+=signature $node = $namednodemap->SetNamedItem($node)
+
+what is named about this?
+
+=cut
+
+## SetNamedItem(nsIDOMNode *arg, nsIDOMNode **_retval)
+nsIDOMNode *
+moz_dom_SetNamedItem (namednodemap, arg)
+	nsIDOMNamedNodeMap *namednodemap;
+	nsIDOMNode *arg;
+    PREINIT:
+	nsIDOMNode *node;
+    CODE:
+	/* raises (DOMException) */
+	namednodemap->SetNamedItem(arg, &node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::NamedNodeMap::RemoveNamedItem
+
+=signature $node = $namednodemap->RemoveNamedItem($name)
+
+
+
+=cut
+
+## RemoveNamedItem(const nsAString & name, nsIDOMNode **_retval)
+nsIDOMNode *
+moz_dom_RemoveNamedItem (namednodemap, name)
+	nsIDOMNamedNodeMap *namednodemap;
+	nsEmbedString name;
+    PREINIT:
+	nsIDOMNode *node;
+    CODE:
+	/* raises (DOMException) */
+	namednodemap->RemoveNamedItem(name, &node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::NamedNodeMap::Item
+
+=signature $node = $namednodemap->Item(PRUint32 index)
+
+
+
+=cut
+
+## Item(PRUint32 index, nsIDOMNode **_retval)
+nsIDOMNode *
+moz_dom_Item (namednodemap, index)
+	nsIDOMNamedNodeMap *namednodemap;
+	PRUint32 index;
+    PREINIT:
+	nsIDOMNode *node;
+    CODE:
+	namednodemap->Item(index, &node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::NamedNodeMap::GetLength
+
+=signature $len = $namednodemap->GetLength()
+
+
+
+=cut
+
+## GetLength(PRUint32 *aLength)
+PRUint32
+moz_dom_GetLength (namednodemap)
+	nsIDOMNamedNodeMap *namednodemap;
+    PREINIT:
+	PRUint32 len;
+    CODE:
+	namednodemap->GetLength(&len);
+	RETVAL = len;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::NamedNodeMap::GetNamedItemNS
+
+=signature $node = $namednodemap->GetNamedItemNS($namespaceURI, $localName)
+
+
+
+=cut
+
+## GetNamedItemNS(const nsAString & namespaceURI, const nsAString & localName, nsIDOMNode **_retval)
+nsIDOMNode *
+moz_dom_GetNamedItemNS (namednodemap, namespaceURI, localName)
+	nsIDOMNamedNodeMap *namednodemap;
+	nsEmbedString namespaceURI;
+	nsEmbedString localName;
+    PREINIT:
+	nsIDOMNode *node;
+    CODE:
+	namednodemap->GetNamedItemNS(namespaceURI, localName, &node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::NamedNodeMap::SetNamedItemNS
+
+=signature $node = $namednodemap->SetNamedItemNS($node)
+
+
+
+=cut
+
+## SetNamedItemNS(nsIDOMNode *arg, nsIDOMNode **_retval)
+nsIDOMNode *
+moz_dom_SetNamedItemNS (namednodemap, arg)
+	nsIDOMNamedNodeMap *namednodemap;
+	nsIDOMNode *arg;
+    PREINIT:
+	nsIDOMNode *node;
+    CODE:
+	/* raises (DOMException) */
+	namednodemap->SetNamedItemNS(arg, &node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::NamedNodeMap::RemoveNamedItemNS
+
+=signature $node = $namednodemap->RemoveNamedItemNS($namespaceURI, $localName)
+
+
+
+=cut
+
+## RemoveNamedItemNS(const nsAString & namespaceURI, const nsAString & localName, nsIDOMNode **_retval)
+nsIDOMNode *
+moz_dom_RemoveNamedItemNS (namednodemap, namespaceURI, localName)
+	nsIDOMNamedNodeMap *namednodemap;
+	nsEmbedString namespaceURI;
+	nsEmbedString localName;
+    PREINIT:
+	nsIDOMNode *node;
+    CODE:
+	/* raises (DOMException) */
+	namednodemap->RemoveNamedItemNS(namespaceURI, localName, &node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Document	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMDocument.h
+
+=for object Mozilla::DOM::Document
+
+Mozilla::DOM::Document is a wrapper around an instance of Mozilla's
+nsIDOMDocument interface. This inherits from
+L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
+
+ * The nsIDOMDocument interface represents the entire HTML or XML document.
+ * Conceptually, it is the root of the document tree, and provides the 
+ * primary access to the document's data.
+ * Since elements, text nodes, comments, processing instructions, etc. 
+ * cannot exist outside the context of a Document, the nsIDOMDocument 
+ * interface also contains the factory methods needed to create these 
+ * objects.
+ *
+ * For more information on this interface please see 
+ * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-CoreE<sol>>
+
+=cut
+
+=for apidoc Mozilla::DOM::Document::GetDoctype
+
+=for signature $document_type = $document->GetDoctype()
+
+
+
+=cut
+
+## GetDoctype(nsIDOMDocumentType * *aDoctype)
+nsIDOMDocumentType *
+moz_dom_GetDoctype (document)
+	nsIDOMDocument *document;
+    PREINIT:
+	nsIDOMDocumentType *doctype ;
+    CODE:
+	document->GetDoctype(&doctype);
+	RETVAL = doctype;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Document::GetImplementation
+
+=for signature $dom_implementation = $document->GetImplementation()
+
+
+
+=cut
+
+## GetImplementation(nsIDOMDOMImplementation * *aImplementation)
+nsIDOMDOMImplementation *
+moz_dom_GetImplementation (document)
+	nsIDOMDocument *document;
+    PREINIT:
+	nsIDOMDOMImplementation *implementation;
+    CODE:
+	document->GetImplementation(&implementation);
+	RETVAL = implementation;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Document::GetDocumentElement
+
+=for signature $element = $document->GetDocumentElement()
+
+
+
+=cut
+
+## GetDocumentElement(nsIDOMElement * *aDocumentElement)
+nsIDOMElement *
+moz_dom_GetDocumentElement (document)
+	nsIDOMDocument *document;
+    PREINIT:
+	nsIDOMElement *element;
+    CODE:
+	document->GetDocumentElement(&element);
+	RETVAL = element;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Document::CreateElement
+
+=for signature $element = $document->CreateElement($tagname)
+
+
+
+=cut
+
+## CreateElement(const nsAString & tagName, nsIDOMElement **_retval)
+nsIDOMElement *
+moz_dom_CreateElement (document, tagname)
+	nsIDOMDocument *document;
+	nsEmbedString tagname;
+    PREINIT:
+	nsIDOMElement *element;
+    CODE:
+	/* raises (DOMException) */
+	document->CreateElement(tagname, &element);
+	RETVAL = element;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Document::CreateDocumentFragment
+
+=for signature $doc_fragment = $document->CreateDocumentFragment()
+
+
+
+=cut
+
+## CreateDocumentFragment(nsIDOMDocumentFragment **_retval)
+nsIDOMDocumentFragment *
+moz_dom_CreateDocumentFragment (document)
+	nsIDOMDocument *document;
+    PREINIT:
+	nsIDOMDocumentFragment *fragment;
+    CODE:
+	document->CreateDocumentFragment(&fragment);
+	RETVAL = fragment;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Document::CreateTextNode
+
+=for signature $textnode = $document->CreateTextNode($text)
+
+
+
+=cut
+
+## CreateTextNode(const nsAString & data, nsIDOMText **_retval)
+nsIDOMText *
+moz_dom_CreateTextNode (document, data)
+	nsIDOMDocument *document;
+	nsEmbedString data;
+    PREINIT:
+	nsIDOMText *node;
+    CODE:
+	document->CreateTextNode(data, &node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Document::CreateComment
+
+=for signature $node = $document->CreateComment($text)
+
+
+
+=cut
+
+## CreateComment(const nsAString & data, nsIDOMComment **_retval)
+nsIDOMComment *
+moz_dom_CreateComment (document, data)
+	nsIDOMDocument *document;
+	nsEmbedString data;
+    PREINIT:
+	nsIDOMComment *comment;
+    CODE:
+	document->CreateComment(data, &comment);
+	RETVAL = comment;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Document::CreateCDATASection
+
+=for signature $node = $document->CreateCDATASection($text)
+
+
+
+=cut
+
+## CreateCDATASection(const nsAString & data, nsIDOMCDATASection **_retval)
+nsIDOMCDATASection *
+moz_dom_CreateCDATASection (document, data)
+	nsIDOMDocument *document;
+	nsEmbedString data;
+    PREINIT:
+	nsIDOMCDATASection *node;
+    CODE:
+	/* raises (DOMException) */
+	document->CreateCDATASection(data, &node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Document::CreateProcessingInstruction
+
+=for signature $node = $node = $document->CreateProcessingInstruction($target, $text)
+
+
+
+=cut
+
+## CreateProcessingInstruction(const nsAString & target, const nsAString & data, nsIDOMProcessingInstruction **_retval)
+nsIDOMProcessingInstruction *
+moz_dom_CreateProcessingInstruction (document, target, data)
+	nsIDOMDocument *document;
+	nsEmbedString target;
+	nsEmbedString data;
+    PREINIT:
+	nsIDOMProcessingInstruction *node;
+    CODE:
+	/* raises (DOMException) */
+	document->CreateProcessingInstruction(target, data, &node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Document::CreateAttribute
+
+=for signature $node = $document->CreateAttribute($name)
+
+
+
+=cut
+
+## CreateAttribute(const nsAString & name, nsIDOMAttr **_retval)
+nsIDOMAttr *
+moz_dom_CreateAttribute (document, name)
+	nsIDOMDocument *document;
+	nsEmbedString name;
+    PREINIT:
+	nsIDOMAttr *node;
+    CODE:
+	/* raises (DOMException) */
+	document->CreateAttribute(name, &node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Document::CreateEntityReference
+
+=for signature $node = $document->CreateEntityReference($name)
+
+
+
+=cut
+
+## CreateEntityReference(const nsAString & name, nsIDOMEntityReference **_retval)
+nsIDOMEntityReference *
+moz_dom_CreateEntityReference (document, name)
+	nsIDOMDocument *document;
+	nsEmbedString name;
+    PREINIT:
+	nsIDOMEntityReference *node;
+    CODE:
+	/* raises (DOMException) */
+	document->CreateEntityReference(name, &node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Document::GetElementsByTagName
+
+=for signature $domlist = $document->GetElementsByTagName($tagname)
+
+
+
+=cut
+
+## GetElementsByTagName(const nsAString & tagname, nsIDOMNodeList **_retval)
+nsIDOMNodeList *
+moz_dom_GetElementsByTagName (document, tagname)
+	nsIDOMDocument *document;
+	nsEmbedString tagname;
+    PREINIT:
+	nsIDOMNodeList *nodelist;
+    CODE:
+	document->GetElementsByTagName(tagname, &nodelist);
+	RETVAL = nodelist;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Document::ImportNode
+
+=for signature $document->ImportNode($node, $deep)
+
+$deep = boolean
+
+=cut
+
+## ImportNode(nsIDOMNode *importedNode, PRBool deep, nsIDOMNode **_retval)
+nsIDOMNode *
+moz_dom_ImportNode (document, importedNode, deep)
+	nsIDOMDocument *document;
+	nsIDOMNode *importedNode;
+	PRBool deep;
+    PREINIT:
+	nsIDOMNode *node;
+    CODE:
+	/* raises (DOMException) */
+	document->ImportNode(importedNode, deep, &node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Document::CreateElementNS
+
+=for signature $element = $document->CreateElementNS($namespaceURI, $qualifiedName)
+
+
+
+=cut
+
+## CreateElementNS(const nsAString & namespaceURI, const nsAString & qualifiedName, nsIDOMElement **_retval)
+nsIDOMElement *
+moz_dom_CreateElementNS (document, namespaceURI, qualifiedName)
+	nsIDOMDocument *document;
+	nsEmbedString namespaceURI;
+	nsEmbedString qualifiedName;
+    PREINIT:
+	nsIDOMElement *element;
+    CODE:
+	/* raises (DOMException) */
+	document->CreateElementNS(namespaceURI, qualifiedName, &element);
+	RETVAL = element;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Document::CreateAttributeNS
+
+=for signature $attr = $document->CreateAttributeNS($namespaceURI, $qualifiedName)
+
+
+
+=cut
+
+## CreateAttributeNS(const nsAString & namespaceURI, const nsAString & qualifiedName, nsIDOMAttr **_retval)
+nsIDOMAttr *
+moz_dom_CreateAttributeNS (document, namespaceURI, qualifiedName)
+	nsIDOMDocument *document;
+	nsEmbedString namespaceURI;
+	nsEmbedString qualifiedName;
+    PREINIT:
+	nsIDOMAttr *attr;
+    CODE:
+	/* raises (DOMException) */
+	document->CreateAttributeNS(namespaceURI, qualifiedName, &attr);
+	RETVAL = attr;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Document::GetElementsByTagNameNS
+
+=for signature $element = $document->GetElementsByTagNameNS($namespaceURI, $localName)
+
+
+
+=cut
+
+## GetElementsByTagNameNS(const nsAString & namespaceURI, const nsAString & localName, nsIDOMNodeList **_retval)
+nsIDOMNodeList *
+moz_dom_GetElementsByTagNameNS (document, namespaceURI, localName)
+	nsIDOMDocument *document;
+	nsEmbedString namespaceURI;
+	nsEmbedString localName;
+    PREINIT:
+	nsIDOMNodeList *nodelist;
+    CODE:
+	document->GetElementsByTagNameNS(namespaceURI, localName, &nodelist);
+	RETVAL = nodelist;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Document::GetElementById
+
+=for signature $element = $document->GetElementById($elementId)
+
+
+
+=cut
+
+## GetElementById(const nsAString & elementId, nsIDOMElement **_retval)
+nsIDOMElement *
+moz_dom_GetElementById (document, elementId)
+	nsIDOMDocument *document;
+	nsEmbedString elementId;
+    PREINIT:
+	nsIDOMElement *element;
+    CODE:
+	document->GetElementById(elementId, &element);
+	RETVAL = element;
+    OUTPUT:
+	RETVAL
 
 # -----------------------------------------------------------------------------
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Element	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMElement.h
 
 =for object Mozilla::DOM::Element
 
@@ -3330,8 +3505,6 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
  * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-CoreE<sol>>
 
 =cut
-
-=begin comment
 
 =for apidoc Mozilla::DOM::Element::GetTagName
 
@@ -3670,6 +3843,8 @@ moz_dom_HasAttributeNS (element, namespaceURI, localName)
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::EntityReference	PREFIX = moz_dom_
 
+# /usr/include/mozilla/nsIDOMEntityReference.h
+
 =for object Mozilla::DOM::EntityReference
 
 Mozilla::DOM::EntityReference is a wrapper around an instance of Mozilla's
@@ -3683,6 +3858,8 @@ It has no methods of its own.
 # -----------------------------------------------------------------------------
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Attr	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMAttr.h
 
 =for object Mozilla::DOM::Attr
 
@@ -3699,128 +3876,107 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
 
 =cut
 
-=begin comment
+=for apidoc Mozilla::DOM::Attr::GetName
 
-  /* readonly attribute DOMString name; */
-#=for apidoc Mozilla::DOM::Attr::GetName
-#
-#=for signature $attr->GetName(nsAString & aName)
-#
-#
-#
-#=cut
-#
-### GetName(nsAString & aName)
-#somereturn *
-#moz_dom_GetName (attr, aName)
-#	nsIDOMattr *attr;
-#	nsEmbedString aName ;
-#    PREINIT:
-#	
-#    CODE:
-#	attr->GetName(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
+=for signature $name = $attr->GetName()
 
 
-  /* readonly attribute boolean specified; */
-#=for apidoc Mozilla::DOM::Attr::GetSpecified
-#
-#=for signature $attr->GetSpecified(PRBool *aSpecified)
-#
-#
-#
-#=cut
-#
-### GetSpecified(PRBool *aSpecified)
-#somereturn *
-#moz_dom_GetSpecified (attr, aSpecified)
-#	nsIDOMattr *attr;
-#	PRBool *aSpecified ;
-#    PREINIT:
-#	
-#    CODE:
-#	attr->GetSpecified(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-
-  /* attribute DOMString value; */
-#=for apidoc Mozilla::DOM::Attr::GetValue
-#
-#=for signature $attr->GetValue(nsAString & aValue)
-#
-#
-#
-#=cut
-#
-### GetValue(nsAString & aValue)
-#somereturn *
-#moz_dom_GetValue (attr, aValue)
-#	nsIDOMattr *attr;
-#	nsEmbedString aValue ;
-#    PREINIT:
-#	
-#    CODE:
-#	attr->GetValue(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-#=for apidoc Mozilla::DOM::Attr::SetValue
-#
-#=for signature $attr->SetValue(const nsAString & aValue)
-#
-#
-#
-#=cut
-#
-### SetValue(const nsAString & aValue)
-#somereturn *
-#moz_dom_SetValue (attr, aValue)
-#	nsIDOMattr *attr;
-#	nsEmbedString aValue ;
-#    PREINIT:
-#	
-#    CODE:
-#	attr->SetValue(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-
-  /* readonly attribute nsIDOMElement ownerElement; */
-#=for apidoc Mozilla::DOM::Attr::GetOwnerElement
-#
-#=for signature $attr->GetOwnerElement(nsIDOMElement * *aOwnerElement)
-#
-#
-#
-#=cut
-#
-### GetOwnerElement(nsIDOMElement * *aOwnerElement)
-#somereturn *
-#moz_dom_GetOwnerElement (attr, aOwnerElement)
-#	nsIDOMattr *attr;
-#	nsIDOMElement * *aOwnerElement ;
-#    PREINIT:
-#	
-#    CODE:
-#	attr->GetOwnerElement(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-
-=end comment
 
 =cut
+
+## GetName(nsAString & aName)
+nsEmbedString
+moz_dom_GetName (attr)
+	nsIDOMAttr *attr;
+    PREINIT:
+	nsEmbedString name;
+    CODE:
+	attr->GetName(name);
+	RETVAL = name;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Attr::GetSpecified
+
+=for signature $bool = $attr->GetSpecified()
+
+
+
+=cut
+
+## GetSpecified(PRBool *aSpecified)
+PRBool
+moz_dom_GetSpecified (attr)
+	nsIDOMAttr *attr;
+    PREINIT:
+	PRBool spec;
+    CODE:
+	attr->GetSpecified(&spec);
+	RETVAL = spec;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Attr::GetValue
+
+=for signature $value = $attr->GetValue()
+
+
+
+=cut
+
+## GetValue(nsAString & aValue)
+nsEmbedString
+moz_dom_GetValue (attr)
+	nsIDOMAttr *attr;
+    PREINIT:
+	nsEmbedString value;
+    CODE:
+	attr->GetValue(value);
+	RETVAL = value;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Attr::SetValue
+
+=for signature $attr->SetValue($value)
+
+
+
+=cut
+
+## SetValue(const nsAString & aValue)
+void
+moz_dom_SetValue (attr, value)
+	nsIDOMAttr *attr;
+	nsEmbedString value;
+    CODE:
+	attr->SetValue(value);
+
+=for apidoc Mozilla::DOM::Attr::GetOwnerElement
+
+=for signature $element = $attr->GetOwnerElement()
+
+
+
+=cut
+
+## GetOwnerElement(nsIDOMElement * *aOwnerElement)
+nsIDOMElement *
+moz_dom_GetOwnerElement (attr)
+	nsIDOMAttr *attr;
+    PREINIT:
+	nsIDOMElement *element;
+    CODE:
+	attr->GetOwnerElement(&element);
+	RETVAL = element;
+    OUTPUT:
+	RETVAL
 
 # -----------------------------------------------------------------------------
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::ProcessingInstruction	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMProcessingInstruction.h
 
 =for object Mozilla::DOM::ProcessingInstruction
 
@@ -3837,82 +3993,61 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
 
 =cut
 
-=begin comment
+=for apidoc Mozilla::DOM::ProcessingInstruction::GetTarget
 
-  /* readonly attribute DOMString target; */
-#=for apidoc Mozilla::DOM::ProcessingInstruction::GetTarget
-#
-#=for signature $processinginstruction->GetTarget(nsAString & aTarget)
-#
-#
-#
-#=cut
-#
-### GetTarget(nsAString & aTarget)
-#somereturn *
-#moz_dom_GetTarget (processinginstruction, aTarget)
-#	nsIDOMprocessinginstruction *processinginstruction;
-#	nsEmbedString aTarget ;
-#    PREINIT:
-#	
-#    CODE:
-#	processinginstruction->GetTarget(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
+=for signature $str = $processinginstruction->GetTarget()
 
 
-  /* attribute DOMString data; */
-#=for apidoc Mozilla::DOM::ProcessingInstruction::GetData
-#
-#=for signature $processinginstruction->GetData(nsAString & aData)
-#
-#
-#
-#=cut
-#
-### GetData(nsAString & aData)
-#somereturn *
-#moz_dom_GetData (processinginstruction, aData)
-#	nsIDOMprocessinginstruction *processinginstruction;
-#	nsEmbedString aData ;
-#    PREINIT:
-#	
-#    CODE:
-#	processinginstruction->GetData(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-#=for apidoc Mozilla::DOM::ProcessingInstruction::SetData
-#
-#=for signature $processinginstruction->SetData(const nsAString & aData)
-#
-#
-#
-#=cut
-#
-### SetData(const nsAString & aData)
-#somereturn *
-#moz_dom_SetData (processinginstruction, aData)
-#	nsIDOMprocessinginstruction *processinginstruction;
-#	nsEmbedString aData ;
-#    PREINIT:
-#	
-#    CODE:
-#	processinginstruction->SetData(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-
-=end comment
 
 =cut
+
+=for apidoc Mozilla::DOM::ProcessingInstruction::GetData
+
+=for signature $data = $processinginstruction->GetData()
+
+
+
+=cut
+
+## GetTarget(nsAString & aTarget), etc..
+nsEmbedString
+moz_dom_GetTarget (pi)
+	nsIDOMProcessingInstruction *pi;
+    ALIAS:
+	Mozilla::DOM::ProcessingInstruction::GetData = 1
+    PREINIT:
+	nsEmbedString str;
+    CODE:
+	switch (ix) {
+		case 0: pi->GetTarget(str); break;
+		case 1: pi->GetData(str); break;
+		default: XSRETURN_UNDEF;
+	}
+	RETVAL = str;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::ProcessingInstruction::SetData
+
+=for signature $processinginstruction->SetData($data)
+
+
+
+=cut
+
+## SetData(const nsAString & aData)
+void
+moz_dom_SetData (pi, data)
+	nsIDOMProcessingInstruction *pi;
+	nsEmbedString data;
+    CODE:
+	pi->SetData(data);
 
 # -----------------------------------------------------------------------------
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::CDATASection	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMCDATASection.h
 
 =for object Mozilla::DOM::CDATASection
 
@@ -3928,6 +4063,8 @@ It has no methods of its own.
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Comment	PREFIX = moz_dom_
 
+# /usr/include/mozilla/nsIDOMComment.h
+
 =for object Mozilla::DOM::Comment
 
 Mozilla::DOM::Comment is a wrapper around an instance of Mozilla's
@@ -3941,6 +4078,8 @@ It has no methods of its own.
 # -----------------------------------------------------------------------------
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::CharacterData	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMCharacterData.h
 
 =for object Mozilla::DOM::CharacterData
 
@@ -3956,203 +4095,162 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
 
 =cut
 
-=begin comment
+=for apidoc Mozilla::DOM::CharacterData::GetData
 
-  /* attribute DOMString data; */
-#=for apidoc Mozilla::DOM::CharacterData::GetData
-#
-#=for signature $characterdata->GetData(nsAString & aData)
-#
-#
-#
-#=cut
-#
-### GetData(nsAString & aData)
-#somereturn *
-#moz_dom_GetData (characterdata, aData)
-#	nsIDOMcharacterdata *characterdata;
-#	nsEmbedString aData ;
-#    PREINIT:
-#	
-#    CODE:
-#	characterdata->GetData(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-#=for apidoc Mozilla::DOM::CharacterData::SetData
-#
-#=for signature $characterdata->SetData(const nsAString & aData)
-#
-#
-#
-#=cut
-#
-### SetData(const nsAString & aData)
-#somereturn *
-#moz_dom_SetData (characterdata, aData)
-#	nsIDOMcharacterdata *characterdata;
-#	nsEmbedString aData ;
-#    PREINIT:
-#	
-#    CODE:
-#	characterdata->SetData(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
+=for signature $data = $characterdata->GetData()
 
 
-  /* readonly attribute unsigned long length; */
-#=for apidoc Mozilla::DOM::CharacterData::GetLength
-#
-#=for signature $characterdata->GetLength(PRUint32 *aLength)
-#
-#
-#
-#=cut
-#
-### GetLength(PRUint32 *aLength)
-#somereturn *
-#moz_dom_GetLength (characterdata, aLength)
-#	nsIDOMcharacterdata *characterdata;
-#	PRUint32 *aLength ;
-#    PREINIT:
-#	
-#    CODE:
-#	characterdata->GetLength(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-
-  /* DOMString substringData (in unsigned long offset, in unsigned long count)  raises (DOMException); */
-#=for apidoc Mozilla::DOM::CharacterData::SubstringData
-#
-#=for signature $characterdata->SubstringData(PRUint32 offset, PRUint32 count, nsAString & _retval)
-#
-#
-#
-#=cut
-#
-### SubstringData(PRUint32 offset, PRUint32 count, nsAString & _retval)
-#somereturn *
-#moz_dom_SubstringData (characterdata, offset, count, _retval)
-#	nsIDOMcharacterdata *characterdata;
-#	PRUint32 offset ;
-#	PRUint32 count ;
-#	nsEmbedString _retval ;
-#    PREINIT:
-#	
-#    CODE:
-#	characterdata->SubstringData(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-
-  /* void appendData (in DOMString arg)  raises (DOMException); */
-#=for apidoc Mozilla::DOM::CharacterData::AppendData
-#
-#=for signature $characterdata->AppendData(const nsAString & arg)
-#
-#
-#
-#=cut
-#
-### AppendData(const nsAString & arg)
-#somereturn *
-#moz_dom_AppendData (characterdata, arg)
-#	nsIDOMcharacterdata *characterdata;
-#	nsEmbedString arg ;
-#    PREINIT:
-#	
-#    CODE:
-#	characterdata->AppendData(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-
-  /* void insertData (in unsigned long offset, in DOMString arg)  raises (DOMException); */
-#=for apidoc Mozilla::DOM::CharacterData::InsertData
-#
-#=for signature $characterdata->InsertData(PRUint32 offset, const nsAString & arg)
-#
-#
-#
-#=cut
-#
-### InsertData(PRUint32 offset, const nsAString & arg)
-#somereturn *
-#moz_dom_InsertData (characterdata, offset, arg)
-#	nsIDOMcharacterdata *characterdata;
-#	PRUint32 offset ;
-#	nsEmbedString arg ;
-#    PREINIT:
-#	
-#    CODE:
-#	characterdata->InsertData(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-
-  /* void deleteData (in unsigned long offset, in unsigned long count)  raises (DOMException); */
-#=for apidoc Mozilla::DOM::CharacterData::DeleteData
-#
-#=for signature $characterdata->DeleteData(PRUint32 offset, PRUint32 count)
-#
-#
-#
-#=cut
-#
-### DeleteData(PRUint32 offset, PRUint32 count)
-#somereturn *
-#moz_dom_DeleteData (characterdata, offset, count)
-#	nsIDOMcharacterdata *characterdata;
-#	PRUint32 offset ;
-#	PRUint32 count ;
-#    PREINIT:
-#	
-#    CODE:
-#	characterdata->DeleteData(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-
-  /* void replaceData (in unsigned long offset, in unsigned long count, in DOMString arg)  raises (DOMException); */
-#=for apidoc Mozilla::DOM::CharacterData::ReplaceData
-#
-#=for signature $characterdata->ReplaceData(PRUint32 offset, PRUint32 count, const nsAString & arg)
-#
-#
-#
-#=cut
-#
-### ReplaceData(PRUint32 offset, PRUint32 count, const nsAString & arg)
-#somereturn *
-#moz_dom_ReplaceData (characterdata, offset, count, arg)
-#	nsIDOMcharacterdata *characterdata;
-#	PRUint32 offset ;
-#	PRUint32 count ;
-#	nsEmbedString arg ;
-#    PREINIT:
-#	
-#    CODE:
-#	characterdata->ReplaceData(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-
-=end comment
 
 =cut
+
+## GetData(nsAString & aData)
+nsEmbedString
+moz_dom_GetData (characterdata)
+	nsIDOMCharacterData *characterdata;
+    PREINIT:
+	nsEmbedString data;
+    CODE:
+	characterdata->GetData(data);
+	RETVAL = data;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::CharacterData::SetData
+
+=for signature $characterdata->SetData($data)
+
+
+
+=cut
+
+## SetData(const nsAString & aData)
+void
+moz_dom_SetData (characterdata, data)
+	nsIDOMCharacterData *characterdata;
+	nsEmbedString data;
+    CODE:
+	characterdata->SetData(data);
+
+=for apidoc Mozilla::DOM::CharacterData::GetLength
+
+=for signature $len = $characterdata->GetLength()
+
+
+
+=cut
+
+## GetLength(PRUint32 *aLength)
+PRUint32
+moz_dom_GetLength (characterdata)
+	nsIDOMCharacterData *characterdata;
+    PREINIT:
+	PRUint32 len;
+    CODE:
+	characterdata->GetLength(&len);
+	RETVAL = len;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::CharacterData::SubstringData
+
+=for signature $characterdata->SubstringData($offset, $count)
+
+
+
+=cut
+
+## SubstringData(PRUint32 offset, PRUint32 count, nsAString & _retval)
+nsEmbedString
+moz_dom_SubstringData (characterdata, offset, count)
+	nsIDOMCharacterData *characterdata;
+	PRUint32 offset;
+	PRUint32 count;
+    PREINIT:
+	nsEmbedString data;
+    CODE:
+	/* raises (DOMException) */
+	characterdata->SubstringData(offset, count, data);
+	RETVAL = data;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::CharacterData::AppendData
+
+=for signature $characterdata->AppendData($data)
+
+
+
+=cut
+
+## AppendData(const nsAString & arg)
+void
+moz_dom_AppendData (characterdata, data)
+	nsIDOMCharacterData *characterdata;
+	nsEmbedString data;
+    CODE:
+	/* raises (DOMException) */
+	characterdata->AppendData(data);
+
+=for apidoc Mozilla::DOM::CharacterData::InsertData
+
+=for signature $characterdata->InsertData($offset, $data)
+
+
+
+=cut
+
+## InsertData(PRUint32 offset, const nsAString & arg)
+void
+moz_dom_InsertData (characterdata, offset, data)
+	nsIDOMCharacterData *characterdata;
+	PRUint32 offset;
+	nsEmbedString data;
+    CODE:
+	/* raises (DOMException) */
+	characterdata->InsertData(offset, data);
+
+=for apidoc Mozilla::DOM::CharacterData::DeleteData
+
+=for signature $characterdata->DeleteData($offset, $count)
+
+
+
+=cut
+
+## DeleteData(PRUint32 offset, PRUint32 count)
+void
+moz_dom_DeleteData (characterdata, offset, count)
+	nsIDOMCharacterData *characterdata;
+	PRUint32 offset;
+	PRUint32 count;
+    CODE:
+	/* raises (DOMException) */
+	characterdata->DeleteData(offset, count);
+
+=for apidoc Mozilla::DOM::CharacterData::ReplaceData
+
+=for signature $characterdata->ReplaceData($offset, $count, data)
+
+
+
+=cut
+
+## ReplaceData(PRUint32 offset, PRUint32 count, const nsAString & arg)
+void
+moz_dom_ReplaceData (characterdata, offset, count, data)
+	nsIDOMCharacterData *characterdata;
+	PRUint32 offset;
+	PRUint32 count;
+	nsEmbedString data;
+    CODE:
+	/* raises (DOMException) */
+	characterdata->ReplaceData(offset, count, data);
 
 # -----------------------------------------------------------------------------
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Text	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMText.h
 
 =for object Mozilla::DOM::Text
 
@@ -4168,31 +4266,27 @@ L<Mozilla::DOM::CharacterData|Mozilla::DOM::CharacterData>.
 
 =cut
 
-=begin comment
+=for apidoc Mozilla::DOM::Text::SplitText
 
-  /* nsIDOMText splitText (in unsigned long offset)  raises (DOMException); */
-#=for apidoc Mozilla::DOM::Text::SplitText
-#
-#=for signature $text->SplitText(PRUint32 offset, nsIDOMText **_retval)
-#
-#
-#
-#=cut
-#
-### SplitText(PRUint32 offset, nsIDOMText **_retval)
-#somereturn *
-#moz_dom_SplitText (text, offset, _retval)
-#	nsIDOMtext *text;
-#	PRUint32 offset ;
-#	nsIDOMText **_retval ;
-#    PREINIT:
-#	
-#    CODE:
-#	text->SplitText(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
+=for signature $str = $text->SplitText($offset)
 
+
+
+=cut
+
+## SplitText(PRUint32 offset, nsIDOMText **_retval)
+nsIDOMText *
+moz_dom_SplitText (text, offset)
+	nsIDOMText *text;
+	PRUint32 offset;
+    PREINIT:
+	nsIDOMText *splittext;
+    CODE:
+	/* raises (DOMException) */
+	text->SplitText(offset, &splittext);
+	RETVAL = splittext;
+    OUTPUT:
+	RETVAL
 
 =end comment
 
@@ -4201,6 +4295,8 @@ L<Mozilla::DOM::CharacterData|Mozilla::DOM::CharacterData>.
 # -----------------------------------------------------------------------------
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::DocumentFragment	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMDocumentFragment.h
 
 =for object Mozilla::DOM::DocumentFragment
 
@@ -4215,6 +4311,8 @@ It has no methods of its own.
 # -----------------------------------------------------------------------------
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::DocumentType	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMDocumentType.h
 
 =for object Mozilla::DOM::DocumentType
 
@@ -4232,158 +4330,137 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
 
 =cut
 
-=begin comment
+=for apidoc Mozilla::DOM::DocumentType::GetName
 
-  /* readonly attribute DOMString name; */
-#=for apidoc Mozilla::DOM::DocumentType::GetName
-#
-#=for signature $documenttype->GetName(nsAString & aName)
-#
-#
-#
-#=cut
-#
-### GetName(nsAString & aName)
-#somereturn *
-#moz_dom_GetName (documenttype, aName)
-#	nsIDOMDocumenttype *documenttype;
-#	nsEmbedString aName ;
-#    PREINIT:
-#	
-#    CODE:
-#	documenttype->GetName(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
+=for signature $name = $documenttype->GetName()
 
 
-  /* readonly attribute nsIDOMNamedNodeMap entities; */
-#=for apidoc Mozilla::DOM::DocumentType::GetEntities
-#
-#=for signature $documenttype->GetEntities(nsIDOMNamedNodeMap * *aEntities)
-#
-#
-#
-#=cut
-#
-### GetEntities(nsIDOMNamedNodeMap * *aEntities)
-#somereturn *
-#moz_dom_GetEntities (documenttype, aEntities)
-#	nsIDOMDocumenttype *documenttype;
-#	nsIDOMNamedNodeMap * *aEntities ;
-#    PREINIT:
-#	
-#    CODE:
-#	documenttype->GetEntities(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-
-  /* readonly attribute nsIDOMNamedNodeMap notations; */
-#=for apidoc Mozilla::DOM::DocumentType::GetNotations
-#
-#=for signature $documenttype->GetNotations(nsIDOMNamedNodeMap * *aNotations)
-#
-#
-#
-#=cut
-#
-### GetNotations(nsIDOMNamedNodeMap * *aNotations)
-#somereturn *
-#moz_dom_GetNotations (documenttype, aNotations)
-#	nsIDOMDocumenttype *documenttype;
-#	nsIDOMNamedNodeMap * *aNotations ;
-#    PREINIT:
-#	
-#    CODE:
-#	documenttype->GetNotations(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-
-  /* readonly attribute DOMString publicId; */
-#=for apidoc Mozilla::DOM::DocumentType::GetPublicId
-#
-#=for signature $documenttype->GetPublicId(nsAString & aPublicId)
-#
-#
-#
-#=cut
-#
-### GetPublicId(nsAString & aPublicId)
-#somereturn *
-#moz_dom_GetPublicId (documenttype, aPublicId)
-#	nsIDOMDocumenttype *documenttype;
-#	nsEmbedString aPublicId ;
-#    PREINIT:
-#	
-#    CODE:
-#	documenttype->GetPublicId(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-
-  /* readonly attribute DOMString systemId; */
-#=for apidoc Mozilla::DOM::DocumentType::GetSystemId
-#
-#=for signature $documenttype->GetSystemId(nsAString & aSystemId)
-#
-#
-#
-#=cut
-#
-### GetSystemId(nsAString & aSystemId)
-#somereturn *
-#moz_dom_GetSystemId (documenttype, aSystemId)
-#	nsIDOMDocumenttype *documenttype;
-#	nsEmbedString aSystemId ;
-#    PREINIT:
-#	
-#    CODE:
-#	documenttype->GetSystemId(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-
-  /* readonly attribute DOMString internalSubset; */
-#=for apidoc Mozilla::DOM::DocumentType::GetInternalSubset
-#
-#=for signature $documenttype->GetInternalSubset(nsAString & aInternalSubset)
-#
-#
-#
-#=cut
-#
-### GetInternalSubset(nsAString & aInternalSubset)
-#somereturn *
-#moz_dom_GetInternalSubset (documenttype, aInternalSubset)
-#	nsIDOMDocumenttype *documenttype;
-#	nsEmbedString aInternalSubset ;
-#    PREINIT:
-#	
-#    CODE:
-#	documenttype->GetInternalSubset(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-
-=end comment
 
 =cut
+
+## GetName(nsAString & aName)
+nsEmbedString
+moz_dom_GetName (documenttype)
+	nsIDOMDocumentType *documenttype;
+    PREINIT:
+	nsEmbedString name;
+    CODE:
+	documenttype->GetName(name);
+	RETVAL = name;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::DocumentType::GetEntities
+
+=for signature $namednodemap = $documenttype->GetEntities()
+
+
+
+=cut
+
+## GetEntities(nsIDOMNamedNodeMap * *aEntities)
+nsIDOMNamedNodeMap *
+moz_dom_GetEntities (documenttype)
+	nsIDOMDocumentType *documenttype;
+    PREINIT:
+	nsIDOMNamedNodeMap *nodemap;
+    CODE:
+	documenttype->GetEntities(&nodemap);
+	RETVAL = nodemap;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::DocumentType::GetNotations
+
+=for signature $namednodemap = $documenttype->GetNotations()
+
+
+
+=cut
+
+## GetNotations(nsIDOMNamedNodeMap * *aNotations)
+nsIDOMNamedNodeMap *
+moz_dom_GetNotations (documenttype)
+	nsIDOMDocumentType *documenttype;
+    PREINIT:
+	nsIDOMNamedNodeMap *nodemap;
+    CODE:
+	documenttype->GetNotations(&nodemap);
+	RETVAL = nodemap;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::DocumentType::GetPublicId
+
+=for signature $id = $documenttype->GetPublicId()
+
+
+
+=cut
+
+## GetPublicId(nsAString & aPublicId)
+nsEmbedString
+moz_dom_GetPublicId (documenttype)
+	nsIDOMDocumentType *documenttype;
+    PREINIT:
+	nsEmbedString id;
+    CODE:
+	documenttype->GetPublicId(id);
+	RETVAL = id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::DocumentType::GetSystemId
+
+=for signature $id = $documenttype->GetSystemId()
+
+
+
+=cut
+
+## GetSystemId(nsAString & aSystemId)
+nsEmbedString
+moz_dom_GetSystemId (documenttype)
+	nsIDOMDocumentType *documenttype;
+    PREINIT:
+	nsEmbedString id;
+    CODE:
+	documenttype->GetSystemId(id);
+	RETVAL = id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::DocumentType::GetInternalSubset
+
+=for signature $str = $documenttype->GetInternalSubset()
+
+
+
+=cut
+
+## GetInternalSubset(nsAString & aInternalSubset)
+nsEmbedString
+moz_dom_GetInternalSubset (documenttype)
+	nsIDOMDocumentType *documenttype;
+    PREINIT:
+	nsEmbedString subset;
+    CODE:
+	documenttype->GetInternalSubset(subset);
+	RETVAL = subset;
+    OUTPUT:
+	RETVAL
 
 # -----------------------------------------------------------------------------
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::DOMImplementation	PREFIX = moz_dom_
 
+# /usr/include/mozilla/nsIDOMDOMImplementation.h
+
 =for object Mozilla::DOM::DOMImplementation
 
 Mozilla::DOM::DOMImplementation is a wrapper around an instance of Mozilla's
-nsIDOMDOMImplementation interface.
+nsIDOMDOMImplementation interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
 
  * The nsIDOMDOMImplementation interface provides a number of methods for 
  * performing operations that are independent of any particular instance 
@@ -4394,97 +4471,1103 @@ nsIDOMDOMImplementation interface.
 
 =cut
 
+=for apidoc Mozilla::DOM::DOMImplementation::HasFeature
+
+=for signature $bool = $domimplementation->HasFeature($feature, $version)
+
+
+
+=cut
+
+## HasFeature(const nsAString & feature, const nsAString & version, PRBool *_retval)
+PRBool
+moz_dom_HasFeature (domimplementation, feature, version)
+	nsIDOMDOMImplementation *domimplementation;
+	nsEmbedString feature;
+	nsEmbedString version;
+    PREINIT:
+	PRBool has;
+    CODE:
+	domimplementation->HasFeature(feature, version, &has);
+	RETVAL = has;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::DOMImplementation::CreateDocumentType
+
+=for signature $documenttype = $domimplementation->CreateDocumentType($qualifiedName, $publicId, $systemId)
+
+
+
+=cut
+
+## CreateDocumentType(const nsAString & qualifiedName, const nsAString & publicId, const nsAString & systemId, nsIDOMDocumentType **_retval)
+nsIDOMDocumentType *
+moz_dom_CreateDocumentType (domimplementation, qualifiedName, publicId, systemId)
+	nsIDOMDOMImplementation *domimplementation;
+	nsEmbedString qualifiedName;
+	nsEmbedString publicId;
+	nsEmbedString systemId;
+    PREINIT:
+	nsIDOMDocumentType *type;
+    CODE:
+	/* raises (DOMException) */
+	domimplementation->CreateDocumentType(qualifiedName, publicId, systemId, &type);
+	RETVAL = type;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::DOMImplementation::CreateDocument
+
+=for signature $doc = $domimplementation->CreateDocument($namespaceURI, $qualifiedName, $doctype)
+
+
+
+=cut
+
+## CreateDocument(const nsAString & namespaceURI, const nsAString & qualifiedName, nsIDOMDocumentType *doctype, nsIDOMDocument **_retval)
+nsIDOMDocument *
+moz_dom_CreateDocument (domimplementation, namespaceURI, qualifiedName, doctype)
+	nsIDOMDOMImplementation *domimplementation;
+	nsEmbedString namespaceURI;
+	nsEmbedString qualifiedName;
+	nsIDOMDocumentType *doctype;
+    PREINIT:
+	nsIDOMDocument *doc;
+    CODE:
+	/* raises (DOMException) */
+	domimplementation->CreateDocument(namespaceURI, qualifiedName, doctype, &doc);
+	RETVAL = doc;
+    OUTPUT:
+	RETVAL
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Exception	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMDOMException.h
+
+=for object Mozilla::DOM::DOMException
+
+Mozilla::DOM::DOMException is a wrapper around an instance of Mozilla's
+nsIDOMDOMException interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
+
+ * In general, DOM methods return specific error values in ordinary 
+ * processing situations, such as out-of-bound errors.
+ * However, DOM operations can raise exceptions in "exceptional" 
+ * circumstances, i.e., when an operation is impossible to perform 
+ * (either for logical reasons, because data is lost, or because the 
+ * implementation has become unstable)
+ *
+ * For more information on this interface please see 
+ * http://www.w3.org/TR/DOM-Level-2-Core/
+
+XXX: this isn't supported yet here, as I've ignored catching
+any exceptions that are raised (though they are all noted
+in comments). Will soon.
+
+=cut
+
 =begin comment
 
-  /* boolean hasFeature (in DOMString feature, in DOMString version); */
-#=for apidoc Mozilla::DOM::DOMImplementation::HasFeature
+XXX: I noticed an '-except' option to xsubpp:
+       -except
+            Adds exception handling stubs to the C code.
+
+
+  enum { INDEX_SIZE_ERR = 1U };
+
+  enum { DOMSTRING_SIZE_ERR = 2U };
+
+  enum { HIERARCHY_REQUEST_ERR = 3U };
+
+  enum { WRONG_DOCUMENT_ERR = 4U };
+
+  enum { INVALID_CHARACTER_ERR = 5U };
+
+  enum { NO_DATA_ALLOWED_ERR = 6U };
+
+  enum { NO_MODIFICATION_ALLOWED_ERR = 7U };
+
+  enum { NOT_FOUND_ERR = 8U };
+
+  enum { NOT_SUPPORTED_ERR = 9U };
+
+  enum { INUSE_ATTRIBUTE_ERR = 10U };
+
+  enum { INVALID_STATE_ERR = 11U };
+
+  enum { SYNTAX_ERR = 12U };
+
+  enum { INVALID_MODIFICATION_ERR = 13U };
+
+  enum { NAMESPACE_ERR = 14U };
+
+  enum { INVALID_ACCESS_ERR = 15U };
+
+  /* readonly attribute unsigned long code; */
+#=for apidoc Mozilla::DOM::Exception::GetCode
 #
-#=for signature $domimplementation->HasFeature(const nsAString & feature, const nsAString & version, PRBool *_retval)
+#=for signature $exception->GetCode(PRUint32 *aCode)
 #
 #
 #
 #=cut
 #
-### HasFeature(const nsAString & feature, const nsAString & version, PRBool *_retval)
+### GetCode(PRUint32 *aCode)
 #somereturn *
-#moz_dom_HasFeature (domimplementation, feature, version, _retval)
-#	nsIDOMdomimplementation *domimplementation;
-#	nsEmbedString feature ;
-#	nsEmbedString version ;
-#	PRBool *_retval ;
+#moz_dom_GetCode (exception, aCode)
+#	nsIDOMexception *exception;
+#	PRUint32 *aCode ;
 #    PREINIT:
 #	
 #    CODE:
-#	domimplementation->HasFeature(&);
+#	exception->GetCode(&);
 #	RETVAL = ;
 #    OUTPUT:
 #	RETVAL
-
-
-  /* nsIDOMDocumentType createDocumentType (in DOMString qualifiedName, in DOMString publicId, in DOMString systemId)  raises (DOMException); */
-#=for apidoc Mozilla::DOM::DOMImplementation::CreateDocumentType
-#
-#=for signature $domimplementation->CreateDocumentType(const nsAString & qualifiedName, const nsAString & publicId, const nsAString & systemId, nsIDOMDocumentType **_retval)
-#
-#
-#
-#=cut
-#
-### CreateDocumentType(const nsAString & qualifiedName, const nsAString & publicId, const nsAString & systemId, nsIDOMDocumentType **_retval)
-#somereturn *
-#moz_dom_CreateDocumentType (domimplementation, qualifiedName, publicId, systemId, _retval)
-#	nsIDOMdomimplementation *domimplementation;
-#	nsEmbedString qualifiedName ;
-#	nsEmbedString publicId ;
-#	nsEmbedString systemId ;
-#	nsIDOMDocumentType **_retval ;
-#    PREINIT:
-#	
-#    CODE:
-#	domimplementation->CreateDocumentType(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-
-  /* nsIDOMDocument createDocument (in DOMString namespaceURI, in DOMString qualifiedName, in nsIDOMDocumentType doctype)  raises (DOMException); */
-#=for apidoc Mozilla::DOM::DOMImplementation::CreateDocument
-#
-#=for signature $domimplementation->CreateDocument(const nsAString & namespaceURI, const nsAString & qualifiedName, nsIDOMDocumentType *doctype, nsIDOMDocument **_retval)
-#
-#
-#
-#=cut
-#
-### CreateDocument(const nsAString & namespaceURI, const nsAString & qualifiedName, nsIDOMDocumentType *doctype, nsIDOMDocument **_retval)
-#somereturn *
-#moz_dom_CreateDocument (domimplementation, namespaceURI, qualifiedName, doctype, _retval)
-#	nsIDOMdomimplementation *domimplementation;
-#	nsEmbedString namespaceURI ;
-#	nsEmbedString qualifiedName ;
-#	nsIDOMDocumentType *doctype ;
-#	nsIDOMDocument **_retval ;
-#    PREINIT:
-#	
-#    CODE:
-#	domimplementation->CreateDocument(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
 
 =end comment
 
 =cut
 
+
 # -----------------------------------------------------------------------------
 
-MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::WebBrowser	PREFIX = moz_dom_webbrowser_
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Selection	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsISelection.h
+
+=for object Mozilla::DOM::Selection
+
+Mozilla::DOM::Selection is a wrapper around an instance of Mozilla's
+nsISelection interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
+
+ * Interface for manipulating and querying the current selected range
+ * of nodes within the document.
+
+=cut
+
+=for apidoc Mozilla::DOM::Selection::GetAnchorNode
+
+=for signature $node = $selection->GetAnchorNode()
+
+     * The node representing one end of the selection.
+
+=cut
+
+## GetAnchorNode(nsIDOMNode * *aAnchorNode)
+nsIDOMNode *
+moz_dom_GetAnchorNode (selection)
+	nsISelection *selection;
+    PREINIT:
+	nsIDOMNode *node;
+    CODE:
+	selection->GetAnchorNode(&node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Selection::GetAnchorOffset
+
+=for signature $offset = $selection->GetAnchorOffset()
+
+     * The offset within the (text) node where the selection begins.
+
+=cut
+
+## GetAnchorOffset(PRInt32 *aAnchorOffset)
+PRInt32
+moz_dom_GetAnchorOffset (selection)
+	nsISelection *selection;
+    PREINIT:
+	PRInt32 offset;
+    CODE:
+	selection->GetAnchorOffset(&offset);
+	RETVAL = offset;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Selection::GetFocusNode
+
+=for signature $node = $selection->GetFocusNode()
+
+     * The node with keyboard focus.
+
+=cut
+
+## GetFocusNode(nsIDOMNode * *aFocusNode)
+nsIDOMNode *
+moz_dom_GetFocusNode (selection)
+	nsISelection *selection;
+    PREINIT:
+	nsIDOMNode *node;
+    CODE:
+	selection->GetFocusNode(&node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Selection::GetFocusOffset
+
+=for signature $offset = $selection->GetFocusOffset()
+
+     * The offset within the (text) node where focus starts.
+
+=cut
+
+## GetFocusOffset(PRInt32 *aFocusOffset)
+PRInt32
+moz_dom_GetFocusOffset (selection)
+	nsISelection *selection;
+    PREINIT:
+	PRInt32 offset;
+    CODE:
+	selection->GetFocusOffset(&offset);
+	RETVAL = offset;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Selection::GetIsCollapsed
+
+=for signature $bool = $selection->GetIsCollapsed()
+
+     * Indicates if the selection is collapsed or not.
+
+=cut
+
+## GetIsCollapsed(PRBool *aIsCollapsed)
+PRBool
+moz_dom_GetIsCollapsed (selection)
+	nsISelection *selection;
+    PREINIT:
+	PRBool is;
+    CODE:
+	selection->GetIsCollapsed(&is);
+	RETVAL = is;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Selection::GetRangeCount
+
+=for signature $count = $selection->GetRangeCount()
+
+     * Returns the number of ranges in the selection.
+
+=cut
+
+## GetRangeCount(PRInt32 *aRangeCount)
+PRInt32
+moz_dom_GetRangeCount (selection)
+	nsISelection *selection;
+    PREINIT:
+	PRInt32 count;
+    CODE:
+	selection->GetRangeCount(&count);
+	RETVAL = count;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Selection::GetRangeAt
+
+=for signature $range = $selection->GetRangeAt($index)
+
+     * Returns the range at the specified index.
+
+=cut
+
+## GetRangeAt(PRInt32 index, nsIDOMRange **_retval)
+nsIDOMRange *
+moz_dom_GetRangeAt (selection, index)
+	nsISelection *selection;
+	PRInt32 index;
+    PREINIT:
+	nsIDOMRange *range;
+    CODE:
+	selection->GetRangeAt(index, &range);
+	RETVAL = range;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Selection::Collapse
+
+=for signature $selection->Collapse($parentNode, $offset)
+
+     * Collapses the selection to a single point, at the specified offset
+     * in the given DOM node. When the selection is collapsed, and the content
+     * is focused and editable, the caret will blink there.
+     *
+     * @param parentNode      The given dom node where the selection will be set
+     * @param offset          Where in given dom node to place the selection
+                              (the offset into the given node)
+
+=cut
+
+## Collapse(nsIDOMNode *parentNode, PRInt32 offset)
+void
+moz_dom_Collapse (selection, parentNode, offset)
+	nsISelection *selection;
+	nsIDOMNode *parentNode;
+	PRInt32 offset;
+    CODE:
+	selection->Collapse(parentNode, offset);
+
+=for apidoc Mozilla::DOM::Selection::Extend
+
+=for signature $selection->Extend($parentNode, $offset)
+
+     * Extends the selection by moving the focus to the specified node and offset,
+     * preserving the anchor postion.  The new selection end result will always
+     * be from the anchor to the new focus, regardless of direction.
+     *
+     * @param parentNode      The node where the selection will be extended to
+     * @param offset          Where in node to place the offset in the new focused node
+
+=cut
+
+# Extend(nsIDOMNode *parentNode, PRInt32 offset)
+void
+moz_dom_Extend (selection, parentNode, offset)
+	nsISelection *selection;
+	nsIDOMNode *parentNode;
+	PRInt32 offset;
+    CODE:
+	selection->Extend(parentNode, offset);
+
+=for apidoc Mozilla::DOM::Selection::CollapseToStart
+
+=for signature $selection->CollapseToStart()
+
+     * Collapses the whole selection to a single point at the start
+     * of the current selection (irrespective of direction).  If content
+     * is focused and editable, the caret will blink there.
+
+=cut
+
+## CollapseToStart(void)
+void
+moz_dom_CollapseToStart (selection)
+	nsISelection *selection;
+    CODE:
+	selection->CollapseToStart();
+
+=for apidoc Mozilla::DOM::Selection::CollapseToEnd
+
+=for signature $selection->CollapseToEnd()
+
+     * Collapses the whole selection to a single point at the end
+     * of the current selection (irrespective of direction).  If content
+     * is focused and editable, the caret will blink there.
+
+=cut
+
+## CollapseToEnd(void)
+void
+moz_dom_CollapseToEnd (selection)
+	nsISelection *selection;
+    CODE:
+	selection->CollapseToEnd();
+
+=for apidoc Mozilla::DOM::Selection::ContainsNode
+
+=for signature $bool = $selection->ContainsNode($node, $entirelyContained)
+
+     * The value of entirelyContained determines the detail of the search to determine if
+     * the selection contains the node.  If entirelyContained is set to PR_TRUE, t
+     * or false if
+     *
+     * @param node      The node where the selection will be extended to
+     * @param entirelyContained Whether
+
+=cut
+
+## ContainsNode(nsIDOMNode *node, PRBool entirelyContained, PRBool *_retval)
+PRBool
+moz_dom_ContainsNode (selection, node, entirelyContained)
+	nsISelection *selection;
+	nsIDOMNode *node;
+	PRBool entirelyContained;
+    PREINIT:
+	PRBool has;
+    CODE:
+	selection->ContainsNode(node, entirelyContained, &has);
+	RETVAL = has;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Selection::SelectAllChildren
+
+=for signature $selection->SelectAllChildren($parentnode)
+
+     * Adds all children of the specified node to the selection.
+     *
+     * @param parentNode  the parent of the children to be added to the selection.
+
+=cut
+
+## SelectAllChildren(nsIDOMNode *parentNode)
+void
+moz_dom_SelectAllChildren (selection, parentNode)
+	nsISelection *selection;
+	nsIDOMNode *parentNode;
+    CODE:
+	selection->SelectAllChildren(parentNode);
+
+=for apidoc Mozilla::DOM::Selection::AddRange
+
+=for signature $selection->AddRange($range)
+
+     * Adds a range to the current selection.
+
+=cut
+
+## AddRange(nsIDOMRange *range)
+void
+moz_dom_AddRange (selection, range)
+	nsISelection *selection;
+	nsIDOMRange *range;
+    CODE:
+	selection->AddRange(range);
+
+=for apidoc Mozilla::DOM::Selection::RemoveRange
+
+=for signature $selection->RemoveRange($range)
+
+     * Removes a range from the current selection.
+
+=cut
+
+## RemoveRange(nsIDOMRange *range)
+void
+moz_dom_RemoveRange (selection, range)
+	nsISelection *selection;
+	nsIDOMRange *range;
+    CODE:
+	selection->RemoveRange(range);
+
+=for apidoc Mozilla::DOM::Selection::RemoveAllRanges
+
+=for signature $selection->RemoveAllRanges()
+
+     * Removes all ranges from the current selection.
+
+=cut
+
+## RemoveAllRanges(void)
+void
+moz_dom_RemoveAllRanges (selection)
+	nsISelection *selection;
+    CODE:
+	selection->RemoveAllRanges();
+
+=for apidoc Mozilla::DOM::Selection::DeleteFromDocument
+
+=for signature $selection->DeleteFromDocument()
+
+     * Deletes this selection from document the nodes belong to.
+
+=cut
+
+## DeleteFromDocument(void)
+void
+moz_dom_DeleteFromDocument (selection)
+	nsISelection *selection;
+    CODE:
+	selection->DeleteFromDocument();
+
+=for apidoc Mozilla::DOM::Selection::SelectionLanguageChange
+
+=for signature $selection->SelectionLanguageChange($langRTL)
+
+     * Modifies the cursor Bidi level after a change in keyboard direction
+     *
+     * @param langRTL is PR_TRUE if the new language is right-to-left or
+     *                PR_FALSE if the new language is left-to-right.
+
+=cut
+
+## SelectionLanguageChange(PRBool langRTL)
+void
+moz_dom_SelectionLanguageChange (selection, langRTL)
+	nsISelection *selection;
+	PRBool langRTL;
+    CODE:
+	selection->SelectionLanguageChange(langRTL);
+
+=for apidoc Mozilla::DOM::Selection::ToString
+
+=for signature $str = $selection->ToString()
+
+     * Returns the whole selection into a plain text string.
+
+=cut
+
+## ToString(PRUnichar **_retval)
+nsEmbedString
+moz_dom_ToString (selection)
+	nsISelection *selection;
+    PREINIT:
+	PRUnichar *u16str;
+    CODE:
+	selection->ToString(&u16str);
+	nsEmbedString str(u16str);
+	RETVAL = str;
+    OUTPUT:
+	RETVAL
+
+
+# -----------------------------------------------------------------------------
+
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Range	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMRange.h
+
+=for object Mozilla::DOM::Range
+
+Mozilla::DOM::Range is a wrapper around an instance of Mozilla's
+nsIDOMRange interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
+
+ * The nsIDOMRange interface is an interface to a DOM range object.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-Traversal-Range/
+
+The constants START_TO_START, START_TO_END, END_TO_END, and END_TO_START
+are available for the "how" argument to L</CompareBoundaryPoints>.
+XXX: Currently these are accessed through methods on the object; this will
+change when I figure out how to export them as constants or class methods.
+
+=cut
+
+=for apidoc Mozilla::DOM::Range::GetStartContainer
+
+=for signature $node = $range->GetStartContainer()
+
+
+
+=cut
+
+## GetStartContainer(nsIDOMNode * *aStartContainer)
+nsIDOMNode *
+moz_dom_GetStartContainer (range)
+	nsIDOMRange *range;
+    PREINIT:
+	nsIDOMNode *node;
+    CODE:
+	range->GetStartContainer(&node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Range::GetStartOffset
+
+=for signature $offset = $range->GetStartOffset()
+
+
+
+=cut
+
+## GetStartOffset(PRInt32 *aStartOffset)
+PRInt32
+moz_dom_GetStartOffset (range)
+	nsIDOMRange *range;
+    PREINIT:
+	PRInt32 offset;
+    CODE:
+	range->GetStartOffset(&offset);
+	RETVAL = offset;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Range::GetEndContainer
+
+=for signature $node = $range->GetEndContainer()
+
+
+
+=cut
+
+## GetEndContainer(nsIDOMNode * *aEndContainer)
+nsIDOMNode *
+moz_dom_GetEndContainer (range)
+	nsIDOMRange *range;
+    PREINIT:
+	nsIDOMNode *node;
+    CODE:
+	range->GetEndContainer(&node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Range::GetEndOffset
+
+=for signature $offset = $range->GetEndOffset()
+
+
+
+=cut
+
+## GetEndOffset(PRInt32 *aEndOffset)
+PRInt32
+moz_dom_GetEndOffset (range)
+	nsIDOMRange *range;
+    PREINIT:
+	PRInt32 offset;
+    CODE:
+	range->GetEndOffset(&offset);
+	RETVAL = offset;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Range::GetCollapsed
+
+=for signature $bool = $range->GetCollapsed()
+
+
+
+=cut
+
+## GetCollapsed(PRBool *aCollapsed)
+PRBool
+moz_dom_GetCollapsed (range)
+	nsIDOMRange *range;
+    PREINIT:
+	PRBool collapsed;
+    CODE:
+	range->GetCollapsed(&collapsed);
+	RETVAL = collapsed;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Range::GetCommonAncestorContainer
+
+=for signature $node = $range->GetCommonAncestorContainer()
+
+
+
+=cut
+
+## GetCommonAncestorContainer(nsIDOMNode * *aCommonAncestorContainer)
+nsIDOMNode *
+moz_dom_GetCommonAncestorContainer (range)
+	nsIDOMRange *range;
+    PREINIT:
+	nsIDOMNode *node;
+    CODE:
+	range->GetCommonAncestorContainer(&node);
+	RETVAL = node;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Range::SetStart
+
+=for signature $range->SetStart($node, $offset)
+
+
+
+=cut
+
+## SetStart(nsIDOMNode *refNode, PRInt32 offset)
+void
+moz_dom_SetStart (range, refNode, offset)
+	nsIDOMRange *range;
+	nsIDOMNode *refNode;
+	PRInt32 offset;
+    CODE:
+	/* raises (RangeException, DOMException) */
+	range->SetStart(refNode, offset);
+
+=for apidoc Mozilla::DOM::Range::SetEnd
+
+=for signature $range->SetEnd($node, $offset)
+
+
+
+=cut
+
+## SetEnd(nsIDOMNode *refNode, PRInt32 offset)
+void
+moz_dom_SetEnd (range, refNode, offset)
+	nsIDOMRange *range;
+	nsIDOMNode *refNode;
+	PRInt32 offset;
+    CODE:
+	/* raises (RangeException, DOMException) */
+	range->SetEnd(refNode, offset);
+
+=for apidoc Mozilla::DOM::Range::SetStartBefore
+
+=for signature $range->SetStartBefore($node)
+
+
+
+=cut
+
+## SetStartBefore(nsIDOMNode *refNode)
+void
+moz_dom_SetStartBefore (range, refNode)
+	nsIDOMRange *range;
+	nsIDOMNode *refNode;
+    CODE:
+	/* raises (RangeException, DOMException) */
+	range->SetStartBefore(refNode);
+
+=for apidoc Mozilla::DOM::Range::SetStartAfter
+
+=for signature $range->SetStartAfter($node)
+
+
+
+=cut
+
+## SetStartAfter(nsIDOMNode *refNode)
+void
+moz_dom_SetStartAfter (range, refNode)
+	nsIDOMRange *range;
+	nsIDOMNode *refNode;
+    CODE:
+	/* raises (RangeException, DOMException) */
+	range->SetStartAfter(refNode);
+
+=for apidoc Mozilla::DOM::Range::SetEndBefore
+
+=for signature $range->SetEndBefore($node)
+
+
+
+=cut
+
+## SetEndBefore(nsIDOMNode *refNode)
+void
+moz_dom_SetEndBefore (range, refNode)
+	nsIDOMRange *range;
+	nsIDOMNode *refNode;
+    CODE:
+	/* raises (RangeException, DOMException) */
+	range->SetEndBefore(refNode);
+
+=for apidoc Mozilla::DOM::Range::SetEndAfter
+
+=for signature $range->SetEndAfter($node)
+
+
+
+=cut
+
+## SetEndAfter(nsIDOMNode *refNode)
+void
+moz_dom_SetEndAfter (range, refNode)
+	nsIDOMRange *range;
+	nsIDOMNode *refNode;
+    CODE:
+	/* raises (RangeException, DOMException) */
+	range->SetEndAfter(refNode);
+
+=for apidoc Mozilla::DOM::Range::Collapse
+
+=for signature $range->Collapse($bool)
+
+
+
+=cut
+
+## Collapse(PRBool toStart)
+void
+moz_dom_Collapse (range, toStart)
+	nsIDOMRange *range;
+	PRBool toStart;
+    CODE:
+	/* raises (DOMException) */
+	range->Collapse(toStart);
+
+=for apidoc Mozilla::DOM::Range::SelectNode
+
+=for signature $range->SelectNode($node)
+
+
+
+=cut
+
+## SelectNode(nsIDOMNode *refNode)
+void
+moz_dom_SelectNode (range, refNode)
+	nsIDOMRange *range;
+	nsIDOMNode *refNode;
+    CODE:
+	/* raises (RangeException, DOMException) */
+	range->SelectNode(refNode);
+
+=for apidoc Mozilla::DOM::Range::SelectNodeContents
+
+=for signature $range->SelectNodeContents($node)
+
+
+
+=cut
+
+## SelectNodeContents(nsIDOMNode *refNode)
+void
+moz_dom_SelectNodeContents (range, refNode)
+	nsIDOMRange *range;
+	nsIDOMNode *refNode;
+    CODE:
+	/* raises (RangeException, DOMException) */
+	range->SelectNodeContents(refNode);
+
+=for apidoc Mozilla::DOM::Range::CompareBoundaryPoints
+
+=for signature $num = $range->CompareBoundaryPoints($how, $sourceRange)
+
+
+
+=cut
+
+## CompareBoundaryPoints(PRUint16 how, nsIDOMRange *sourceRange, PRInt16 *_retval)
+PRInt16
+moz_dom_CompareBoundaryPoints (range, how, sourceRange)
+	nsIDOMRange *range;
+	PRUint16 how;
+	nsIDOMRange *sourceRange;
+    PREINIT:
+	PRInt16 num;
+    CODE:
+	/* raises (DOMException) */
+	range->CompareBoundaryPoints(how, sourceRange, &num);
+	RETVAL = num;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Range::DeleteContents
+
+=for signature $range->DeleteContents()
+
+
+
+=cut
+
+## DeleteContents(void)
+void
+moz_dom_DeleteContents (range)
+	nsIDOMRange *range;
+    CODE:
+	/* raises (DOMException) */
+	range->DeleteContents();
+
+=for apidoc Mozilla::DOM::Range::ExtractContents
+
+=for signature $documentfragment = $range->ExtractContents()
+
+
+
+=cut
+
+## ExtractContents(nsIDOMDocumentFragment **_retval)
+nsIDOMDocumentFragment *
+moz_dom_ExtractContents (range)
+	nsIDOMRange *range;
+    PREINIT:
+	nsIDOMDocumentFragment *frag;
+    CODE:
+	/* raises (DOMException) */
+	range->ExtractContents(&frag);
+	RETVAL = frag;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Range::CloneContents
+
+=for signature $documentfragment = $range->CloneContents()
+
+
+
+=cut
+
+## CloneContents(nsIDOMDocumentFragment **_retval)
+nsIDOMDocumentFragment *
+moz_dom_CloneContents (range)
+	nsIDOMRange *range;
+    PREINIT:
+	nsIDOMDocumentFragment *frag;
+    CODE:
+	/* raises (DOMException) */
+	range->CloneContents(&frag);
+	RETVAL = frag;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Range::InsertNode
+
+=for signature $range->InsertNode($node)
+
+
+
+=cut
+
+## InsertNode(nsIDOMNode *newNode)
+void
+moz_dom_InsertNode (range, newNode)
+	nsIDOMRange *range;
+	nsIDOMNode *newNode;
+    CODE:
+	/* raises (RangeException, DOMException) */
+	range->InsertNode(newNode);
+
+=for apidoc Mozilla::DOM::Range::SurroundContents
+
+=for signature $range->SurroundContents($newParentNode)
+
+
+
+=cut
+
+## SurroundContents(nsIDOMNode *newParent)
+void
+moz_dom_SurroundContents (range, newParent)
+	nsIDOMRange *range;
+	nsIDOMNode *newParent;
+    CODE:
+	/* raises (RangeException, DOMException) */
+	range->SurroundContents(newParent);
+
+=for apidoc Mozilla::DOM::Range::CloneRange
+
+=for signature $range->CloneRange($range)
+
+
+
+=cut
+
+## CloneRange(nsIDOMRange **_retval)
+nsIDOMRange *
+moz_dom_CloneRange (range)
+	nsIDOMRange *range;
+    PREINIT:
+	nsIDOMRange *newrange;
+    CODE:
+	/* raises (DOMException) */
+	range->CloneRange(&newrange);
+	RETVAL = newrange;
+
+=for apidoc Mozilla::DOM::Range::ToString
+
+=for signature $str = $range->ToString()
+
+
+
+=cut
+
+## ToString(nsAString & _retval)
+nsEmbedString
+moz_dom_ToString (range)
+	nsIDOMRange *range;
+    PREINIT:
+	nsEmbedString str;
+    CODE:
+	/* raises (DOMException) */
+	range->ToString(str);
+	RETVAL = str;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Range::Detach
+
+=for signature $range->Detach()
+
+
+
+=cut
+
+## Detach(void)
+void
+moz_dom_Detach (range)
+	nsIDOMRange *range;
+    CODE:
+	/* raises (DOMException) */
+	range->Detach();
+
+
+# -----------------------------------------------------------------------------
+
+
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Supports	PREFIX = moz_dom_
+
+=for object Mozilla::DOM::Supports
+
+Mozilla::DOM::Supports is a wrapper around an instance of Mozilla's
+nsISupports interface, from which everything else inherits.
+
+=cut
+
+=for apidoc Mozilla::DOM::Supports::QueryInterface
+
+=for signature $res = $supports->QueryInterface($uuid);
+
+XXX: this isn't wrapped yet
+
+=cut
+
+=begin comment
+
+XXX: I think this is how you can get different interfaces from
+an object. Maybe DocumentEvent can be gotten from Document
+with this? This is presumably the same method that you
+use in XPCOM. Need to figure that out.
+
+Header files generally have something like this:
+
+#define NS_IWEBBROWSER_IID_STR "69e5df00-7b8b-11d3-af61-00a024ffc08c"
+#define NS_IWEBBROWSER_IID \
+  {0x69e5df00, 0x7b8b, 0x11d3, \
+    { 0xaf, 0x61, 0x00, 0xa0, 0x24, 0xff, 0xc0, 0x8c }}
+
+class NS_NO_VTABLE nsIWebBrowser : public nsISupports {
+ public:
+  NS_DEFINE_STATIC_IID_ACCESSOR(NS_IWEBBROWSER_IID)
+  ....
+
+so I'm thinking every class can deal with IIDs from that.
+
+How do we deal with 'void *', though?
+
+=end comment
+
+=cut
+
+### QueryInterface(const nsIID & uuid, void * *result)
+#void *
+#moz_dom_QueryInterface (supports, uuid)
+#	nsISupports *supports;
+#	const nsIID uuid;
+#    PREINIT:
+#	void *res;   /* XXX: have to cast it to something??? */
+#    CODE:
+#	supports->QueryInterface(&uuid, &res);
+#	RETVAL = res;
+#    OUTPUT:
+#	RETVAL
+
+
+
+# -----------------------------------------------------------------------------
+
+
+
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::WebBrowser	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIWebBrowser.h
 
 =for object Mozilla::DOM::WebBrowser
 
 Mozilla::DOM::WebBrowser is a wrapper around an instance of Mozilla's
-nsIWebBrowser interface.
+nsIWebBrowser interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
 
  * The nsIWebBrowser interface is implemented by web browser objects.
  * Embedders use this interface during initialisation to associate
@@ -4507,7 +5590,7 @@ The embedder may walk the entire DOM starting from this value.
 
 ## GetContentDOMWindow(nsIDOMWindow * *aContentDOMWindow)
 nsIDOMWindow *
-moz_dom_webbrowser_GetContentDOMWindow (browser)
+moz_dom_GetContentDOMWindow (browser)
 	nsIWebBrowser *browser
     PREINIT:
 	nsIDOMWindow *window;
@@ -4519,3 +5602,4 @@ moz_dom_webbrowser_GetContentDOMWindow (browser)
 		RETVAL = window;
     OUTPUT:
 	RETVAL
+

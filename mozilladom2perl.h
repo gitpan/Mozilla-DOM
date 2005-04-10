@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $CVSHeader: Mozilla-DOM/mozilladom2perl.h,v 1.8 2005/04/08 03:01:11 slanning Exp $
+ * $CVSHeader: Mozilla-DOM/mozilladom2perl.h,v 1.9 2005/04/09 20:50:35 slanning Exp $
  */
 
 #ifndef _MOZILLADOM2PERL_H_
@@ -34,8 +34,9 @@ extern "C" {
 
 
 #include "nsEmbedString.h"           /* for nsAString */
-
 #include "nsIWebBrowser.h"
+#include "nsISelection.h"
+#include "nsISupports.h"
 
 #include "nsIDOMAbstractView.h"
 #include "nsIDOMDocumentView.h"
@@ -50,7 +51,16 @@ extern "C" {
 #include "nsIDOMWindowCollection.h"
 #include "nsIDOMDocument.h"
 #include "nsIDOMNodeList.h"
+#include "nsIDOMNamedNodeMap.h"
 #include "nsIDOMElement.h"
+#include "nsIDOMAttr.h"
+#include "nsIDOMCharacterData.h"
+#include "nsIDOMProcessingInstruction.h"
+#include "nsIDOMText.h"
+#include "nsIDOMDocumentType.h"
+#include "nsIDOMDOMImplementation.h"
+#include "nsISelection.h"
+#include "nsIDOMRange.h"
 
 
 #define MOZDOM_DECL_DOM_TYPEMAPPERS(name)                           \
@@ -75,6 +85,7 @@ extern "C" {
    4. add a T_MOZDOM_GENERIC_WRAPPER line to the TYPEMAP section
       in mozilladom.typemap
    5. add an entry to doctypes
+   6. add header include above (if wrapping any methods in that class)
  */
 
 
@@ -105,10 +116,17 @@ MOZDOM_DECL_DOM_TYPEMAPPERS(Comment)
 MOZDOM_DECL_DOM_TYPEMAPPERS(CharacterData)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Text)
 MOZDOM_DECL_DOM_TYPEMAPPERS(DOMImplementation)
+MOZDOM_DECL_DOM_TYPEMAPPERS(Range)
 
 
 SV * newSVnsIWebBrowser (nsIWebBrowser *browser);
 nsIWebBrowser * SvnsIWebBrowser (SV *browser);
+
+SV * newSVnsISelection (nsISelection *selection);
+nsISelection * SvnsISelection (SV *selection);
+
+SV * newSVnsISupports (nsISupports *supports);
+nsISupports * SvnsISupports (SV *supports);
 
 
 #include "mozilladom2perl-version.h"
