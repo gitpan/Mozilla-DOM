@@ -1,9 +1,12 @@
+0.09  2005-04-11
+  - added Elements example, demoing the tedium of DOM manipulation
+
 0.08  2005-04-10
   - header includes - added two directories to set_inc in Makefile.PL:
     o  Torsten Schoenfeld noted that nsIWebBrowser.h is under the 'webbrwsr'
        directory on his system, so added that to the includes in Makefile.PL.
-    o  another Gentoo user found that nsISelection.h was in the 'contents'
-       directory
+    o  another Gentoo user (Y. Selkowitz?) found that nsISelection.h was
+       in the 'contents' directory
   - added Credits file
 
 0.07  2005-04-10

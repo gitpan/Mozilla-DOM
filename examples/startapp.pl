@@ -1,8 +1,7 @@
 #!/usr/bin/perl
-# Starts an example application. Pass it the name
-# of the class corresponding to the example.
-# For example, the file Minilla.pm contains
-# the Minilla class, so you would do
+# Starts an example application. Pass it the name of the class
+# corresponding to the example. For example, the file Minilla.pm
+# contains the Minilla class, so you would do
 #
 #   ./startapp.pl Minilla
 #

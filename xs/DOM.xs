@@ -867,6 +867,10 @@ L<Supports|Mozilla::DOM::Supports>.
 (In particular, sections 1.5 and 1.6. Very important to read that
 if you want to understand how to create an L<Event|Mozilla::DOM::Event>.)
 
+XXX: I don't think it's possible to use this yet,
+until Supports is implemented. Then you could switch
+the interface of Document to DocumentEvent.
+
 =cut
 
 =for apidoc Mozilla::DOM::DocumentEvent::CreateEvent
@@ -2532,7 +2536,11 @@ moz_dom_GetNextSibling (node)
 
 =for signature $namednodemap = $node->GetAttributes()
 
-
+XXX: I'm thinking that methods like this should also return
+a list in list context. It's kinda gimpy having to call GetLength
+and loop over index numbers calling Item.
+Also, why does everything return NamedNodeMap or NodeList?
+I'd rather get a list of Attr.
 
 =cut
 
@@ -3357,7 +3365,9 @@ moz_dom_CreateEntityReference (document, name)
 
 =for signature $domlist = $document->GetElementsByTagName($tagname)
 
-
+Gah, this returns a NodeList, not a list of Elements.
+Which is lame because you can't call Element methods on Nodes...
+(Maybe in list context, a list of elements could be returned instead?)
 
 =cut
 
@@ -4571,6 +4581,13 @@ in comments). Will soon.
 
 =begin comment
 
+# found code:
+nsresult rv;
+rv=aTarget->GetValue(&Url);
+if (NS_FAILED(rv)) return 2;
+(also have NS_SUCCEEDED)
+
+
 XXX: I noticed an '-except' option to xsubpp:
        -except
             Adds exception handling stubs to the C code.
@@ -5510,14 +5527,12 @@ nsISupports interface, from which everything else inherits.
 
 XXX: this isn't wrapped yet
 
-=cut
-
-=begin comment
-
-XXX: I think this is how you can get different interfaces from
+I think this is how you can get different interfaces from
 an object. Maybe DocumentEvent can be gotten from Document
 with this? This is presumably the same method that you
 use in XPCOM. Need to figure that out.
+
+http://www.mozilla.org/projects/xpcom/book/cxc/html/quicktour2.html#1003519
 
 Header files generally have something like this:
 
@@ -5533,9 +5548,8 @@ class NS_NO_VTABLE nsIWebBrowser : public nsISupports {
 
 so I'm thinking every class can deal with IIDs from that.
 
-How do we deal with 'void *', though?
-
-=end comment
+How do we deal with the 'void *' return value, though?
+Change it to SV *, which would be a blessed object?
 
 =cut
 

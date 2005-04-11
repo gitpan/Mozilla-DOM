@@ -136,7 +136,7 @@ sub new_window_cb {
 # shown. If it's I<FALSE> it should be hidden.
 sub visibility_cb {
     my ($embed, $visibility) = @_;
-    print "\tvisibility=", ($visibility ? "true" : "false"), $/;
+    print "\tvisibility=", ($visibility ? 'true' : 'false'), $/;
 }
 
 # When the document requests that the toplevel window be closed.
@@ -222,7 +222,7 @@ sub dom_mouse_dbl_click_cb {
 
 # When the mouse cursor moves onto an element.
 # In the case of nested elements, this event type is always targeted
-# at the most deeply nested element
+# at the most deeply nested element.
 # $event is a Mozilla::DOM::MouseEvent.
 sub dom_mouse_over_cb {
     my ($embed, $event) = @_;
@@ -232,7 +232,7 @@ sub dom_mouse_over_cb {
 
 # When the mouse cursor moves out of an element.
 # In the case of nested elements, this event type is always targeted
-# at the most deeply nested element
+# at the most deeply nested element.
 # $event is a Mozilla::DOM::MouseEvent.
 sub dom_mouse_out_cb {
     my ($embed, $event) = @_;
@@ -258,11 +258,15 @@ sub _dump_mouse_event {
         my $type = $event->GetType();
         print "\tType: $type\n";
 
+        # Properties are not only from Mozilla::DOM::MouseEvent,
+        # but also Mozilla::DOM::UIEvent and Mozilla::DOM::Event.
         foreach my $prop (qw(ScreenX ScreenY ClientX ClientY
                              CtrlKey ShiftKey AltKey MetaKey Button
                              EventPhase Bubbles Cancelable
                              Detail))
         {
+            # Button and Detail properties only make sense
+            # for mouse clicks.
             next if ($prop eq 'Button' or $prop eq 'Detail')
               and ($type eq 'mouseover' or $type eq 'mouseout');
 
@@ -277,6 +281,8 @@ sub _dump_key_event {
     my $event = shift;
 
     if (ref $event) {
+        # Properties are not only from Mozilla::DOM::KeyEvent,
+        # but also Mozilla::DOM::UIEvent and Mozilla::DOM::Event.
         foreach my $prop (qw(CharCode KeyCode
                              CtrlKey ShiftKey AltKey MetaKey
                              EventPhase Bubbles Cancelable
@@ -288,5 +294,6 @@ sub _dump_key_event {
         }
     }
 }
+
 
 1;
