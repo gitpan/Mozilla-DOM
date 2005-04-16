@@ -33,50 +33,9 @@ extern "C" {
 #endif
 
 
-#include "nsEmbedString.h"           /* for nsAString */
-#include "nsIWebBrowser.h"
-#include "nsISelection.h"
-#include "nsISupports.h"
-
-#include "nsIDOMAbstractView.h"
-#include "nsIDOMDocumentView.h"
-#include "nsIDOMEvent.h"
-#include "nsIDOMDocumentEvent.h"
-#include "nsIDOMMutationEvent.h"
-#include "nsIDOMUIEvent.h"
-#include "nsIDOMKeyEvent.h"
-#include "nsIDOMMouseEvent.h"
-#include "nsIDOMEventTarget.h"
-#include "nsIDOMWindow.h"
-#include "nsIDOMWindowCollection.h"
-#include "nsIDOMDocument.h"
-#include "nsIDOMNodeList.h"
-#include "nsIDOMNamedNodeMap.h"
-#include "nsIDOMElement.h"
-#include "nsIDOMAttr.h"
-#include "nsIDOMCharacterData.h"
-#include "nsIDOMProcessingInstruction.h"
-#include "nsIDOMText.h"
-#include "nsIDOMDocumentType.h"
-#include "nsIDOMDOMImplementation.h"
-#include "nsIDOMRange.h"
-
-
-#define MOZDOM_DECL_DOM_TYPEMAPPERS(name)                           \
-  SV * newSVnsIDOM##name (nsIDOM##name *);                          \
-  nsIDOM##name * SvnsIDOM##name (SV *);
-
-#define MOZDOM_DEF_DOM_TYPEMAPPERS(name)                            \
-  SV * newSVnsIDOM##name (nsIDOM##name * name) {                    \
-      SV *sv = newSV(0);                                            \
-      return sv_setref_pv (sv, "Mozilla::DOM::" #name, name);       \
-  }                                                                 \
-  nsIDOM##name * SvnsIDOM##name (SV * name) {                       \
-      return INT2PTR (nsIDOM##name *, SvIV(SvRV(name)));            \
-  }
-
 /* Procedure to add a new typemap (necessary if an XSUB returns
    something like nsIDOMEvent *):
+   0. add header include below
    1. add a declaration macro below
    2. add a definition macro to the top of xs/DOM.xs
    3. add a MODULE section to xs/DOM.xs
@@ -84,8 +43,76 @@ extern "C" {
    4. add a T_MOZDOM_GENERIC_WRAPPER line to the TYPEMAP section
       in mozilladom.typemap
    5. add an entry to doctypes
-   6. add header include above (if wrapping any methods in that class)
  */
+
+
+/* XXX: would be nice if these includes could be
+   put in the macros below - but how do you make
+   a literal '#' in a macro, and does an include
+   work in one? */
+
+#include "nsIDOMAbstractView.h"
+#include "nsIDOMAttr.h"
+#include "nsIDOMCharacterData.h"
+#include "nsIDOMCDATASection.h"
+#include "nsIDOMComment.h"
+#include "nsIDOMDOMImplementation.h"
+#include "nsIDOMDocument.h"
+#include "nsIDOMDocumentEvent.h"
+#include "nsIDOMDocumentFragment.h"
+#include "nsIDOMDocumentType.h"
+#include "nsIDOMDocumentView.h"
+#include "nsIDOMElement.h"
+#include "nsIDOMEntityReference.h"
+#include "nsIDOMEvent.h"
+#include "nsIDOMEventListener.h"
+#include "nsIDOMEventTarget.h"
+#include "nsIDOMDOMException.h"
+#include "nsIDOMKeyEvent.h"
+#include "nsIDOMMouseEvent.h"
+#include "nsIDOMMutationEvent.h"
+#include "nsIDOMNamedNodeMap.h"
+#include "nsIDOMNodeList.h"
+#include "nsIDOMProcessingInstruction.h"
+#include "nsIDOMRange.h"
+#include "nsIDOMText.h"
+#include "nsIDOMUIEvent.h"
+#include "nsIDOMWindow.h"
+#include "nsIDOMWindowCollection.h"
+
+#include "nsIWebBrowser.h"
+#include "nsISelection.h"
+#include "nsISupports.h"
+
+#include "nsEmbedString.h"
+#include "nsIID.h"
+
+
+#define MOZDOM_DECL_DOM_TYPEMAPPERS(name)                           \
+SV * newSVnsIDOM##name (nsIDOM##name *);                            \
+nsIDOM##name * SvnsIDOM##name (SV *);
+
+#define MOZDOM_DEF_DOM_TYPEMAPPERS(name)                            \
+SV * newSVnsIDOM##name (nsIDOM##name * name) {                      \
+	SV *sv = newSV(0);                                          \
+	return sv_setref_pv (sv, "Mozilla::DOM::" #name, name);     \
+}                                                                   \
+nsIDOM##name * SvnsIDOM##name (SV * name) {                         \
+	return INT2PTR (nsIDOM##name *, SvIV(SvRV(name)));          \
+}
+
+#define MOZDOM_DECL_I_TYPEMAPPERS(name)                             \
+SV * newSVnsI##name (nsI##name *);                                  \
+nsI##name * SvnsI##name (SV *);
+
+#define MOZDOM_DEF_I_TYPEMAPPERS(name)                              \
+SV * newSVnsI##name (nsI##name * name) {                            \
+	SV *sv = newSV(0);                                          \
+	return sv_setref_pv (sv, "Mozilla::DOM::" #name, name);     \
+}                                                                   \
+nsI##name * SvnsI##name (SV * name) {                               \
+	return INT2PTR (nsI##name *, SvIV(SvRV(name)));             \
+}
 
 
 MOZDOM_DECL_DOM_TYPEMAPPERS(AbstractView)
@@ -101,6 +128,7 @@ MOZDOM_DECL_DOM_TYPEMAPPERS(EventListener)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Window)
 MOZDOM_DECL_DOM_TYPEMAPPERS(WindowCollection)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Document)
+MOZDOM_DECL_DOM_TYPEMAPPERS(DOMException)
 MOZDOM_DECL_DOM_TYPEMAPPERS(DocumentFragment)
 MOZDOM_DECL_DOM_TYPEMAPPERS(DocumentType)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Node)
@@ -117,15 +145,9 @@ MOZDOM_DECL_DOM_TYPEMAPPERS(Text)
 MOZDOM_DECL_DOM_TYPEMAPPERS(DOMImplementation)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Range)
 
-
-SV * newSVnsIWebBrowser (nsIWebBrowser *browser);
-nsIWebBrowser * SvnsIWebBrowser (SV *browser);
-
-SV * newSVnsISelection (nsISelection *selection);
-nsISelection * SvnsISelection (SV *selection);
-
-SV * newSVnsISupports (nsISupports *supports);
-nsISupports * SvnsISupports (SV *supports);
+MOZDOM_DECL_I_TYPEMAPPERS(WebBrowser)
+MOZDOM_DECL_I_TYPEMAPPERS(Selection)
+MOZDOM_DECL_I_TYPEMAPPERS(Supports)
 
 
 #include "mozilladom2perl-version.h"

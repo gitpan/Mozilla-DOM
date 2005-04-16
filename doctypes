@@ -13,6 +13,7 @@ nsIDOMWindowCollection       Mozilla::DOM::WindowCollection
 nsIDOMDocument               Mozilla::DOM::Document
 nsIDOMDocumentFragment       Mozilla::DOM::DocumentFragment
 nsIDOMDocumentType           Mozilla::DOM::DocumentType
+nsIDOMDOMException           Mozilla::DOM::Exception
 nsIDOMNode                   Mozilla::DOM::Node
 nsIDOMNodeList               Mozilla::DOM::NodeList
 nsIDOMNamedNodeMap           Mozilla::DOM::NamedNodeMap
@@ -29,6 +30,8 @@ nsIDOMRange                  Mozilla::DOM::Range
 
 nsIWebBrowser                Mozilla::DOM::WebBrowser
 nsISelection                 Mozilla::DOM::Selection
+nsISupports                  Mozilla::DOM::Supports
+nsIID                        Mozilla::DOM::IID
 nsEmbedString                string
 
 PRBool                boolean

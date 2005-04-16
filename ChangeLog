@@ -1,3 +1,11 @@
+0.10  2005-04-16
+  - implemented Supports (QueryInterface method, plus GetIID class method
+    for all interfaces), which means we can now create events!
+  - added the Events example, showing mouse clicks and key presses
+  - Uwe Voelker pointed me to the CPAN Forum. I registered to receive
+    notification of posts, so you can post there if you want. See the
+    'Contact' section of the README for details.
+
 0.09  2005-04-11
   - added Elements example, demoing the tedium of DOM manipulation
 
@@ -23,10 +31,9 @@
 0.06  2005-04-08
   - switched method names to StudlyCaps style instead of under_score,
     because it was too tedious when reading/creating documentation
-    and XSUBs; provided aliases for KeyEvent, MouseEvent, and WebBrowser
-    because Torsten doesn't like StudlyCaps :) Otherwise, they should
-    be considered deprecated (not that anyone is actually using this
-    module yet).
+    and XSUBs; provided aliases for KeyEvent, MouseEvent, and WebBrowser)
+    Otherwise, they should be considered deprecated (not that anyone is
+    actually using this module yet).
   - wrapped methods:
     o  Element: GetTagName, GetAttribute, GetElementsByTagName, ...
     o  Node: GetNode(Name|Value|Type), GetChildNodes, InsertBefore, ...
@@ -53,8 +60,7 @@
     o  wrapped Init* methods: init_event, init_uievent, init_mouseevent,
        init_keyevent, init_mutationevent
   - added 'types' constants to Node class
-  - added WebBrowser; not sure if that will stay in Mozilla::DOM
-    or be in Gtk2::MozEmbed
+  - added WebBrowser
   - wrapped a couple Window methods: get_name, set_name, size_to_content
 
 0.03  2005-04-05

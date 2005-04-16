@@ -39,6 +39,7 @@ MOZDOM_DEF_DOM_TYPEMAPPERS(WindowCollection)
 MOZDOM_DEF_DOM_TYPEMAPPERS(Document)
 MOZDOM_DEF_DOM_TYPEMAPPERS(DocumentFragment)
 MOZDOM_DEF_DOM_TYPEMAPPERS(DocumentType)
+MOZDOM_DEF_DOM_TYPEMAPPERS(DOMException)
 MOZDOM_DEF_DOM_TYPEMAPPERS(Node)
 MOZDOM_DEF_DOM_TYPEMAPPERS(NodeList)
 MOZDOM_DEF_DOM_TYPEMAPPERS(NamedNodeMap)
@@ -53,31 +54,13 @@ MOZDOM_DEF_DOM_TYPEMAPPERS(Text)
 MOZDOM_DEF_DOM_TYPEMAPPERS(DOMImplementation)
 MOZDOM_DEF_DOM_TYPEMAPPERS(Range)
 
-SV * newSVnsIWebBrowser (nsIWebBrowser *browser) {
-	SV *sv = newSV (0);
-	return sv_setref_pv (sv, "Mozilla::DOM::WebBrowser", browser);
-}
-nsIWebBrowser * SvnsIWebBrowser (SV *browser) {
-	return INT2PTR (nsIWebBrowser *, SvIV (SvRV (browser)));
-}
+MOZDOM_DEF_I_TYPEMAPPERS(WebBrowser)
+MOZDOM_DEF_I_TYPEMAPPERS(Selection)
+MOZDOM_DEF_I_TYPEMAPPERS(Supports)
 
-SV * newSVnsISelection (nsISelection *selection) {
-	SV *sv = newSV (0);
-	return sv_setref_pv (sv, "Mozilla::DOM::Selection", selection);
-}
-nsISelection * SvnsISelection (SV *selection) {
-	return INT2PTR (nsISelection *, SvIV (SvRV (selection)));
-}
-
-SV * newSVnsISupports (nsISupports *supports) {
-	SV *sv = newSV (0);
-	return sv_setref_pv (sv, "Mozilla::DOM::Supports", supports);
-}
-nsISupports * SvnsISupports (SV *supports) {
-	return INT2PTR (nsISelection *, SvIV (SvRV (supports)));
-}
 
 /* ------------------------------------------------------------------------- */
+
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::AbstractView	PREFIX = moz_dom_
 
@@ -89,7 +72,29 @@ Mozilla::DOM::UIEvent is a wrapper around an instance of Mozilla's
 nsIDOMAbstractView interface. This inherits from
 L<Supports|Mozilla::DOM::Supports>.
 
+Note: I think the only way to get an AbstractView is
+with L<UIEvent|Mozilla::DOM::UIEvent>'s GetView method.
+
 =cut
+
+=for apidoc Mozilla::DOM::AbstractView::GetIID
+
+=for signature $iid = Mozilla::DOM::AbstractView->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMABSTRACTVIEW_IID)
+static nsIID
+nsIDOMAbstractView::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMAbstractView::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 =for apidoc Mozilla::DOM::AbstractView::GetDocument
 
@@ -126,6 +131,25 @@ nsIDOMDocumentView interface. This inherits from
 L<Supports|Mozilla::DOM::Supports>.
 
 =cut
+
+=for apidoc Mozilla::DOM::DocumentView::GetIID
+
+=for signature $iid = Mozilla::DOM::DocumentView->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMDOCUMENTVIEW_IID)
+static nsIID
+nsIDOMDocumentView::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMDocumentView::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 =for apidoc Mozilla::DOM::DocumentView::GetDefaultView
 
@@ -173,6 +197,25 @@ the (mouse or key) event object, like $event->AT_TARGET, but maybe they
 should be exportable class constants (if I can figure out how to do that).
 
 =cut
+
+=for apidoc Mozilla::DOM::Event::GetIID
+
+=for signature $iid = Mozilla::DOM::Event->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMEVENT_IID)
+static nsIID
+nsIDOMEvent::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMEvent::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 =for apidoc Mozilla::DOM::Event::GetType
 
@@ -398,8 +441,11 @@ moz_dom_StopPropagation (event)
 
 The $event object is an event created by DocumentEvent's
 L<CreateEvent|Mozilla::DOM::DocumentEvent/CreateEvent> method.
+You can morph that into a KeyEvent, etc., by calling
+<QueryInterface|Mozilla::DOM::Supports/QueryInterface>.
+
 The $event_type argument here depends on the argument you passed
-to create_event. Here is information obtained from section 1.6
+to CreateEvent. Here is information obtained from section 1.6
 of the DOM Level 2 specification (qv. for more details):
 
 =over 4
@@ -525,13 +571,17 @@ an element. This event is valid for most elements..
 
 =item KeyEvents
 
-Not provided with DOM Level 2.
+Not provided with DOM Level 2, it says. However, see the Events example.
 
 =item MutationEvents
 
 The mutation event module is designed to allow notification of any
 changes to the structure of a document, including attr and text
 modifications. [...]
+
+(I'm not sure why you'd create one of these. EventListeners?
+Seems they'd be automatically generated, though, when you
+modified the DOM somehow.)
 
 =over 4
 
@@ -627,6 +677,10 @@ is the CharacterData node.
 =back
 
 =item HTMLEvents
+
+I don't see anything in the Mozilla headers,
+and I haven't wrapped a Mozilla::DOM::HTMLEvent class,
+but here you go anyway.
 
 =over 4
 
@@ -781,6 +835,25 @@ This class inherits from L<Event|Mozilla::DOM::Event>.
 
 =cut
 
+=for apidoc Mozilla::DOM::UIEvent::GetIID
+
+=for signature $iid = Mozilla::DOM::UIEvent->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMUIEVENT_IID)
+static nsIID
+nsIDOMUIEvent::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMUIEvent::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
 =for apidoc Mozilla::DOM::UIEvent::GetDetail
 
 =for signature $int = $event->GetDetail
@@ -807,7 +880,7 @@ moz_dom_GetDetail (event)
 
 =for signature $abstract_view = $event->GetView
 
-I don't know what a "view" is.
+See the DOM Level 2 Views specification.
 
 =cut
 
@@ -823,28 +896,33 @@ moz_dom_GetView (event)
     OUTPUT:
 	RETVAL
 
-=for apidoc Mozilla::DOM::UIEvent::InitUievent
+=for apidoc Mozilla::DOM::UIEvent::InitUIEvent
 
-=for signature $event->InitUievent($eventType, $canbubble, $cancelable, $abstractView, $detail)
+=for signature $event->InitUIEvent($eventType, $canbubble, $cancelable, $detail)
 
 See L<Event::InitEvent|Mozilla::DOM::Event::InitEvent> for more
 information. This method is basically the same, but with two
 extra arguments.
 (XXX: add docs for args)
 
+Note: I don't see how you can Create or QueryInterface an AbstractView,
+and trying to pass in C<0> or C<undef> was just causing a segfault,
+so I've omitted what would normally be the 4th argument of this method.
+If someone can explain why you'd need it and how you'd use it,
+then I can put it back in.
+
 =cut
 
 ## InitUIEvent(const nsAString & typeArg, PRBool canBubbleArg, PRBool cancelableArg, nsIDOMAbstractView *viewArg, PRInt32 detailArg)
 void
-moz_dom_InitUIEvent (event, eventtype, canbubble, cancelable, view, detail)
+moz_dom_InitUIEvent (event, eventtype, canbubble, cancelable, detail)
 	nsIDOMUIEvent *event;
 	nsEmbedString eventtype;
 	PRBool canbubble;
 	PRBool cancelable;
-	nsIDOMAbstractView *view;
 	PRInt32 detail;
     CODE:
-	event->InitUIEvent(eventtype, canbubble, cancelable, view, detail);
+	event->InitUIEvent(eventtype, canbubble, cancelable, nsnull, detail);
 
 # -----------------------------------------------------------------------------
 
@@ -867,27 +945,56 @@ L<Supports|Mozilla::DOM::Supports>.
 (In particular, sections 1.5 and 1.6. Very important to read that
 if you want to understand how to create an L<Event|Mozilla::DOM::Event>.)
 
-XXX: I don't think it's possible to use this yet,
-until Supports is implemented. Then you could switch
-the interface of Document to DocumentEvent.
+=cut
+
+=for apidoc Mozilla::DOM::DocumentEvent::GetIID
+
+=for signature $iid = Mozilla::DOM::DocumentEvent->GetIID()
+
+Pass this to QueryInterface on a L<Document|Mozilla::DOM::Document>
+object to get back a DocumentEvent, like
+
+  $window = $browser->GetContentDOMWindow;
+  $doc = $window->GetDocument;
+  $iid = Mozilla::DOM::DocumentEvent->GetIID
+  $docevent = $doc->QueryInterface($iid);
+  $event = $docevent->CreateEvent('MouseEvents');
+  $event->InitEvent('click', 1, 1);
+  ...
+
+You can also print it out, and it will look like
+
+  {46b91d66-28e2-11d4-ab1e-0010830123b4}
 
 =cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMDOCUMENTEVENT_IID)
+static nsIID
+nsIDOMDocumentEvent::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMDocumentEvent::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 =for apidoc Mozilla::DOM::DocumentEvent::CreateEvent
 
 =for signature $domevent = $docevent->CreateEvent($eventType)
 
-XXX: Where do you get a "DocumentEvent" object from?
-
-$event_type is a string, one of 'Events', 'UIEvents',
-'HTMLEvents', 'MutationEvents', 'MouseEvents'. See section 1.6 of
-the DOM Level 2 specs. Apparently 'KeyEvents' come later in
-DOM Level 3; maybe nsIDOM3DocumentEvent is necessary for those.
+$event_type is a string, apparently one of 'Events', 'UIEvents',
+'HTMLEvents', 'MutationEvents', 'KeyEvents', or 'MouseEvents'.
+See section 1.6 of the DOM Level 2 specs. Apparently 'KeyEvents'
+is not in DOM Level 2, but I was able to create them anyway.
 
 The return value is an L<Event|Mozilla::DOM::Event> object.
-You can then call L<InitEvent|Mozilla::DOM::Event/InitEvent>
-(XXX: but what about InitUIEvent, InitMouseEvent, etc.) on that object,
-followed by L<DispatchEvent|Mozilla::DOM::EventTarget/DispatchEvent>.
+You can then call L<InitEvent|Mozilla::DOM::Event/InitEvent>.
+Or you can get the C<GetIID> of L<UIEvent|Mozilla::DOM::UIEvent>,
+L<MouseEvent|Mozilla::DOM::MouseEvent>, or
+L<MouseEvent|Mozilla::DOM::MouseEvent>, pass it to
+$event->QueryInterface, call the corresponding Init(UI|Mouse|Key)Event
+method. After that, call
+L<DispatchEvent|Mozilla::DOM::EventTarget/DispatchEvent>
+on an EventTarget.
 
 =cut
 
@@ -931,6 +1038,25 @@ L<UIEvent|Mozilla::DOM::UIEvent>.
 
 =for see_also section 1.6.2 of the DOM level 2 specification
 =cut
+
+=for apidoc Mozilla::DOM::MouseEvent::GetIID
+
+=for signature $iid = Mozilla::DOM::MouseEvent->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMMOUSEEVENT_IID)
+static nsIID
+nsIDOMMouseEvent::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMMouseEvent::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 =for apidoc Mozilla::DOM::MouseEvent::GetScreenX
 
@@ -1110,23 +1236,28 @@ moz_dom_GetTarget (event)
 
 =for apidoc Mozilla::DOM::MouseEvent::InitMouseEvent
 
-=for signature $event->InitMouseEvent($eventType, $canbubble, $cancelable, $abstractView, $detail, $screenx, $screeny, $clientx, $clienty, $ctrlkey, $altkey, $shiftkey, $metakey, $button, $target)
+=for signature $event->InitMouseEvent($eventType, $canbubble, $cancelable, $detail, $screenx, $screeny, $clientx, $clienty, $ctrlkey, $altkey, $shiftkey, $metakey, $button, $target)
 
 See L<Event::InitEvent|Mozilla::DOM::Event::InitEvent> for more
 information. This method is basically the same as L<InitUIEvent>,
-but with ten extra arguments. (!)
+but with nine (ten normally) extra arguments. (!)
 (XXX: add docs for args)
+
+Note: I don't see how you can Create or QueryInterface an AbstractView,
+and trying to pass in C<0> or C<undef> was just causing a segfault,
+so I've omitted what would normally be the 4th argument of this method.
+If someone can explain why you'd need it and how you'd use it,
+then I can put it back in.
 
 =cut
 
 ## InitMouseEvent(const nsAString & typeArg, PRBool canBubbleArg, PRBool cancelableArg, nsIDOMAbstractView *viewArg, PRInt32 detailArg, PRInt32 screenXArg, PRInt32 screenYArg, PRInt32 clientXArg, PRInt32 clientYArg, PRBool ctrlKeyArg, PRBool altKeyArg, PRBool shiftKeyArg, PRBool metaKeyArg, PRUint16 buttonArg, nsIDOMEventTarget *relatedTargetArg)
 void
-moz_dom_InitMouseEvent (event, eventtype, canbubble, cancelable, view, detail, screenx, screeny, clientx, clienty, ctrlkey, altkey, shiftkey, metakey, button, target)
+moz_dom_InitMouseEvent (event, eventtype, canbubble, cancelable, detail, screenx, screeny, clientx, clienty, ctrlkey, altkey, shiftkey, metakey, button, target)
 	nsIDOMMouseEvent *event;
 	nsEmbedString eventtype;
 	PRBool canbubble;
 	PRBool cancelable;
-	nsIDOMAbstractView *view;
 	PRInt32 detail;
 	PRInt32 screenx;
 	PRInt32 screeny;
@@ -1139,7 +1270,7 @@ moz_dom_InitMouseEvent (event, eventtype, canbubble, cancelable, view, detail, s
 	PRUint16 button;
 	nsIDOMEventTarget *target;
     CODE:
-	event->InitMouseEvent(eventtype, canbubble, cancelable, view, detail,
+	event->InitMouseEvent(eventtype, canbubble, cancelable, nsnull, detail,
 			      screenx, screeny, clientx, clienty,
 			      ctrlkey, altkey, shiftkey, metakey,
  			      button, target);
@@ -1156,6 +1287,11 @@ The second argument of GtkMozEmbed's dom_key_* signal handlers will be a
 Mozilla::DOM::KeyEvent object, which is a wrapper around an instance
 of Mozilla's nsIDOMKeyEvent interface. This inherits from
 L<UIEvent|Mozilla::DOM::UIEvent>.
+
+Note: although <DOMImplementation|Mozilla::DOM::DOMImplementation>'s
+HasFeature('KeyEvents', '2.0') (and '3.0' and '') claimed (on my
+system) that KeyEvents were not supported, I found that you can in fact
+do key events.
 
 The following constants are available to be compared with L</GetKeyCode>.
 XXX: This is currently buggy, because you have to call them as methods on the
@@ -1271,6 +1407,25 @@ key event object.
 =for see_also sections 1.7.4 and Appendix A of the DOM level 3 specification
 =cut
 
+=for apidoc Mozilla::DOM::KeyEvent::GetIID
+
+=for signature $iid = Mozilla::DOM::KeyEvent->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMKEYEVENT_IID)
+static nsIID
+nsIDOMKeyEvent::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMKeyEvent::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
 =for apidoc Mozilla::DOM::KeyEvent::GetCharCode
 
 =for signature $char_code = $event->GetCharCode
@@ -1369,23 +1524,28 @@ moz_dom_GetCtrlKey (event)
 
 =for apidoc Mozilla::DOM::KeyEvent::InitKeyEvent
 
-=for signature $event->InitKeyEvent($eventType, $canbubble, $cancelable, $abstractView, $ctrlkey, $altkey, $shiftkey, $metakey, $keycode, $charcode)
+=for signature $event->InitKeyEvent($eventType, $canbubble, $cancelable, $ctrlkey, $altkey, $shiftkey, $metakey, $keycode, $charcode)
 
 See L<Event::InitEvent|Mozilla::DOM::Event/InitEvent> for more
 information. This method is basically the same as L<InitEvent>,
-but with seven extra arguments.
+but with six (seven normally) extra arguments.
 (XXX: add docs for args)
+
+Note: I don't see how you can Create or QueryInterface an AbstractView,
+and trying to pass in C<0> or C<undef> was just causing a segfault,
+so I've omitted what would normally be the 4th argument of this method.
+If someone can explain why you'd need it and how you'd use it,
+then I can put it back in.
 
 =cut
 
 ## InitKeyEvent(const nsAString & typeArg, PRBool canBubbleArg, PRBool cancelableArg, nsIDOMAbstractView *viewArg, PRBool ctrlKeyArg, PRBool altKeyArg, PRBool shiftKeyArg, PRBool metaKeyArg, PRUint32 keyCodeArg, PRUint32 charCodeArg)
 void
-moz_dom_InitKeyEvent (event, eventtype, canbubble, cancelable, view, ctrlkey, altkey, shiftkey, metakey, keycode, charcode)
+moz_dom_InitKeyEvent (event, eventtype, canbubble, cancelable, ctrlkey, altkey, shiftkey, metakey, keycode, charcode)
 	nsIDOMKeyEvent *event;
 	nsEmbedString eventtype;
 	PRBool canbubble;
 	PRBool cancelable;
-	nsIDOMAbstractView *view;
 	PRBool ctrlkey;
 	PRBool altkey;
 	PRBool shiftkey;
@@ -1393,7 +1553,7 @@ moz_dom_InitKeyEvent (event, eventtype, canbubble, cancelable, view, ctrlkey, al
 	PRUint32 keycode;
 	PRUint32 charcode;
     CODE:
-	event->InitKeyEvent(eventtype, canbubble, cancelable, view,
+	event->InitKeyEvent(eventtype, canbubble, cancelable, nsnull,
 			    ctrlkey, altkey, shiftkey, metakey,
  			    keycode, charcode);
 
@@ -1424,6 +1584,25 @@ mutation event object.
 =back
 
 =cut
+
+=for apidoc Mozilla::DOM::MutationEvent::GetIID
+
+=for signature $iid = Mozilla::DOM::MutationEvent->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMMUTATIONEVENT_IID)
+static nsIID
+nsIDOMMutationEvent::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMMutationEvent::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 =for apidoc Mozilla::DOM::MutationEvent::GetRelatedNode
 
@@ -1583,10 +1762,35 @@ an EventTarget argument to a method, you can pass in a
 L<Node|Mozilla::DOM::Node> object, and the methods for EventTarget
 can be called on Node objects. (?)
 
-XXX: since you can't create EventListener objects,
-AddEventListener and RemoveEventListener are currently useless.
+=cut
+
+=for apidoc Mozilla::DOM::EventTarget::GetIID
+
+=for signature $iid = Mozilla::DOM::EventTarget->GetIID()
+
+Pass this to QueryInterface on a L<Node|Mozilla::DOM::Node>
+object to get back an EventTarget, like
+
+  $iid = Mozilla::DOM::EventTarget->GetIID
+  $target = $body->QueryInterface($iid);
+  $target->DispatchEvent($event);
+
+You can also print it out, and it will look like
+
+  {1c773b30-d1cf-11d2-bd95-00805f8ae3f4}
 
 =cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMEVENTTARGET_IID)
+static nsIID
+nsIDOMEventTarget::GetIID()
+    CODE:
+	const nsIID id = nsIDOMEventTarget::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+# INCLUDE: perl -pe 's/XXXXX/DOMEventTarget/g' GetIID.xsh |
 
 =for apidoc Mozilla::DOM::EventTarget::AddEventListener
 
@@ -1762,6 +1966,25 @@ I see nsIDOMScriptObjectFactory/nsIJSEventListener (not sure it's relevant).
 
 =cut
 
+=for apidoc Mozilla::DOM::EventListener::GetIID
+
+=for signature $iid = Mozilla::DOM::EventListener->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMEVENTLISTENER_IID)
+static nsIID
+nsIDOMEventListener::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMEventListener::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
 =for apidoc Mozilla::DOM::EventListener::HandleEvent
 
 =for signature $listener->HandleEvent($event)
@@ -1808,6 +2031,25 @@ L<Supports|Mozilla::DOM::Supports>.
  * originates from the defacto DOM Level 0 standard.
 
 =cut
+
+=for apidoc Mozilla::DOM::Window::GetIID
+
+=for signature $iid = Mozilla::DOM::Window->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMWINDOW_IID)
+static nsIID
+nsIDOMWindow::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMWindow::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 =for apidoc Mozilla::DOM::Window::GetName
 
@@ -2221,6 +2463,25 @@ L<Supports|Mozilla::DOM::Supports>.
 
 =cut
 
+=for apidoc Mozilla::DOM::WindowCollection::GetIID
+
+=for signature $iid = Mozilla::DOM::WindowCollection->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMWINDOWCOLLECTION_IID)
+static nsIID
+nsIDOMWindowCollection::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMWindowCollection::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
 =for apidoc Mozilla::DOM::WindowCollection::GetLength
 
 =for signature $len = $coll->GetLength()
@@ -2304,7 +2565,7 @@ L<Supports|Mozilla::DOM::Supports>.
 
 The following constants are available to be compared with L</GetNodeType>.
 XXX: This is currently buggy, because you have to call them as methods on the
-mutation event object.
+node object.
 
 =over 4
 
@@ -2335,6 +2596,25 @@ mutation event object.
 =back
 
 =cut
+
+=for apidoc Mozilla::DOM::Node::GetIID
+
+=for signature $iid = Mozilla::DOM::Node->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMNODE_IID)
+static nsIID
+nsIDOMNode::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMNode::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 =for apidoc Mozilla::DOM::Node::GetNodeName
 
@@ -2869,6 +3149,25 @@ L<Supports|Mozilla::DOM::Supports>.
 
 =cut
 
+=for apidoc Mozilla::DOM::NodeList::GetIID
+
+=for signature $iid = Mozilla::DOM::NodeList->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMNODELIST_IID)
+static nsIID
+nsIDOMNodeList::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMNodeList::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
 =for apidoc Mozilla::DOM::NodeList::Item
 
 =for signature $node = $nodelist->Item($index)
@@ -2929,6 +3228,25 @@ L<Supports|Mozilla::DOM::Supports>.
  * http://www.w3.org/TR/DOM-Level-2-Core/
 
 =cut
+
+=for apidoc Mozilla::DOM::NamedNodeMap::GetIID
+
+=for signature $iid = Mozilla::DOM::NamedNodeMap->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMNAMEDNODEMAP_IID)
+static nsIID
+nsIDOMNamedNodeMap::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMNamedNodeMap::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 =for apidoc Mozilla::DOM::NamedNodeMap::GetNamedItem
 
@@ -3127,6 +3445,25 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
  * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-CoreE<sol>>
 
 =cut
+
+=for apidoc Mozilla::DOM::Document::GetIID
+
+=for signature $iid = Mozilla::DOM::Document->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMDOCUMENT_IID)
+static nsIID
+nsIDOMDocument::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMDocument::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 =for apidoc Mozilla::DOM::Document::GetDoctype
 
@@ -3514,7 +3851,31 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
  * For more information on this interface please see 
  * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-CoreE<sol>>
 
+XXX: I wonder if I wrap all the nsIDOMHTMLElement classes
+(nsIDOMHTMLSelectElement, nsIDOMHTMLInputElement, etc.),
+if you can QueryInterface those from nsIDOMElement/Node.
+(need to read http://www.w3.org/TR/DOM-Level-2-HTML/)
+
 =cut
+
+=for apidoc Mozilla::DOM::Element::GetIID
+
+=for signature $iid = Mozilla::DOM::Element->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMELEMENT_IID)
+static nsIID
+nsIDOMElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 =for apidoc Mozilla::DOM::Element::GetTagName
 
@@ -3861,9 +4222,26 @@ Mozilla::DOM::EntityReference is a wrapper around an instance of Mozilla's
 nsIDOMEntityReference interface. This inherits from
 L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
 
-It has no methods of its own.
+=cut
+
+=for apidoc Mozilla::DOM::EntityReference::GetIID
+
+=for signature $iid = Mozilla::DOM::EntityReference->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
 
 =cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMENTITYREFERENCE_IID)
+static nsIID
+nsIDOMEntityReference::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMEntityReference::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 # -----------------------------------------------------------------------------
 
@@ -3885,6 +4263,25 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
  * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-CoreE<sol>>
 
 =cut
+
+=for apidoc Mozilla::DOM::Attr::GetIID
+
+=for signature $iid = Mozilla::DOM::Attr->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMATTR_IID)
+static nsIID
+nsIDOMAttr::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMAttr::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 =for apidoc Mozilla::DOM::Attr::GetName
 
@@ -4003,6 +4400,25 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
 
 =cut
 
+=for apidoc Mozilla::DOM::ProcessingInstruction::GetIID
+
+=for signature $iid = Mozilla::DOM::ProcessingInstruction->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMPROCESSINGINSTRUCTION_IID)
+static nsIID
+nsIDOMProcessingInstruction::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMProcessingInstruction::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
 =for apidoc Mozilla::DOM::ProcessingInstruction::GetTarget
 
 =for signature $str = $processinginstruction->GetTarget()
@@ -4065,9 +4481,26 @@ Mozilla::DOM::CDATASection is a wrapper around an instance of Mozilla's
 nsIDOMCDATASection interface. This inherits from
 L<Mozilla::DOM::Text|Mozilla::DOM::Text>.
 
-It has no methods of its own.
+=cut
+
+=for apidoc Mozilla::DOM::CDATASection::GetIID
+
+=for signature $iid = Mozilla::DOM::CDATASection->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
 
 =cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMCDATASECTION_IID)
+static nsIID
+nsIDOMCDATASection::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMCDATASection::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 # -----------------------------------------------------------------------------
 
@@ -4081,9 +4514,26 @@ Mozilla::DOM::Comment is a wrapper around an instance of Mozilla's
 nsIDOMComment interface. This inherits from
 L<Mozilla::DOM::CharacterData|Mozilla::DOM::CharacterData>.
 
-It has no methods of its own.
+=cut
+
+=for apidoc Mozilla::DOM::Comment::GetIID
+
+=for signature $iid = Mozilla::DOM::Comment->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
 
 =cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMCOMMENT_IID)
+static nsIID
+nsIDOMComment::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMComment::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 # -----------------------------------------------------------------------------
 
@@ -4104,6 +4554,25 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
  * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-CoreE<sol>>
 
 =cut
+
+=for apidoc Mozilla::DOM::CharacterData::GetIID
+
+=for signature $iid = Mozilla::DOM::CharacterData->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMCHARACTERDATA_IID)
+static nsIID
+nsIDOMCharacterData::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMCharacterData::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 =for apidoc Mozilla::DOM::CharacterData::GetData
 
@@ -4276,6 +4745,25 @@ L<Mozilla::DOM::CharacterData|Mozilla::DOM::CharacterData>.
 
 =cut
 
+=for apidoc Mozilla::DOM::Text::GetIID
+
+=for signature $iid = Mozilla::DOM::Text->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMTEXT_IID)
+static nsIID
+nsIDOMText::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMText::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
 =for apidoc Mozilla::DOM::Text::SplitText
 
 =for signature $str = $text->SplitText($offset)
@@ -4314,9 +4802,26 @@ Mozilla::DOM::DocumentFragment is a wrapper around an instance of Mozilla's
 nsIDOMDocumentFragment interface. This inherits from
 L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
 
-It has no methods of its own.
+=cut
+
+=for apidoc Mozilla::DOM::DocumentFragment::GetIID
+
+=for signature $iid = Mozilla::DOM::DocumentFragment->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
 
 =cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMDOCUMENTFRAGMENT_IID)
+static nsIID
+nsIDOMDocumentFragment::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMDocumentFragment::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 # -----------------------------------------------------------------------------
 
@@ -4339,6 +4844,25 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
  * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-CoreE<sol>>
 
 =cut
+
+=for apidoc Mozilla::DOM::DocumentType::GetIID
+
+=for signature $iid = Mozilla::DOM::DocumentType->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMDOCUMENTTYPE_IID)
+static nsIID
+nsIDOMDocumentType::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMDocumentType::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 =for apidoc Mozilla::DOM::DocumentType::GetName
 
@@ -4481,6 +5005,25 @@ L<Supports|Mozilla::DOM::Supports>.
 
 =cut
 
+=for apidoc Mozilla::DOM::DOMImplementation::GetIID
+
+=for signature $iid = Mozilla::DOM::DOMImplementation->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMDOMIMPLEMENTATION_IID)
+static nsIID
+nsIDOMDOMImplementation::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMDOMImplementation::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
 =for apidoc Mozilla::DOM::DOMImplementation::HasFeature
 
 =for signature $bool = $domimplementation->HasFeature($feature, $version)
@@ -4553,7 +5096,7 @@ moz_dom_CreateDocument (domimplementation, namespaceURI, qualifiedName, doctype)
 
 # -----------------------------------------------------------------------------
 
-MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Exception	PREFIX = moz_dom_
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::DOMException	PREFIX = moz_dom_
 
 # /usr/include/mozilla/nsIDOMDOMException.h
 
@@ -4581,17 +5124,47 @@ in comments). Will soon.
 
 =begin comment
 
+  If you want to throw an exception object, assign the object to $@ and then pass
+  "Nullch" to croak():
+
+    errsv = get_sv("@", TRUE);
+    sv_setsv(errsv, exception_object);
+    croak(Nullch);
+
+  But how do I create a nsIDOMDOMException object? Is one thrown
+  when an exception occurs? (I was under the impression that
+  methods generally just return error codes.)
+
+=end comment
+
+=cut
+
+=for apidoc Mozilla::DOM::DOMException::GetIID
+
+=for signature $iid = Mozilla::DOM::DOMException->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMDOMEXCEPTION_IID)
+static nsIID
+nsIDOMDOMException::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMDOMException::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=begin comment
+
 # found code:
 nsresult rv;
 rv=aTarget->GetValue(&Url);
 if (NS_FAILED(rv)) return 2;
 (also have NS_SUCCEEDED)
-
-
-XXX: I noticed an '-except' option to xsubpp:
-       -except
-            Adds exception handling stubs to the C code.
-
 
   enum { INDEX_SIZE_ERR = 1U };
 
@@ -4624,7 +5197,7 @@ XXX: I noticed an '-except' option to xsubpp:
   enum { INVALID_ACCESS_ERR = 15U };
 
   /* readonly attribute unsigned long code; */
-#=for apidoc Mozilla::DOM::Exception::GetCode
+#=for apidoc Mozilla::DOM::DOMException::GetCode
 #
 #=for signature $exception->GetCode(PRUint32 *aCode)
 #
@@ -4667,6 +5240,25 @@ L<Supports|Mozilla::DOM::Supports>.
  * of nodes within the document.
 
 =cut
+
+=for apidoc Mozilla::DOM::Selection::GetIID
+
+=for signature $iid = Mozilla::DOM::Selection->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_ISELECTION_IID)
+static nsIID
+nsISelection::GetIID()
+    CODE:
+	const nsIID &id = nsISelection::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 =for apidoc Mozilla::DOM::Selection::GetAnchorNode
 
@@ -5060,6 +5652,25 @@ XXX: Currently these are accessed through methods on the object; this will
 change when I figure out how to export them as constants or class methods.
 
 =cut
+
+=for apidoc Mozilla::DOM::Range::GetIID
+
+=for signature $iid = Mozilla::DOM::Range->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMRANGE_IID)
+static nsIID
+nsIDOMRange::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMRange::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 =for apidoc Mozilla::DOM::Range::GetStartContainer
 
@@ -5511,7 +6122,6 @@ moz_dom_Detach (range)
 # -----------------------------------------------------------------------------
 
 
-
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Supports	PREFIX = moz_dom_
 
 =for object Mozilla::DOM::Supports
@@ -5523,54 +6133,109 @@ nsISupports interface, from which everything else inherits.
 
 =for apidoc Mozilla::DOM::Supports::QueryInterface
 
-=for signature $res = $supports->QueryInterface($uuid);
+=for signature $obj = $supports->QueryInterface($uuid);
 
-XXX: this isn't wrapped yet
+This is how you can get different interfaces from
+an object. Basically that means a way to get different
+methods from the same object.
 
-I think this is how you can get different interfaces from
-an object. Maybe DocumentEvent can be gotten from Document
-with this? This is presumably the same method that you
-use in XPCOM. Need to figure that out.
+The $obj return value will be blessed into the class corresponding to
+whatever interface you requested.
 
-http://www.mozilla.org/projects/xpcom/book/cxc/html/quicktour2.html#1003519
+The $uuid argument is just a string which looks something like
 
-Header files generally have something like this:
+  {69e5df00-7b8b-11d3-af61-00a024ffc08c}
 
-#define NS_IWEBBROWSER_IID_STR "69e5df00-7b8b-11d3-af61-00a024ffc08c"
-#define NS_IWEBBROWSER_IID \
-  {0x69e5df00, 0x7b8b, 0x11d3, \
-    { 0xaf, 0x61, 0x00, 0xa0, 0x24, 0xff, 0xc0, 0x8c }}
+which you can find in the Mozilla header files, but it's
+better to use a GetIID class method, like
 
-class NS_NO_VTABLE nsIWebBrowser : public nsISupports {
- public:
-  NS_DEFINE_STATIC_IID_ACCESSOR(NS_IWEBBROWSER_IID)
-  ....
-
-so I'm thinking every class can deal with IIDs from that.
-
-How do we deal with the 'void *' return value, though?
-Change it to SV *, which would be a blessed object?
+  $uuid = Mozilla::DOM::EventTarget->GetIID();
 
 =cut
 
-### QueryInterface(const nsIID & uuid, void * *result)
-#void *
-#moz_dom_QueryInterface (supports, uuid)
-#	nsISupports *supports;
-#	const nsIID uuid;
-#    PREINIT:
-#	void *res;   /* XXX: have to cast it to something??? */
-#    CODE:
-#	supports->QueryInterface(&uuid, &res);
-#	RETVAL = res;
-#    OUTPUT:
-#	RETVAL
+## QueryInterface(const nsIID & uuid, void * *result)
+SV *
+moz_dom_QueryInterface (supports, uuid)
+	nsISupports *supports;
+	nsIID uuid;
+    PREINIT:
+	void *res;
+	nsresult rv;
+    CODE:
+	rv = supports->QueryInterface((const nsIID)uuid, (void **)&res);
 
+	/* XXX: let me know if there's a better way to do this... */
+	if (uuid.Equals(nsIDOMAbstractView::GetIID())) {
+		RETVAL = newSVnsIDOMAbstractView((nsIDOMAbstractView *)res);
+	} else if (uuid.Equals(nsIDOMAttr::GetIID())) {
+		RETVAL = newSVnsIDOMAttr((nsIDOMAttr *)res);
+	} else if (uuid.Equals(nsIDOMCDATASection::GetIID())) {
+		RETVAL = newSVnsIDOMCDATASection((nsIDOMCDATASection *)res);
+	} else if (uuid.Equals(nsIDOMCharacterData::GetIID())) {
+		RETVAL = newSVnsIDOMCharacterData((nsIDOMCharacterData *)res);
+	} else if (uuid.Equals(nsIDOMComment::GetIID())) {
+		RETVAL = newSVnsIDOMComment((nsIDOMComment *)res);
+	} else if (uuid.Equals(nsIDOMDOMException::GetIID())) {
+		RETVAL = newSVnsIDOMDOMException((nsIDOMDOMException *)res);
+	} else if (uuid.Equals(nsIDOMDOMImplementation::GetIID())) {
+		RETVAL = newSVnsIDOMDOMImplementation((nsIDOMDOMImplementation *)res);
+	} else if (uuid.Equals(nsIDOMDocument::GetIID())) {
+		RETVAL = newSVnsIDOMDocument((nsIDOMDocument *)res);
+	} else if (uuid.Equals(nsIDOMDocumentEvent::GetIID())) {
+		RETVAL = newSVnsIDOMDocumentEvent((nsIDOMDocumentEvent *)res);
+	} else if (uuid.Equals(nsIDOMDocumentFragment::GetIID())) {
+		RETVAL = newSVnsIDOMDocumentFragment((nsIDOMDocumentFragment *)res);
+	} else if (uuid.Equals(nsIDOMDocumentType::GetIID())) {
+		RETVAL = newSVnsIDOMDocumentType((nsIDOMDocumentType *)res);
+	} else if (uuid.Equals(nsIDOMDocumentView::GetIID())) {
+		RETVAL = newSVnsIDOMDocumentView((nsIDOMDocumentView *)res);
+	} else if (uuid.Equals(nsIDOMElement::GetIID())) {
+		RETVAL = newSVnsIDOMElement((nsIDOMElement *)res);
+	} else if (uuid.Equals(nsIDOMEntityReference::GetIID())) {
+		RETVAL = newSVnsIDOMEntityReference((nsIDOMEntityReference *)res);
+	} else if (uuid.Equals(nsIDOMEvent::GetIID())) {
+		RETVAL = newSVnsIDOMEvent((nsIDOMEvent *)res);
+	} else if (uuid.Equals(nsIDOMEventListener::GetIID())) {
+		RETVAL = newSVnsIDOMEventListener((nsIDOMEventListener *)res);
+	} else if (uuid.Equals(nsIDOMEventTarget::GetIID())) {
+		RETVAL = newSVnsIDOMEventTarget((nsIDOMEventTarget *)res);
+	} else if (uuid.Equals(nsIDOMKeyEvent::GetIID())) {
+		RETVAL = newSVnsIDOMKeyEvent((nsIDOMKeyEvent *)res);
+	} else if (uuid.Equals(nsIDOMMouseEvent::GetIID())) {
+		RETVAL = newSVnsIDOMMouseEvent((nsIDOMMouseEvent *)res);
+	} else if (uuid.Equals(nsIDOMMutationEvent::GetIID())) {
+		RETVAL = newSVnsIDOMMutationEvent((nsIDOMMutationEvent *)res);
+	} else if (uuid.Equals(nsIDOMNamedNodeMap::GetIID())) {
+		RETVAL = newSVnsIDOMNamedNodeMap((nsIDOMNamedNodeMap *)res);
+	} else if (uuid.Equals(nsIDOMNode::GetIID())) {
+		RETVAL = newSVnsIDOMNode((nsIDOMNode *)res);
+	} else if (uuid.Equals(nsIDOMNodeList::GetIID())) {
+		RETVAL = newSVnsIDOMNodeList((nsIDOMNodeList *)res);
+	} else if (uuid.Equals(nsIDOMProcessingInstruction::GetIID())) {
+		RETVAL = newSVnsIDOMProcessingInstruction((nsIDOMProcessingInstruction *)res);
+	} else if (uuid.Equals(nsIDOMRange::GetIID())) {
+		RETVAL = newSVnsIDOMRange((nsIDOMRange *)res);
+	} else if (uuid.Equals(nsISelection::GetIID())) {
+		RETVAL = newSVnsISelection((nsISelection *)res);
+	} else if (uuid.Equals(nsIDOMText::GetIID())) {
+		RETVAL = newSVnsIDOMText((nsIDOMText *)res);
+	} else if (uuid.Equals(nsIDOMUIEvent::GetIID())) {
+		RETVAL = newSVnsIDOMUIEvent((nsIDOMUIEvent *)res);
+	} else if (uuid.Equals(nsIWebBrowser::GetIID())) {
+		RETVAL = newSVnsIWebBrowser((nsIWebBrowser *)res);
+	} else if (uuid.Equals(nsIDOMWindow::GetIID())) {
+		RETVAL = newSVnsIDOMWindow((nsIDOMWindow *)res);
+	} else if (uuid.Equals(nsIDOMWindowCollection::GetIID())) {
+		RETVAL = newSVnsIDOMWindowCollection((nsIDOMWindowCollection *)res);
+	}
+
+	if (NS_FAILED(rv))
+		croak("QueryInterface failed, rv=%d\n", rv);
+    OUTPUT:
+	RETVAL
 
 
 # -----------------------------------------------------------------------------
-
-
 
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::WebBrowser	PREFIX = moz_dom_
@@ -5592,6 +6257,25 @@ L<Supports|Mozilla::DOM::Supports>.
 Currently only the GetContentDOMWindow method is wrapped.
 
 =cut
+
+=for apidoc Mozilla::DOM::WebBrowser::GetIID
+
+=for signature $iid = Mozilla::DOM::WebBrowser->GetIID()
+
+Pass this to QueryInterface.
+
+You can also print it out.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IWEBBROWSER_IID)
+static nsIID
+nsIWebBrowser::GetIID()
+    CODE:
+	const nsIID &id = nsIWebBrowser::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
 
 =for apidoc Mozilla::DOM::WebBrowser::GetContentDOMWindow
 

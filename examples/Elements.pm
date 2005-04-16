@@ -22,12 +22,18 @@ sub INIT_INSTANCE {
     my $embed = Gtk2::MozEmbed->new();
 
     # The net_stop signal fires when a page stops loading,
-    # so we connect our DOM-manipulating code to that.
+    # so we can connect our DOM-manipulating code to that.
     $embed->signal_connect(net_stop => \&net_stop_cb);
 
     $self->add($embed);
     $embed->load_url('about:blank');
     $self->{_embed} = $embed;
+
+    # You'll probably be tempted to call get_nsIWebBrowser, etc.,
+    # here to stuff them into $self, but don't -- the window doesn't
+    # exist until you do `show_all' on it (we're still in INIT_INSTANCE
+    # here), so the Gtk2::MozEmbed widget doesn't exist yet, so at
+    # best you'll get undef (at worst, a segfault).
 }
 
 
@@ -97,5 +103,6 @@ sub net_stop_cb {
     }
 
 }
+
 
 1;

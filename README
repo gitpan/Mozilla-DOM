@@ -2,35 +2,62 @@ Mozilla::DOM
 ------------
 
 This module wraps the Mozilla DOM interface in Perl.
-See `perldoc Mozilla::DOM` for more details.
+In conjuction with an embedded Gecko widget (e.g. Gtk2::MozEmbed),
+you can use Perl to manipulate the browser DOM, handle DOM signals,
+and create events such as mouse clicks -- all within a Mozilla-like
+browser (so it also does JavaScript). See `perldoc Mozilla::DOM`
+for more details.
 
 Mozilla::DOM comes with automatically generated API documentation:
 
   perldoc Mozilla::DOM::index
 
-Most of this documentation was copied from Mozilla headers.
+Much of this documentation was copied from Mozilla headers
+and the DOM Level 2 specifications.
+
+There are examples in the `examples' directory showing how
+to use this module with Gtk2::MozEmbed. See the README file
+in that directory.
 
 
 Installation
 ------------
 
-Note: I've only tried this on Linux.
+Note: I've only built this on Debian Linux with Mozilla 1.7.5.
+People running Gentoo with Mozilla 1.7.6 have reported being
+able to build it.
+
 To install Mozilla::DOM, run the following commands:
 
   perl Makefile.PL
   make
-  make test
+  make test      (not really any tests yet)
   make install   (as root)
 
-You might have to install ExtUtils::Depends, ExtUtils::PkgConfig,
-and Mozilla (with headers) first.
+(See dependencies below.)
+
+It's normal to see warnings during `make` such as
+
+  missing: Mozilla::DOM::EventTarget::nsIDOMEventTarget->GetIID
+  !! is not registered with the GLib type system.
+
+These are due to limitations in the POD generator
+(which I intend to take out).
 
 For this module to be useful, you'll probably also want
-to install Gtk2::MozEmbed (> 0.03) after you install this.
+to install Gtk2::MozEmbed (> 0.03) _after_ you install this.
+That module includes Mozilla::DOM (through the magic of
+ExtUtils::Depends) if it's already installed. Similarly,
+if you upgrade Mozilla::DOM, you'll also want to rebuild
+and reinstall Gtk2::MozEmbed.
 
 
 Dependencies
 ------------
+
+You might have to manually install ExtUtils::Depends and ExtUtils::PkgConfig
+before anything else. Sorry about that. You'll also have to install Mozilla
+with its development headers.
 
 Mozilla::DOM depends on:
 
@@ -42,7 +69,39 @@ Mozilla::DOM depends on:
 I hope to remove Glib and add the equivalent of mozilla-xpcom for Firefox.
 
 
+Troubleshooting
+---------------
+
+A common problem seems to be that header files are put in different
+directories. If so, you'll get an error like
+
+  mozilladom2perl.h:37:27: nsIWebBrowser.h: No such file or directory
+  mozilladom2perl.h:38:26: nsISelection.h: No such file or directory
+
+If this happens, do
+
+  find . -name 'nsIWebBrowser.h'
+
+from within the Mozilla include directory (e.g. /usr/include/mozilla).
+It will probably be under some directory of /usr/include/mozilla/.
+Try adding that directory to the set_inc method in Makefile.PL,
+and please report it to me.
+
+
+Bugs
+----
+
+You can send bugs to me directly, or through RT at
+http://rt.cpan.org/NoAuth/Bugs.html?Dist=Mozilla-DOM .
+
+
 Contact
 -------
 
 Scott Lanning  lannings at who dot int
+
+You can also use the CPAN Forum at
+http://www.cpanforum.com/dist/Mozilla-DOM .
+
+I (slanning) am usually on IRC at irc.perl.org,
+where we could create a channel.

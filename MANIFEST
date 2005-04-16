@@ -16,6 +16,8 @@ xs/DOM.xs
 META.yml                                 Module meta-data (added by MakeMaker)
 examples/README
 examples/startapp.pl
+examples/index.html
 examples/Elements.pm
+examples/Events.pm
 examples/Minilla.pm
 examples/Signals.pm

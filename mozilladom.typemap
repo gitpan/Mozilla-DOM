@@ -52,6 +52,9 @@ DOMTimeStamp	T_UV
 # 	event->InitEvent(type, ...)
 nsEmbedString	T_NSASTRING
 
+nsIID	T_NSIID
+
+
 INPUT
 
 # (T_GPERL_GENERIC_WRAPPER from Glib/typemap; I wasn't sure if having the
@@ -65,7 +68,7 @@ T_MOZDOM_GENERIC_WRAPPER
 		   \$ntype} ($arg);
 
 
-# For "nsEmbedString arg", this converts the incoming SV* arg
+# For an `nsEmbedString' arg, this converts the incoming SV* arg
 # to a UTF-16 nsEmbedString, suitable for "const nsAString &"
 # input parameters.
 
@@ -73,6 +76,10 @@ T_NSASTRING
 	char * str$var = (char *) SvPV_nolen($arg);
 	nsEmbedCString u8$var(str$var);
 	NS_CStringToUTF16(u8$var, NS_CSTRING_ENCODING_UTF8, $var);
+
+T_NSIID
+	char * str$var = (char *) SvPV_nolen($arg);
+	$var.Parse(str$var);
 
 
 OUTPUT
@@ -82,7 +89,7 @@ T_MOZDOM_GENERIC_WRAPPER
 		      \$ntype} ($var);
 
 
-# For a "nsEmbedString" return value, takes care of converting
+# For a `nsEmbedString' return value, takes care of converting
 # a UTF-16 nsEmbedString to a UTF-8 SV * (const char *).
 # Generally this is necessary for methods with "nsAString &"
 # arguments that are passed in by reference; for example,
@@ -105,3 +112,7 @@ T_NSASTRING
 	NS_UTF16ToCString($var, NS_CSTRING_ENCODING_UTF8, u8$var);
 	u8str$var = u8$var.get();
 	sv_setpv((SV*)$arg, u8str$var);
+
+# XXX: I think ToString leaks since I don't free the string
+T_NSIID
+	sv_setpv((SV*)$arg, $var.ToString());

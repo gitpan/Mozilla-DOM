@@ -12,12 +12,13 @@ a command-line argument. For example,
 
 (The .pm suffix is optional.)
 
-A description of the examples follows.
-
+A description of the examples follows. I recommend looking at
+them in order.
 
 Minilla: Minimal example of using Gtk2::MozEmbed
 
 Signals: All the signals in Gtk2::MozEmbed
 
-Elements: DOM manipulation
+Elements: DOM manipulation, e.g. inserting text and changing attributes
 
+Events: Firing DOM events, such as mouse clicks

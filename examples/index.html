@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>Testing Mozilla::DOM Events</title>
+<script type="text/javascript">
+function onclick_cb() {
+    alert('Button was (scriptically?) clicked');
+    return true;
+}
+</script>
+</head>
+
+<body bgcolor="#abcdef">
+<h3>Hands-off web surfing</h3>
+
+<p>Whatever will you do if you don't have to use your
+hands while surfing the web, hm?</p>
+
+<form>
+
+Self-filling text: <input type="text" value=""><br/>
+
+<input type="button" name="b" value="Press me (or not)" onclick="onclick_cb();"><br/>
+
+<select name="list">
+<option value="value 1">label 1</option>
+<option value="value 2" selected>label 2</option>
+<option value="value 3">label 3</option>
+</select><br/>
+
+<input type="radio" name="radgrp" value="rad 1" />
+<input type="radio" name="radgrp" value="rad 2" selected />
+<input type="radio" name="radgrp" value="rad 3" /><br/>
+
+</form>
+</body>
+</html>

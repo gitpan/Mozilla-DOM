@@ -1,10 +1,25 @@
-Add tests somehow...
+Remove POD from XS file so that it's not auto-generated
+and to remove Glib.pm dependence. Split DOM.xs into
+separate files. (DOM.xs = 6300 lines at last count)
+Work out how to export constants from various packages.
 
-Add more examples.
+Make some methods more perlish. For example,
+GetElementsByTagName returns a NodeList,
+but it would be nicer if it was a list of Nodes
+in list context. Also, some method arguments
+could be made optional.
+
+Figure out EventListener, EventTarget, DOMException.
+
+Find reference of different interfaces for each class
+(DocumentEvent for Document, etc.), what interfaces are
+valid to switch to with QueryInterface.
+
+Wrap nsIDOMHTML*Element interfaces
+Mozilla::Mechanize
 
 Document how to add this to a module using ExtUtils::Depends.
 
-Split DOM.xs into separate files. Work out how to export constants
-from various packages.
+Add more examples.
 
-Figure out EventListener, EventTarget, DOMException, ISupports.
+Tests....
