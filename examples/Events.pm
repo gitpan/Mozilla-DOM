@@ -2,7 +2,7 @@
 # DOM calesthenics thrown in.
 # Refer also to the Minilla, Signals, and Elements examples.
 #
-# $CVSHeader$
+# $CVSHeader: Mozilla-DOM/examples/Events.pm,v 1.2 2005/04/18 05:30:28 slanning Exp $
 
 
 package Events;
@@ -13,7 +13,7 @@ use warnings;
 use Cwd 'getcwd';
 use Glib qw(TRUE FALSE);
 use Gtk2;
-use Gtk2::MozEmbed;
+use Gtk2::MozEmbed '0.04';
 use Mozilla::DOM '0.10';   # for Supports and GetIID
 
 use Glib::Object::Subclass Gtk2::Window::;
@@ -87,8 +87,18 @@ sub press_cb {
     return FALSE if _locked($embed, $event);
 
     # Click the 1st option in the select menu
-    # XXX: doesn't seem to work.. Maybe you have to just
+    # (XXX: doesn't seem to work.. Maybe you have to just
     # change the 'selected' attributes?
+    # "Select boxes are more difficult. A click event on select boxes
+    # or options turns out not to work in all browsers, so I opted for
+    # the traditional change event on the select box itself."
+    # Is this relevant?
+    # change
+    # A control loses the input focus and its value has been modified
+    # since gaining focus. This event can occur either via a user interface
+    # manipulation or the focus() methods and the attributes defined in
+    # [DOM Level 2 HTML]. This event is valid for INPUT, SELECT, and
+    # TEXTAREA element.)
     my $click = _create_event($embed, 'MouseEvent', 'click');
     my $out = _create_event($embed, 'MouseEvent', 'mouseout');
     my $over = _create_event($embed, 'MouseEvent', 'mouseover');
@@ -104,6 +114,8 @@ sub press_cb {
     _do_event($click, $option1);
 
     _unlocked($embed, $event);
+
+    return FALSE;   # I'm not sure this actually does anything...
 }
 
 
@@ -126,7 +138,7 @@ sub _create_event {
 
     # Create an event
     # First call the GetIID class method to get an ID.
-    # Then extract the DocumentEvent interface from a Document
+    # Then extract the DocumentEvent interface from the Document
     # by passing the ID to QueryInterface. Finally, create a
     # generic event from it.
     my $iid = Mozilla::DOM::DocumentEvent->GetIID();
@@ -158,15 +170,15 @@ sub _get_input {
     my ($embed, $type, $num) = @_;
     $num = 0 unless defined $num;
 
-    my @buttons = ();
+    my @nodes = ();
 
     # Get all <input> elements
     my $doc = _get_document($embed);
     my $docelem = $doc->GetDocumentElement;
     my $inputs = $docelem->GetElementsByTagName('input');
 
-    # Find inputs whose type attribute eq $type
-    # and put them in @buttons
+    # Find inputs whose 'type' attribute eq $type
+    # and put them in @nodes
     INPUT: foreach my $i (0 .. $inputs->GetLength - 1) {
         my $input = $inputs->Item($i);
         my $attrs = $input->GetAttributes;
@@ -176,16 +188,16 @@ sub _get_input {
             next ATTR unless $attr->GetNodeName =~ /^type$/i;
 
             if ($attr->GetNodeValue =~ /^$type$/i) {
-                push @buttons, $input;
+                push @nodes, $input;
                 next INPUT;
             }
         }
     }
 
     # This could easily be made to return multiple inputs, instead
-    if (@buttons) {
-        if (exists $buttons[$num]) {
-            return $buttons[$num];
+    if (@nodes) {
+        if (exists $nodes[$num]) {
+            return $nodes[$num];
         } else {
             die "not enough $type inputs!\n";
         }
@@ -237,7 +249,6 @@ sub _get_select_option {
             return ($select, $kid);
         }
     }
-
     die "option num=$num not found in select name=$name\n";
 }
 
@@ -267,5 +278,6 @@ sub _unlocked {
     my ($embed, $event) = @_;
     $embed->{_lock}{ref($event)} = 0;
 }
+
 
 1;

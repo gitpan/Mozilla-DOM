@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $CVSHeader: Mozilla-DOM/xs/DOM.xs,v 1.13 2005/04/10 23:48:21 slanning Exp $
+ * $CVSHeader: Mozilla-DOM/xs/DOM.xs,v 1.15 2005/04/18 05:30:31 slanning Exp $
  */
 
 #include "mozilladom2perl.h"
@@ -23,6 +23,10 @@
 /* ------------------------------------------------------------------------- */
 
 /* conversion functions between Perl and C */
+
+MOZDOM_DEF_I_TYPEMAPPERS(WebBrowser)
+MOZDOM_DEF_I_TYPEMAPPERS(Selection)
+MOZDOM_DEF_I_TYPEMAPPERS(Supports)
 
 MOZDOM_DEF_DOM_TYPEMAPPERS(AbstractView)
 MOZDOM_DEF_DOM_TYPEMAPPERS(DocumentView)
@@ -54,9 +58,62 @@ MOZDOM_DEF_DOM_TYPEMAPPERS(Text)
 MOZDOM_DEF_DOM_TYPEMAPPERS(DOMImplementation)
 MOZDOM_DEF_DOM_TYPEMAPPERS(Range)
 
-MOZDOM_DEF_I_TYPEMAPPERS(WebBrowser)
-MOZDOM_DEF_I_TYPEMAPPERS(Selection)
-MOZDOM_DEF_I_TYPEMAPPERS(Supports)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLAreaElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLDirectoryElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLAnchorElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLAppletElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLBRElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLBaseElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLBaseFontElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLBodyElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLButtonElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLCollection)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLDListElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLDivElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLEmbedElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLFieldSetElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLFontElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLFrameElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLFormElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLFrameSetElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLHRElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLHeadElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLHeadingElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLHtmlElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLIFrameElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLImageElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLInputElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLIsIndexElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLLIElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLLabelElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLLegendElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLLinkElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLMapElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLMenuElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLMetaElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLModElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLOListElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLObjectElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLOptGroupElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLOptionElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLOptionsCollection)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLParagraphElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLParamElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLPreElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLQuoteElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLScriptElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLSelectElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLStyleElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLTableCaptionElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLTableCellElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLTableColElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLTableElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLTableRowElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLTableSectionElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLTextAreaElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLTitleElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLUListElement)
 
 
 /* ------------------------------------------------------------------------- */
@@ -77,13 +134,11 @@ with L<UIEvent|Mozilla::DOM::UIEvent>'s GetView method.
 
 =cut
 
-=for apidoc Mozilla::DOM::AbstractView::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::AbstractView->GetIID()
+=head2 $iid = Mozilla::DOM::AbstractView->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -102,7 +157,7 @@ nsIDOMAbstractView::GetIID()
 
 Gets a Mozilla::DOM::DocumentView (not sure if this is necessary/useful).
 
-I don't know what a "view" is.
+See the DOM Level 2 Views spec.
 
 =cut
 
@@ -132,13 +187,11 @@ L<Supports|Mozilla::DOM::Supports>.
 
 =cut
 
-=for apidoc Mozilla::DOM::DocumentView::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::DocumentView->GetIID()
+=head2 $iid = Mozilla::DOM::DocumentView->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -157,7 +210,7 @@ nsIDOMDocumentView::GetIID()
 
 Gets a Mozilla::DOM::AbstractView (not sure if this is necessary/useful).
 
-I don't know what a "view" is.
+See the DOM Level 2 Views specification.
 
 =cut
 
@@ -198,13 +251,11 @@ should be exportable class constants (if I can figure out how to do that).
 
 =cut
 
-=for apidoc Mozilla::DOM::Event::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::Event->GetIID()
+=head2 $iid = Mozilla::DOM::Event->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -835,13 +886,11 @@ This class inherits from L<Event|Mozilla::DOM::Event>.
 
 =cut
 
-=for apidoc Mozilla::DOM::UIEvent::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::UIEvent->GetIID()
+=head2 $iid = Mozilla::DOM::UIEvent->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -947,9 +996,9 @@ if you want to understand how to create an L<Event|Mozilla::DOM::Event>.)
 
 =cut
 
-=for apidoc Mozilla::DOM::DocumentEvent::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::DocumentEvent->GetIID()
+=head2 $iid = Mozilla::DOM::DocumentEvent->B<GetIID>()
 
 Pass this to QueryInterface on a L<Document|Mozilla::DOM::Document>
 object to get back a DocumentEvent, like
@@ -1039,13 +1088,11 @@ L<UIEvent|Mozilla::DOM::UIEvent>.
 =for see_also section 1.6.2 of the DOM level 2 specification
 =cut
 
-=for apidoc Mozilla::DOM::MouseEvent::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::MouseEvent->GetIID()
+=head2 $iid = Mozilla::DOM::MouseEvent->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -1407,13 +1454,11 @@ key event object.
 =for see_also sections 1.7.4 and Appendix A of the DOM level 3 specification
 =cut
 
-=for apidoc Mozilla::DOM::KeyEvent::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::KeyEvent->GetIID()
+=head2 $iid = Mozilla::DOM::KeyEvent->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -1585,13 +1630,11 @@ mutation event object.
 
 =cut
 
-=for apidoc Mozilla::DOM::MutationEvent::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::MutationEvent->GetIID()
+=head2 $iid = Mozilla::DOM::MutationEvent->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -1756,17 +1799,16 @@ L<Supports|Mozilla::DOM::Supports>.
 Section 1.3 of the DOM Level 2 Events specification says
 "the EventTarget interface is implemented by all Nodes" and
 "this interface can be obtained by using binding-specific
-casting methods on an instance of the Node interface", but I'm
-not sure how that works yet. I guess anywhere you'd pass in
-an EventTarget argument to a method, you can pass in a
-L<Node|Mozilla::DOM::Node> object, and the methods for EventTarget
-can be called on Node objects. (?)
+casting methods on an instance of the Node interface".
+What this means is you use QueryInterface to transform
+a Node into an EventTarget. See the documentation below
+for GetIID.
 
 =cut
 
-=for apidoc Mozilla::DOM::EventTarget::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::EventTarget->GetIID()
+=head2 $iid = Mozilla::DOM::EventTarget->B<GetIID>()
 
 Pass this to QueryInterface on a L<Node|Mozilla::DOM::Node>
 object to get back an EventTarget, like
@@ -1966,13 +2008,11 @@ I see nsIDOMScriptObjectFactory/nsIJSEventListener (not sure it's relevant).
 
 =cut
 
-=for apidoc Mozilla::DOM::EventListener::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::EventListener->GetIID()
+=head2 $iid = Mozilla::DOM::EventListener->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -1992,7 +2032,15 @@ nsIDOMEventListener::GetIID()
 This method is called whenever an event occurs of the type for which 
 the EventListener interface was registered.
 
+
+
+
+
 XXX: hooboy, how the hell's this going to work?
+Maybe I need to implement this class in C++
+and somehow let users hook Perl subroutines onto it.
+It would be cool because it would be like JavaScript
+event callbacks (onclick, onsubmit) but written in Perl.
 
 =over 4
 
@@ -2032,13 +2080,11 @@ L<Supports|Mozilla::DOM::Supports>.
 
 =cut
 
-=for apidoc Mozilla::DOM::Window::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::Window->GetIID()
+=head2 $iid = Mozilla::DOM::Window->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -2463,13 +2509,11 @@ L<Supports|Mozilla::DOM::Supports>.
 
 =cut
 
-=for apidoc Mozilla::DOM::WindowCollection::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::WindowCollection->GetIID()
+=head2 $iid = Mozilla::DOM::WindowCollection->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -2597,13 +2641,11 @@ node object.
 
 =cut
 
-=for apidoc Mozilla::DOM::Node::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::Node->GetIID()
+=head2 $iid = Mozilla::DOM::Node->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -3149,13 +3191,11 @@ L<Supports|Mozilla::DOM::Supports>.
 
 =cut
 
-=for apidoc Mozilla::DOM::NodeList::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::NodeList->GetIID()
+=head2 $iid = Mozilla::DOM::NodeList->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -3229,13 +3269,11 @@ L<Supports|Mozilla::DOM::Supports>.
 
 =cut
 
-=for apidoc Mozilla::DOM::NamedNodeMap::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::NamedNodeMap->GetIID()
+=head2 $iid = Mozilla::DOM::NamedNodeMap->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -3446,13 +3484,11 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
 
 =cut
 
-=for apidoc Mozilla::DOM::Document::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::Document->GetIID()
+=head2 $iid = Mozilla::DOM::Document->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -3851,20 +3887,17 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
  * For more information on this interface please see 
  * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-CoreE<sol>>
 
-XXX: I wonder if I wrap all the nsIDOMHTMLElement classes
-(nsIDOMHTMLSelectElement, nsIDOMHTMLInputElement, etc.),
-if you can QueryInterface those from nsIDOMElement/Node.
-(need to read http://www.w3.org/TR/DOM-Level-2-HTML/)
+Note: you can QueryInterface an Element object to a subclass like
+L<HTMLSelectElement|Mozilla::DOM::HTMLSelectElement> (from which
+of course you can call Element methods).
 
 =cut
 
-=for apidoc Mozilla::DOM::Element::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::Element->GetIID()
+=head2 $iid = Mozilla::DOM::Element->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -3978,7 +4011,7 @@ moz_dom_GetAttributeNode (element, name)
 
 =for apidoc Mozilla::DOM::Element::SetAttributeNode
 
-=for signature $attrnode = $element->SetAttributeNode($attrnode)
+=for signature $attrnode = $element->SetAttributeNode($newAttr)
 
 
 
@@ -4224,13 +4257,11 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
 
 =cut
 
-=for apidoc Mozilla::DOM::EntityReference::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::EntityReference->GetIID()
+=head2 $iid = Mozilla::DOM::EntityReference->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -4264,13 +4295,11 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
 
 =cut
 
-=for apidoc Mozilla::DOM::Attr::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::Attr->GetIID()
+=head2 $iid = Mozilla::DOM::Attr->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -4400,13 +4429,11 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
 
 =cut
 
-=for apidoc Mozilla::DOM::ProcessingInstruction::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::ProcessingInstruction->GetIID()
+=head2 $iid = Mozilla::DOM::ProcessingInstruction->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -4483,13 +4510,11 @@ L<Mozilla::DOM::Text|Mozilla::DOM::Text>.
 
 =cut
 
-=for apidoc Mozilla::DOM::CDATASection::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::CDATASection->GetIID()
+=head2 $iid = Mozilla::DOM::CDATASection->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -4516,13 +4541,11 @@ L<Mozilla::DOM::CharacterData|Mozilla::DOM::CharacterData>.
 
 =cut
 
-=for apidoc Mozilla::DOM::Comment::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::Comment->GetIID()
+=head2 $iid = Mozilla::DOM::Comment->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -4555,13 +4578,11 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
 
 =cut
 
-=for apidoc Mozilla::DOM::CharacterData::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::CharacterData->GetIID()
+=head2 $iid = Mozilla::DOM::CharacterData->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -4745,13 +4766,11 @@ L<Mozilla::DOM::CharacterData|Mozilla::DOM::CharacterData>.
 
 =cut
 
-=for apidoc Mozilla::DOM::Text::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::Text->GetIID()
+=head2 $iid = Mozilla::DOM::Text->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -4804,13 +4823,11 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
 
 =cut
 
-=for apidoc Mozilla::DOM::DocumentFragment::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::DocumentFragment->GetIID()
+=head2 $iid = Mozilla::DOM::DocumentFragment->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -4845,13 +4862,11 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
 
 =cut
 
-=for apidoc Mozilla::DOM::DocumentType::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::DocumentType->GetIID()
+=head2 $iid = Mozilla::DOM::DocumentType->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -5005,13 +5020,11 @@ L<Supports|Mozilla::DOM::Supports>.
 
 =cut
 
-=for apidoc Mozilla::DOM::DOMImplementation::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::DOMImplementation->GetIID()
+=head2 $iid = Mozilla::DOM::DOMImplementation->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -5139,13 +5152,11 @@ in comments). Will soon.
 
 =cut
 
-=for apidoc Mozilla::DOM::DOMException::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::DOMException->GetIID()
+=head2 $iid = Mozilla::DOM::DOMException->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -5241,13 +5252,11 @@ L<Supports|Mozilla::DOM::Supports>.
 
 =cut
 
-=for apidoc Mozilla::DOM::Selection::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::Selection->GetIID()
+=head2 $iid = Mozilla::DOM::Selection->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -5653,13 +5662,11 @@ change when I figure out how to export them as constants or class methods.
 
 =cut
 
-=for apidoc Mozilla::DOM::Range::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::Range->GetIID()
+=head2 $iid = Mozilla::DOM::Range->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -6163,6 +6170,8 @@ moz_dom_QueryInterface (supports, uuid)
 	nsresult rv;
     CODE:
 	rv = supports->QueryInterface((const nsIID)uuid, (void **)&res);
+	if (NS_FAILED(rv))
+		croak("QueryInterface failed, rv=%d\n", rv);
 
 	/* XXX: let me know if there's a better way to do this... */
 	if (uuid.Equals(nsIDOMAbstractView::GetIID())) {
@@ -6227,10 +6236,121 @@ moz_dom_QueryInterface (supports, uuid)
 		RETVAL = newSVnsIDOMWindow((nsIDOMWindow *)res);
 	} else if (uuid.Equals(nsIDOMWindowCollection::GetIID())) {
 		RETVAL = newSVnsIDOMWindowCollection((nsIDOMWindowCollection *)res);
-	}
 
-	if (NS_FAILED(rv))
-		croak("QueryInterface failed, rv=%d\n", rv);
+	/* nsIDOMHTML* */
+	} else if (uuid.Equals(nsIDOMHTMLAnchorElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLAnchorElement((nsIDOMHTMLAnchorElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLAppletElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLAppletElement((nsIDOMHTMLAppletElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLAreaElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLAreaElement((nsIDOMHTMLAreaElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLBRElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLBRElement((nsIDOMHTMLBRElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLBaseElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLBaseElement((nsIDOMHTMLBaseElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLBaseFontElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLBaseFontElement((nsIDOMHTMLBaseFontElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLBodyElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLBodyElement((nsIDOMHTMLBodyElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLButtonElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLButtonElement((nsIDOMHTMLButtonElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLCollection::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLCollection((nsIDOMHTMLCollection *)res);
+	} else if (uuid.Equals(nsIDOMHTMLDListElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLDListElement((nsIDOMHTMLDListElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLDirectoryElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLDirectoryElement((nsIDOMHTMLDirectoryElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLDivElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLDivElement((nsIDOMHTMLDivElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLElement((nsIDOMHTMLElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLEmbedElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLEmbedElement((nsIDOMHTMLEmbedElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLFieldSetElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLFieldSetElement((nsIDOMHTMLFieldSetElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLFontElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLFontElement((nsIDOMHTMLFontElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLFormElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLFormElement((nsIDOMHTMLFormElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLFrameElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLFrameElement((nsIDOMHTMLFrameElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLFrameSetElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLFrameSetElement((nsIDOMHTMLFrameSetElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLHRElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLHRElement((nsIDOMHTMLHRElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLHeadElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLHeadElement((nsIDOMHTMLHeadElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLHeadingElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLHeadingElement((nsIDOMHTMLHeadingElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLHtmlElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLHtmlElement((nsIDOMHTMLHtmlElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLIFrameElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLIFrameElement((nsIDOMHTMLIFrameElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLImageElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLImageElement((nsIDOMHTMLImageElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLInputElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLInputElement((nsIDOMHTMLInputElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLIsIndexElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLIsIndexElement((nsIDOMHTMLIsIndexElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLLIElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLLIElement((nsIDOMHTMLLIElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLLabelElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLLabelElement((nsIDOMHTMLLabelElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLLegendElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLLegendElement((nsIDOMHTMLLegendElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLLinkElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLLinkElement((nsIDOMHTMLLinkElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLMapElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLMapElement((nsIDOMHTMLMapElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLMenuElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLMenuElement((nsIDOMHTMLMenuElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLMetaElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLMetaElement((nsIDOMHTMLMetaElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLModElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLModElement((nsIDOMHTMLModElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLOListElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLOListElement((nsIDOMHTMLOListElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLObjectElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLObjectElement((nsIDOMHTMLObjectElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLOptGroupElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLOptGroupElement((nsIDOMHTMLOptGroupElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLOptionElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLOptionElement((nsIDOMHTMLOptionElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLOptionsCollection::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLOptionsCollection((nsIDOMHTMLOptionsCollection *)res);
+	} else if (uuid.Equals(nsIDOMHTMLParagraphElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLParagraphElement((nsIDOMHTMLParagraphElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLParamElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLParamElement((nsIDOMHTMLParamElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLPreElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLPreElement((nsIDOMHTMLPreElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLQuoteElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLQuoteElement((nsIDOMHTMLQuoteElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLScriptElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLScriptElement((nsIDOMHTMLScriptElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLSelectElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLSelectElement((nsIDOMHTMLSelectElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLStyleElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLStyleElement((nsIDOMHTMLStyleElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLTableCaptionElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLTableCaptionElement((nsIDOMHTMLTableCaptionElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLTableCellElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLTableCellElement((nsIDOMHTMLTableCellElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLTableColElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLTableColElement((nsIDOMHTMLTableColElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLTableElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLTableElement((nsIDOMHTMLTableElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLTableRowElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLTableRowElement((nsIDOMHTMLTableRowElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLTableSectionElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLTableSectionElement((nsIDOMHTMLTableSectionElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLTextAreaElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLTextAreaElement((nsIDOMHTMLTextAreaElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLTitleElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLTitleElement((nsIDOMHTMLTitleElement *)res);
+	} else if (uuid.Equals(nsIDOMHTMLUListElement::GetIID())) {
+		RETVAL = newSVnsIDOMHTMLUListElement((nsIDOMHTMLUListElement *)res);
+	}
     OUTPUT:
 	RETVAL
 
@@ -6258,13 +6378,11 @@ Currently only the GetContentDOMWindow method is wrapped.
 
 =cut
 
-=for apidoc Mozilla::DOM::WebBrowser::GetIID
+=head1 CLASS METHODS
 
-=for signature $iid = Mozilla::DOM::WebBrowser->GetIID()
+=head2 $iid = Mozilla::DOM::WebBrowser->B<GetIID>()
 
 Pass this to QueryInterface.
-
-You can also print it out.
 
 =cut
 
@@ -6300,4 +6418,12665 @@ moz_dom_GetContentDOMWindow (browser)
 		RETVAL = window;
     OUTPUT:
 	RETVAL
+
+
+# -----------------------------------------------------------------------------
+# nsIDOMHTML*Element !
+# -----------------------------------------------------------------------------
+
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLAnchorElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLAnchorElement.h
+
+=for object Mozilla::DOM::HTMLAnchorElement
+
+Mozilla::DOM::HTMLAnchorElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLAnchorElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLAnchorElement interface is the interface to a [X]HTML
+ * a element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLAnchorElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLANCHORELEMENT_IID)
+static nsIID
+nsIDOMHTMLAnchorElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLAnchorElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::GetAccessKey
+
+=for signature $accesskey = $htmlanchorelement->GetAccessKey()
+
+
+
+=cut
+
+## GetAccessKey(nsAString & aAccessKey)
+nsEmbedString
+moz_dom_GetAccessKey (htmlanchorelement)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+    PREINIT:
+	nsEmbedString accesskey;
+    CODE:
+	htmlanchorelement->GetAccessKey(accesskey);
+	RETVAL = accesskey;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::SetAccessKey
+
+=for signature $htmlanchorelement->SetAccessKey($accesskey)
+
+
+
+=cut
+
+## SetAccessKey(const nsAString & aAccessKey)
+void
+moz_dom_SetAccessKey (htmlanchorelement, accesskey)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+	nsEmbedString accesskey;
+    CODE:
+	htmlanchorelement->SetAccessKey(accesskey);
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::GetCharset
+
+=for signature $charset = $htmlanchorelement->GetCharset()
+
+
+
+=cut
+
+## GetCharset(nsAString & aCharset)
+nsEmbedString
+moz_dom_GetCharset (htmlanchorelement)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+    PREINIT:
+	nsEmbedString charset;
+    CODE:
+	htmlanchorelement->GetCharset(charset);
+	RETVAL = charset;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::SetCharset
+
+=for signature $htmlanchorelement->SetCharset($charset)
+
+
+
+=cut
+
+## SetCharset(const nsAString & aCharset)
+void
+moz_dom_SetCharset (htmlanchorelement, charset)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+	nsEmbedString charset;
+    CODE:
+	htmlanchorelement->SetCharset(charset);
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::GetCoords
+
+=for signature $coords = $htmlanchorelement->GetCoords()
+
+
+
+=cut
+
+## GetCoords(nsAString & aCoords)
+nsEmbedString
+moz_dom_GetCoords (htmlanchorelement)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+    PREINIT:
+	nsEmbedString coords;
+    CODE:
+	htmlanchorelement->GetCoords(coords);
+	RETVAL = coords;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::SetCoords
+
+=for signature $htmlanchorelement->SetCoords($coords)
+
+
+
+=cut
+
+## SetCoords(const nsAString & aCoords)
+void
+moz_dom_SetCoords (htmlanchorelement, coords)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+	nsEmbedString coords;
+    CODE:
+	htmlanchorelement->SetCoords(coords);
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::GetHref
+
+=for signature $href = $htmlanchorelement->GetHref()
+
+
+
+=cut
+
+## GetHref(nsAString & aHref)
+nsEmbedString
+moz_dom_GetHref (htmlanchorelement)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+    PREINIT:
+	nsEmbedString href;
+    CODE:
+	htmlanchorelement->GetHref(href);
+	RETVAL = href;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::SetHref
+
+=for signature $htmlanchorelement->SetHref($href)
+
+
+
+=cut
+
+## SetHref(const nsAString & aHref)
+void
+moz_dom_SetHref (htmlanchorelement, href)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+	nsEmbedString href;
+    CODE:
+	htmlanchorelement->SetHref(href);
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::GetHreflang
+
+=for signature $hreflang = $htmlanchorelement->GetHreflang()
+
+
+
+=cut
+
+## GetHreflang(nsAString & aHreflang)
+nsEmbedString
+moz_dom_GetHreflang (htmlanchorelement)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+    PREINIT:
+	nsEmbedString hreflang;
+    CODE:
+	htmlanchorelement->GetHreflang(hreflang);
+	RETVAL = hreflang;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::SetHreflang
+
+=for signature $htmlanchorelement->SetHreflang($hreflang)
+
+
+
+=cut
+
+## SetHreflang(const nsAString & aHreflang)
+void
+moz_dom_SetHreflang (htmlanchorelement, hreflang)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+	nsEmbedString hreflang;
+    CODE:
+	htmlanchorelement->SetHreflang(hreflang);
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::GetName
+
+=for signature $name = $htmlanchorelement->GetName()
+
+
+
+=cut
+
+## GetName(nsAString & aName)
+nsEmbedString
+moz_dom_GetName (htmlanchorelement)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+    PREINIT:
+	nsEmbedString name;
+    CODE:
+	htmlanchorelement->GetName(name);
+	RETVAL = name;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::SetName
+
+=for signature $htmlanchorelement->SetName($name)
+
+
+
+=cut
+
+## SetName(const nsAString & aName)
+void
+moz_dom_SetName (htmlanchorelement, name)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+	nsEmbedString name;
+    CODE:
+	htmlanchorelement->SetName(name);
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::GetRel
+
+=for signature $rel = $htmlanchorelement->GetRel()
+
+
+
+=cut
+
+## GetRel(nsAString & aRel)
+nsEmbedString
+moz_dom_GetRel (htmlanchorelement)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+    PREINIT:
+	nsEmbedString rel;
+    CODE:
+	htmlanchorelement->GetRel(rel);
+	RETVAL = rel;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::SetRel
+
+=for signature $htmlanchorelement->SetRel($rel)
+
+
+
+=cut
+
+## SetRel(const nsAString & aRel)
+void
+moz_dom_SetRel (htmlanchorelement, rel)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+	nsEmbedString rel;
+    CODE:
+	htmlanchorelement->SetRel(rel);
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::GetRev
+
+=for signature $rev = $htmlanchorelement->GetRev()
+
+
+
+=cut
+
+## GetRev(nsAString & aRev)
+nsEmbedString
+moz_dom_GetRev (htmlanchorelement)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+    PREINIT:
+	nsEmbedString rev;
+    CODE:
+	htmlanchorelement->GetRev(rev);
+	RETVAL = rev;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::SetRev
+
+=for signature $htmlanchorelement->SetRev($rev)
+
+
+
+=cut
+
+## SetRev(const nsAString & aRev)
+void
+moz_dom_SetRev (htmlanchorelement, rev)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+	nsEmbedString rev;
+    CODE:
+	htmlanchorelement->SetRev(rev);
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::GetShape
+
+=for signature $shape = $htmlanchorelement->GetShape()
+
+
+
+=cut
+
+## GetShape(nsAString & aShape)
+nsEmbedString
+moz_dom_GetShape (htmlanchorelement)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+    PREINIT:
+	nsEmbedString shape;
+    CODE:
+	htmlanchorelement->GetShape(shape);
+	RETVAL = shape;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::SetShape
+
+=for signature $htmlanchorelement->SetShape($shape)
+
+
+
+=cut
+
+## SetShape(const nsAString & aShape)
+void
+moz_dom_SetShape (htmlanchorelement, shape)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+	nsEmbedString shape;
+    CODE:
+	htmlanchorelement->SetShape(shape);
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::GetTabIndex
+
+=for signature $tabindex = $htmlanchorelement->GetTabIndex()
+
+
+
+=cut
+
+## GetTabIndex(PRInt32 *aTabIndex)
+PRInt32
+moz_dom_GetTabIndex (htmlanchorelement)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+    PREINIT:
+	PRInt32 tabindex;
+    CODE:
+	htmlanchorelement->GetTabIndex(&tabindex);
+	RETVAL = tabindex;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::SetTabIndex
+
+=for signature $htmlanchorelement->SetTabIndex($tabindex)
+
+
+
+=cut
+
+## SetTabIndex(PRInt32 aTabIndex)
+void
+moz_dom_SetTabIndex (htmlanchorelement, tabindex)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+	PRInt32  tabindex;
+    CODE:
+	htmlanchorelement->SetTabIndex(tabindex);
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::GetTarget
+
+=for signature $target = $htmlanchorelement->GetTarget()
+
+
+
+=cut
+
+## GetTarget(nsAString & aTarget)
+nsEmbedString
+moz_dom_GetTarget (htmlanchorelement)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+    PREINIT:
+	nsEmbedString target;
+    CODE:
+	htmlanchorelement->GetTarget(target);
+	RETVAL = target;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::SetTarget
+
+=for signature $htmlanchorelement->SetTarget($target)
+
+
+
+=cut
+
+## SetTarget(const nsAString & aTarget)
+void
+moz_dom_SetTarget (htmlanchorelement, target)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+	nsEmbedString target;
+    CODE:
+	htmlanchorelement->SetTarget(target);
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::GetType
+
+=for signature $type = $htmlanchorelement->GetType()
+
+
+
+=cut
+
+## GetType(nsAString & aType)
+nsEmbedString
+moz_dom_GetType (htmlanchorelement)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+    PREINIT:
+	nsEmbedString type;
+    CODE:
+	htmlanchorelement->GetType(type);
+	RETVAL = type;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::SetType
+
+=for signature $htmlanchorelement->SetType($type)
+
+
+
+=cut
+
+## SetType(const nsAString & aType)
+void
+moz_dom_SetType (htmlanchorelement, type)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+	nsEmbedString type;
+    CODE:
+	htmlanchorelement->SetType(type);
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::Blur
+
+=for signature $htmlanchorelement->Blur()
+
+
+
+=cut
+
+## Blur(void)
+void
+moz_dom_Blur (htmlanchorelement)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+    CODE:
+	htmlanchorelement->Blur();
+
+=for apidoc Mozilla::DOM::HTMLAnchorElement::Focus
+
+=for signature $htmlanchorelement->Focus()
+
+
+
+=cut
+
+## Focus(void)
+void
+moz_dom_Focus (htmlanchorelement)
+	nsIDOMHTMLAnchorElement *htmlanchorelement;
+    CODE:
+	htmlanchorelement->Focus();
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLAppletElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLAppletElement.h
+
+=for object Mozilla::DOM::HTMLAppletElement
+
+Mozilla::DOM::HTMLAppletElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLAppletElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLAppletElement interface is the interface to a [X]HTML
+ * applet element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLAppletElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLAPPLETELEMENT_IID)
+static nsIID
+nsIDOMHTMLAppletElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLAppletElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::GetAlign
+
+=for signature $align = $htmlappletelement->GetAlign()
+
+
+
+=cut
+
+## GetAlign(nsAString & aAlign)
+nsEmbedString
+moz_dom_GetAlign (htmlappletelement)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+    PREINIT:
+	nsEmbedString align;
+    CODE:
+	htmlappletelement->GetAlign(align);
+	RETVAL = align;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::SetAlign
+
+=for signature $htmlappletelement->SetAlign($align)
+
+
+
+=cut
+
+## SetAlign(const nsAString & aAlign)
+void
+moz_dom_SetAlign (htmlappletelement, align)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+	nsEmbedString align;
+    CODE:
+	htmlappletelement->SetAlign(align);
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::GetAlt
+
+=for signature $alt = $htmlappletelement->GetAlt()
+
+
+
+=cut
+
+## GetAlt(nsAString & aAlt)
+nsEmbedString
+moz_dom_GetAlt (htmlappletelement)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+    PREINIT:
+	nsEmbedString alt;
+    CODE:
+	htmlappletelement->GetAlt(alt);
+	RETVAL = alt;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::SetAlt
+
+=for signature $htmlappletelement->SetAlt($alt)
+
+
+
+=cut
+
+## SetAlt(const nsAString & aAlt)
+void
+moz_dom_SetAlt (htmlappletelement, alt)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+	nsEmbedString alt;
+    CODE:
+	htmlappletelement->SetAlt(alt);
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::GetArchive
+
+=for signature $archive = $htmlappletelement->GetArchive()
+
+
+
+=cut
+
+## GetArchive(nsAString & aArchive)
+nsEmbedString
+moz_dom_GetArchive (htmlappletelement)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+    PREINIT:
+	nsEmbedString archive;
+    CODE:
+	htmlappletelement->GetArchive(archive);
+	RETVAL = archive;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::SetArchive
+
+=for signature $htmlappletelement->SetArchive($archive)
+
+
+
+=cut
+
+## SetArchive(const nsAString & aArchive)
+void
+moz_dom_SetArchive (htmlappletelement, archive)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+	nsEmbedString archive;
+    CODE:
+	htmlappletelement->SetArchive(archive);
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::GetCode
+
+=for signature $code = $htmlappletelement->GetCode()
+
+
+
+=cut
+
+## GetCode(nsAString & aCode)
+nsEmbedString
+moz_dom_GetCode (htmlappletelement)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+    PREINIT:
+	nsEmbedString code;
+    CODE:
+	htmlappletelement->GetCode(code);
+	RETVAL = code;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::SetCode
+
+=for signature $htmlappletelement->SetCode($code)
+
+
+
+=cut
+
+## SetCode(const nsAString & aCode)
+void
+moz_dom_SetCode (htmlappletelement, code)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+	nsEmbedString code;
+    CODE:
+	htmlappletelement->SetCode(code);
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::GetCodeBase
+
+=for signature $codebase = $htmlappletelement->GetCodeBase()
+
+
+
+=cut
+
+## GetCodeBase(nsAString & aCodeBase)
+nsEmbedString
+moz_dom_GetCodeBase (htmlappletelement)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+    PREINIT:
+	nsEmbedString codebase;
+    CODE:
+	htmlappletelement->GetCodeBase(codebase);
+	RETVAL = codebase;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::SetCodeBase
+
+=for signature $htmlappletelement->SetCodeBase($codebase)
+
+
+
+=cut
+
+## SetCodeBase(const nsAString & aCodeBase)
+void
+moz_dom_SetCodeBase (htmlappletelement, codebase)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+	nsEmbedString codebase;
+    CODE:
+	htmlappletelement->SetCodeBase(codebase);
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::GetHeight
+
+=for signature $height = $htmlappletelement->GetHeight()
+
+
+
+=cut
+
+## GetHeight(nsAString & aHeight)
+nsEmbedString
+moz_dom_GetHeight (htmlappletelement)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+    PREINIT:
+	nsEmbedString height;
+    CODE:
+	htmlappletelement->GetHeight(height);
+	RETVAL = height;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::SetHeight
+
+=for signature $htmlappletelement->SetHeight($height)
+
+
+
+=cut
+
+## SetHeight(const nsAString & aHeight)
+void
+moz_dom_SetHeight (htmlappletelement, height)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+	nsEmbedString height;
+    CODE:
+	htmlappletelement->SetHeight(height);
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::GetHspace
+
+=for signature $hspace = $htmlappletelement->GetHspace()
+
+
+
+=cut
+
+## GetHspace(PRInt32 *aHspace)
+PRInt32
+moz_dom_GetHspace (htmlappletelement)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+    PREINIT:
+	PRInt32 hspace;
+    CODE:
+	htmlappletelement->GetHspace(&hspace);
+	RETVAL = hspace;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::SetHspace
+
+=for signature $htmlappletelement->SetHspace($hspace)
+
+
+
+=cut
+
+## SetHspace(PRInt32 aHspace)
+void
+moz_dom_SetHspace (htmlappletelement, hspace)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+	PRInt32  hspace;
+    CODE:
+	htmlappletelement->SetHspace(hspace);
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::GetName
+
+=for signature $name = $htmlappletelement->GetName()
+
+
+
+=cut
+
+## GetName(nsAString & aName)
+nsEmbedString
+moz_dom_GetName (htmlappletelement)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+    PREINIT:
+	nsEmbedString name;
+    CODE:
+	htmlappletelement->GetName(name);
+	RETVAL = name;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::SetName
+
+=for signature $htmlappletelement->SetName($name)
+
+
+
+=cut
+
+## SetName(const nsAString & aName)
+void
+moz_dom_SetName (htmlappletelement, name)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+	nsEmbedString name;
+    CODE:
+	htmlappletelement->SetName(name);
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::GetObject
+
+=for signature $object = $htmlappletelement->GetObject()
+
+
+
+=cut
+
+## GetObject(nsAString & aObject)
+nsEmbedString
+moz_dom_GetObject (htmlappletelement)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+    PREINIT:
+	nsEmbedString object;
+    CODE:
+	htmlappletelement->GetObject(object);
+	RETVAL = object;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::SetObject
+
+=for signature $htmlappletelement->SetObject($object)
+
+
+
+=cut
+
+## SetObject(const nsAString & aObject)
+void
+moz_dom_SetObject (htmlappletelement, object)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+	nsEmbedString object;
+    CODE:
+	htmlappletelement->SetObject(object);
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::GetVspace
+
+=for signature $vspace = $htmlappletelement->GetVspace()
+
+
+
+=cut
+
+## GetVspace(PRInt32 *aVspace)
+PRInt32
+moz_dom_GetVspace (htmlappletelement)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+    PREINIT:
+	PRInt32 vspace;
+    CODE:
+	htmlappletelement->GetVspace(&vspace);
+	RETVAL = vspace;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::SetVspace
+
+=for signature $htmlappletelement->SetVspace($vspace)
+
+
+
+=cut
+
+## SetVspace(PRInt32 aVspace)
+void
+moz_dom_SetVspace (htmlappletelement, vspace)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+	PRInt32  vspace;
+    CODE:
+	htmlappletelement->SetVspace(vspace);
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::GetWidth
+
+=for signature $width = $htmlappletelement->GetWidth()
+
+
+
+=cut
+
+## GetWidth(nsAString & aWidth)
+nsEmbedString
+moz_dom_GetWidth (htmlappletelement)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+    PREINIT:
+	nsEmbedString width;
+    CODE:
+	htmlappletelement->GetWidth(width);
+	RETVAL = width;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAppletElement::SetWidth
+
+=for signature $htmlappletelement->SetWidth($width)
+
+
+
+=cut
+
+## SetWidth(const nsAString & aWidth)
+void
+moz_dom_SetWidth (htmlappletelement, width)
+	nsIDOMHTMLAppletElement *htmlappletelement;
+	nsEmbedString width;
+    CODE:
+	htmlappletelement->SetWidth(width);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLAreaElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLAreaElement.h
+
+=for object Mozilla::DOM::HTMLAreaElement
+
+Mozilla::DOM::HTMLAreaElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLAreaElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLAreaElement interface is the interface to a [X]HTML
+ * area element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLAreaElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLAREAELEMENT_IID)
+static nsIID
+nsIDOMHTMLAreaElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLAreaElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAreaElement::GetAccessKey
+
+=for signature $accesskey = $htmlareaelement->GetAccessKey()
+
+
+
+=cut
+
+## GetAccessKey(nsAString & aAccessKey)
+nsEmbedString
+moz_dom_GetAccessKey (htmlareaelement)
+	nsIDOMHTMLAreaElement *htmlareaelement;
+    PREINIT:
+	nsEmbedString accesskey;
+    CODE:
+	htmlareaelement->GetAccessKey(accesskey);
+	RETVAL = accesskey;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAreaElement::SetAccessKey
+
+=for signature $htmlareaelement->SetAccessKey($accesskey)
+
+
+
+=cut
+
+## SetAccessKey(const nsAString & aAccessKey)
+void
+moz_dom_SetAccessKey (htmlareaelement, accesskey)
+	nsIDOMHTMLAreaElement *htmlareaelement;
+	nsEmbedString accesskey;
+    CODE:
+	htmlareaelement->SetAccessKey(accesskey);
+
+=for apidoc Mozilla::DOM::HTMLAreaElement::GetAlt
+
+=for signature $alt = $htmlareaelement->GetAlt()
+
+
+
+=cut
+
+## GetAlt(nsAString & aAlt)
+nsEmbedString
+moz_dom_GetAlt (htmlareaelement)
+	nsIDOMHTMLAreaElement *htmlareaelement;
+    PREINIT:
+	nsEmbedString alt;
+    CODE:
+	htmlareaelement->GetAlt(alt);
+	RETVAL = alt;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAreaElement::SetAlt
+
+=for signature $htmlareaelement->SetAlt($alt)
+
+
+
+=cut
+
+## SetAlt(const nsAString & aAlt)
+void
+moz_dom_SetAlt (htmlareaelement, alt)
+	nsIDOMHTMLAreaElement *htmlareaelement;
+	nsEmbedString alt;
+    CODE:
+	htmlareaelement->SetAlt(alt);
+
+=for apidoc Mozilla::DOM::HTMLAreaElement::GetCoords
+
+=for signature $coords = $htmlareaelement->GetCoords()
+
+
+
+=cut
+
+## GetCoords(nsAString & aCoords)
+nsEmbedString
+moz_dom_GetCoords (htmlareaelement)
+	nsIDOMHTMLAreaElement *htmlareaelement;
+    PREINIT:
+	nsEmbedString coords;
+    CODE:
+	htmlareaelement->GetCoords(coords);
+	RETVAL = coords;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAreaElement::SetCoords
+
+=for signature $htmlareaelement->SetCoords($coords)
+
+
+
+=cut
+
+## SetCoords(const nsAString & aCoords)
+void
+moz_dom_SetCoords (htmlareaelement, coords)
+	nsIDOMHTMLAreaElement *htmlareaelement;
+	nsEmbedString coords;
+    CODE:
+	htmlareaelement->SetCoords(coords);
+
+=for apidoc Mozilla::DOM::HTMLAreaElement::GetHref
+
+=for signature $href = $htmlareaelement->GetHref()
+
+
+
+=cut
+
+## GetHref(nsAString & aHref)
+nsEmbedString
+moz_dom_GetHref (htmlareaelement)
+	nsIDOMHTMLAreaElement *htmlareaelement;
+    PREINIT:
+	nsEmbedString href;
+    CODE:
+	htmlareaelement->GetHref(href);
+	RETVAL = href;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAreaElement::SetHref
+
+=for signature $htmlareaelement->SetHref($href)
+
+
+
+=cut
+
+## SetHref(const nsAString & aHref)
+void
+moz_dom_SetHref (htmlareaelement, href)
+	nsIDOMHTMLAreaElement *htmlareaelement;
+	nsEmbedString href;
+    CODE:
+	htmlareaelement->SetHref(href);
+
+=for apidoc Mozilla::DOM::HTMLAreaElement::GetNoHref
+
+=for signature $bool = $htmlareaelement->GetNoHref()
+
+
+
+=cut
+
+## GetNoHref(PRBool *aNoHref)
+PRBool
+moz_dom_GetNoHref (htmlareaelement)
+	nsIDOMHTMLAreaElement *htmlareaelement;
+    PREINIT:
+	PRBool nohref;
+    CODE:
+	htmlareaelement->GetNoHref(&nohref);
+	RETVAL = nohref;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAreaElement::SetNoHref
+
+=for signature $htmlareaelement->SetNoHref($nohref)
+
+
+
+=cut
+
+## SetNoHref(PRBool aNoHref)
+void
+moz_dom_SetNoHref (htmlareaelement, nohref)
+	nsIDOMHTMLAreaElement *htmlareaelement;
+	PRBool  nohref;
+    CODE:
+	htmlareaelement->SetNoHref(nohref);
+
+=for apidoc Mozilla::DOM::HTMLAreaElement::GetShape
+
+=for signature $shape = $htmlareaelement->GetShape()
+
+
+
+=cut
+
+## GetShape(nsAString & aShape)
+nsEmbedString
+moz_dom_GetShape (htmlareaelement)
+	nsIDOMHTMLAreaElement *htmlareaelement;
+    PREINIT:
+	nsEmbedString shape;
+    CODE:
+	htmlareaelement->GetShape(shape);
+	RETVAL = shape;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAreaElement::SetShape
+
+=for signature $htmlareaelement->SetShape($shape)
+
+
+
+=cut
+
+## SetShape(const nsAString & aShape)
+void
+moz_dom_SetShape (htmlareaelement, shape)
+	nsIDOMHTMLAreaElement *htmlareaelement;
+	nsEmbedString shape;
+    CODE:
+	htmlareaelement->SetShape(shape);
+
+=for apidoc Mozilla::DOM::HTMLAreaElement::GetTabIndex
+
+=for signature $tabindex = $htmlareaelement->GetTabIndex()
+
+
+
+=cut
+
+## GetTabIndex(PRInt32 *aTabIndex)
+PRInt32
+moz_dom_GetTabIndex (htmlareaelement)
+	nsIDOMHTMLAreaElement *htmlareaelement;
+    PREINIT:
+	PRInt32 tabindex;
+    CODE:
+	htmlareaelement->GetTabIndex(&tabindex);
+	RETVAL = tabindex;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAreaElement::SetTabIndex
+
+=for signature $htmlareaelement->SetTabIndex($tabindex)
+
+
+
+=cut
+
+## SetTabIndex(PRInt32 aTabIndex)
+void
+moz_dom_SetTabIndex (htmlareaelement, tabindex)
+	nsIDOMHTMLAreaElement *htmlareaelement;
+	PRInt32  tabindex;
+    CODE:
+	htmlareaelement->SetTabIndex(tabindex);
+
+=for apidoc Mozilla::DOM::HTMLAreaElement::GetTarget
+
+=for signature $target = $htmlareaelement->GetTarget()
+
+
+
+=cut
+
+## GetTarget(nsAString & aTarget)
+nsEmbedString
+moz_dom_GetTarget (htmlareaelement)
+	nsIDOMHTMLAreaElement *htmlareaelement;
+    PREINIT:
+	nsEmbedString target;
+    CODE:
+	htmlareaelement->GetTarget(target);
+	RETVAL = target;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLAreaElement::SetTarget
+
+=for signature $htmlareaelement->SetTarget($target)
+
+
+
+=cut
+
+## SetTarget(const nsAString & aTarget)
+void
+moz_dom_SetTarget (htmlareaelement, target)
+	nsIDOMHTMLAreaElement *htmlareaelement;
+	nsEmbedString target;
+    CODE:
+	htmlareaelement->SetTarget(target);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLBRElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLBRElement.h
+
+=for object Mozilla::DOM::HTMLBRElement
+
+Mozilla::DOM::HTMLBRElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLBRElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLBRElement interface is the interface to a [X]HTML br
+ * element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLBRElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLBRELEMENT_IID)
+static nsIID
+nsIDOMHTMLBRElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLBRElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLBRElement::GetClear
+
+=for signature $clear = $htmlbrelement->GetClear()
+
+
+
+=cut
+
+## GetClear(nsAString & aClear)
+nsEmbedString
+moz_dom_GetClear (htmlbrelement)
+	nsIDOMHTMLBRElement *htmlbrelement;
+    PREINIT:
+	nsEmbedString clear;
+    CODE:
+	htmlbrelement->GetClear(clear);
+	RETVAL = clear;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLBRElement::SetClear
+
+=for signature $htmlbrelement->SetClear($clear)
+
+
+
+=cut
+
+## SetClear(const nsAString & aClear)
+void
+moz_dom_SetClear (htmlbrelement, clear)
+	nsIDOMHTMLBRElement *htmlbrelement;
+	nsEmbedString clear;
+    CODE:
+	htmlbrelement->SetClear(clear);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLBaseElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLBaseElement.h
+
+=for object Mozilla::DOM::HTMLBaseElement
+
+Mozilla::DOM::HTMLBaseElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLBaseElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLBaseElement interface is the interface to a [X]HTML
+ * base element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLBaseElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLBASEELEMENT_IID)
+static nsIID
+nsIDOMHTMLBaseElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLBaseElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLBaseElement::GetHref
+
+=for signature $href = $htmlbaseelement->GetHref()
+
+
+
+=cut
+
+## GetHref(nsAString & aHref)
+nsEmbedString
+moz_dom_GetHref (htmlbaseelement)
+	nsIDOMHTMLBaseElement *htmlbaseelement;
+    PREINIT:
+	nsEmbedString href;
+    CODE:
+	htmlbaseelement->GetHref(href);
+	RETVAL = href;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLBaseElement::SetHref
+
+=for signature $htmlbaseelement->SetHref($href)
+
+
+
+=cut
+
+## SetHref(const nsAString & aHref)
+void
+moz_dom_SetHref (htmlbaseelement, href)
+	nsIDOMHTMLBaseElement *htmlbaseelement;
+	nsEmbedString href;
+    CODE:
+	htmlbaseelement->SetHref(href);
+
+=for apidoc Mozilla::DOM::HTMLBaseElement::GetTarget
+
+=for signature $target = $htmlbaseelement->GetTarget()
+
+
+
+=cut
+
+## GetTarget(nsAString & aTarget)
+nsEmbedString
+moz_dom_GetTarget (htmlbaseelement)
+	nsIDOMHTMLBaseElement *htmlbaseelement;
+    PREINIT:
+	nsEmbedString target;
+    CODE:
+	htmlbaseelement->GetTarget(target);
+	RETVAL = target;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLBaseElement::SetTarget
+
+=for signature $htmlbaseelement->SetTarget($target)
+
+
+
+=cut
+
+## SetTarget(const nsAString & aTarget)
+void
+moz_dom_SetTarget (htmlbaseelement, target)
+	nsIDOMHTMLBaseElement *htmlbaseelement;
+	nsEmbedString target;
+    CODE:
+	htmlbaseelement->SetTarget(target);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLBaseFontElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLBaseFontElement.h
+
+=for object Mozilla::DOM::HTMLBaseFontElement
+
+Mozilla::DOM::HTMLBaseFontElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLBaseFontElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLBaseFontElement interface is the interface to a
+ * [X]HTML basefont element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLBaseFontElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLBASEFONTELEMENT_IID)
+static nsIID
+nsIDOMHTMLBaseFontElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLBaseFontElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLBaseFontElement::GetColor
+
+=for signature $color = $htmlbasefontelement->GetColor()
+
+
+
+=cut
+
+## GetColor(nsAString & aColor)
+nsEmbedString
+moz_dom_GetColor (htmlbasefontelement)
+	nsIDOMHTMLBaseFontElement *htmlbasefontelement;
+    PREINIT:
+	nsEmbedString color;
+    CODE:
+	htmlbasefontelement->GetColor(color);
+	RETVAL = color;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLBaseFontElement::SetColor
+
+=for signature $htmlbasefontelement->SetColor($color)
+
+
+
+=cut
+
+## SetColor(const nsAString & aColor)
+void
+moz_dom_SetColor (htmlbasefontelement, color)
+	nsIDOMHTMLBaseFontElement *htmlbasefontelement;
+	nsEmbedString color;
+    CODE:
+	htmlbasefontelement->SetColor(color);
+
+=for apidoc Mozilla::DOM::HTMLBaseFontElement::GetFace
+
+=for signature $face = $htmlbasefontelement->GetFace()
+
+
+
+=cut
+
+## GetFace(nsAString & aFace)
+nsEmbedString
+moz_dom_GetFace (htmlbasefontelement)
+	nsIDOMHTMLBaseFontElement *htmlbasefontelement;
+    PREINIT:
+	nsEmbedString face;
+    CODE:
+	htmlbasefontelement->GetFace(face);
+	RETVAL = face;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLBaseFontElement::SetFace
+
+=for signature $htmlbasefontelement->SetFace($face)
+
+
+
+=cut
+
+## SetFace(const nsAString & aFace)
+void
+moz_dom_SetFace (htmlbasefontelement, face)
+	nsIDOMHTMLBaseFontElement *htmlbasefontelement;
+	nsEmbedString face;
+    CODE:
+	htmlbasefontelement->SetFace(face);
+
+=for apidoc Mozilla::DOM::HTMLBaseFontElement::GetSize
+
+=for signature $size = $htmlbasefontelement->GetSize()
+
+
+
+=cut
+
+## GetSize(PRInt32 *aSize)
+PRInt32
+moz_dom_GetSize (htmlbasefontelement)
+	nsIDOMHTMLBaseFontElement *htmlbasefontelement;
+    PREINIT:
+	PRInt32 size;
+    CODE:
+	htmlbasefontelement->GetSize(&size);
+	RETVAL = size;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLBaseFontElement::SetSize
+
+=for signature $htmlbasefontelement->SetSize($size)
+
+
+
+=cut
+
+## SetSize(PRInt32 aSize)
+void
+moz_dom_SetSize (htmlbasefontelement, size)
+	nsIDOMHTMLBaseFontElement *htmlbasefontelement;
+	PRInt32  size;
+    CODE:
+	htmlbasefontelement->SetSize(size);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLBodyElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLBodyElement.h
+
+=for object Mozilla::DOM::HTMLBodyElement
+
+Mozilla::DOM::HTMLBodyElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLBodyElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLBodyElement interface is the interface to a [X]HTML
+ * body element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLBodyElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLBODYELEMENT_IID)
+static nsIID
+nsIDOMHTMLBodyElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLBodyElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLBodyElement::GetALink
+
+=for signature $alink = $htmlbodyelement->GetALink()
+
+
+
+=cut
+
+## GetALink(nsAString & aALink)
+nsEmbedString
+moz_dom_GetALink (htmlbodyelement)
+	nsIDOMHTMLBodyElement *htmlbodyelement;
+    PREINIT:
+	nsEmbedString alink;
+    CODE:
+	htmlbodyelement->GetALink(alink);
+	RETVAL = alink;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLBodyElement::SetALink
+
+=for signature $htmlbodyelement->SetALink($alink)
+
+
+
+=cut
+
+## SetALink(const nsAString & aALink)
+void
+moz_dom_SetALink (htmlbodyelement, alink)
+	nsIDOMHTMLBodyElement *htmlbodyelement;
+	nsEmbedString alink;
+    CODE:
+	htmlbodyelement->SetALink(alink);
+
+=for apidoc Mozilla::DOM::HTMLBodyElement::GetBackground
+
+=for signature $background = $htmlbodyelement->GetBackground()
+
+
+
+=cut
+
+## GetBackground(nsAString & aBackground)
+nsEmbedString
+moz_dom_GetBackground (htmlbodyelement)
+	nsIDOMHTMLBodyElement *htmlbodyelement;
+    PREINIT:
+	nsEmbedString background;
+    CODE:
+	htmlbodyelement->GetBackground(background);
+	RETVAL = background;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLBodyElement::SetBackground
+
+=for signature $htmlbodyelement->SetBackground($background)
+
+
+
+=cut
+
+## SetBackground(const nsAString & aBackground)
+void
+moz_dom_SetBackground (htmlbodyelement, background)
+	nsIDOMHTMLBodyElement *htmlbodyelement;
+	nsEmbedString background;
+    CODE:
+	htmlbodyelement->SetBackground(background);
+
+=for apidoc Mozilla::DOM::HTMLBodyElement::GetBgColor
+
+=for signature $bgcolor = $htmlbodyelement->GetBgColor()
+
+
+
+=cut
+
+## GetBgColor(nsAString & aBgColor)
+nsEmbedString
+moz_dom_GetBgColor (htmlbodyelement)
+	nsIDOMHTMLBodyElement *htmlbodyelement;
+    PREINIT:
+	nsEmbedString bgcolor;
+    CODE:
+	htmlbodyelement->GetBgColor(bgcolor);
+	RETVAL = bgcolor;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLBodyElement::SetBgColor
+
+=for signature $htmlbodyelement->SetBgColor($bgcolor)
+
+
+
+=cut
+
+## SetBgColor(const nsAString & aBgColor)
+void
+moz_dom_SetBgColor (htmlbodyelement, bgcolor)
+	nsIDOMHTMLBodyElement *htmlbodyelement;
+	nsEmbedString bgcolor;
+    CODE:
+	htmlbodyelement->SetBgColor(bgcolor);
+
+=for apidoc Mozilla::DOM::HTMLBodyElement::GetLink
+
+=for signature $link = $htmlbodyelement->GetLink()
+
+
+
+=cut
+
+## GetLink(nsAString & aLink)
+nsEmbedString
+moz_dom_GetLink (htmlbodyelement)
+	nsIDOMHTMLBodyElement *htmlbodyelement;
+    PREINIT:
+	nsEmbedString link;
+    CODE:
+	htmlbodyelement->GetLink(link);
+	RETVAL = link;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLBodyElement::SetLink
+
+=for signature $htmlbodyelement->SetLink($link)
+
+
+
+=cut
+
+## SetLink(const nsAString & aLink)
+void
+moz_dom_SetLink (htmlbodyelement, link)
+	nsIDOMHTMLBodyElement *htmlbodyelement;
+	nsEmbedString link;
+    CODE:
+	htmlbodyelement->SetLink(link);
+
+=for apidoc Mozilla::DOM::HTMLBodyElement::GetText
+
+=for signature $text = $htmlbodyelement->GetText()
+
+
+
+=cut
+
+## GetText(nsAString & aText)
+nsEmbedString
+moz_dom_GetText (htmlbodyelement)
+	nsIDOMHTMLBodyElement *htmlbodyelement;
+    PREINIT:
+	nsEmbedString text;
+    CODE:
+	htmlbodyelement->GetText(text);
+	RETVAL = text;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLBodyElement::SetText
+
+=for signature $htmlbodyelement->SetText($text)
+
+
+
+=cut
+
+## SetText(const nsAString & aText)
+void
+moz_dom_SetText (htmlbodyelement, text)
+	nsIDOMHTMLBodyElement *htmlbodyelement;
+	nsEmbedString text;
+    CODE:
+	htmlbodyelement->SetText(text);
+
+=for apidoc Mozilla::DOM::HTMLBodyElement::GetVLink
+
+=for signature $vlink = $htmlbodyelement->GetVLink()
+
+
+
+=cut
+
+## GetVLink(nsAString & aVLink)
+nsEmbedString
+moz_dom_GetVLink (htmlbodyelement)
+	nsIDOMHTMLBodyElement *htmlbodyelement;
+    PREINIT:
+	nsEmbedString vlink;
+    CODE:
+	htmlbodyelement->GetVLink(vlink);
+	RETVAL = vlink;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLBodyElement::SetVLink
+
+=for signature $htmlbodyelement->SetVLink($vlink)
+
+
+
+=cut
+
+## SetVLink(const nsAString & aVLink)
+void
+moz_dom_SetVLink (htmlbodyelement, vlink)
+	nsIDOMHTMLBodyElement *htmlbodyelement;
+	nsEmbedString vlink;
+    CODE:
+	htmlbodyelement->SetVLink(vlink);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLButtonElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLButtonElement.h
+
+=for object Mozilla::DOM::HTMLButtonElement
+
+Mozilla::DOM::HTMLButtonElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLButtonElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLButtonElement interface is the interface to a [X]HTML
+ * button element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLButtonElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLBUTTONELEMENT_IID)
+static nsIID
+nsIDOMHTMLButtonElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLButtonElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLButtonElement::GetForm
+
+=for signature $form = $htmlbuttonelement->GetForm()
+
+
+
+=cut
+
+## GetForm(nsIDOMHTMLFormElement * *aForm)
+nsIDOMHTMLFormElement *
+moz_dom_GetForm (htmlbuttonelement)
+	nsIDOMHTMLButtonElement *htmlbuttonelement;
+    PREINIT:
+	nsIDOMHTMLFormElement * form;
+    CODE:
+	htmlbuttonelement->GetForm(&form);
+	RETVAL = form;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLButtonElement::GetAccessKey
+
+=for signature $accesskey = $htmlbuttonelement->GetAccessKey()
+
+
+
+=cut
+
+## GetAccessKey(nsAString & aAccessKey)
+nsEmbedString
+moz_dom_GetAccessKey (htmlbuttonelement)
+	nsIDOMHTMLButtonElement *htmlbuttonelement;
+    PREINIT:
+	nsEmbedString accesskey;
+    CODE:
+	htmlbuttonelement->GetAccessKey(accesskey);
+	RETVAL = accesskey;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLButtonElement::SetAccessKey
+
+=for signature $htmlbuttonelement->SetAccessKey($accesskey)
+
+
+
+=cut
+
+## SetAccessKey(const nsAString & aAccessKey)
+void
+moz_dom_SetAccessKey (htmlbuttonelement, accesskey)
+	nsIDOMHTMLButtonElement *htmlbuttonelement;
+	nsEmbedString accesskey;
+    CODE:
+	htmlbuttonelement->SetAccessKey(accesskey);
+
+=for apidoc Mozilla::DOM::HTMLButtonElement::GetDisabled
+
+=for signature $bool = $htmlbuttonelement->GetDisabled()
+
+
+
+=cut
+
+## GetDisabled(PRBool *aDisabled)
+PRBool
+moz_dom_GetDisabled (htmlbuttonelement)
+	nsIDOMHTMLButtonElement *htmlbuttonelement;
+    PREINIT:
+	PRBool disabled;
+    CODE:
+	htmlbuttonelement->GetDisabled(&disabled);
+	RETVAL = disabled;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLButtonElement::SetDisabled
+
+=for signature $htmlbuttonelement->SetDisabled($disabled)
+
+
+
+=cut
+
+## SetDisabled(PRBool aDisabled)
+void
+moz_dom_SetDisabled (htmlbuttonelement, disabled)
+	nsIDOMHTMLButtonElement *htmlbuttonelement;
+	PRBool  disabled;
+    CODE:
+	htmlbuttonelement->SetDisabled(disabled);
+
+=for apidoc Mozilla::DOM::HTMLButtonElement::GetName
+
+=for signature $name = $htmlbuttonelement->GetName()
+
+
+
+=cut
+
+## GetName(nsAString & aName)
+nsEmbedString
+moz_dom_GetName (htmlbuttonelement)
+	nsIDOMHTMLButtonElement *htmlbuttonelement;
+    PREINIT:
+	nsEmbedString name;
+    CODE:
+	htmlbuttonelement->GetName(name);
+	RETVAL = name;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLButtonElement::SetName
+
+=for signature $htmlbuttonelement->SetName($name)
+
+
+
+=cut
+
+## SetName(const nsAString & aName)
+void
+moz_dom_SetName (htmlbuttonelement, name)
+	nsIDOMHTMLButtonElement *htmlbuttonelement;
+	nsEmbedString name;
+    CODE:
+	htmlbuttonelement->SetName(name);
+
+=for apidoc Mozilla::DOM::HTMLButtonElement::GetTabIndex
+
+=for signature $tabindex = $htmlbuttonelement->GetTabIndex()
+
+
+
+=cut
+
+## GetTabIndex(PRInt32 *aTabIndex)
+PRInt32
+moz_dom_GetTabIndex (htmlbuttonelement)
+	nsIDOMHTMLButtonElement *htmlbuttonelement;
+    PREINIT:
+	PRInt32 tabindex;
+    CODE:
+	htmlbuttonelement->GetTabIndex(&tabindex);
+	RETVAL = tabindex;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLButtonElement::SetTabIndex
+
+=for signature $htmlbuttonelement->SetTabIndex($tabindex)
+
+
+
+=cut
+
+## SetTabIndex(PRInt32 aTabIndex)
+void
+moz_dom_SetTabIndex (htmlbuttonelement, tabindex)
+	nsIDOMHTMLButtonElement *htmlbuttonelement;
+	PRInt32  tabindex;
+    CODE:
+	htmlbuttonelement->SetTabIndex(tabindex);
+
+=for apidoc Mozilla::DOM::HTMLButtonElement::GetType
+
+=for signature $type = $htmlbuttonelement->GetType()
+
+
+
+=cut
+
+## GetType(nsAString & aType)
+nsEmbedString
+moz_dom_GetType (htmlbuttonelement)
+	nsIDOMHTMLButtonElement *htmlbuttonelement;
+    PREINIT:
+	nsEmbedString type;
+    CODE:
+	htmlbuttonelement->GetType(type);
+	RETVAL = type;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLButtonElement::GetValue
+
+=for signature $value = $htmlbuttonelement->GetValue()
+
+
+
+=cut
+
+## GetValue(nsAString & aValue)
+nsEmbedString
+moz_dom_GetValue (htmlbuttonelement)
+	nsIDOMHTMLButtonElement *htmlbuttonelement;
+    PREINIT:
+	nsEmbedString value;
+    CODE:
+	htmlbuttonelement->GetValue(value);
+	RETVAL = value;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLButtonElement::SetValue
+
+=for signature $htmlbuttonelement->SetValue($value)
+
+
+
+=cut
+
+## SetValue(const nsAString & aValue)
+void
+moz_dom_SetValue (htmlbuttonelement, value)
+	nsIDOMHTMLButtonElement *htmlbuttonelement;
+	nsEmbedString value;
+    CODE:
+	htmlbuttonelement->SetValue(value);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLCollection	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLCollection.h
+
+=for object Mozilla::DOM::HTMLCollection
+
+Mozilla::DOM::HTMLCollection is a wrapper around an instance of Mozilla's
+nsIDOMHTMLCollection interface. This class inherits from
+L<nsISupports|Mozilla::DOM::nsISupports>.
+
+ * The nsIDOMHTMLCollection interface is an interface to a collection
+ * of [X]HTML elements.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLCollection->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLCOLLECTION_IID)
+static nsIID
+nsIDOMHTMLCollection::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLCollection::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLCollection::GetLength
+
+=for signature $length = $htmlcollection->GetLength()
+
+
+
+=cut
+
+## GetLength(PRUint32 *aLength)
+PRUint32
+moz_dom_GetLength (htmlcollection)
+	nsIDOMHTMLCollection *htmlcollection;
+    PREINIT:
+	PRUint32 length;
+    CODE:
+	htmlcollection->GetLength(&length);
+	RETVAL = length;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLCollection::Item
+
+=for signature $retval = $htmlcollection->Item($index)
+
+
+
+=cut
+
+## Item(PRUint32 index, nsIDOMNode **_retval)
+nsIDOMNode *
+moz_dom_Item (htmlcollection, index)
+	nsIDOMHTMLCollection *htmlcollection;
+	PRUint32  index;
+    PREINIT:
+	nsIDOMNode * retval;
+    CODE:
+	htmlcollection->Item(index, &retval);
+	RETVAL = retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLCollection::NamedItem
+
+=for signature $retval = $htmlcollection->NamedItem($name)
+
+
+
+=cut
+
+## NamedItem(const nsAString & name, nsIDOMNode **_retval)
+nsIDOMNode *
+moz_dom_NamedItem (htmlcollection, name)
+	nsIDOMHTMLCollection *htmlcollection;
+	nsEmbedString name;
+    PREINIT:
+	nsIDOMNode * retval;
+    CODE:
+	htmlcollection->NamedItem(name, &retval);
+	RETVAL = retval;
+    OUTPUT:
+	RETVAL
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLDListElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLDListElement.h
+
+=for object Mozilla::DOM::HTMLDListElement
+
+Mozilla::DOM::HTMLDListElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLDListElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLDListElement interface is the interface to a [X]HTML
+ * dl element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLDListElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLDLISTELEMENT_IID)
+static nsIID
+nsIDOMHTMLDListElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLDListElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLDListElement::GetCompact
+
+=for signature $bool = $htmldlistelement->GetCompact()
+
+
+
+=cut
+
+## GetCompact(PRBool *aCompact)
+PRBool
+moz_dom_GetCompact (htmldlistelement)
+	nsIDOMHTMLDListElement *htmldlistelement;
+    PREINIT:
+	PRBool compact;
+    CODE:
+	htmldlistelement->GetCompact(&compact);
+	RETVAL = compact;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLDListElement::SetCompact
+
+=for signature $htmldlistelement->SetCompact($compact)
+
+
+
+=cut
+
+## SetCompact(PRBool aCompact)
+void
+moz_dom_SetCompact (htmldlistelement, compact)
+	nsIDOMHTMLDListElement *htmldlistelement;
+	PRBool  compact;
+    CODE:
+	htmldlistelement->SetCompact(compact);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLDirectoryElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLDirectoryElement.h
+
+=for object Mozilla::DOM::HTMLDirectoryElement
+
+Mozilla::DOM::HTMLDirectoryElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLDirectoryElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLDirectoryElement interface is the interface to a
+ * [X]HTML dir element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLDirectoryElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLDIRECTORYELEMENT_IID)
+static nsIID
+nsIDOMHTMLDirectoryElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLDirectoryElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLDirectoryElement::GetCompact
+
+=for signature $bool = $htmldirectoryelement->GetCompact()
+
+
+
+=cut
+
+## GetCompact(PRBool *aCompact)
+PRBool
+moz_dom_GetCompact (htmldirectoryelement)
+	nsIDOMHTMLDirectoryElement *htmldirectoryelement;
+    PREINIT:
+	PRBool compact;
+    CODE:
+	htmldirectoryelement->GetCompact(&compact);
+	RETVAL = compact;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLDirectoryElement::SetCompact
+
+=for signature $htmldirectoryelement->SetCompact($compact)
+
+
+
+=cut
+
+## SetCompact(PRBool aCompact)
+void
+moz_dom_SetCompact (htmldirectoryelement, compact)
+	nsIDOMHTMLDirectoryElement *htmldirectoryelement;
+	PRBool  compact;
+    CODE:
+	htmldirectoryelement->SetCompact(compact);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLDivElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLDivElement.h
+
+=for object Mozilla::DOM::HTMLDivElement
+
+Mozilla::DOM::HTMLDivElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLDivElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLDivElement interface is the interface to a [X]HTML
+ * div element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLDivElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLDIVELEMENT_IID)
+static nsIID
+nsIDOMHTMLDivElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLDivElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLDivElement::GetAlign
+
+=for signature $align = $htmldivelement->GetAlign()
+
+
+
+=cut
+
+## GetAlign(nsAString & aAlign)
+nsEmbedString
+moz_dom_GetAlign (htmldivelement)
+	nsIDOMHTMLDivElement *htmldivelement;
+    PREINIT:
+	nsEmbedString align;
+    CODE:
+	htmldivelement->GetAlign(align);
+	RETVAL = align;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLDivElement::SetAlign
+
+=for signature $htmldivelement->SetAlign($align)
+
+
+
+=cut
+
+## SetAlign(const nsAString & aAlign)
+void
+moz_dom_SetAlign (htmldivelement, align)
+	nsIDOMHTMLDivElement *htmldivelement;
+	nsEmbedString align;
+    CODE:
+	htmldivelement->SetAlign(align);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLElement.h
+
+=for object Mozilla::DOM::HTMLElement
+
+Mozilla::DOM::HTMLElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLElement interface. This class inherits from
+L<Element|Mozilla::DOM::Element>.
+
+ * The nsIDOMHTMLElement interface is the primary [X]HTML element
+ * interface. It represents a single [X]HTML element in the document
+ * tree.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLELEMENT_IID)
+static nsIID
+nsIDOMHTMLElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLElement::GetId
+
+=for signature $id = $htmlelement->GetId()
+
+
+
+=cut
+
+## GetId(nsAString & aId)
+nsEmbedString
+moz_dom_GetId (htmlelement)
+	nsIDOMHTMLElement *htmlelement;
+    PREINIT:
+	nsEmbedString id;
+    CODE:
+	htmlelement->GetId(id);
+	RETVAL = id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLElement::SetId
+
+=for signature $htmlelement->SetId($id)
+
+
+
+=cut
+
+## SetId(const nsAString & aId)
+void
+moz_dom_SetId (htmlelement, id)
+	nsIDOMHTMLElement *htmlelement;
+	nsEmbedString id;
+    CODE:
+	htmlelement->SetId(id);
+
+=for apidoc Mozilla::DOM::HTMLElement::GetTitle
+
+=for signature $title = $htmlelement->GetTitle()
+
+
+
+=cut
+
+## GetTitle(nsAString & aTitle)
+nsEmbedString
+moz_dom_GetTitle (htmlelement)
+	nsIDOMHTMLElement *htmlelement;
+    PREINIT:
+	nsEmbedString title;
+    CODE:
+	htmlelement->GetTitle(title);
+	RETVAL = title;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLElement::SetTitle
+
+=for signature $htmlelement->SetTitle($title)
+
+
+
+=cut
+
+## SetTitle(const nsAString & aTitle)
+void
+moz_dom_SetTitle (htmlelement, title)
+	nsIDOMHTMLElement *htmlelement;
+	nsEmbedString title;
+    CODE:
+	htmlelement->SetTitle(title);
+
+=for apidoc Mozilla::DOM::HTMLElement::GetLang
+
+=for signature $lang = $htmlelement->GetLang()
+
+
+
+=cut
+
+## GetLang(nsAString & aLang)
+nsEmbedString
+moz_dom_GetLang (htmlelement)
+	nsIDOMHTMLElement *htmlelement;
+    PREINIT:
+	nsEmbedString lang;
+    CODE:
+	htmlelement->GetLang(lang);
+	RETVAL = lang;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLElement::SetLang
+
+=for signature $htmlelement->SetLang($lang)
+
+
+
+=cut
+
+## SetLang(const nsAString & aLang)
+void
+moz_dom_SetLang (htmlelement, lang)
+	nsIDOMHTMLElement *htmlelement;
+	nsEmbedString lang;
+    CODE:
+	htmlelement->SetLang(lang);
+
+=for apidoc Mozilla::DOM::HTMLElement::GetDir
+
+=for signature $dir = $htmlelement->GetDir()
+
+
+
+=cut
+
+## GetDir(nsAString & aDir)
+nsEmbedString
+moz_dom_GetDir (htmlelement)
+	nsIDOMHTMLElement *htmlelement;
+    PREINIT:
+	nsEmbedString dir;
+    CODE:
+	htmlelement->GetDir(dir);
+	RETVAL = dir;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLElement::SetDir
+
+=for signature $htmlelement->SetDir($dir)
+
+
+
+=cut
+
+## SetDir(const nsAString & aDir)
+void
+moz_dom_SetDir (htmlelement, dir)
+	nsIDOMHTMLElement *htmlelement;
+	nsEmbedString dir;
+    CODE:
+	htmlelement->SetDir(dir);
+
+=for apidoc Mozilla::DOM::HTMLElement::GetClassName
+
+=for signature $classname = $htmlelement->GetClassName()
+
+
+
+=cut
+
+## GetClassName(nsAString & aClassName)
+nsEmbedString
+moz_dom_GetClassName (htmlelement)
+	nsIDOMHTMLElement *htmlelement;
+    PREINIT:
+	nsEmbedString classname;
+    CODE:
+	htmlelement->GetClassName(classname);
+	RETVAL = classname;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLElement::SetClassName
+
+=for signature $htmlelement->SetClassName($classname)
+
+
+
+=cut
+
+## SetClassName(const nsAString & aClassName)
+void
+moz_dom_SetClassName (htmlelement, classname)
+	nsIDOMHTMLElement *htmlelement;
+	nsEmbedString classname;
+    CODE:
+	htmlelement->SetClassName(classname);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLEmbedElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLEmbedElement.h
+
+=for object Mozilla::DOM::HTMLEmbedElement
+
+Mozilla::DOM::HTMLEmbedElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLEmbedElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLEmbedElement interface is the interface to a [X]HTML
+ * embed element.
+ *
+ * Note that this is not a W3C standard interface, it is Mozilla
+ * proprietary.
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLEmbedElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLEMBEDELEMENT_IID)
+static nsIID
+nsIDOMHTMLEmbedElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLEmbedElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLEmbedElement::GetAlign
+
+=for signature $align = $htmlembedelement->GetAlign()
+
+
+
+=cut
+
+## GetAlign(nsAString & aAlign)
+nsEmbedString
+moz_dom_GetAlign (htmlembedelement)
+	nsIDOMHTMLEmbedElement *htmlembedelement;
+    PREINIT:
+	nsEmbedString align;
+    CODE:
+	htmlembedelement->GetAlign(align);
+	RETVAL = align;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLEmbedElement::SetAlign
+
+=for signature $htmlembedelement->SetAlign($align)
+
+
+
+=cut
+
+## SetAlign(const nsAString & aAlign)
+void
+moz_dom_SetAlign (htmlembedelement, align)
+	nsIDOMHTMLEmbedElement *htmlembedelement;
+	nsEmbedString align;
+    CODE:
+	htmlembedelement->SetAlign(align);
+
+=for apidoc Mozilla::DOM::HTMLEmbedElement::GetHeight
+
+=for signature $height = $htmlembedelement->GetHeight()
+
+
+
+=cut
+
+## GetHeight(nsAString & aHeight)
+nsEmbedString
+moz_dom_GetHeight (htmlembedelement)
+	nsIDOMHTMLEmbedElement *htmlembedelement;
+    PREINIT:
+	nsEmbedString height;
+    CODE:
+	htmlembedelement->GetHeight(height);
+	RETVAL = height;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLEmbedElement::SetHeight
+
+=for signature $htmlembedelement->SetHeight($height)
+
+
+
+=cut
+
+## SetHeight(const nsAString & aHeight)
+void
+moz_dom_SetHeight (htmlembedelement, height)
+	nsIDOMHTMLEmbedElement *htmlembedelement;
+	nsEmbedString height;
+    CODE:
+	htmlembedelement->SetHeight(height);
+
+=for apidoc Mozilla::DOM::HTMLEmbedElement::GetName
+
+=for signature $name = $htmlembedelement->GetName()
+
+
+
+=cut
+
+## GetName(nsAString & aName)
+nsEmbedString
+moz_dom_GetName (htmlembedelement)
+	nsIDOMHTMLEmbedElement *htmlembedelement;
+    PREINIT:
+	nsEmbedString name;
+    CODE:
+	htmlembedelement->GetName(name);
+	RETVAL = name;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLEmbedElement::SetName
+
+=for signature $htmlembedelement->SetName($name)
+
+
+
+=cut
+
+## SetName(const nsAString & aName)
+void
+moz_dom_SetName (htmlembedelement, name)
+	nsIDOMHTMLEmbedElement *htmlembedelement;
+	nsEmbedString name;
+    CODE:
+	htmlembedelement->SetName(name);
+
+=for apidoc Mozilla::DOM::HTMLEmbedElement::GetSrc
+
+=for signature $src = $htmlembedelement->GetSrc()
+
+
+
+=cut
+
+## GetSrc(nsAString & aSrc)
+nsEmbedString
+moz_dom_GetSrc (htmlembedelement)
+	nsIDOMHTMLEmbedElement *htmlembedelement;
+    PREINIT:
+	nsEmbedString src;
+    CODE:
+	htmlembedelement->GetSrc(src);
+	RETVAL = src;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLEmbedElement::SetSrc
+
+=for signature $htmlembedelement->SetSrc($src)
+
+
+
+=cut
+
+## SetSrc(const nsAString & aSrc)
+void
+moz_dom_SetSrc (htmlembedelement, src)
+	nsIDOMHTMLEmbedElement *htmlembedelement;
+	nsEmbedString src;
+    CODE:
+	htmlembedelement->SetSrc(src);
+
+=for apidoc Mozilla::DOM::HTMLEmbedElement::GetType
+
+=for signature $type = $htmlembedelement->GetType()
+
+
+
+=cut
+
+## GetType(nsAString & aType)
+nsEmbedString
+moz_dom_GetType (htmlembedelement)
+	nsIDOMHTMLEmbedElement *htmlembedelement;
+    PREINIT:
+	nsEmbedString type;
+    CODE:
+	htmlembedelement->GetType(type);
+	RETVAL = type;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLEmbedElement::SetType
+
+=for signature $htmlembedelement->SetType($type)
+
+
+
+=cut
+
+## SetType(const nsAString & aType)
+void
+moz_dom_SetType (htmlembedelement, type)
+	nsIDOMHTMLEmbedElement *htmlembedelement;
+	nsEmbedString type;
+    CODE:
+	htmlembedelement->SetType(type);
+
+=for apidoc Mozilla::DOM::HTMLEmbedElement::GetWidth
+
+=for signature $width = $htmlembedelement->GetWidth()
+
+
+
+=cut
+
+## GetWidth(nsAString & aWidth)
+nsEmbedString
+moz_dom_GetWidth (htmlembedelement)
+	nsIDOMHTMLEmbedElement *htmlembedelement;
+    PREINIT:
+	nsEmbedString width;
+    CODE:
+	htmlembedelement->GetWidth(width);
+	RETVAL = width;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLEmbedElement::SetWidth
+
+=for signature $htmlembedelement->SetWidth($width)
+
+
+
+=cut
+
+## SetWidth(const nsAString & aWidth)
+void
+moz_dom_SetWidth (htmlembedelement, width)
+	nsIDOMHTMLEmbedElement *htmlembedelement;
+	nsEmbedString width;
+    CODE:
+	htmlembedelement->SetWidth(width);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLFieldSetElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLFieldSetElement.h
+
+=for object Mozilla::DOM::HTMLFieldSetElement
+
+Mozilla::DOM::HTMLFieldSetElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLFieldSetElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLFieldSetElement interface is the interface to a
+ * [X]HTML fieldset element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLFieldSetElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLFIELDSETELEMENT_IID)
+static nsIID
+nsIDOMHTMLFieldSetElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLFieldSetElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFieldSetElement::GetForm
+
+=for signature $form = $htmlfieldsetelement->GetForm()
+
+
+
+=cut
+
+## GetForm(nsIDOMHTMLFormElement * *aForm)
+nsIDOMHTMLFormElement *
+moz_dom_GetForm (htmlfieldsetelement)
+	nsIDOMHTMLFieldSetElement *htmlfieldsetelement;
+    PREINIT:
+	nsIDOMHTMLFormElement * form;
+    CODE:
+	htmlfieldsetelement->GetForm(&form);
+	RETVAL = form;
+    OUTPUT:
+	RETVAL
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLFontElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLFontElement.h
+
+=for object Mozilla::DOM::HTMLFontElement
+
+Mozilla::DOM::HTMLFontElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLFontElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLFontElement interface is the interface to a [X]HTML
+ * font element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLFontElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLFONTELEMENT_IID)
+static nsIID
+nsIDOMHTMLFontElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLFontElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFontElement::GetColor
+
+=for signature $color = $htmlfontelement->GetColor()
+
+
+
+=cut
+
+## GetColor(nsAString & aColor)
+nsEmbedString
+moz_dom_GetColor (htmlfontelement)
+	nsIDOMHTMLFontElement *htmlfontelement;
+    PREINIT:
+	nsEmbedString color;
+    CODE:
+	htmlfontelement->GetColor(color);
+	RETVAL = color;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFontElement::SetColor
+
+=for signature $htmlfontelement->SetColor($color)
+
+
+
+=cut
+
+## SetColor(const nsAString & aColor)
+void
+moz_dom_SetColor (htmlfontelement, color)
+	nsIDOMHTMLFontElement *htmlfontelement;
+	nsEmbedString color;
+    CODE:
+	htmlfontelement->SetColor(color);
+
+=for apidoc Mozilla::DOM::HTMLFontElement::GetFace
+
+=for signature $face = $htmlfontelement->GetFace()
+
+
+
+=cut
+
+## GetFace(nsAString & aFace)
+nsEmbedString
+moz_dom_GetFace (htmlfontelement)
+	nsIDOMHTMLFontElement *htmlfontelement;
+    PREINIT:
+	nsEmbedString face;
+    CODE:
+	htmlfontelement->GetFace(face);
+	RETVAL = face;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFontElement::SetFace
+
+=for signature $htmlfontelement->SetFace($face)
+
+
+
+=cut
+
+## SetFace(const nsAString & aFace)
+void
+moz_dom_SetFace (htmlfontelement, face)
+	nsIDOMHTMLFontElement *htmlfontelement;
+	nsEmbedString face;
+    CODE:
+	htmlfontelement->SetFace(face);
+
+=for apidoc Mozilla::DOM::HTMLFontElement::GetSize
+
+=for signature $size = $htmlfontelement->GetSize()
+
+
+
+=cut
+
+## GetSize(nsAString & aSize)
+nsEmbedString
+moz_dom_GetSize (htmlfontelement)
+	nsIDOMHTMLFontElement *htmlfontelement;
+    PREINIT:
+	nsEmbedString size;
+    CODE:
+	htmlfontelement->GetSize(size);
+	RETVAL = size;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFontElement::SetSize
+
+=for signature $htmlfontelement->SetSize($size)
+
+
+
+=cut
+
+## SetSize(const nsAString & aSize)
+void
+moz_dom_SetSize (htmlfontelement, size)
+	nsIDOMHTMLFontElement *htmlfontelement;
+	nsEmbedString size;
+    CODE:
+	htmlfontelement->SetSize(size);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLFormElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLFormElement.h
+
+=for object Mozilla::DOM::HTMLFormElement
+
+Mozilla::DOM::HTMLFormElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLFormElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLFormElement interface is the interface to a [X]HTML
+ * form element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLFormElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLFORMELEMENT_IID)
+static nsIID
+nsIDOMHTMLFormElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLFormElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFormElement::GetElements
+
+=for signature $elements = $htmlformelement->GetElements()
+
+
+
+=cut
+
+## GetElements(nsIDOMHTMLCollection * *aElements)
+nsIDOMHTMLCollection *
+moz_dom_GetElements (htmlformelement)
+	nsIDOMHTMLFormElement *htmlformelement;
+    PREINIT:
+	nsIDOMHTMLCollection * elements;
+    CODE:
+	htmlformelement->GetElements(&elements);
+	RETVAL = elements;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFormElement::GetLength
+
+=for signature $length = $htmlformelement->GetLength()
+
+
+
+=cut
+
+## GetLength(PRInt32 *aLength)
+PRInt32
+moz_dom_GetLength (htmlformelement)
+	nsIDOMHTMLFormElement *htmlformelement;
+    PREINIT:
+	PRInt32 length;
+    CODE:
+	htmlformelement->GetLength(&length);
+	RETVAL = length;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFormElement::GetName
+
+=for signature $name = $htmlformelement->GetName()
+
+
+
+=cut
+
+## GetName(nsAString & aName)
+nsEmbedString
+moz_dom_GetName (htmlformelement)
+	nsIDOMHTMLFormElement *htmlformelement;
+    PREINIT:
+	nsEmbedString name;
+    CODE:
+	htmlformelement->GetName(name);
+	RETVAL = name;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFormElement::SetName
+
+=for signature $htmlformelement->SetName($name)
+
+
+
+=cut
+
+## SetName(const nsAString & aName)
+void
+moz_dom_SetName (htmlformelement, name)
+	nsIDOMHTMLFormElement *htmlformelement;
+	nsEmbedString name;
+    CODE:
+	htmlformelement->SetName(name);
+
+=for apidoc Mozilla::DOM::HTMLFormElement::GetAcceptCharset
+
+=for signature $acceptcharset = $htmlformelement->GetAcceptCharset()
+
+
+
+=cut
+
+## GetAcceptCharset(nsAString & aAcceptCharset)
+nsEmbedString
+moz_dom_GetAcceptCharset (htmlformelement)
+	nsIDOMHTMLFormElement *htmlformelement;
+    PREINIT:
+	nsEmbedString acceptcharset;
+    CODE:
+	htmlformelement->GetAcceptCharset(acceptcharset);
+	RETVAL = acceptcharset;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFormElement::SetAcceptCharset
+
+=for signature $htmlformelement->SetAcceptCharset($acceptcharset)
+
+
+
+=cut
+
+## SetAcceptCharset(const nsAString & aAcceptCharset)
+void
+moz_dom_SetAcceptCharset (htmlformelement, acceptcharset)
+	nsIDOMHTMLFormElement *htmlformelement;
+	nsEmbedString acceptcharset;
+    CODE:
+	htmlformelement->SetAcceptCharset(acceptcharset);
+
+=for apidoc Mozilla::DOM::HTMLFormElement::GetAction
+
+=for signature $action = $htmlformelement->GetAction()
+
+
+
+=cut
+
+## GetAction(nsAString & aAction)
+nsEmbedString
+moz_dom_GetAction (htmlformelement)
+	nsIDOMHTMLFormElement *htmlformelement;
+    PREINIT:
+	nsEmbedString action;
+    CODE:
+	htmlformelement->GetAction(action);
+	RETVAL = action;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFormElement::SetAction
+
+=for signature $htmlformelement->SetAction($action)
+
+
+
+=cut
+
+## SetAction(const nsAString & aAction)
+void
+moz_dom_SetAction (htmlformelement, action)
+	nsIDOMHTMLFormElement *htmlformelement;
+	nsEmbedString action;
+    CODE:
+	htmlformelement->SetAction(action);
+
+=for apidoc Mozilla::DOM::HTMLFormElement::GetEnctype
+
+=for signature $enctype = $htmlformelement->GetEnctype()
+
+
+
+=cut
+
+## GetEnctype(nsAString & aEnctype)
+nsEmbedString
+moz_dom_GetEnctype (htmlformelement)
+	nsIDOMHTMLFormElement *htmlformelement;
+    PREINIT:
+	nsEmbedString enctype;
+    CODE:
+	htmlformelement->GetEnctype(enctype);
+	RETVAL = enctype;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFormElement::SetEnctype
+
+=for signature $htmlformelement->SetEnctype($enctype)
+
+
+
+=cut
+
+## SetEnctype(const nsAString & aEnctype)
+void
+moz_dom_SetEnctype (htmlformelement, enctype)
+	nsIDOMHTMLFormElement *htmlformelement;
+	nsEmbedString enctype;
+    CODE:
+	htmlformelement->SetEnctype(enctype);
+
+=for apidoc Mozilla::DOM::HTMLFormElement::GetMethod
+
+=for signature $method = $htmlformelement->GetMethod()
+
+
+
+=cut
+
+## GetMethod(nsAString & aMethod)
+nsEmbedString
+moz_dom_GetMethod (htmlformelement)
+	nsIDOMHTMLFormElement *htmlformelement;
+    PREINIT:
+	nsEmbedString method;
+    CODE:
+	htmlformelement->GetMethod(method);
+	RETVAL = method;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFormElement::SetMethod
+
+=for signature $htmlformelement->SetMethod($method)
+
+
+
+=cut
+
+## SetMethod(const nsAString & aMethod)
+void
+moz_dom_SetMethod (htmlformelement, method)
+	nsIDOMHTMLFormElement *htmlformelement;
+	nsEmbedString method;
+    CODE:
+	htmlformelement->SetMethod(method);
+
+=for apidoc Mozilla::DOM::HTMLFormElement::GetTarget
+
+=for signature $target = $htmlformelement->GetTarget()
+
+
+
+=cut
+
+## GetTarget(nsAString & aTarget)
+nsEmbedString
+moz_dom_GetTarget (htmlformelement)
+	nsIDOMHTMLFormElement *htmlformelement;
+    PREINIT:
+	nsEmbedString target;
+    CODE:
+	htmlformelement->GetTarget(target);
+	RETVAL = target;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFormElement::SetTarget
+
+=for signature $htmlformelement->SetTarget($target)
+
+
+
+=cut
+
+## SetTarget(const nsAString & aTarget)
+void
+moz_dom_SetTarget (htmlformelement, target)
+	nsIDOMHTMLFormElement *htmlformelement;
+	nsEmbedString target;
+    CODE:
+	htmlformelement->SetTarget(target);
+
+=for apidoc Mozilla::DOM::HTMLFormElement::Submit
+
+=for signature $htmlformelement->Submit()
+
+
+
+=cut
+
+## Submit(void)
+void
+moz_dom_Submit (htmlformelement)
+	nsIDOMHTMLFormElement *htmlformelement;
+    CODE:
+	htmlformelement->Submit();
+
+=for apidoc Mozilla::DOM::HTMLFormElement::Reset
+
+=for signature $htmlformelement->Reset()
+
+
+
+=cut
+
+## Reset(void)
+void
+moz_dom_Reset (htmlformelement)
+	nsIDOMHTMLFormElement *htmlformelement;
+    CODE:
+	htmlformelement->Reset();
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLFrameElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLFrameElement.h
+
+=for object Mozilla::DOM::HTMLFrameElement
+
+Mozilla::DOM::HTMLFrameElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLFrameElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLFrameElement interface is the interface to a [X]HTML
+ * frame element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLFrameElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLFRAMEELEMENT_IID)
+static nsIID
+nsIDOMHTMLFrameElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLFrameElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFrameElement::GetFrameBorder
+
+=for signature $frameborder = $htmlframeelement->GetFrameBorder()
+
+
+
+=cut
+
+## GetFrameBorder(nsAString & aFrameBorder)
+nsEmbedString
+moz_dom_GetFrameBorder (htmlframeelement)
+	nsIDOMHTMLFrameElement *htmlframeelement;
+    PREINIT:
+	nsEmbedString frameborder;
+    CODE:
+	htmlframeelement->GetFrameBorder(frameborder);
+	RETVAL = frameborder;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFrameElement::SetFrameBorder
+
+=for signature $htmlframeelement->SetFrameBorder($frameborder)
+
+
+
+=cut
+
+## SetFrameBorder(const nsAString & aFrameBorder)
+void
+moz_dom_SetFrameBorder (htmlframeelement, frameborder)
+	nsIDOMHTMLFrameElement *htmlframeelement;
+	nsEmbedString frameborder;
+    CODE:
+	htmlframeelement->SetFrameBorder(frameborder);
+
+=for apidoc Mozilla::DOM::HTMLFrameElement::GetLongDesc
+
+=for signature $longdesc = $htmlframeelement->GetLongDesc()
+
+
+
+=cut
+
+## GetLongDesc(nsAString & aLongDesc)
+nsEmbedString
+moz_dom_GetLongDesc (htmlframeelement)
+	nsIDOMHTMLFrameElement *htmlframeelement;
+    PREINIT:
+	nsEmbedString longdesc;
+    CODE:
+	htmlframeelement->GetLongDesc(longdesc);
+	RETVAL = longdesc;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFrameElement::SetLongDesc
+
+=for signature $htmlframeelement->SetLongDesc($longdesc)
+
+
+
+=cut
+
+## SetLongDesc(const nsAString & aLongDesc)
+void
+moz_dom_SetLongDesc (htmlframeelement, longdesc)
+	nsIDOMHTMLFrameElement *htmlframeelement;
+	nsEmbedString longdesc;
+    CODE:
+	htmlframeelement->SetLongDesc(longdesc);
+
+=for apidoc Mozilla::DOM::HTMLFrameElement::GetMarginHeight
+
+=for signature $marginheight = $htmlframeelement->GetMarginHeight()
+
+
+
+=cut
+
+## GetMarginHeight(nsAString & aMarginHeight)
+nsEmbedString
+moz_dom_GetMarginHeight (htmlframeelement)
+	nsIDOMHTMLFrameElement *htmlframeelement;
+    PREINIT:
+	nsEmbedString marginheight;
+    CODE:
+	htmlframeelement->GetMarginHeight(marginheight);
+	RETVAL = marginheight;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFrameElement::SetMarginHeight
+
+=for signature $htmlframeelement->SetMarginHeight($marginheight)
+
+
+
+=cut
+
+## SetMarginHeight(const nsAString & aMarginHeight)
+void
+moz_dom_SetMarginHeight (htmlframeelement, marginheight)
+	nsIDOMHTMLFrameElement *htmlframeelement;
+	nsEmbedString marginheight;
+    CODE:
+	htmlframeelement->SetMarginHeight(marginheight);
+
+=for apidoc Mozilla::DOM::HTMLFrameElement::GetMarginWidth
+
+=for signature $marginwidth = $htmlframeelement->GetMarginWidth()
+
+
+
+=cut
+
+## GetMarginWidth(nsAString & aMarginWidth)
+nsEmbedString
+moz_dom_GetMarginWidth (htmlframeelement)
+	nsIDOMHTMLFrameElement *htmlframeelement;
+    PREINIT:
+	nsEmbedString marginwidth;
+    CODE:
+	htmlframeelement->GetMarginWidth(marginwidth);
+	RETVAL = marginwidth;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFrameElement::SetMarginWidth
+
+=for signature $htmlframeelement->SetMarginWidth($marginwidth)
+
+
+
+=cut
+
+## SetMarginWidth(const nsAString & aMarginWidth)
+void
+moz_dom_SetMarginWidth (htmlframeelement, marginwidth)
+	nsIDOMHTMLFrameElement *htmlframeelement;
+	nsEmbedString marginwidth;
+    CODE:
+	htmlframeelement->SetMarginWidth(marginwidth);
+
+=for apidoc Mozilla::DOM::HTMLFrameElement::GetName
+
+=for signature $name = $htmlframeelement->GetName()
+
+
+
+=cut
+
+## GetName(nsAString & aName)
+nsEmbedString
+moz_dom_GetName (htmlframeelement)
+	nsIDOMHTMLFrameElement *htmlframeelement;
+    PREINIT:
+	nsEmbedString name;
+    CODE:
+	htmlframeelement->GetName(name);
+	RETVAL = name;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFrameElement::SetName
+
+=for signature $htmlframeelement->SetName($name)
+
+
+
+=cut
+
+## SetName(const nsAString & aName)
+void
+moz_dom_SetName (htmlframeelement, name)
+	nsIDOMHTMLFrameElement *htmlframeelement;
+	nsEmbedString name;
+    CODE:
+	htmlframeelement->SetName(name);
+
+=for apidoc Mozilla::DOM::HTMLFrameElement::GetNoResize
+
+=for signature $bool = $htmlframeelement->GetNoResize()
+
+
+
+=cut
+
+## GetNoResize(PRBool *aNoResize)
+PRBool
+moz_dom_GetNoResize (htmlframeelement)
+	nsIDOMHTMLFrameElement *htmlframeelement;
+    PREINIT:
+	PRBool noresize;
+    CODE:
+	htmlframeelement->GetNoResize(&noresize);
+	RETVAL = noresize;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFrameElement::SetNoResize
+
+=for signature $htmlframeelement->SetNoResize($noresize)
+
+
+
+=cut
+
+## SetNoResize(PRBool aNoResize)
+void
+moz_dom_SetNoResize (htmlframeelement, noresize)
+	nsIDOMHTMLFrameElement *htmlframeelement;
+	PRBool  noresize;
+    CODE:
+	htmlframeelement->SetNoResize(noresize);
+
+=for apidoc Mozilla::DOM::HTMLFrameElement::GetScrolling
+
+=for signature $scrolling = $htmlframeelement->GetScrolling()
+
+
+
+=cut
+
+## GetScrolling(nsAString & aScrolling)
+nsEmbedString
+moz_dom_GetScrolling (htmlframeelement)
+	nsIDOMHTMLFrameElement *htmlframeelement;
+    PREINIT:
+	nsEmbedString scrolling;
+    CODE:
+	htmlframeelement->GetScrolling(scrolling);
+	RETVAL = scrolling;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFrameElement::SetScrolling
+
+=for signature $htmlframeelement->SetScrolling($scrolling)
+
+
+
+=cut
+
+## SetScrolling(const nsAString & aScrolling)
+void
+moz_dom_SetScrolling (htmlframeelement, scrolling)
+	nsIDOMHTMLFrameElement *htmlframeelement;
+	nsEmbedString scrolling;
+    CODE:
+	htmlframeelement->SetScrolling(scrolling);
+
+=for apidoc Mozilla::DOM::HTMLFrameElement::GetSrc
+
+=for signature $src = $htmlframeelement->GetSrc()
+
+
+
+=cut
+
+## GetSrc(nsAString & aSrc)
+nsEmbedString
+moz_dom_GetSrc (htmlframeelement)
+	nsIDOMHTMLFrameElement *htmlframeelement;
+    PREINIT:
+	nsEmbedString src;
+    CODE:
+	htmlframeelement->GetSrc(src);
+	RETVAL = src;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFrameElement::SetSrc
+
+=for signature $htmlframeelement->SetSrc($src)
+
+
+
+=cut
+
+## SetSrc(const nsAString & aSrc)
+void
+moz_dom_SetSrc (htmlframeelement, src)
+	nsIDOMHTMLFrameElement *htmlframeelement;
+	nsEmbedString src;
+    CODE:
+	htmlframeelement->SetSrc(src);
+
+=for apidoc Mozilla::DOM::HTMLFrameElement::GetContentDocument
+
+=for signature $contentdocument = $htmlframeelement->GetContentDocument()
+
+
+
+=cut
+
+## GetContentDocument(nsIDOMDocument * *aContentDocument)
+nsIDOMDocument *
+moz_dom_GetContentDocument (htmlframeelement)
+	nsIDOMHTMLFrameElement *htmlframeelement;
+    PREINIT:
+	nsIDOMDocument * contentdocument;
+    CODE:
+	htmlframeelement->GetContentDocument(&contentdocument);
+	RETVAL = contentdocument;
+    OUTPUT:
+	RETVAL
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLFrameSetElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLFrameSetElement.h
+
+=for object Mozilla::DOM::HTMLFrameSetElement
+
+Mozilla::DOM::HTMLFrameSetElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLFrameSetElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLFrameSetElement interface is the interface to a
+ * [X]HTML frameset element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLFrameSetElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLFRAMESETELEMENT_IID)
+static nsIID
+nsIDOMHTMLFrameSetElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLFrameSetElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFrameSetElement::GetCols
+
+=for signature $cols = $htmlframesetelement->GetCols()
+
+
+
+=cut
+
+## GetCols(nsAString & aCols)
+nsEmbedString
+moz_dom_GetCols (htmlframesetelement)
+	nsIDOMHTMLFrameSetElement *htmlframesetelement;
+    PREINIT:
+	nsEmbedString cols;
+    CODE:
+	htmlframesetelement->GetCols(cols);
+	RETVAL = cols;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFrameSetElement::SetCols
+
+=for signature $htmlframesetelement->SetCols($cols)
+
+
+
+=cut
+
+## SetCols(const nsAString & aCols)
+void
+moz_dom_SetCols (htmlframesetelement, cols)
+	nsIDOMHTMLFrameSetElement *htmlframesetelement;
+	nsEmbedString cols;
+    CODE:
+	htmlframesetelement->SetCols(cols);
+
+=for apidoc Mozilla::DOM::HTMLFrameSetElement::GetRows
+
+=for signature $rows = $htmlframesetelement->GetRows()
+
+
+
+=cut
+
+## GetRows(nsAString & aRows)
+nsEmbedString
+moz_dom_GetRows (htmlframesetelement)
+	nsIDOMHTMLFrameSetElement *htmlframesetelement;
+    PREINIT:
+	nsEmbedString rows;
+    CODE:
+	htmlframesetelement->GetRows(rows);
+	RETVAL = rows;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLFrameSetElement::SetRows
+
+=for signature $htmlframesetelement->SetRows($rows)
+
+
+
+=cut
+
+## SetRows(const nsAString & aRows)
+void
+moz_dom_SetRows (htmlframesetelement, rows)
+	nsIDOMHTMLFrameSetElement *htmlframesetelement;
+	nsEmbedString rows;
+    CODE:
+	htmlframesetelement->SetRows(rows);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLHRElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLHRElement.h
+
+=for object Mozilla::DOM::HTMLHRElement
+
+Mozilla::DOM::HTMLHRElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLHRElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLHRElement interface is the interface to a [X]HTML hr
+ * element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLHRElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLHRELEMENT_IID)
+static nsIID
+nsIDOMHTMLHRElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLHRElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLHRElement::GetAlign
+
+=for signature $align = $htmlhrelement->GetAlign()
+
+
+
+=cut
+
+## GetAlign(nsAString & aAlign)
+nsEmbedString
+moz_dom_GetAlign (htmlhrelement)
+	nsIDOMHTMLHRElement *htmlhrelement;
+    PREINIT:
+	nsEmbedString align;
+    CODE:
+	htmlhrelement->GetAlign(align);
+	RETVAL = align;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLHRElement::SetAlign
+
+=for signature $htmlhrelement->SetAlign($align)
+
+
+
+=cut
+
+## SetAlign(const nsAString & aAlign)
+void
+moz_dom_SetAlign (htmlhrelement, align)
+	nsIDOMHTMLHRElement *htmlhrelement;
+	nsEmbedString align;
+    CODE:
+	htmlhrelement->SetAlign(align);
+
+=for apidoc Mozilla::DOM::HTMLHRElement::GetNoShade
+
+=for signature $bool = $htmlhrelement->GetNoShade()
+
+
+
+=cut
+
+## GetNoShade(PRBool *aNoShade)
+PRBool
+moz_dom_GetNoShade (htmlhrelement)
+	nsIDOMHTMLHRElement *htmlhrelement;
+    PREINIT:
+	PRBool noshade;
+    CODE:
+	htmlhrelement->GetNoShade(&noshade);
+	RETVAL = noshade;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLHRElement::SetNoShade
+
+=for signature $htmlhrelement->SetNoShade($noshade)
+
+
+
+=cut
+
+## SetNoShade(PRBool aNoShade)
+void
+moz_dom_SetNoShade (htmlhrelement, noshade)
+	nsIDOMHTMLHRElement *htmlhrelement;
+	PRBool  noshade;
+    CODE:
+	htmlhrelement->SetNoShade(noshade);
+
+=for apidoc Mozilla::DOM::HTMLHRElement::GetSize
+
+=for signature $size = $htmlhrelement->GetSize()
+
+
+
+=cut
+
+## GetSize(nsAString & aSize)
+nsEmbedString
+moz_dom_GetSize (htmlhrelement)
+	nsIDOMHTMLHRElement *htmlhrelement;
+    PREINIT:
+	nsEmbedString size;
+    CODE:
+	htmlhrelement->GetSize(size);
+	RETVAL = size;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLHRElement::SetSize
+
+=for signature $htmlhrelement->SetSize($size)
+
+
+
+=cut
+
+## SetSize(const nsAString & aSize)
+void
+moz_dom_SetSize (htmlhrelement, size)
+	nsIDOMHTMLHRElement *htmlhrelement;
+	nsEmbedString size;
+    CODE:
+	htmlhrelement->SetSize(size);
+
+=for apidoc Mozilla::DOM::HTMLHRElement::GetWidth
+
+=for signature $width = $htmlhrelement->GetWidth()
+
+
+
+=cut
+
+## GetWidth(nsAString & aWidth)
+nsEmbedString
+moz_dom_GetWidth (htmlhrelement)
+	nsIDOMHTMLHRElement *htmlhrelement;
+    PREINIT:
+	nsEmbedString width;
+    CODE:
+	htmlhrelement->GetWidth(width);
+	RETVAL = width;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLHRElement::SetWidth
+
+=for signature $htmlhrelement->SetWidth($width)
+
+
+
+=cut
+
+## SetWidth(const nsAString & aWidth)
+void
+moz_dom_SetWidth (htmlhrelement, width)
+	nsIDOMHTMLHRElement *htmlhrelement;
+	nsEmbedString width;
+    CODE:
+	htmlhrelement->SetWidth(width);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLHeadElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLHeadElement.h
+
+=for object Mozilla::DOM::HTMLHeadElement
+
+Mozilla::DOM::HTMLHeadElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLHeadElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLHeadElement interface is the interface to a [X]HTML
+ * head element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLHeadElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLHEADELEMENT_IID)
+static nsIID
+nsIDOMHTMLHeadElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLHeadElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLHeadElement::GetProfile
+
+=for signature $profile = $htmlheadelement->GetProfile()
+
+
+
+=cut
+
+## GetProfile(nsAString & aProfile)
+nsEmbedString
+moz_dom_GetProfile (htmlheadelement)
+	nsIDOMHTMLHeadElement *htmlheadelement;
+    PREINIT:
+	nsEmbedString profile;
+    CODE:
+	htmlheadelement->GetProfile(profile);
+	RETVAL = profile;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLHeadElement::SetProfile
+
+=for signature $htmlheadelement->SetProfile($profile)
+
+
+
+=cut
+
+## SetProfile(const nsAString & aProfile)
+void
+moz_dom_SetProfile (htmlheadelement, profile)
+	nsIDOMHTMLHeadElement *htmlheadelement;
+	nsEmbedString profile;
+    CODE:
+	htmlheadelement->SetProfile(profile);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLHeadingElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLHeadingElement.h
+
+=for object Mozilla::DOM::HTMLHeadingElement
+
+Mozilla::DOM::HTMLHeadingElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLHeadingElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLHeadingElement interface is the interface to a
+ * [X]HTML h1, h2, h3, ... element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLHeadingElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLHEADINGELEMENT_IID)
+static nsIID
+nsIDOMHTMLHeadingElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLHeadingElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLHeadingElement::GetAlign
+
+=for signature $align = $htmlheadingelement->GetAlign()
+
+
+
+=cut
+
+## GetAlign(nsAString & aAlign)
+nsEmbedString
+moz_dom_GetAlign (htmlheadingelement)
+	nsIDOMHTMLHeadingElement *htmlheadingelement;
+    PREINIT:
+	nsEmbedString align;
+    CODE:
+	htmlheadingelement->GetAlign(align);
+	RETVAL = align;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLHeadingElement::SetAlign
+
+=for signature $htmlheadingelement->SetAlign($align)
+
+
+
+=cut
+
+## SetAlign(const nsAString & aAlign)
+void
+moz_dom_SetAlign (htmlheadingelement, align)
+	nsIDOMHTMLHeadingElement *htmlheadingelement;
+	nsEmbedString align;
+    CODE:
+	htmlheadingelement->SetAlign(align);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLHtmlElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLHtmlElement.h
+
+=for object Mozilla::DOM::HTMLHtmlElement
+
+Mozilla::DOM::HTMLHtmlElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLHtmlElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLHtmlElement interface is the interface to a [X]HTML
+ * html element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLHtmlElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLHTMLELEMENT_IID)
+static nsIID
+nsIDOMHTMLHtmlElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLHtmlElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLHtmlElement::GetVersion
+
+=for signature $version = $htmlhtmlelement->GetVersion()
+
+
+
+=cut
+
+## GetVersion(nsAString & aVersion)
+nsEmbedString
+moz_dom_GetVersion (htmlhtmlelement)
+	nsIDOMHTMLHtmlElement *htmlhtmlelement;
+    PREINIT:
+	nsEmbedString version;
+    CODE:
+	htmlhtmlelement->GetVersion(version);
+	RETVAL = version;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLHtmlElement::SetVersion
+
+=for signature $htmlhtmlelement->SetVersion($version)
+
+
+
+=cut
+
+## SetVersion(const nsAString & aVersion)
+void
+moz_dom_SetVersion (htmlhtmlelement, version)
+	nsIDOMHTMLHtmlElement *htmlhtmlelement;
+	nsEmbedString version;
+    CODE:
+	htmlhtmlelement->SetVersion(version);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLIFrameElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLIFrameElement.h
+
+=for object Mozilla::DOM::HTMLIFrameElement
+
+Mozilla::DOM::HTMLIFrameElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLIFrameElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLIFrameElement interface is the interface to a [X]HTML
+ * iframe element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLIFrameElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLIFRAMEELEMENT_IID)
+static nsIID
+nsIDOMHTMLIFrameElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLIFrameElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::GetAlign
+
+=for signature $align = $htmliframeelement->GetAlign()
+
+
+
+=cut
+
+## GetAlign(nsAString & aAlign)
+nsEmbedString
+moz_dom_GetAlign (htmliframeelement)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+    PREINIT:
+	nsEmbedString align;
+    CODE:
+	htmliframeelement->GetAlign(align);
+	RETVAL = align;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::SetAlign
+
+=for signature $htmliframeelement->SetAlign($align)
+
+
+
+=cut
+
+## SetAlign(const nsAString & aAlign)
+void
+moz_dom_SetAlign (htmliframeelement, align)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+	nsEmbedString align;
+    CODE:
+	htmliframeelement->SetAlign(align);
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::GetFrameBorder
+
+=for signature $frameborder = $htmliframeelement->GetFrameBorder()
+
+
+
+=cut
+
+## GetFrameBorder(nsAString & aFrameBorder)
+nsEmbedString
+moz_dom_GetFrameBorder (htmliframeelement)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+    PREINIT:
+	nsEmbedString frameborder;
+    CODE:
+	htmliframeelement->GetFrameBorder(frameborder);
+	RETVAL = frameborder;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::SetFrameBorder
+
+=for signature $htmliframeelement->SetFrameBorder($frameborder)
+
+
+
+=cut
+
+## SetFrameBorder(const nsAString & aFrameBorder)
+void
+moz_dom_SetFrameBorder (htmliframeelement, frameborder)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+	nsEmbedString frameborder;
+    CODE:
+	htmliframeelement->SetFrameBorder(frameborder);
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::GetHeight
+
+=for signature $height = $htmliframeelement->GetHeight()
+
+
+
+=cut
+
+## GetHeight(nsAString & aHeight)
+nsEmbedString
+moz_dom_GetHeight (htmliframeelement)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+    PREINIT:
+	nsEmbedString height;
+    CODE:
+	htmliframeelement->GetHeight(height);
+	RETVAL = height;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::SetHeight
+
+=for signature $htmliframeelement->SetHeight($height)
+
+
+
+=cut
+
+## SetHeight(const nsAString & aHeight)
+void
+moz_dom_SetHeight (htmliframeelement, height)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+	nsEmbedString height;
+    CODE:
+	htmliframeelement->SetHeight(height);
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::GetLongDesc
+
+=for signature $longdesc = $htmliframeelement->GetLongDesc()
+
+
+
+=cut
+
+## GetLongDesc(nsAString & aLongDesc)
+nsEmbedString
+moz_dom_GetLongDesc (htmliframeelement)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+    PREINIT:
+	nsEmbedString longdesc;
+    CODE:
+	htmliframeelement->GetLongDesc(longdesc);
+	RETVAL = longdesc;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::SetLongDesc
+
+=for signature $htmliframeelement->SetLongDesc($longdesc)
+
+
+
+=cut
+
+## SetLongDesc(const nsAString & aLongDesc)
+void
+moz_dom_SetLongDesc (htmliframeelement, longdesc)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+	nsEmbedString longdesc;
+    CODE:
+	htmliframeelement->SetLongDesc(longdesc);
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::GetMarginHeight
+
+=for signature $marginheight = $htmliframeelement->GetMarginHeight()
+
+
+
+=cut
+
+## GetMarginHeight(nsAString & aMarginHeight)
+nsEmbedString
+moz_dom_GetMarginHeight (htmliframeelement)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+    PREINIT:
+	nsEmbedString marginheight;
+    CODE:
+	htmliframeelement->GetMarginHeight(marginheight);
+	RETVAL = marginheight;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::SetMarginHeight
+
+=for signature $htmliframeelement->SetMarginHeight($marginheight)
+
+
+
+=cut
+
+## SetMarginHeight(const nsAString & aMarginHeight)
+void
+moz_dom_SetMarginHeight (htmliframeelement, marginheight)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+	nsEmbedString marginheight;
+    CODE:
+	htmliframeelement->SetMarginHeight(marginheight);
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::GetMarginWidth
+
+=for signature $marginwidth = $htmliframeelement->GetMarginWidth()
+
+
+
+=cut
+
+## GetMarginWidth(nsAString & aMarginWidth)
+nsEmbedString
+moz_dom_GetMarginWidth (htmliframeelement)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+    PREINIT:
+	nsEmbedString marginwidth;
+    CODE:
+	htmliframeelement->GetMarginWidth(marginwidth);
+	RETVAL = marginwidth;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::SetMarginWidth
+
+=for signature $htmliframeelement->SetMarginWidth($marginwidth)
+
+
+
+=cut
+
+## SetMarginWidth(const nsAString & aMarginWidth)
+void
+moz_dom_SetMarginWidth (htmliframeelement, marginwidth)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+	nsEmbedString marginwidth;
+    CODE:
+	htmliframeelement->SetMarginWidth(marginwidth);
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::GetName
+
+=for signature $name = $htmliframeelement->GetName()
+
+
+
+=cut
+
+## GetName(nsAString & aName)
+nsEmbedString
+moz_dom_GetName (htmliframeelement)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+    PREINIT:
+	nsEmbedString name;
+    CODE:
+	htmliframeelement->GetName(name);
+	RETVAL = name;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::SetName
+
+=for signature $htmliframeelement->SetName($name)
+
+
+
+=cut
+
+## SetName(const nsAString & aName)
+void
+moz_dom_SetName (htmliframeelement, name)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+	nsEmbedString name;
+    CODE:
+	htmliframeelement->SetName(name);
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::GetScrolling
+
+=for signature $scrolling = $htmliframeelement->GetScrolling()
+
+
+
+=cut
+
+## GetScrolling(nsAString & aScrolling)
+nsEmbedString
+moz_dom_GetScrolling (htmliframeelement)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+    PREINIT:
+	nsEmbedString scrolling;
+    CODE:
+	htmliframeelement->GetScrolling(scrolling);
+	RETVAL = scrolling;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::SetScrolling
+
+=for signature $htmliframeelement->SetScrolling($scrolling)
+
+
+
+=cut
+
+## SetScrolling(const nsAString & aScrolling)
+void
+moz_dom_SetScrolling (htmliframeelement, scrolling)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+	nsEmbedString scrolling;
+    CODE:
+	htmliframeelement->SetScrolling(scrolling);
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::GetSrc
+
+=for signature $src = $htmliframeelement->GetSrc()
+
+
+
+=cut
+
+## GetSrc(nsAString & aSrc)
+nsEmbedString
+moz_dom_GetSrc (htmliframeelement)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+    PREINIT:
+	nsEmbedString src;
+    CODE:
+	htmliframeelement->GetSrc(src);
+	RETVAL = src;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::SetSrc
+
+=for signature $htmliframeelement->SetSrc($src)
+
+
+
+=cut
+
+## SetSrc(const nsAString & aSrc)
+void
+moz_dom_SetSrc (htmliframeelement, src)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+	nsEmbedString src;
+    CODE:
+	htmliframeelement->SetSrc(src);
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::GetWidth
+
+=for signature $width = $htmliframeelement->GetWidth()
+
+
+
+=cut
+
+## GetWidth(nsAString & aWidth)
+nsEmbedString
+moz_dom_GetWidth (htmliframeelement)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+    PREINIT:
+	nsEmbedString width;
+    CODE:
+	htmliframeelement->GetWidth(width);
+	RETVAL = width;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::SetWidth
+
+=for signature $htmliframeelement->SetWidth($width)
+
+
+
+=cut
+
+## SetWidth(const nsAString & aWidth)
+void
+moz_dom_SetWidth (htmliframeelement, width)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+	nsEmbedString width;
+    CODE:
+	htmliframeelement->SetWidth(width);
+
+=for apidoc Mozilla::DOM::HTMLIFrameElement::GetContentDocument
+
+=for signature $contentdocument = $htmliframeelement->GetContentDocument()
+
+
+
+=cut
+
+## GetContentDocument(nsIDOMDocument * *aContentDocument)
+nsIDOMDocument *
+moz_dom_GetContentDocument (htmliframeelement)
+	nsIDOMHTMLIFrameElement *htmliframeelement;
+    PREINIT:
+	nsIDOMDocument * contentdocument;
+    CODE:
+	htmliframeelement->GetContentDocument(&contentdocument);
+	RETVAL = contentdocument;
+    OUTPUT:
+	RETVAL
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLImageElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLImageElement.h
+
+=for object Mozilla::DOM::HTMLImageElement
+
+Mozilla::DOM::HTMLImageElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLImageElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLImageElement interface is the interface to a [X]HTML
+ * img element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLImageElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLIMAGEELEMENT_IID)
+static nsIID
+nsIDOMHTMLImageElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLImageElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLImageElement::GetName
+
+=for signature $name = $htmlimageelement->GetName()
+
+
+
+=cut
+
+## GetName(nsAString & aName)
+nsEmbedString
+moz_dom_GetName (htmlimageelement)
+	nsIDOMHTMLImageElement *htmlimageelement;
+    PREINIT:
+	nsEmbedString name;
+    CODE:
+	htmlimageelement->GetName(name);
+	RETVAL = name;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLImageElement::SetName
+
+=for signature $htmlimageelement->SetName($name)
+
+
+
+=cut
+
+## SetName(const nsAString & aName)
+void
+moz_dom_SetName (htmlimageelement, name)
+	nsIDOMHTMLImageElement *htmlimageelement;
+	nsEmbedString name;
+    CODE:
+	htmlimageelement->SetName(name);
+
+=for apidoc Mozilla::DOM::HTMLImageElement::GetAlign
+
+=for signature $align = $htmlimageelement->GetAlign()
+
+
+
+=cut
+
+## GetAlign(nsAString & aAlign)
+nsEmbedString
+moz_dom_GetAlign (htmlimageelement)
+	nsIDOMHTMLImageElement *htmlimageelement;
+    PREINIT:
+	nsEmbedString align;
+    CODE:
+	htmlimageelement->GetAlign(align);
+	RETVAL = align;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLImageElement::SetAlign
+
+=for signature $htmlimageelement->SetAlign($align)
+
+
+
+=cut
+
+## SetAlign(const nsAString & aAlign)
+void
+moz_dom_SetAlign (htmlimageelement, align)
+	nsIDOMHTMLImageElement *htmlimageelement;
+	nsEmbedString align;
+    CODE:
+	htmlimageelement->SetAlign(align);
+
+=for apidoc Mozilla::DOM::HTMLImageElement::GetAlt
+
+=for signature $alt = $htmlimageelement->GetAlt()
+
+
+
+=cut
+
+## GetAlt(nsAString & aAlt)
+nsEmbedString
+moz_dom_GetAlt (htmlimageelement)
+	nsIDOMHTMLImageElement *htmlimageelement;
+    PREINIT:
+	nsEmbedString alt;
+    CODE:
+	htmlimageelement->GetAlt(alt);
+	RETVAL = alt;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLImageElement::SetAlt
+
+=for signature $htmlimageelement->SetAlt($alt)
+
+
+
+=cut
+
+## SetAlt(const nsAString & aAlt)
+void
+moz_dom_SetAlt (htmlimageelement, alt)
+	nsIDOMHTMLImageElement *htmlimageelement;
+	nsEmbedString alt;
+    CODE:
+	htmlimageelement->SetAlt(alt);
+
+=for apidoc Mozilla::DOM::HTMLImageElement::GetBorder
+
+=for signature $border = $htmlimageelement->GetBorder()
+
+
+
+=cut
+
+## GetBorder(nsAString & aBorder)
+nsEmbedString
+moz_dom_GetBorder (htmlimageelement)
+	nsIDOMHTMLImageElement *htmlimageelement;
+    PREINIT:
+	nsEmbedString border;
+    CODE:
+	htmlimageelement->GetBorder(border);
+	RETVAL = border;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLImageElement::SetBorder
+
+=for signature $htmlimageelement->SetBorder($border)
+
+
+
+=cut
+
+## SetBorder(const nsAString & aBorder)
+void
+moz_dom_SetBorder (htmlimageelement, border)
+	nsIDOMHTMLImageElement *htmlimageelement;
+	nsEmbedString border;
+    CODE:
+	htmlimageelement->SetBorder(border);
+
+=for apidoc Mozilla::DOM::HTMLImageElement::GetHeight
+
+=for signature $height = $htmlimageelement->GetHeight()
+
+
+
+=cut
+
+## GetHeight(PRInt32 *aHeight)
+PRInt32
+moz_dom_GetHeight (htmlimageelement)
+	nsIDOMHTMLImageElement *htmlimageelement;
+    PREINIT:
+	PRInt32 height;
+    CODE:
+	htmlimageelement->GetHeight(&height);
+	RETVAL = height;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLImageElement::SetHeight
+
+=for signature $htmlimageelement->SetHeight($height)
+
+
+
+=cut
+
+## SetHeight(PRInt32 aHeight)
+void
+moz_dom_SetHeight (htmlimageelement, height)
+	nsIDOMHTMLImageElement *htmlimageelement;
+	PRInt32  height;
+    CODE:
+	htmlimageelement->SetHeight(height);
+
+=for apidoc Mozilla::DOM::HTMLImageElement::GetHspace
+
+=for signature $hspace = $htmlimageelement->GetHspace()
+
+
+
+=cut
+
+## GetHspace(PRInt32 *aHspace)
+PRInt32
+moz_dom_GetHspace (htmlimageelement)
+	nsIDOMHTMLImageElement *htmlimageelement;
+    PREINIT:
+	PRInt32 hspace;
+    CODE:
+	htmlimageelement->GetHspace(&hspace);
+	RETVAL = hspace;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLImageElement::SetHspace
+
+=for signature $htmlimageelement->SetHspace($hspace)
+
+
+
+=cut
+
+## SetHspace(PRInt32 aHspace)
+void
+moz_dom_SetHspace (htmlimageelement, hspace)
+	nsIDOMHTMLImageElement *htmlimageelement;
+	PRInt32  hspace;
+    CODE:
+	htmlimageelement->SetHspace(hspace);
+
+=for apidoc Mozilla::DOM::HTMLImageElement::GetIsMap
+
+=for signature $bool = $htmlimageelement->GetIsMap()
+
+
+
+=cut
+
+## GetIsMap(PRBool *aIsMap)
+PRBool
+moz_dom_GetIsMap (htmlimageelement)
+	nsIDOMHTMLImageElement *htmlimageelement;
+    PREINIT:
+	PRBool ismap;
+    CODE:
+	htmlimageelement->GetIsMap(&ismap);
+	RETVAL = ismap;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLImageElement::SetIsMap
+
+=for signature $htmlimageelement->SetIsMap($ismap)
+
+
+
+=cut
+
+## SetIsMap(PRBool aIsMap)
+void
+moz_dom_SetIsMap (htmlimageelement, ismap)
+	nsIDOMHTMLImageElement *htmlimageelement;
+	PRBool  ismap;
+    CODE:
+	htmlimageelement->SetIsMap(ismap);
+
+=for apidoc Mozilla::DOM::HTMLImageElement::GetLongDesc
+
+=for signature $longdesc = $htmlimageelement->GetLongDesc()
+
+
+
+=cut
+
+## GetLongDesc(nsAString & aLongDesc)
+nsEmbedString
+moz_dom_GetLongDesc (htmlimageelement)
+	nsIDOMHTMLImageElement *htmlimageelement;
+    PREINIT:
+	nsEmbedString longdesc;
+    CODE:
+	htmlimageelement->GetLongDesc(longdesc);
+	RETVAL = longdesc;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLImageElement::SetLongDesc
+
+=for signature $htmlimageelement->SetLongDesc($longdesc)
+
+
+
+=cut
+
+## SetLongDesc(const nsAString & aLongDesc)
+void
+moz_dom_SetLongDesc (htmlimageelement, longdesc)
+	nsIDOMHTMLImageElement *htmlimageelement;
+	nsEmbedString longdesc;
+    CODE:
+	htmlimageelement->SetLongDesc(longdesc);
+
+=for apidoc Mozilla::DOM::HTMLImageElement::GetSrc
+
+=for signature $src = $htmlimageelement->GetSrc()
+
+
+
+=cut
+
+## GetSrc(nsAString & aSrc)
+nsEmbedString
+moz_dom_GetSrc (htmlimageelement)
+	nsIDOMHTMLImageElement *htmlimageelement;
+    PREINIT:
+	nsEmbedString src;
+    CODE:
+	htmlimageelement->GetSrc(src);
+	RETVAL = src;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLImageElement::SetSrc
+
+=for signature $htmlimageelement->SetSrc($src)
+
+
+
+=cut
+
+## SetSrc(const nsAString & aSrc)
+void
+moz_dom_SetSrc (htmlimageelement, src)
+	nsIDOMHTMLImageElement *htmlimageelement;
+	nsEmbedString src;
+    CODE:
+	htmlimageelement->SetSrc(src);
+
+=for apidoc Mozilla::DOM::HTMLImageElement::GetUseMap
+
+=for signature $usemap = $htmlimageelement->GetUseMap()
+
+
+
+=cut
+
+## GetUseMap(nsAString & aUseMap)
+nsEmbedString
+moz_dom_GetUseMap (htmlimageelement)
+	nsIDOMHTMLImageElement *htmlimageelement;
+    PREINIT:
+	nsEmbedString usemap;
+    CODE:
+	htmlimageelement->GetUseMap(usemap);
+	RETVAL = usemap;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLImageElement::SetUseMap
+
+=for signature $htmlimageelement->SetUseMap($usemap)
+
+
+
+=cut
+
+## SetUseMap(const nsAString & aUseMap)
+void
+moz_dom_SetUseMap (htmlimageelement, usemap)
+	nsIDOMHTMLImageElement *htmlimageelement;
+	nsEmbedString usemap;
+    CODE:
+	htmlimageelement->SetUseMap(usemap);
+
+=for apidoc Mozilla::DOM::HTMLImageElement::GetVspace
+
+=for signature $vspace = $htmlimageelement->GetVspace()
+
+
+
+=cut
+
+## GetVspace(PRInt32 *aVspace)
+PRInt32
+moz_dom_GetVspace (htmlimageelement)
+	nsIDOMHTMLImageElement *htmlimageelement;
+    PREINIT:
+	PRInt32 vspace;
+    CODE:
+	htmlimageelement->GetVspace(&vspace);
+	RETVAL = vspace;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLImageElement::SetVspace
+
+=for signature $htmlimageelement->SetVspace($vspace)
+
+
+
+=cut
+
+## SetVspace(PRInt32 aVspace)
+void
+moz_dom_SetVspace (htmlimageelement, vspace)
+	nsIDOMHTMLImageElement *htmlimageelement;
+	PRInt32  vspace;
+    CODE:
+	htmlimageelement->SetVspace(vspace);
+
+=for apidoc Mozilla::DOM::HTMLImageElement::GetWidth
+
+=for signature $width = $htmlimageelement->GetWidth()
+
+
+
+=cut
+
+## GetWidth(PRInt32 *aWidth)
+PRInt32
+moz_dom_GetWidth (htmlimageelement)
+	nsIDOMHTMLImageElement *htmlimageelement;
+    PREINIT:
+	PRInt32 width;
+    CODE:
+	htmlimageelement->GetWidth(&width);
+	RETVAL = width;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLImageElement::SetWidth
+
+=for signature $htmlimageelement->SetWidth($width)
+
+
+
+=cut
+
+## SetWidth(PRInt32 aWidth)
+void
+moz_dom_SetWidth (htmlimageelement, width)
+	nsIDOMHTMLImageElement *htmlimageelement;
+	PRInt32  width;
+    CODE:
+	htmlimageelement->SetWidth(width);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLInputElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLInputElement.h
+
+=for object Mozilla::DOM::HTMLInputElement
+
+Mozilla::DOM::HTMLInputElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLInputElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLInputElement interface is the interface to a [X]HTML
+ * input element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLInputElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLINPUTELEMENT_IID)
+static nsIID
+nsIDOMHTMLInputElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLInputElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::GetDefaultValue
+
+=for signature $defaultvalue = $htmlinputelement->GetDefaultValue()
+
+
+
+=cut
+
+## GetDefaultValue(nsAString & aDefaultValue)
+nsEmbedString
+moz_dom_GetDefaultValue (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    PREINIT:
+	nsEmbedString defaultvalue;
+    CODE:
+	htmlinputelement->GetDefaultValue(defaultvalue);
+	RETVAL = defaultvalue;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::SetDefaultValue
+
+=for signature $htmlinputelement->SetDefaultValue($defaultvalue)
+
+
+
+=cut
+
+## SetDefaultValue(const nsAString & aDefaultValue)
+void
+moz_dom_SetDefaultValue (htmlinputelement, defaultvalue)
+	nsIDOMHTMLInputElement *htmlinputelement;
+	nsEmbedString defaultvalue;
+    CODE:
+	htmlinputelement->SetDefaultValue(defaultvalue);
+
+=for apidoc Mozilla::DOM::HTMLInputElement::GetDefaultChecked
+
+=for signature $bool = $htmlinputelement->GetDefaultChecked()
+
+
+
+=cut
+
+## GetDefaultChecked(PRBool *aDefaultChecked)
+PRBool
+moz_dom_GetDefaultChecked (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    PREINIT:
+	PRBool defaultchecked;
+    CODE:
+	htmlinputelement->GetDefaultChecked(&defaultchecked);
+	RETVAL = defaultchecked;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::SetDefaultChecked
+
+=for signature $htmlinputelement->SetDefaultChecked($defaultchecked)
+
+
+
+=cut
+
+## SetDefaultChecked(PRBool aDefaultChecked)
+void
+moz_dom_SetDefaultChecked (htmlinputelement, defaultchecked)
+	nsIDOMHTMLInputElement *htmlinputelement;
+	PRBool  defaultchecked;
+    CODE:
+	htmlinputelement->SetDefaultChecked(defaultchecked);
+
+=for apidoc Mozilla::DOM::HTMLInputElement::GetForm
+
+=for signature $form = $htmlinputelement->GetForm()
+
+
+
+=cut
+
+## GetForm(nsIDOMHTMLFormElement * *aForm)
+nsIDOMHTMLFormElement *
+moz_dom_GetForm (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    PREINIT:
+	nsIDOMHTMLFormElement * form;
+    CODE:
+	htmlinputelement->GetForm(&form);
+	RETVAL = form;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::GetAccept
+
+=for signature $accept = $htmlinputelement->GetAccept()
+
+
+
+=cut
+
+## GetAccept(nsAString & aAccept)
+nsEmbedString
+moz_dom_GetAccept (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    PREINIT:
+	nsEmbedString accept;
+    CODE:
+	htmlinputelement->GetAccept(accept);
+	RETVAL = accept;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::SetAccept
+
+=for signature $htmlinputelement->SetAccept($accept)
+
+
+
+=cut
+
+## SetAccept(const nsAString & aAccept)
+void
+moz_dom_SetAccept (htmlinputelement, accept)
+	nsIDOMHTMLInputElement *htmlinputelement;
+	nsEmbedString accept;
+    CODE:
+	htmlinputelement->SetAccept(accept);
+
+=for apidoc Mozilla::DOM::HTMLInputElement::GetAccessKey
+
+=for signature $accesskey = $htmlinputelement->GetAccessKey()
+
+
+
+=cut
+
+## GetAccessKey(nsAString & aAccessKey)
+nsEmbedString
+moz_dom_GetAccessKey (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    PREINIT:
+	nsEmbedString accesskey;
+    CODE:
+	htmlinputelement->GetAccessKey(accesskey);
+	RETVAL = accesskey;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::SetAccessKey
+
+=for signature $htmlinputelement->SetAccessKey($accesskey)
+
+
+
+=cut
+
+## SetAccessKey(const nsAString & aAccessKey)
+void
+moz_dom_SetAccessKey (htmlinputelement, accesskey)
+	nsIDOMHTMLInputElement *htmlinputelement;
+	nsEmbedString accesskey;
+    CODE:
+	htmlinputelement->SetAccessKey(accesskey);
+
+=for apidoc Mozilla::DOM::HTMLInputElement::GetAlign
+
+=for signature $align = $htmlinputelement->GetAlign()
+
+
+
+=cut
+
+## GetAlign(nsAString & aAlign)
+nsEmbedString
+moz_dom_GetAlign (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    PREINIT:
+	nsEmbedString align;
+    CODE:
+	htmlinputelement->GetAlign(align);
+	RETVAL = align;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::SetAlign
+
+=for signature $htmlinputelement->SetAlign($align)
+
+
+
+=cut
+
+## SetAlign(const nsAString & aAlign)
+void
+moz_dom_SetAlign (htmlinputelement, align)
+	nsIDOMHTMLInputElement *htmlinputelement;
+	nsEmbedString align;
+    CODE:
+	htmlinputelement->SetAlign(align);
+
+=for apidoc Mozilla::DOM::HTMLInputElement::GetAlt
+
+=for signature $alt = $htmlinputelement->GetAlt()
+
+
+
+=cut
+
+## GetAlt(nsAString & aAlt)
+nsEmbedString
+moz_dom_GetAlt (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    PREINIT:
+	nsEmbedString alt;
+    CODE:
+	htmlinputelement->GetAlt(alt);
+	RETVAL = alt;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::SetAlt
+
+=for signature $htmlinputelement->SetAlt($alt)
+
+
+
+=cut
+
+## SetAlt(const nsAString & aAlt)
+void
+moz_dom_SetAlt (htmlinputelement, alt)
+	nsIDOMHTMLInputElement *htmlinputelement;
+	nsEmbedString alt;
+    CODE:
+	htmlinputelement->SetAlt(alt);
+
+=for apidoc Mozilla::DOM::HTMLInputElement::GetChecked
+
+=for signature $bool = $htmlinputelement->GetChecked()
+
+
+
+=cut
+
+## GetChecked(PRBool *aChecked)
+PRBool
+moz_dom_GetChecked (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    PREINIT:
+	PRBool checked;
+    CODE:
+	htmlinputelement->GetChecked(&checked);
+	RETVAL = checked;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::SetChecked
+
+=for signature $htmlinputelement->SetChecked($checked)
+
+
+
+=cut
+
+## SetChecked(PRBool aChecked)
+void
+moz_dom_SetChecked (htmlinputelement, checked)
+	nsIDOMHTMLInputElement *htmlinputelement;
+	PRBool  checked;
+    CODE:
+	htmlinputelement->SetChecked(checked);
+
+=for apidoc Mozilla::DOM::HTMLInputElement::GetDisabled
+
+=for signature $bool = $htmlinputelement->GetDisabled()
+
+
+
+=cut
+
+## GetDisabled(PRBool *aDisabled)
+PRBool
+moz_dom_GetDisabled (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    PREINIT:
+	PRBool disabled;
+    CODE:
+	htmlinputelement->GetDisabled(&disabled);
+	RETVAL = disabled;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::SetDisabled
+
+=for signature $htmlinputelement->SetDisabled($disabled)
+
+
+
+=cut
+
+## SetDisabled(PRBool aDisabled)
+void
+moz_dom_SetDisabled (htmlinputelement, disabled)
+	nsIDOMHTMLInputElement *htmlinputelement;
+	PRBool  disabled;
+    CODE:
+	htmlinputelement->SetDisabled(disabled);
+
+=for apidoc Mozilla::DOM::HTMLInputElement::GetMaxLength
+
+=for signature $maxlength = $htmlinputelement->GetMaxLength()
+
+
+
+=cut
+
+## GetMaxLength(PRInt32 *aMaxLength)
+PRInt32
+moz_dom_GetMaxLength (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    PREINIT:
+	PRInt32 maxlength;
+    CODE:
+	htmlinputelement->GetMaxLength(&maxlength);
+	RETVAL = maxlength;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::SetMaxLength
+
+=for signature $htmlinputelement->SetMaxLength($maxlength)
+
+
+
+=cut
+
+## SetMaxLength(PRInt32 aMaxLength)
+void
+moz_dom_SetMaxLength (htmlinputelement, maxlength)
+	nsIDOMHTMLInputElement *htmlinputelement;
+	PRInt32  maxlength;
+    CODE:
+	htmlinputelement->SetMaxLength(maxlength);
+
+=for apidoc Mozilla::DOM::HTMLInputElement::GetName
+
+=for signature $name = $htmlinputelement->GetName()
+
+
+
+=cut
+
+## GetName(nsAString & aName)
+nsEmbedString
+moz_dom_GetName (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    PREINIT:
+	nsEmbedString name;
+    CODE:
+	htmlinputelement->GetName(name);
+	RETVAL = name;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::SetName
+
+=for signature $htmlinputelement->SetName($name)
+
+
+
+=cut
+
+## SetName(const nsAString & aName)
+void
+moz_dom_SetName (htmlinputelement, name)
+	nsIDOMHTMLInputElement *htmlinputelement;
+	nsEmbedString name;
+    CODE:
+	htmlinputelement->SetName(name);
+
+=for apidoc Mozilla::DOM::HTMLInputElement::GetReadOnly
+
+=for signature $bool = $htmlinputelement->GetReadOnly()
+
+
+
+=cut
+
+## GetReadOnly(PRBool *aReadOnly)
+PRBool
+moz_dom_GetReadOnly (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    PREINIT:
+	PRBool readonly;
+    CODE:
+	htmlinputelement->GetReadOnly(&readonly);
+	RETVAL = readonly;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::SetReadOnly
+
+=for signature $htmlinputelement->SetReadOnly($readonly)
+
+
+
+=cut
+
+## SetReadOnly(PRBool aReadOnly)
+void
+moz_dom_SetReadOnly (htmlinputelement, readonly)
+	nsIDOMHTMLInputElement *htmlinputelement;
+	PRBool  readonly;
+    CODE:
+	htmlinputelement->SetReadOnly(readonly);
+
+=for apidoc Mozilla::DOM::HTMLInputElement::GetSize
+
+=for signature $size = $htmlinputelement->GetSize()
+
+
+
+=cut
+
+## GetSize(PRUint32 *aSize)
+PRUint32
+moz_dom_GetSize (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    PREINIT:
+	PRUint32 size;
+    CODE:
+	htmlinputelement->GetSize(&size);
+	RETVAL = size;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::SetSize
+
+=for signature $htmlinputelement->SetSize($size)
+
+
+
+=cut
+
+## SetSize(PRUint32 aSize)
+void
+moz_dom_SetSize (htmlinputelement, size)
+	nsIDOMHTMLInputElement *htmlinputelement;
+	PRUint32  size;
+    CODE:
+	htmlinputelement->SetSize(size);
+
+=for apidoc Mozilla::DOM::HTMLInputElement::GetSrc
+
+=for signature $src = $htmlinputelement->GetSrc()
+
+
+
+=cut
+
+## GetSrc(nsAString & aSrc)
+nsEmbedString
+moz_dom_GetSrc (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    PREINIT:
+	nsEmbedString src;
+    CODE:
+	htmlinputelement->GetSrc(src);
+	RETVAL = src;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::SetSrc
+
+=for signature $htmlinputelement->SetSrc($src)
+
+
+
+=cut
+
+## SetSrc(const nsAString & aSrc)
+void
+moz_dom_SetSrc (htmlinputelement, src)
+	nsIDOMHTMLInputElement *htmlinputelement;
+	nsEmbedString src;
+    CODE:
+	htmlinputelement->SetSrc(src);
+
+=for apidoc Mozilla::DOM::HTMLInputElement::GetTabIndex
+
+=for signature $tabindex = $htmlinputelement->GetTabIndex()
+
+
+
+=cut
+
+## GetTabIndex(PRInt32 *aTabIndex)
+PRInt32
+moz_dom_GetTabIndex (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    PREINIT:
+	PRInt32 tabindex;
+    CODE:
+	htmlinputelement->GetTabIndex(&tabindex);
+	RETVAL = tabindex;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::SetTabIndex
+
+=for signature $htmlinputelement->SetTabIndex($tabindex)
+
+
+
+=cut
+
+## SetTabIndex(PRInt32 aTabIndex)
+void
+moz_dom_SetTabIndex (htmlinputelement, tabindex)
+	nsIDOMHTMLInputElement *htmlinputelement;
+	PRInt32  tabindex;
+    CODE:
+	htmlinputelement->SetTabIndex(tabindex);
+
+=for apidoc Mozilla::DOM::HTMLInputElement::GetType
+
+=for signature $type = $htmlinputelement->GetType()
+
+
+
+=cut
+
+## GetType(nsAString & aType)
+nsEmbedString
+moz_dom_GetType (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    PREINIT:
+	nsEmbedString type;
+    CODE:
+	htmlinputelement->GetType(type);
+	RETVAL = type;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::SetType
+
+=for signature $htmlinputelement->SetType($type)
+
+
+
+=cut
+
+## SetType(const nsAString & aType)
+void
+moz_dom_SetType (htmlinputelement, type)
+	nsIDOMHTMLInputElement *htmlinputelement;
+	nsEmbedString type;
+    CODE:
+	htmlinputelement->SetType(type);
+
+=for apidoc Mozilla::DOM::HTMLInputElement::GetUseMap
+
+=for signature $usemap = $htmlinputelement->GetUseMap()
+
+
+
+=cut
+
+## GetUseMap(nsAString & aUseMap)
+nsEmbedString
+moz_dom_GetUseMap (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    PREINIT:
+	nsEmbedString usemap;
+    CODE:
+	htmlinputelement->GetUseMap(usemap);
+	RETVAL = usemap;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::SetUseMap
+
+=for signature $htmlinputelement->SetUseMap($usemap)
+
+
+
+=cut
+
+## SetUseMap(const nsAString & aUseMap)
+void
+moz_dom_SetUseMap (htmlinputelement, usemap)
+	nsIDOMHTMLInputElement *htmlinputelement;
+	nsEmbedString usemap;
+    CODE:
+	htmlinputelement->SetUseMap(usemap);
+
+=for apidoc Mozilla::DOM::HTMLInputElement::GetValue
+
+=for signature $value = $htmlinputelement->GetValue()
+
+
+
+=cut
+
+## GetValue(nsAString & aValue)
+nsEmbedString
+moz_dom_GetValue (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    PREINIT:
+	nsEmbedString value;
+    CODE:
+	htmlinputelement->GetValue(value);
+	RETVAL = value;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLInputElement::SetValue
+
+=for signature $htmlinputelement->SetValue($value)
+
+
+
+=cut
+
+## SetValue(const nsAString & aValue)
+void
+moz_dom_SetValue (htmlinputelement, value)
+	nsIDOMHTMLInputElement *htmlinputelement;
+	nsEmbedString value;
+    CODE:
+	htmlinputelement->SetValue(value);
+
+=for apidoc Mozilla::DOM::HTMLInputElement::Blur
+
+=for signature $htmlinputelement->Blur()
+
+
+
+=cut
+
+## Blur(void)
+void
+moz_dom_Blur (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    CODE:
+	htmlinputelement->Blur();
+
+=for apidoc Mozilla::DOM::HTMLInputElement::Focus
+
+=for signature $htmlinputelement->Focus()
+
+
+
+=cut
+
+## Focus(void)
+void
+moz_dom_Focus (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    CODE:
+	htmlinputelement->Focus();
+
+=for apidoc Mozilla::DOM::HTMLInputElement::Select
+
+=for signature $htmlinputelement->Select()
+
+
+
+=cut
+
+## Select(void)
+void
+moz_dom_Select (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    CODE:
+	htmlinputelement->Select();
+
+=for apidoc Mozilla::DOM::HTMLInputElement::Click
+
+=for signature $htmlinputelement->Click()
+
+
+
+=cut
+
+## Click(void)
+void
+moz_dom_Click (htmlinputelement)
+	nsIDOMHTMLInputElement *htmlinputelement;
+    CODE:
+	htmlinputelement->Click();
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLIsIndexElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLIsIndexElement.h
+
+=for object Mozilla::DOM::HTMLIsIndexElement
+
+Mozilla::DOM::HTMLIsIndexElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLIsIndexElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLIsIndexElement interface is the interface to a
+ * [X]HTML isindex element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLIsIndexElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLISINDEXELEMENT_IID)
+static nsIID
+nsIDOMHTMLIsIndexElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLIsIndexElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLIsIndexElement::GetForm
+
+=for signature $form = $htmlisindexelement->GetForm()
+
+
+
+=cut
+
+## GetForm(nsIDOMHTMLFormElement * *aForm)
+nsIDOMHTMLFormElement *
+moz_dom_GetForm (htmlisindexelement)
+	nsIDOMHTMLIsIndexElement *htmlisindexelement;
+    PREINIT:
+	nsIDOMHTMLFormElement * form;
+    CODE:
+	htmlisindexelement->GetForm(&form);
+	RETVAL = form;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLIsIndexElement::GetPrompt
+
+=for signature $prompt = $htmlisindexelement->GetPrompt()
+
+
+
+=cut
+
+## GetPrompt(nsAString & aPrompt)
+nsEmbedString
+moz_dom_GetPrompt (htmlisindexelement)
+	nsIDOMHTMLIsIndexElement *htmlisindexelement;
+    PREINIT:
+	nsEmbedString prompt;
+    CODE:
+	htmlisindexelement->GetPrompt(prompt);
+	RETVAL = prompt;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLIsIndexElement::SetPrompt
+
+=for signature $htmlisindexelement->SetPrompt($prompt)
+
+
+
+=cut
+
+## SetPrompt(const nsAString & aPrompt)
+void
+moz_dom_SetPrompt (htmlisindexelement, prompt)
+	nsIDOMHTMLIsIndexElement *htmlisindexelement;
+	nsEmbedString prompt;
+    CODE:
+	htmlisindexelement->SetPrompt(prompt);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLLIElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLLIElement.h
+
+=for object Mozilla::DOM::HTMLLIElement
+
+Mozilla::DOM::HTMLLIElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLLIElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLLIElement interface is the interface to a [X]HTML li
+ * element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLLIElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLLIELEMENT_IID)
+static nsIID
+nsIDOMHTMLLIElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLLIElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLIElement::GetType
+
+=for signature $type = $htmllielement->GetType()
+
+
+
+=cut
+
+## GetType(nsAString & aType)
+nsEmbedString
+moz_dom_GetType (htmllielement)
+	nsIDOMHTMLLIElement *htmllielement;
+    PREINIT:
+	nsEmbedString type;
+    CODE:
+	htmllielement->GetType(type);
+	RETVAL = type;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLIElement::SetType
+
+=for signature $htmllielement->SetType($type)
+
+
+
+=cut
+
+## SetType(const nsAString & aType)
+void
+moz_dom_SetType (htmllielement, type)
+	nsIDOMHTMLLIElement *htmllielement;
+	nsEmbedString type;
+    CODE:
+	htmllielement->SetType(type);
+
+=for apidoc Mozilla::DOM::HTMLLIElement::GetValue
+
+=for signature $value = $htmllielement->GetValue()
+
+
+
+=cut
+
+## GetValue(PRInt32 *aValue)
+PRInt32
+moz_dom_GetValue (htmllielement)
+	nsIDOMHTMLLIElement *htmllielement;
+    PREINIT:
+	PRInt32 value;
+    CODE:
+	htmllielement->GetValue(&value);
+	RETVAL = value;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLIElement::SetValue
+
+=for signature $htmllielement->SetValue($value)
+
+
+
+=cut
+
+## SetValue(PRInt32 aValue)
+void
+moz_dom_SetValue (htmllielement, value)
+	nsIDOMHTMLLIElement *htmllielement;
+	PRInt32  value;
+    CODE:
+	htmllielement->SetValue(value);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLLabelElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLLabelElement.h
+
+=for object Mozilla::DOM::HTMLLabelElement
+
+Mozilla::DOM::HTMLLabelElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLLabelElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLLabelElement interface is the interface to a [X]HTML
+ * label element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLLabelElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLLABELELEMENT_IID)
+static nsIID
+nsIDOMHTMLLabelElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLLabelElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLabelElement::GetForm
+
+=for signature $form = $htmllabelelement->GetForm()
+
+
+
+=cut
+
+## GetForm(nsIDOMHTMLFormElement * *aForm)
+nsIDOMHTMLFormElement *
+moz_dom_GetForm (htmllabelelement)
+	nsIDOMHTMLLabelElement *htmllabelelement;
+    PREINIT:
+	nsIDOMHTMLFormElement * form;
+    CODE:
+	htmllabelelement->GetForm(&form);
+	RETVAL = form;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLabelElement::GetAccessKey
+
+=for signature $accesskey = $htmllabelelement->GetAccessKey()
+
+
+
+=cut
+
+## GetAccessKey(nsAString & aAccessKey)
+nsEmbedString
+moz_dom_GetAccessKey (htmllabelelement)
+	nsIDOMHTMLLabelElement *htmllabelelement;
+    PREINIT:
+	nsEmbedString accesskey;
+    CODE:
+	htmllabelelement->GetAccessKey(accesskey);
+	RETVAL = accesskey;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLabelElement::SetAccessKey
+
+=for signature $htmllabelelement->SetAccessKey($accesskey)
+
+
+
+=cut
+
+## SetAccessKey(const nsAString & aAccessKey)
+void
+moz_dom_SetAccessKey (htmllabelelement, accesskey)
+	nsIDOMHTMLLabelElement *htmllabelelement;
+	nsEmbedString accesskey;
+    CODE:
+	htmllabelelement->SetAccessKey(accesskey);
+
+=for apidoc Mozilla::DOM::HTMLLabelElement::GetHtmlFor
+
+=for signature $htmlfor = $htmllabelelement->GetHtmlFor()
+
+
+
+=cut
+
+## GetHtmlFor(nsAString & aHtmlFor)
+nsEmbedString
+moz_dom_GetHtmlFor (htmllabelelement)
+	nsIDOMHTMLLabelElement *htmllabelelement;
+    PREINIT:
+	nsEmbedString htmlfor;
+    CODE:
+	htmllabelelement->GetHtmlFor(htmlfor);
+	RETVAL = htmlfor;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLabelElement::SetHtmlFor
+
+=for signature $htmllabelelement->SetHtmlFor($htmlfor)
+
+
+
+=cut
+
+## SetHtmlFor(const nsAString & aHtmlFor)
+void
+moz_dom_SetHtmlFor (htmllabelelement, htmlfor)
+	nsIDOMHTMLLabelElement *htmllabelelement;
+	nsEmbedString htmlfor;
+    CODE:
+	htmllabelelement->SetHtmlFor(htmlfor);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLLegendElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLLegendElement.h
+
+=for object Mozilla::DOM::HTMLLegendElement
+
+Mozilla::DOM::HTMLLegendElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLLegendElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLLegendElement interface is the interface to a [X]HTML
+ * legend element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLLegendElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLLEGENDELEMENT_IID)
+static nsIID
+nsIDOMHTMLLegendElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLLegendElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLegendElement::GetForm
+
+=for signature $form = $htmllegendelement->GetForm()
+
+
+
+=cut
+
+## GetForm(nsIDOMHTMLFormElement * *aForm)
+nsIDOMHTMLFormElement *
+moz_dom_GetForm (htmllegendelement)
+	nsIDOMHTMLLegendElement *htmllegendelement;
+    PREINIT:
+	nsIDOMHTMLFormElement * form;
+    CODE:
+	htmllegendelement->GetForm(&form);
+	RETVAL = form;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLegendElement::GetAccessKey
+
+=for signature $accesskey = $htmllegendelement->GetAccessKey()
+
+
+
+=cut
+
+## GetAccessKey(nsAString & aAccessKey)
+nsEmbedString
+moz_dom_GetAccessKey (htmllegendelement)
+	nsIDOMHTMLLegendElement *htmllegendelement;
+    PREINIT:
+	nsEmbedString accesskey;
+    CODE:
+	htmllegendelement->GetAccessKey(accesskey);
+	RETVAL = accesskey;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLegendElement::SetAccessKey
+
+=for signature $htmllegendelement->SetAccessKey($accesskey)
+
+
+
+=cut
+
+## SetAccessKey(const nsAString & aAccessKey)
+void
+moz_dom_SetAccessKey (htmllegendelement, accesskey)
+	nsIDOMHTMLLegendElement *htmllegendelement;
+	nsEmbedString accesskey;
+    CODE:
+	htmllegendelement->SetAccessKey(accesskey);
+
+=for apidoc Mozilla::DOM::HTMLLegendElement::GetAlign
+
+=for signature $align = $htmllegendelement->GetAlign()
+
+
+
+=cut
+
+## GetAlign(nsAString & aAlign)
+nsEmbedString
+moz_dom_GetAlign (htmllegendelement)
+	nsIDOMHTMLLegendElement *htmllegendelement;
+    PREINIT:
+	nsEmbedString align;
+    CODE:
+	htmllegendelement->GetAlign(align);
+	RETVAL = align;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLegendElement::SetAlign
+
+=for signature $htmllegendelement->SetAlign($align)
+
+
+
+=cut
+
+## SetAlign(const nsAString & aAlign)
+void
+moz_dom_SetAlign (htmllegendelement, align)
+	nsIDOMHTMLLegendElement *htmllegendelement;
+	nsEmbedString align;
+    CODE:
+	htmllegendelement->SetAlign(align);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLLinkElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLLinkElement.h
+
+=for object Mozilla::DOM::HTMLLinkElement
+
+Mozilla::DOM::HTMLLinkElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLLinkElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLLinkElement interface is the interface to a [X]HTML
+ * link element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLLinkElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLLINKELEMENT_IID)
+static nsIID
+nsIDOMHTMLLinkElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLLinkElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLinkElement::GetDisabled
+
+=for signature $bool = $htmllinkelement->GetDisabled()
+
+
+
+=cut
+
+## GetDisabled(PRBool *aDisabled)
+PRBool
+moz_dom_GetDisabled (htmllinkelement)
+	nsIDOMHTMLLinkElement *htmllinkelement;
+    PREINIT:
+	PRBool disabled;
+    CODE:
+	htmllinkelement->GetDisabled(&disabled);
+	RETVAL = disabled;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLinkElement::SetDisabled
+
+=for signature $htmllinkelement->SetDisabled($disabled)
+
+
+
+=cut
+
+## SetDisabled(PRBool aDisabled)
+void
+moz_dom_SetDisabled (htmllinkelement, disabled)
+	nsIDOMHTMLLinkElement *htmllinkelement;
+	PRBool  disabled;
+    CODE:
+	htmllinkelement->SetDisabled(disabled);
+
+=for apidoc Mozilla::DOM::HTMLLinkElement::GetCharset
+
+=for signature $charset = $htmllinkelement->GetCharset()
+
+
+
+=cut
+
+## GetCharset(nsAString & aCharset)
+nsEmbedString
+moz_dom_GetCharset (htmllinkelement)
+	nsIDOMHTMLLinkElement *htmllinkelement;
+    PREINIT:
+	nsEmbedString charset;
+    CODE:
+	htmllinkelement->GetCharset(charset);
+	RETVAL = charset;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLinkElement::SetCharset
+
+=for signature $htmllinkelement->SetCharset($charset)
+
+
+
+=cut
+
+## SetCharset(const nsAString & aCharset)
+void
+moz_dom_SetCharset (htmllinkelement, charset)
+	nsIDOMHTMLLinkElement *htmllinkelement;
+	nsEmbedString charset;
+    CODE:
+	htmllinkelement->SetCharset(charset);
+
+=for apidoc Mozilla::DOM::HTMLLinkElement::GetHref
+
+=for signature $href = $htmllinkelement->GetHref()
+
+
+
+=cut
+
+## GetHref(nsAString & aHref)
+nsEmbedString
+moz_dom_GetHref (htmllinkelement)
+	nsIDOMHTMLLinkElement *htmllinkelement;
+    PREINIT:
+	nsEmbedString href;
+    CODE:
+	htmllinkelement->GetHref(href);
+	RETVAL = href;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLinkElement::SetHref
+
+=for signature $htmllinkelement->SetHref($href)
+
+
+
+=cut
+
+## SetHref(const nsAString & aHref)
+void
+moz_dom_SetHref (htmllinkelement, href)
+	nsIDOMHTMLLinkElement *htmllinkelement;
+	nsEmbedString href;
+    CODE:
+	htmllinkelement->SetHref(href);
+
+=for apidoc Mozilla::DOM::HTMLLinkElement::GetHreflang
+
+=for signature $hreflang = $htmllinkelement->GetHreflang()
+
+
+
+=cut
+
+## GetHreflang(nsAString & aHreflang)
+nsEmbedString
+moz_dom_GetHreflang (htmllinkelement)
+	nsIDOMHTMLLinkElement *htmllinkelement;
+    PREINIT:
+	nsEmbedString hreflang;
+    CODE:
+	htmllinkelement->GetHreflang(hreflang);
+	RETVAL = hreflang;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLinkElement::SetHreflang
+
+=for signature $htmllinkelement->SetHreflang($hreflang)
+
+
+
+=cut
+
+## SetHreflang(const nsAString & aHreflang)
+void
+moz_dom_SetHreflang (htmllinkelement, hreflang)
+	nsIDOMHTMLLinkElement *htmllinkelement;
+	nsEmbedString hreflang;
+    CODE:
+	htmllinkelement->SetHreflang(hreflang);
+
+=for apidoc Mozilla::DOM::HTMLLinkElement::GetMedia
+
+=for signature $media = $htmllinkelement->GetMedia()
+
+
+
+=cut
+
+## GetMedia(nsAString & aMedia)
+nsEmbedString
+moz_dom_GetMedia (htmllinkelement)
+	nsIDOMHTMLLinkElement *htmllinkelement;
+    PREINIT:
+	nsEmbedString media;
+    CODE:
+	htmllinkelement->GetMedia(media);
+	RETVAL = media;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLinkElement::SetMedia
+
+=for signature $htmllinkelement->SetMedia($media)
+
+
+
+=cut
+
+## SetMedia(const nsAString & aMedia)
+void
+moz_dom_SetMedia (htmllinkelement, media)
+	nsIDOMHTMLLinkElement *htmllinkelement;
+	nsEmbedString media;
+    CODE:
+	htmllinkelement->SetMedia(media);
+
+=for apidoc Mozilla::DOM::HTMLLinkElement::GetRel
+
+=for signature $rel = $htmllinkelement->GetRel()
+
+
+
+=cut
+
+## GetRel(nsAString & aRel)
+nsEmbedString
+moz_dom_GetRel (htmllinkelement)
+	nsIDOMHTMLLinkElement *htmllinkelement;
+    PREINIT:
+	nsEmbedString rel;
+    CODE:
+	htmllinkelement->GetRel(rel);
+	RETVAL = rel;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLinkElement::SetRel
+
+=for signature $htmllinkelement->SetRel($rel)
+
+
+
+=cut
+
+## SetRel(const nsAString & aRel)
+void
+moz_dom_SetRel (htmllinkelement, rel)
+	nsIDOMHTMLLinkElement *htmllinkelement;
+	nsEmbedString rel;
+    CODE:
+	htmllinkelement->SetRel(rel);
+
+=for apidoc Mozilla::DOM::HTMLLinkElement::GetRev
+
+=for signature $rev = $htmllinkelement->GetRev()
+
+
+
+=cut
+
+## GetRev(nsAString & aRev)
+nsEmbedString
+moz_dom_GetRev (htmllinkelement)
+	nsIDOMHTMLLinkElement *htmllinkelement;
+    PREINIT:
+	nsEmbedString rev;
+    CODE:
+	htmllinkelement->GetRev(rev);
+	RETVAL = rev;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLinkElement::SetRev
+
+=for signature $htmllinkelement->SetRev($rev)
+
+
+
+=cut
+
+## SetRev(const nsAString & aRev)
+void
+moz_dom_SetRev (htmllinkelement, rev)
+	nsIDOMHTMLLinkElement *htmllinkelement;
+	nsEmbedString rev;
+    CODE:
+	htmllinkelement->SetRev(rev);
+
+=for apidoc Mozilla::DOM::HTMLLinkElement::GetTarget
+
+=for signature $target = $htmllinkelement->GetTarget()
+
+
+
+=cut
+
+## GetTarget(nsAString & aTarget)
+nsEmbedString
+moz_dom_GetTarget (htmllinkelement)
+	nsIDOMHTMLLinkElement *htmllinkelement;
+    PREINIT:
+	nsEmbedString target;
+    CODE:
+	htmllinkelement->GetTarget(target);
+	RETVAL = target;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLinkElement::SetTarget
+
+=for signature $htmllinkelement->SetTarget($target)
+
+
+
+=cut
+
+## SetTarget(const nsAString & aTarget)
+void
+moz_dom_SetTarget (htmllinkelement, target)
+	nsIDOMHTMLLinkElement *htmllinkelement;
+	nsEmbedString target;
+    CODE:
+	htmllinkelement->SetTarget(target);
+
+=for apidoc Mozilla::DOM::HTMLLinkElement::GetType
+
+=for signature $type = $htmllinkelement->GetType()
+
+
+
+=cut
+
+## GetType(nsAString & aType)
+nsEmbedString
+moz_dom_GetType (htmllinkelement)
+	nsIDOMHTMLLinkElement *htmllinkelement;
+    PREINIT:
+	nsEmbedString type;
+    CODE:
+	htmllinkelement->GetType(type);
+	RETVAL = type;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLLinkElement::SetType
+
+=for signature $htmllinkelement->SetType($type)
+
+
+
+=cut
+
+## SetType(const nsAString & aType)
+void
+moz_dom_SetType (htmllinkelement, type)
+	nsIDOMHTMLLinkElement *htmllinkelement;
+	nsEmbedString type;
+    CODE:
+	htmllinkelement->SetType(type);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLMapElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLMapElement.h
+
+=for object Mozilla::DOM::HTMLMapElement
+
+Mozilla::DOM::HTMLMapElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLMapElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLMapElement interface is the interface to a [X]HTML
+ * map element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLMapElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLMAPELEMENT_IID)
+static nsIID
+nsIDOMHTMLMapElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLMapElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLMapElement::GetAreas
+
+=for signature $areas = $htmlmapelement->GetAreas()
+
+
+
+=cut
+
+## GetAreas(nsIDOMHTMLCollection * *aAreas)
+nsIDOMHTMLCollection *
+moz_dom_GetAreas (htmlmapelement)
+	nsIDOMHTMLMapElement *htmlmapelement;
+    PREINIT:
+	nsIDOMHTMLCollection * areas;
+    CODE:
+	htmlmapelement->GetAreas(&areas);
+	RETVAL = areas;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLMapElement::GetName
+
+=for signature $name = $htmlmapelement->GetName()
+
+
+
+=cut
+
+## GetName(nsAString & aName)
+nsEmbedString
+moz_dom_GetName (htmlmapelement)
+	nsIDOMHTMLMapElement *htmlmapelement;
+    PREINIT:
+	nsEmbedString name;
+    CODE:
+	htmlmapelement->GetName(name);
+	RETVAL = name;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLMapElement::SetName
+
+=for signature $htmlmapelement->SetName($name)
+
+
+
+=cut
+
+## SetName(const nsAString & aName)
+void
+moz_dom_SetName (htmlmapelement, name)
+	nsIDOMHTMLMapElement *htmlmapelement;
+	nsEmbedString name;
+    CODE:
+	htmlmapelement->SetName(name);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLMenuElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLMenuElement.h
+
+=for object Mozilla::DOM::HTMLMenuElement
+
+Mozilla::DOM::HTMLMenuElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLMenuElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLMenuElement interface is the interface to a [X]HTML
+ * menu element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLMenuElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLMENUELEMENT_IID)
+static nsIID
+nsIDOMHTMLMenuElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLMenuElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLMenuElement::GetCompact
+
+=for signature $bool = $htmlmenuelement->GetCompact()
+
+
+
+=cut
+
+## GetCompact(PRBool *aCompact)
+PRBool
+moz_dom_GetCompact (htmlmenuelement)
+	nsIDOMHTMLMenuElement *htmlmenuelement;
+    PREINIT:
+	PRBool compact;
+    CODE:
+	htmlmenuelement->GetCompact(&compact);
+	RETVAL = compact;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLMenuElement::SetCompact
+
+=for signature $htmlmenuelement->SetCompact($compact)
+
+
+
+=cut
+
+## SetCompact(PRBool aCompact)
+void
+moz_dom_SetCompact (htmlmenuelement, compact)
+	nsIDOMHTMLMenuElement *htmlmenuelement;
+	PRBool  compact;
+    CODE:
+	htmlmenuelement->SetCompact(compact);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLMetaElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLMetaElement.h
+
+=for object Mozilla::DOM::HTMLMetaElement
+
+Mozilla::DOM::HTMLMetaElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLMetaElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLMetaElement interface is the interface to a [X]HTML
+ * meta element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLMetaElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLMETAELEMENT_IID)
+static nsIID
+nsIDOMHTMLMetaElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLMetaElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLMetaElement::GetContent
+
+=for signature $content = $htmlmetaelement->GetContent()
+
+
+
+=cut
+
+## GetContent(nsAString & aContent)
+nsEmbedString
+moz_dom_GetContent (htmlmetaelement)
+	nsIDOMHTMLMetaElement *htmlmetaelement;
+    PREINIT:
+	nsEmbedString content;
+    CODE:
+	htmlmetaelement->GetContent(content);
+	RETVAL = content;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLMetaElement::SetContent
+
+=for signature $htmlmetaelement->SetContent($content)
+
+
+
+=cut
+
+## SetContent(const nsAString & aContent)
+void
+moz_dom_SetContent (htmlmetaelement, content)
+	nsIDOMHTMLMetaElement *htmlmetaelement;
+	nsEmbedString content;
+    CODE:
+	htmlmetaelement->SetContent(content);
+
+=for apidoc Mozilla::DOM::HTMLMetaElement::GetHttpEquiv
+
+=for signature $httpequiv = $htmlmetaelement->GetHttpEquiv()
+
+
+
+=cut
+
+## GetHttpEquiv(nsAString & aHttpEquiv)
+nsEmbedString
+moz_dom_GetHttpEquiv (htmlmetaelement)
+	nsIDOMHTMLMetaElement *htmlmetaelement;
+    PREINIT:
+	nsEmbedString httpequiv;
+    CODE:
+	htmlmetaelement->GetHttpEquiv(httpequiv);
+	RETVAL = httpequiv;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLMetaElement::SetHttpEquiv
+
+=for signature $htmlmetaelement->SetHttpEquiv($httpequiv)
+
+
+
+=cut
+
+## SetHttpEquiv(const nsAString & aHttpEquiv)
+void
+moz_dom_SetHttpEquiv (htmlmetaelement, httpequiv)
+	nsIDOMHTMLMetaElement *htmlmetaelement;
+	nsEmbedString httpequiv;
+    CODE:
+	htmlmetaelement->SetHttpEquiv(httpequiv);
+
+=for apidoc Mozilla::DOM::HTMLMetaElement::GetName
+
+=for signature $name = $htmlmetaelement->GetName()
+
+
+
+=cut
+
+## GetName(nsAString & aName)
+nsEmbedString
+moz_dom_GetName (htmlmetaelement)
+	nsIDOMHTMLMetaElement *htmlmetaelement;
+    PREINIT:
+	nsEmbedString name;
+    CODE:
+	htmlmetaelement->GetName(name);
+	RETVAL = name;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLMetaElement::SetName
+
+=for signature $htmlmetaelement->SetName($name)
+
+
+
+=cut
+
+## SetName(const nsAString & aName)
+void
+moz_dom_SetName (htmlmetaelement, name)
+	nsIDOMHTMLMetaElement *htmlmetaelement;
+	nsEmbedString name;
+    CODE:
+	htmlmetaelement->SetName(name);
+
+=for apidoc Mozilla::DOM::HTMLMetaElement::GetScheme
+
+=for signature $scheme = $htmlmetaelement->GetScheme()
+
+
+
+=cut
+
+## GetScheme(nsAString & aScheme)
+nsEmbedString
+moz_dom_GetScheme (htmlmetaelement)
+	nsIDOMHTMLMetaElement *htmlmetaelement;
+    PREINIT:
+	nsEmbedString scheme;
+    CODE:
+	htmlmetaelement->GetScheme(scheme);
+	RETVAL = scheme;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLMetaElement::SetScheme
+
+=for signature $htmlmetaelement->SetScheme($scheme)
+
+
+
+=cut
+
+## SetScheme(const nsAString & aScheme)
+void
+moz_dom_SetScheme (htmlmetaelement, scheme)
+	nsIDOMHTMLMetaElement *htmlmetaelement;
+	nsEmbedString scheme;
+    CODE:
+	htmlmetaelement->SetScheme(scheme);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLModElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLModElement.h
+
+=for object Mozilla::DOM::HTMLModElement
+
+Mozilla::DOM::HTMLModElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLModElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLModElement interface is the interface to a [X]HTML
+ * ins and del element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLModElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLMODELEMENT_IID)
+static nsIID
+nsIDOMHTMLModElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLModElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLModElement::GetCite
+
+=for signature $cite = $htmlmodelement->GetCite()
+
+
+
+=cut
+
+## GetCite(nsAString & aCite)
+nsEmbedString
+moz_dom_GetCite (htmlmodelement)
+	nsIDOMHTMLModElement *htmlmodelement;
+    PREINIT:
+	nsEmbedString cite;
+    CODE:
+	htmlmodelement->GetCite(cite);
+	RETVAL = cite;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLModElement::SetCite
+
+=for signature $htmlmodelement->SetCite($cite)
+
+
+
+=cut
+
+## SetCite(const nsAString & aCite)
+void
+moz_dom_SetCite (htmlmodelement, cite)
+	nsIDOMHTMLModElement *htmlmodelement;
+	nsEmbedString cite;
+    CODE:
+	htmlmodelement->SetCite(cite);
+
+=for apidoc Mozilla::DOM::HTMLModElement::GetDateTime
+
+=for signature $datetime = $htmlmodelement->GetDateTime()
+
+
+
+=cut
+
+## GetDateTime(nsAString & aDateTime)
+nsEmbedString
+moz_dom_GetDateTime (htmlmodelement)
+	nsIDOMHTMLModElement *htmlmodelement;
+    PREINIT:
+	nsEmbedString datetime;
+    CODE:
+	htmlmodelement->GetDateTime(datetime);
+	RETVAL = datetime;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLModElement::SetDateTime
+
+=for signature $htmlmodelement->SetDateTime($datetime)
+
+
+
+=cut
+
+## SetDateTime(const nsAString & aDateTime)
+void
+moz_dom_SetDateTime (htmlmodelement, datetime)
+	nsIDOMHTMLModElement *htmlmodelement;
+	nsEmbedString datetime;
+    CODE:
+	htmlmodelement->SetDateTime(datetime);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLOListElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLOListElement.h
+
+=for object Mozilla::DOM::HTMLOListElement
+
+Mozilla::DOM::HTMLOListElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLOListElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLOListElement interface is the interface to a [X]HTML
+ * ol element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLOListElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLOLISTELEMENT_IID)
+static nsIID
+nsIDOMHTMLOListElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLOListElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOListElement::GetCompact
+
+=for signature $bool = $htmlolistelement->GetCompact()
+
+
+
+=cut
+
+## GetCompact(PRBool *aCompact)
+PRBool
+moz_dom_GetCompact (htmlolistelement)
+	nsIDOMHTMLOListElement *htmlolistelement;
+    PREINIT:
+	PRBool compact;
+    CODE:
+	htmlolistelement->GetCompact(&compact);
+	RETVAL = compact;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOListElement::SetCompact
+
+=for signature $htmlolistelement->SetCompact($compact)
+
+
+
+=cut
+
+## SetCompact(PRBool aCompact)
+void
+moz_dom_SetCompact (htmlolistelement, compact)
+	nsIDOMHTMLOListElement *htmlolistelement;
+	PRBool  compact;
+    CODE:
+	htmlolistelement->SetCompact(compact);
+
+=for apidoc Mozilla::DOM::HTMLOListElement::GetStart
+
+=for signature $start = $htmlolistelement->GetStart()
+
+
+
+=cut
+
+## GetStart(PRInt32 *aStart)
+PRInt32
+moz_dom_GetStart (htmlolistelement)
+	nsIDOMHTMLOListElement *htmlolistelement;
+    PREINIT:
+	PRInt32 start;
+    CODE:
+	htmlolistelement->GetStart(&start);
+	RETVAL = start;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOListElement::SetStart
+
+=for signature $htmlolistelement->SetStart($start)
+
+
+
+=cut
+
+## SetStart(PRInt32 aStart)
+void
+moz_dom_SetStart (htmlolistelement, start)
+	nsIDOMHTMLOListElement *htmlolistelement;
+	PRInt32  start;
+    CODE:
+	htmlolistelement->SetStart(start);
+
+=for apidoc Mozilla::DOM::HTMLOListElement::GetType
+
+=for signature $type = $htmlolistelement->GetType()
+
+
+
+=cut
+
+## GetType(nsAString & aType)
+nsEmbedString
+moz_dom_GetType (htmlolistelement)
+	nsIDOMHTMLOListElement *htmlolistelement;
+    PREINIT:
+	nsEmbedString type;
+    CODE:
+	htmlolistelement->GetType(type);
+	RETVAL = type;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOListElement::SetType
+
+=for signature $htmlolistelement->SetType($type)
+
+
+
+=cut
+
+## SetType(const nsAString & aType)
+void
+moz_dom_SetType (htmlolistelement, type)
+	nsIDOMHTMLOListElement *htmlolistelement;
+	nsEmbedString type;
+    CODE:
+	htmlolistelement->SetType(type);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLObjectElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLObjectElement.h
+
+=for object Mozilla::DOM::HTMLObjectElement
+
+Mozilla::DOM::HTMLObjectElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLObjectElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLObjectElement interface is the interface to a [X]HTML
+ * object element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLObjectElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLOBJECTELEMENT_IID)
+static nsIID
+nsIDOMHTMLObjectElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLObjectElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetForm
+
+=for signature $form = $htmlobjectelement->GetForm()
+
+
+
+=cut
+
+## GetForm(nsIDOMHTMLFormElement * *aForm)
+nsIDOMHTMLFormElement *
+moz_dom_GetForm (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	nsIDOMHTMLFormElement * form;
+    CODE:
+	htmlobjectelement->GetForm(&form);
+	RETVAL = form;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetCode
+
+=for signature $code = $htmlobjectelement->GetCode()
+
+
+
+=cut
+
+## GetCode(nsAString & aCode)
+nsEmbedString
+moz_dom_GetCode (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	nsEmbedString code;
+    CODE:
+	htmlobjectelement->GetCode(code);
+	RETVAL = code;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::SetCode
+
+=for signature $htmlobjectelement->SetCode($code)
+
+
+
+=cut
+
+## SetCode(const nsAString & aCode)
+void
+moz_dom_SetCode (htmlobjectelement, code)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+	nsEmbedString code;
+    CODE:
+	htmlobjectelement->SetCode(code);
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetAlign
+
+=for signature $align = $htmlobjectelement->GetAlign()
+
+
+
+=cut
+
+## GetAlign(nsAString & aAlign)
+nsEmbedString
+moz_dom_GetAlign (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	nsEmbedString align;
+    CODE:
+	htmlobjectelement->GetAlign(align);
+	RETVAL = align;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::SetAlign
+
+=for signature $htmlobjectelement->SetAlign($align)
+
+
+
+=cut
+
+## SetAlign(const nsAString & aAlign)
+void
+moz_dom_SetAlign (htmlobjectelement, align)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+	nsEmbedString align;
+    CODE:
+	htmlobjectelement->SetAlign(align);
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetArchive
+
+=for signature $archive = $htmlobjectelement->GetArchive()
+
+
+
+=cut
+
+## GetArchive(nsAString & aArchive)
+nsEmbedString
+moz_dom_GetArchive (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	nsEmbedString archive;
+    CODE:
+	htmlobjectelement->GetArchive(archive);
+	RETVAL = archive;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::SetArchive
+
+=for signature $htmlobjectelement->SetArchive($archive)
+
+
+
+=cut
+
+## SetArchive(const nsAString & aArchive)
+void
+moz_dom_SetArchive (htmlobjectelement, archive)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+	nsEmbedString archive;
+    CODE:
+	htmlobjectelement->SetArchive(archive);
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetBorder
+
+=for signature $border = $htmlobjectelement->GetBorder()
+
+
+
+=cut
+
+## GetBorder(nsAString & aBorder)
+nsEmbedString
+moz_dom_GetBorder (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	nsEmbedString border;
+    CODE:
+	htmlobjectelement->GetBorder(border);
+	RETVAL = border;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::SetBorder
+
+=for signature $htmlobjectelement->SetBorder($border)
+
+
+
+=cut
+
+## SetBorder(const nsAString & aBorder)
+void
+moz_dom_SetBorder (htmlobjectelement, border)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+	nsEmbedString border;
+    CODE:
+	htmlobjectelement->SetBorder(border);
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetCodeBase
+
+=for signature $codebase = $htmlobjectelement->GetCodeBase()
+
+
+
+=cut
+
+## GetCodeBase(nsAString & aCodeBase)
+nsEmbedString
+moz_dom_GetCodeBase (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	nsEmbedString codebase;
+    CODE:
+	htmlobjectelement->GetCodeBase(codebase);
+	RETVAL = codebase;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::SetCodeBase
+
+=for signature $htmlobjectelement->SetCodeBase($codebase)
+
+
+
+=cut
+
+## SetCodeBase(const nsAString & aCodeBase)
+void
+moz_dom_SetCodeBase (htmlobjectelement, codebase)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+	nsEmbedString codebase;
+    CODE:
+	htmlobjectelement->SetCodeBase(codebase);
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetCodeType
+
+=for signature $codetype = $htmlobjectelement->GetCodeType()
+
+
+
+=cut
+
+## GetCodeType(nsAString & aCodeType)
+nsEmbedString
+moz_dom_GetCodeType (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	nsEmbedString codetype;
+    CODE:
+	htmlobjectelement->GetCodeType(codetype);
+	RETVAL = codetype;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::SetCodeType
+
+=for signature $htmlobjectelement->SetCodeType($codetype)
+
+
+
+=cut
+
+## SetCodeType(const nsAString & aCodeType)
+void
+moz_dom_SetCodeType (htmlobjectelement, codetype)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+	nsEmbedString codetype;
+    CODE:
+	htmlobjectelement->SetCodeType(codetype);
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetData
+
+=for signature $data = $htmlobjectelement->GetData()
+
+
+
+=cut
+
+## GetData(nsAString & aData)
+nsEmbedString
+moz_dom_GetData (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	nsEmbedString data;
+    CODE:
+	htmlobjectelement->GetData(data);
+	RETVAL = data;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::SetData
+
+=for signature $htmlobjectelement->SetData($data)
+
+
+
+=cut
+
+## SetData(const nsAString & aData)
+void
+moz_dom_SetData (htmlobjectelement, data)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+	nsEmbedString data;
+    CODE:
+	htmlobjectelement->SetData(data);
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetDeclare
+
+=for signature $bool = $htmlobjectelement->GetDeclare()
+
+
+
+=cut
+
+## GetDeclare(PRBool *aDeclare)
+PRBool
+moz_dom_GetDeclare (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	PRBool declare;
+    CODE:
+	htmlobjectelement->GetDeclare(&declare);
+	RETVAL = declare;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::SetDeclare
+
+=for signature $htmlobjectelement->SetDeclare($declare)
+
+
+
+=cut
+
+## SetDeclare(PRBool aDeclare)
+void
+moz_dom_SetDeclare (htmlobjectelement, declare)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+	PRBool  declare;
+    CODE:
+	htmlobjectelement->SetDeclare(declare);
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetHeight
+
+=for signature $height = $htmlobjectelement->GetHeight()
+
+
+
+=cut
+
+## GetHeight(nsAString & aHeight)
+nsEmbedString
+moz_dom_GetHeight (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	nsEmbedString height;
+    CODE:
+	htmlobjectelement->GetHeight(height);
+	RETVAL = height;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::SetHeight
+
+=for signature $htmlobjectelement->SetHeight($height)
+
+
+
+=cut
+
+## SetHeight(const nsAString & aHeight)
+void
+moz_dom_SetHeight (htmlobjectelement, height)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+	nsEmbedString height;
+    CODE:
+	htmlobjectelement->SetHeight(height);
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetHspace
+
+=for signature $hspace = $htmlobjectelement->GetHspace()
+
+
+
+=cut
+
+## GetHspace(PRInt32 *aHspace)
+PRInt32
+moz_dom_GetHspace (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	PRInt32 hspace;
+    CODE:
+	htmlobjectelement->GetHspace(&hspace);
+	RETVAL = hspace;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::SetHspace
+
+=for signature $htmlobjectelement->SetHspace($hspace)
+
+
+
+=cut
+
+## SetHspace(PRInt32 aHspace)
+void
+moz_dom_SetHspace (htmlobjectelement, hspace)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+	PRInt32  hspace;
+    CODE:
+	htmlobjectelement->SetHspace(hspace);
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetName
+
+=for signature $name = $htmlobjectelement->GetName()
+
+
+
+=cut
+
+## GetName(nsAString & aName)
+nsEmbedString
+moz_dom_GetName (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	nsEmbedString name;
+    CODE:
+	htmlobjectelement->GetName(name);
+	RETVAL = name;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::SetName
+
+=for signature $htmlobjectelement->SetName($name)
+
+
+
+=cut
+
+## SetName(const nsAString & aName)
+void
+moz_dom_SetName (htmlobjectelement, name)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+	nsEmbedString name;
+    CODE:
+	htmlobjectelement->SetName(name);
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetStandby
+
+=for signature $standby = $htmlobjectelement->GetStandby()
+
+
+
+=cut
+
+## GetStandby(nsAString & aStandby)
+nsEmbedString
+moz_dom_GetStandby (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	nsEmbedString standby;
+    CODE:
+	htmlobjectelement->GetStandby(standby);
+	RETVAL = standby;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::SetStandby
+
+=for signature $htmlobjectelement->SetStandby($standby)
+
+
+
+=cut
+
+## SetStandby(const nsAString & aStandby)
+void
+moz_dom_SetStandby (htmlobjectelement, standby)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+	nsEmbedString standby;
+    CODE:
+	htmlobjectelement->SetStandby(standby);
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetTabIndex
+
+=for signature $tabindex = $htmlobjectelement->GetTabIndex()
+
+
+
+=cut
+
+## GetTabIndex(PRInt32 *aTabIndex)
+PRInt32
+moz_dom_GetTabIndex (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	PRInt32 tabindex;
+    CODE:
+	htmlobjectelement->GetTabIndex(&tabindex);
+	RETVAL = tabindex;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::SetTabIndex
+
+=for signature $htmlobjectelement->SetTabIndex($tabindex)
+
+
+
+=cut
+
+## SetTabIndex(PRInt32 aTabIndex)
+void
+moz_dom_SetTabIndex (htmlobjectelement, tabindex)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+	PRInt32  tabindex;
+    CODE:
+	htmlobjectelement->SetTabIndex(tabindex);
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetType
+
+=for signature $type = $htmlobjectelement->GetType()
+
+
+
+=cut
+
+## GetType(nsAString & aType)
+nsEmbedString
+moz_dom_GetType (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	nsEmbedString type;
+    CODE:
+	htmlobjectelement->GetType(type);
+	RETVAL = type;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::SetType
+
+=for signature $htmlobjectelement->SetType($type)
+
+
+
+=cut
+
+## SetType(const nsAString & aType)
+void
+moz_dom_SetType (htmlobjectelement, type)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+	nsEmbedString type;
+    CODE:
+	htmlobjectelement->SetType(type);
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetUseMap
+
+=for signature $usemap = $htmlobjectelement->GetUseMap()
+
+
+
+=cut
+
+## GetUseMap(nsAString & aUseMap)
+nsEmbedString
+moz_dom_GetUseMap (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	nsEmbedString usemap;
+    CODE:
+	htmlobjectelement->GetUseMap(usemap);
+	RETVAL = usemap;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::SetUseMap
+
+=for signature $htmlobjectelement->SetUseMap($usemap)
+
+
+
+=cut
+
+## SetUseMap(const nsAString & aUseMap)
+void
+moz_dom_SetUseMap (htmlobjectelement, usemap)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+	nsEmbedString usemap;
+    CODE:
+	htmlobjectelement->SetUseMap(usemap);
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetVspace
+
+=for signature $vspace = $htmlobjectelement->GetVspace()
+
+
+
+=cut
+
+## GetVspace(PRInt32 *aVspace)
+PRInt32
+moz_dom_GetVspace (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	PRInt32 vspace;
+    CODE:
+	htmlobjectelement->GetVspace(&vspace);
+	RETVAL = vspace;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::SetVspace
+
+=for signature $htmlobjectelement->SetVspace($vspace)
+
+
+
+=cut
+
+## SetVspace(PRInt32 aVspace)
+void
+moz_dom_SetVspace (htmlobjectelement, vspace)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+	PRInt32  vspace;
+    CODE:
+	htmlobjectelement->SetVspace(vspace);
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetWidth
+
+=for signature $width = $htmlobjectelement->GetWidth()
+
+
+
+=cut
+
+## GetWidth(nsAString & aWidth)
+nsEmbedString
+moz_dom_GetWidth (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	nsEmbedString width;
+    CODE:
+	htmlobjectelement->GetWidth(width);
+	RETVAL = width;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::SetWidth
+
+=for signature $htmlobjectelement->SetWidth($width)
+
+
+
+=cut
+
+## SetWidth(const nsAString & aWidth)
+void
+moz_dom_SetWidth (htmlobjectelement, width)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+	nsEmbedString width;
+    CODE:
+	htmlobjectelement->SetWidth(width);
+
+=for apidoc Mozilla::DOM::HTMLObjectElement::GetContentDocument
+
+=for signature $contentdocument = $htmlobjectelement->GetContentDocument()
+
+
+
+=cut
+
+## GetContentDocument(nsIDOMDocument * *aContentDocument)
+nsIDOMDocument *
+moz_dom_GetContentDocument (htmlobjectelement)
+	nsIDOMHTMLObjectElement *htmlobjectelement;
+    PREINIT:
+	nsIDOMDocument * contentdocument;
+    CODE:
+	htmlobjectelement->GetContentDocument(&contentdocument);
+	RETVAL = contentdocument;
+    OUTPUT:
+	RETVAL
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLOptGroupElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLOptGroupElement.h
+
+=for object Mozilla::DOM::HTMLOptGroupElement
+
+Mozilla::DOM::HTMLOptGroupElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLOptGroupElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLOptGroupElement interface is the interface to a
+ * [X]HTML optgroup element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLOptGroupElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLOPTGROUPELEMENT_IID)
+static nsIID
+nsIDOMHTMLOptGroupElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLOptGroupElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOptGroupElement::GetDisabled
+
+=for signature $bool = $htmloptgroupelement->GetDisabled()
+
+
+
+=cut
+
+## GetDisabled(PRBool *aDisabled)
+PRBool
+moz_dom_GetDisabled (htmloptgroupelement)
+	nsIDOMHTMLOptGroupElement *htmloptgroupelement;
+    PREINIT:
+	PRBool disabled;
+    CODE:
+	htmloptgroupelement->GetDisabled(&disabled);
+	RETVAL = disabled;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOptGroupElement::SetDisabled
+
+=for signature $htmloptgroupelement->SetDisabled($disabled)
+
+
+
+=cut
+
+## SetDisabled(PRBool aDisabled)
+void
+moz_dom_SetDisabled (htmloptgroupelement, disabled)
+	nsIDOMHTMLOptGroupElement *htmloptgroupelement;
+	PRBool  disabled;
+    CODE:
+	htmloptgroupelement->SetDisabled(disabled);
+
+=for apidoc Mozilla::DOM::HTMLOptGroupElement::GetLabel
+
+=for signature $label = $htmloptgroupelement->GetLabel()
+
+
+
+=cut
+
+## GetLabel(nsAString & aLabel)
+nsEmbedString
+moz_dom_GetLabel (htmloptgroupelement)
+	nsIDOMHTMLOptGroupElement *htmloptgroupelement;
+    PREINIT:
+	nsEmbedString label;
+    CODE:
+	htmloptgroupelement->GetLabel(label);
+	RETVAL = label;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOptGroupElement::SetLabel
+
+=for signature $htmloptgroupelement->SetLabel($label)
+
+
+
+=cut
+
+## SetLabel(const nsAString & aLabel)
+void
+moz_dom_SetLabel (htmloptgroupelement, label)
+	nsIDOMHTMLOptGroupElement *htmloptgroupelement;
+	nsEmbedString label;
+    CODE:
+	htmloptgroupelement->SetLabel(label);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLOptionElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLOptionElement.h
+
+=for object Mozilla::DOM::HTMLOptionElement
+
+Mozilla::DOM::HTMLOptionElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLOptionElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLOptionElement interface is the interface to a [X]HTML
+ * option element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLOptionElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLOPTIONELEMENT_IID)
+static nsIID
+nsIDOMHTMLOptionElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLOptionElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOptionElement::GetForm
+
+=for signature $form = $htmloptionelement->GetForm()
+
+
+
+=cut
+
+## GetForm(nsIDOMHTMLFormElement * *aForm)
+nsIDOMHTMLFormElement *
+moz_dom_GetForm (htmloptionelement)
+	nsIDOMHTMLOptionElement *htmloptionelement;
+    PREINIT:
+	nsIDOMHTMLFormElement * form;
+    CODE:
+	htmloptionelement->GetForm(&form);
+	RETVAL = form;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOptionElement::GetDefaultSelected
+
+=for signature $bool = $htmloptionelement->GetDefaultSelected()
+
+
+
+=cut
+
+## GetDefaultSelected(PRBool *aDefaultSelected)
+PRBool
+moz_dom_GetDefaultSelected (htmloptionelement)
+	nsIDOMHTMLOptionElement *htmloptionelement;
+    PREINIT:
+	PRBool defaultselected;
+    CODE:
+	htmloptionelement->GetDefaultSelected(&defaultselected);
+	RETVAL = defaultselected;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOptionElement::SetDefaultSelected
+
+=for signature $htmloptionelement->SetDefaultSelected($defaultselected)
+
+
+
+=cut
+
+## SetDefaultSelected(PRBool aDefaultSelected)
+void
+moz_dom_SetDefaultSelected (htmloptionelement, defaultselected)
+	nsIDOMHTMLOptionElement *htmloptionelement;
+	PRBool  defaultselected;
+    CODE:
+	htmloptionelement->SetDefaultSelected(defaultselected);
+
+=for apidoc Mozilla::DOM::HTMLOptionElement::GetText
+
+=for signature $text = $htmloptionelement->GetText()
+
+
+
+=cut
+
+## GetText(nsAString & aText)
+nsEmbedString
+moz_dom_GetText (htmloptionelement)
+	nsIDOMHTMLOptionElement *htmloptionelement;
+    PREINIT:
+	nsEmbedString text;
+    CODE:
+	htmloptionelement->GetText(text);
+	RETVAL = text;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOptionElement::GetIndex
+
+=for signature $index = $htmloptionelement->GetIndex()
+
+
+
+=cut
+
+## GetIndex(PRInt32 *aIndex)
+PRInt32
+moz_dom_GetIndex (htmloptionelement)
+	nsIDOMHTMLOptionElement *htmloptionelement;
+    PREINIT:
+	PRInt32 index;
+    CODE:
+	htmloptionelement->GetIndex(&index);
+	RETVAL = index;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOptionElement::GetDisabled
+
+=for signature $bool = $htmloptionelement->GetDisabled()
+
+
+
+=cut
+
+## GetDisabled(PRBool *aDisabled)
+PRBool
+moz_dom_GetDisabled (htmloptionelement)
+	nsIDOMHTMLOptionElement *htmloptionelement;
+    PREINIT:
+	PRBool disabled;
+    CODE:
+	htmloptionelement->GetDisabled(&disabled);
+	RETVAL = disabled;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOptionElement::SetDisabled
+
+=for signature $htmloptionelement->SetDisabled($disabled)
+
+
+
+=cut
+
+## SetDisabled(PRBool aDisabled)
+void
+moz_dom_SetDisabled (htmloptionelement, disabled)
+	nsIDOMHTMLOptionElement *htmloptionelement;
+	PRBool  disabled;
+    CODE:
+	htmloptionelement->SetDisabled(disabled);
+
+=for apidoc Mozilla::DOM::HTMLOptionElement::GetLabel
+
+=for signature $label = $htmloptionelement->GetLabel()
+
+
+
+=cut
+
+## GetLabel(nsAString & aLabel)
+nsEmbedString
+moz_dom_GetLabel (htmloptionelement)
+	nsIDOMHTMLOptionElement *htmloptionelement;
+    PREINIT:
+	nsEmbedString label;
+    CODE:
+	htmloptionelement->GetLabel(label);
+	RETVAL = label;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOptionElement::SetLabel
+
+=for signature $htmloptionelement->SetLabel($label)
+
+
+
+=cut
+
+## SetLabel(const nsAString & aLabel)
+void
+moz_dom_SetLabel (htmloptionelement, label)
+	nsIDOMHTMLOptionElement *htmloptionelement;
+	nsEmbedString label;
+    CODE:
+	htmloptionelement->SetLabel(label);
+
+=for apidoc Mozilla::DOM::HTMLOptionElement::GetSelected
+
+=for signature $bool = $htmloptionelement->GetSelected()
+
+
+
+=cut
+
+## GetSelected(PRBool *aSelected)
+PRBool
+moz_dom_GetSelected (htmloptionelement)
+	nsIDOMHTMLOptionElement *htmloptionelement;
+    PREINIT:
+	PRBool selected;
+    CODE:
+	htmloptionelement->GetSelected(&selected);
+	RETVAL = selected;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOptionElement::SetSelected
+
+=for signature $htmloptionelement->SetSelected($selected)
+
+
+
+=cut
+
+## SetSelected(PRBool aSelected)
+void
+moz_dom_SetSelected (htmloptionelement, selected)
+	nsIDOMHTMLOptionElement *htmloptionelement;
+	PRBool  selected;
+    CODE:
+	htmloptionelement->SetSelected(selected);
+
+=for apidoc Mozilla::DOM::HTMLOptionElement::GetValue
+
+=for signature $value = $htmloptionelement->GetValue()
+
+
+
+=cut
+
+## GetValue(nsAString & aValue)
+nsEmbedString
+moz_dom_GetValue (htmloptionelement)
+	nsIDOMHTMLOptionElement *htmloptionelement;
+    PREINIT:
+	nsEmbedString value;
+    CODE:
+	htmloptionelement->GetValue(value);
+	RETVAL = value;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOptionElement::SetValue
+
+=for signature $htmloptionelement->SetValue($value)
+
+
+
+=cut
+
+## SetValue(const nsAString & aValue)
+void
+moz_dom_SetValue (htmloptionelement, value)
+	nsIDOMHTMLOptionElement *htmloptionelement;
+	nsEmbedString value;
+    CODE:
+	htmloptionelement->SetValue(value);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLOptionsCollection	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLOptionsCollection.h
+
+=for object Mozilla::DOM::HTMLOptionsCollection
+
+Mozilla::DOM::HTMLOptionsCollection is a wrapper around an instance of Mozilla's
+nsIDOMHTMLOptionsCollection interface. This class inherits from
+L<nsISupports|Mozilla::DOM::nsISupports>.
+
+ * The nsIDOMHTMLOptionsCollection interface is the interface to a
+ * collection of [X]HTML option elements.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLOptionsCollection->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLOPTIONSCOLLECTION_IID)
+static nsIID
+nsIDOMHTMLOptionsCollection::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLOptionsCollection::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOptionsCollection::GetLength
+
+=for signature $length = $htmloptionscollection->GetLength()
+
+
+
+=cut
+
+## GetLength(PRUint32 *aLength)
+PRUint32
+moz_dom_GetLength (htmloptionscollection)
+	nsIDOMHTMLOptionsCollection *htmloptionscollection;
+    PREINIT:
+	PRUint32 length;
+    CODE:
+	htmloptionscollection->GetLength(&length);
+	RETVAL = length;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOptionsCollection::SetLength
+
+=for signature $htmloptionscollection->SetLength($length)
+
+
+
+=cut
+
+## SetLength(PRUint32 aLength)
+void
+moz_dom_SetLength (htmloptionscollection, length)
+	nsIDOMHTMLOptionsCollection *htmloptionscollection;
+	PRUint32  length;
+    CODE:
+	htmloptionscollection->SetLength(length);
+
+=for apidoc Mozilla::DOM::HTMLOptionsCollection::Item
+
+=for signature $retval = $htmloptionscollection->Item($index)
+
+
+
+=cut
+
+## Item(PRUint32 index, nsIDOMNode **_retval)
+nsIDOMNode *
+moz_dom_Item (htmloptionscollection, index)
+	nsIDOMHTMLOptionsCollection *htmloptionscollection;
+	PRUint32  index;
+    PREINIT:
+	nsIDOMNode * retval;
+    CODE:
+	htmloptionscollection->Item(index, &retval);
+	RETVAL = retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLOptionsCollection::NamedItem
+
+=for signature $retval = $htmloptionscollection->NamedItem($name)
+
+
+
+=cut
+
+## NamedItem(const nsAString & name, nsIDOMNode **_retval)
+nsIDOMNode *
+moz_dom_NamedItem (htmloptionscollection, name)
+	nsIDOMHTMLOptionsCollection *htmloptionscollection;
+	nsEmbedString name;
+    PREINIT:
+	nsIDOMNode * retval;
+    CODE:
+	htmloptionscollection->NamedItem(name, &retval);
+	RETVAL = retval;
+    OUTPUT:
+	RETVAL
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLParagraphElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLParagraphElement.h
+
+=for object Mozilla::DOM::HTMLParagraphElement
+
+Mozilla::DOM::HTMLParagraphElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLParagraphElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLParagraphElement interface is the interface to a
+ * [X]HTML p element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLParagraphElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLPARAGRAPHELEMENT_IID)
+static nsIID
+nsIDOMHTMLParagraphElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLParagraphElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLParagraphElement::GetAlign
+
+=for signature $align = $htmlparagraphelement->GetAlign()
+
+
+
+=cut
+
+## GetAlign(nsAString & aAlign)
+nsEmbedString
+moz_dom_GetAlign (htmlparagraphelement)
+	nsIDOMHTMLParagraphElement *htmlparagraphelement;
+    PREINIT:
+	nsEmbedString align;
+    CODE:
+	htmlparagraphelement->GetAlign(align);
+	RETVAL = align;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLParagraphElement::SetAlign
+
+=for signature $htmlparagraphelement->SetAlign($align)
+
+
+
+=cut
+
+## SetAlign(const nsAString & aAlign)
+void
+moz_dom_SetAlign (htmlparagraphelement, align)
+	nsIDOMHTMLParagraphElement *htmlparagraphelement;
+	nsEmbedString align;
+    CODE:
+	htmlparagraphelement->SetAlign(align);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLParamElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLParamElement.h
+
+=for object Mozilla::DOM::HTMLParamElement
+
+Mozilla::DOM::HTMLParamElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLParamElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLParamElement interface is the interface to a [X]HTML
+ * param element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLParamElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLPARAMELEMENT_IID)
+static nsIID
+nsIDOMHTMLParamElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLParamElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLParamElement::GetName
+
+=for signature $name = $htmlparamelement->GetName()
+
+
+
+=cut
+
+## GetName(nsAString & aName)
+nsEmbedString
+moz_dom_GetName (htmlparamelement)
+	nsIDOMHTMLParamElement *htmlparamelement;
+    PREINIT:
+	nsEmbedString name;
+    CODE:
+	htmlparamelement->GetName(name);
+	RETVAL = name;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLParamElement::SetName
+
+=for signature $htmlparamelement->SetName($name)
+
+
+
+=cut
+
+## SetName(const nsAString & aName)
+void
+moz_dom_SetName (htmlparamelement, name)
+	nsIDOMHTMLParamElement *htmlparamelement;
+	nsEmbedString name;
+    CODE:
+	htmlparamelement->SetName(name);
+
+=for apidoc Mozilla::DOM::HTMLParamElement::GetType
+
+=for signature $type = $htmlparamelement->GetType()
+
+
+
+=cut
+
+## GetType(nsAString & aType)
+nsEmbedString
+moz_dom_GetType (htmlparamelement)
+	nsIDOMHTMLParamElement *htmlparamelement;
+    PREINIT:
+	nsEmbedString type;
+    CODE:
+	htmlparamelement->GetType(type);
+	RETVAL = type;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLParamElement::SetType
+
+=for signature $htmlparamelement->SetType($type)
+
+
+
+=cut
+
+## SetType(const nsAString & aType)
+void
+moz_dom_SetType (htmlparamelement, type)
+	nsIDOMHTMLParamElement *htmlparamelement;
+	nsEmbedString type;
+    CODE:
+	htmlparamelement->SetType(type);
+
+=for apidoc Mozilla::DOM::HTMLParamElement::GetValue
+
+=for signature $value = $htmlparamelement->GetValue()
+
+
+
+=cut
+
+## GetValue(nsAString & aValue)
+nsEmbedString
+moz_dom_GetValue (htmlparamelement)
+	nsIDOMHTMLParamElement *htmlparamelement;
+    PREINIT:
+	nsEmbedString value;
+    CODE:
+	htmlparamelement->GetValue(value);
+	RETVAL = value;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLParamElement::SetValue
+
+=for signature $htmlparamelement->SetValue($value)
+
+
+
+=cut
+
+## SetValue(const nsAString & aValue)
+void
+moz_dom_SetValue (htmlparamelement, value)
+	nsIDOMHTMLParamElement *htmlparamelement;
+	nsEmbedString value;
+    CODE:
+	htmlparamelement->SetValue(value);
+
+=for apidoc Mozilla::DOM::HTMLParamElement::GetValueType
+
+=for signature $valuetype = $htmlparamelement->GetValueType()
+
+
+
+=cut
+
+## GetValueType(nsAString & aValueType)
+nsEmbedString
+moz_dom_GetValueType (htmlparamelement)
+	nsIDOMHTMLParamElement *htmlparamelement;
+    PREINIT:
+	nsEmbedString valuetype;
+    CODE:
+	htmlparamelement->GetValueType(valuetype);
+	RETVAL = valuetype;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLParamElement::SetValueType
+
+=for signature $htmlparamelement->SetValueType($valuetype)
+
+
+
+=cut
+
+## SetValueType(const nsAString & aValueType)
+void
+moz_dom_SetValueType (htmlparamelement, valuetype)
+	nsIDOMHTMLParamElement *htmlparamelement;
+	nsEmbedString valuetype;
+    CODE:
+	htmlparamelement->SetValueType(valuetype);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLPreElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLPreElement.h
+
+=for object Mozilla::DOM::HTMLPreElement
+
+Mozilla::DOM::HTMLPreElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLPreElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLPreElement interface is the interface to a [X]HTML
+ * pre element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLPreElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLPREELEMENT_IID)
+static nsIID
+nsIDOMHTMLPreElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLPreElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLPreElement::GetWidth
+
+=for signature $width = $htmlpreelement->GetWidth()
+
+
+
+=cut
+
+## GetWidth(PRInt32 *aWidth)
+PRInt32
+moz_dom_GetWidth (htmlpreelement)
+	nsIDOMHTMLPreElement *htmlpreelement;
+    PREINIT:
+	PRInt32 width;
+    CODE:
+	htmlpreelement->GetWidth(&width);
+	RETVAL = width;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLPreElement::SetWidth
+
+=for signature $htmlpreelement->SetWidth($width)
+
+
+
+=cut
+
+## SetWidth(PRInt32 aWidth)
+void
+moz_dom_SetWidth (htmlpreelement, width)
+	nsIDOMHTMLPreElement *htmlpreelement;
+	PRInt32  width;
+    CODE:
+	htmlpreelement->SetWidth(width);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLQuoteElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLQuoteElement.h
+
+=for object Mozilla::DOM::HTMLQuoteElement
+
+Mozilla::DOM::HTMLQuoteElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLQuoteElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLQuoteElement interface is the interface to a [X]HTML
+ * q element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLQuoteElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLQUOTEELEMENT_IID)
+static nsIID
+nsIDOMHTMLQuoteElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLQuoteElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLQuoteElement::GetCite
+
+=for signature $cite = $htmlquoteelement->GetCite()
+
+
+
+=cut
+
+## GetCite(nsAString & aCite)
+nsEmbedString
+moz_dom_GetCite (htmlquoteelement)
+	nsIDOMHTMLQuoteElement *htmlquoteelement;
+    PREINIT:
+	nsEmbedString cite;
+    CODE:
+	htmlquoteelement->GetCite(cite);
+	RETVAL = cite;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLQuoteElement::SetCite
+
+=for signature $htmlquoteelement->SetCite($cite)
+
+
+
+=cut
+
+## SetCite(const nsAString & aCite)
+void
+moz_dom_SetCite (htmlquoteelement, cite)
+	nsIDOMHTMLQuoteElement *htmlquoteelement;
+	nsEmbedString cite;
+    CODE:
+	htmlquoteelement->SetCite(cite);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLScriptElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLScriptElement.h
+
+=for object Mozilla::DOM::HTMLScriptElement
+
+Mozilla::DOM::HTMLScriptElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLScriptElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLScriptElement interface is the interface to a [X]HTML
+ * script element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLScriptElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLSCRIPTELEMENT_IID)
+static nsIID
+nsIDOMHTMLScriptElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLScriptElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLScriptElement::GetText
+
+=for signature $text = $htmlscriptelement->GetText()
+
+
+
+=cut
+
+## GetText(nsAString & aText)
+nsEmbedString
+moz_dom_GetText (htmlscriptelement)
+	nsIDOMHTMLScriptElement *htmlscriptelement;
+    PREINIT:
+	nsEmbedString text;
+    CODE:
+	htmlscriptelement->GetText(text);
+	RETVAL = text;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLScriptElement::SetText
+
+=for signature $htmlscriptelement->SetText($text)
+
+
+
+=cut
+
+## SetText(const nsAString & aText)
+void
+moz_dom_SetText (htmlscriptelement, text)
+	nsIDOMHTMLScriptElement *htmlscriptelement;
+	nsEmbedString text;
+    CODE:
+	htmlscriptelement->SetText(text);
+
+=for apidoc Mozilla::DOM::HTMLScriptElement::GetHtmlFor
+
+=for signature $htmlfor = $htmlscriptelement->GetHtmlFor()
+
+
+
+=cut
+
+## GetHtmlFor(nsAString & aHtmlFor)
+nsEmbedString
+moz_dom_GetHtmlFor (htmlscriptelement)
+	nsIDOMHTMLScriptElement *htmlscriptelement;
+    PREINIT:
+	nsEmbedString htmlfor;
+    CODE:
+	htmlscriptelement->GetHtmlFor(htmlfor);
+	RETVAL = htmlfor;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLScriptElement::SetHtmlFor
+
+=for signature $htmlscriptelement->SetHtmlFor($htmlfor)
+
+
+
+=cut
+
+## SetHtmlFor(const nsAString & aHtmlFor)
+void
+moz_dom_SetHtmlFor (htmlscriptelement, htmlfor)
+	nsIDOMHTMLScriptElement *htmlscriptelement;
+	nsEmbedString htmlfor;
+    CODE:
+	htmlscriptelement->SetHtmlFor(htmlfor);
+
+=for apidoc Mozilla::DOM::HTMLScriptElement::GetEvent
+
+=for signature $event = $htmlscriptelement->GetEvent()
+
+
+
+=cut
+
+## GetEvent(nsAString & aEvent)
+nsEmbedString
+moz_dom_GetEvent (htmlscriptelement)
+	nsIDOMHTMLScriptElement *htmlscriptelement;
+    PREINIT:
+	nsEmbedString event;
+    CODE:
+	htmlscriptelement->GetEvent(event);
+	RETVAL = event;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLScriptElement::SetEvent
+
+=for signature $htmlscriptelement->SetEvent($event)
+
+
+
+=cut
+
+## SetEvent(const nsAString & aEvent)
+void
+moz_dom_SetEvent (htmlscriptelement, event)
+	nsIDOMHTMLScriptElement *htmlscriptelement;
+	nsEmbedString event;
+    CODE:
+	htmlscriptelement->SetEvent(event);
+
+=for apidoc Mozilla::DOM::HTMLScriptElement::GetCharset
+
+=for signature $charset = $htmlscriptelement->GetCharset()
+
+
+
+=cut
+
+## GetCharset(nsAString & aCharset)
+nsEmbedString
+moz_dom_GetCharset (htmlscriptelement)
+	nsIDOMHTMLScriptElement *htmlscriptelement;
+    PREINIT:
+	nsEmbedString charset;
+    CODE:
+	htmlscriptelement->GetCharset(charset);
+	RETVAL = charset;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLScriptElement::SetCharset
+
+=for signature $htmlscriptelement->SetCharset($charset)
+
+
+
+=cut
+
+## SetCharset(const nsAString & aCharset)
+void
+moz_dom_SetCharset (htmlscriptelement, charset)
+	nsIDOMHTMLScriptElement *htmlscriptelement;
+	nsEmbedString charset;
+    CODE:
+	htmlscriptelement->SetCharset(charset);
+
+=for apidoc Mozilla::DOM::HTMLScriptElement::GetDefer
+
+=for signature $bool = $htmlscriptelement->GetDefer()
+
+
+
+=cut
+
+## GetDefer(PRBool *aDefer)
+PRBool
+moz_dom_GetDefer (htmlscriptelement)
+	nsIDOMHTMLScriptElement *htmlscriptelement;
+    PREINIT:
+	PRBool defer;
+    CODE:
+	htmlscriptelement->GetDefer(&defer);
+	RETVAL = defer;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLScriptElement::SetDefer
+
+=for signature $htmlscriptelement->SetDefer($defer)
+
+
+
+=cut
+
+## SetDefer(PRBool aDefer)
+void
+moz_dom_SetDefer (htmlscriptelement, defer)
+	nsIDOMHTMLScriptElement *htmlscriptelement;
+	PRBool  defer;
+    CODE:
+	htmlscriptelement->SetDefer(defer);
+
+=for apidoc Mozilla::DOM::HTMLScriptElement::GetSrc
+
+=for signature $src = $htmlscriptelement->GetSrc()
+
+
+
+=cut
+
+## GetSrc(nsAString & aSrc)
+nsEmbedString
+moz_dom_GetSrc (htmlscriptelement)
+	nsIDOMHTMLScriptElement *htmlscriptelement;
+    PREINIT:
+	nsEmbedString src;
+    CODE:
+	htmlscriptelement->GetSrc(src);
+	RETVAL = src;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLScriptElement::SetSrc
+
+=for signature $htmlscriptelement->SetSrc($src)
+
+
+
+=cut
+
+## SetSrc(const nsAString & aSrc)
+void
+moz_dom_SetSrc (htmlscriptelement, src)
+	nsIDOMHTMLScriptElement *htmlscriptelement;
+	nsEmbedString src;
+    CODE:
+	htmlscriptelement->SetSrc(src);
+
+=for apidoc Mozilla::DOM::HTMLScriptElement::GetType
+
+=for signature $type = $htmlscriptelement->GetType()
+
+
+
+=cut
+
+## GetType(nsAString & aType)
+nsEmbedString
+moz_dom_GetType (htmlscriptelement)
+	nsIDOMHTMLScriptElement *htmlscriptelement;
+    PREINIT:
+	nsEmbedString type;
+    CODE:
+	htmlscriptelement->GetType(type);
+	RETVAL = type;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLScriptElement::SetType
+
+=for signature $htmlscriptelement->SetType($type)
+
+
+
+=cut
+
+## SetType(const nsAString & aType)
+void
+moz_dom_SetType (htmlscriptelement, type)
+	nsIDOMHTMLScriptElement *htmlscriptelement;
+	nsEmbedString type;
+    CODE:
+	htmlscriptelement->SetType(type);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLSelectElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLSelectElement.h
+
+=for object Mozilla::DOM::HTMLSelectElement
+
+Mozilla::DOM::HTMLSelectElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLSelectElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLSelectElement interface is the interface to a [X]HTML
+ * select element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLSelectElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLSELECTELEMENT_IID)
+static nsIID
+nsIDOMHTMLSelectElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLSelectElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::GetType
+
+=for signature $type = $htmlselectelement->GetType()
+
+
+
+=cut
+
+## GetType(nsAString & aType)
+nsEmbedString
+moz_dom_GetType (htmlselectelement)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+    PREINIT:
+	nsEmbedString type;
+    CODE:
+	htmlselectelement->GetType(type);
+	RETVAL = type;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::GetSelectedIndex
+
+=for signature $selectedindex = $htmlselectelement->GetSelectedIndex()
+
+
+
+=cut
+
+## GetSelectedIndex(PRInt32 *aSelectedIndex)
+PRInt32
+moz_dom_GetSelectedIndex (htmlselectelement)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+    PREINIT:
+	PRInt32 selectedindex;
+    CODE:
+	htmlselectelement->GetSelectedIndex(&selectedindex);
+	RETVAL = selectedindex;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::SetSelectedIndex
+
+=for signature $htmlselectelement->SetSelectedIndex($selectedindex)
+
+
+
+=cut
+
+## SetSelectedIndex(PRInt32 aSelectedIndex)
+void
+moz_dom_SetSelectedIndex (htmlselectelement, selectedindex)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+	PRInt32  selectedindex;
+    CODE:
+	htmlselectelement->SetSelectedIndex(selectedindex);
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::GetValue
+
+=for signature $value = $htmlselectelement->GetValue()
+
+
+
+=cut
+
+## GetValue(nsAString & aValue)
+nsEmbedString
+moz_dom_GetValue (htmlselectelement)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+    PREINIT:
+	nsEmbedString value;
+    CODE:
+	htmlselectelement->GetValue(value);
+	RETVAL = value;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::SetValue
+
+=for signature $htmlselectelement->SetValue($value)
+
+
+
+=cut
+
+## SetValue(const nsAString & aValue)
+void
+moz_dom_SetValue (htmlselectelement, value)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+	nsEmbedString value;
+    CODE:
+	htmlselectelement->SetValue(value);
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::GetLength
+
+=for signature $length = $htmlselectelement->GetLength()
+
+
+
+=cut
+
+## GetLength(PRUint32 *aLength)
+PRUint32
+moz_dom_GetLength (htmlselectelement)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+    PREINIT:
+	PRUint32 length;
+    CODE:
+	htmlselectelement->GetLength(&length);
+	RETVAL = length;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::SetLength
+
+=for signature $htmlselectelement->SetLength($length)
+
+
+
+=cut
+
+## SetLength(PRUint32 aLength)
+void
+moz_dom_SetLength (htmlselectelement, length)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+	PRUint32  length;
+    CODE:
+	htmlselectelement->SetLength(length);
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::GetForm
+
+=for signature $form = $htmlselectelement->GetForm()
+
+
+
+=cut
+
+## GetForm(nsIDOMHTMLFormElement * *aForm)
+nsIDOMHTMLFormElement *
+moz_dom_GetForm (htmlselectelement)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+    PREINIT:
+	nsIDOMHTMLFormElement * form;
+    CODE:
+	htmlselectelement->GetForm(&form);
+	RETVAL = form;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::GetOptions
+
+=for signature $options = $htmlselectelement->GetOptions()
+
+
+
+=cut
+
+## GetOptions(nsIDOMHTMLOptionsCollection * *aOptions)
+nsIDOMHTMLOptionsCollection *
+moz_dom_GetOptions (htmlselectelement)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+    PREINIT:
+	nsIDOMHTMLOptionsCollection * options;
+    CODE:
+	htmlselectelement->GetOptions(&options);
+	RETVAL = options;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::GetDisabled
+
+=for signature $bool = $htmlselectelement->GetDisabled()
+
+
+
+=cut
+
+## GetDisabled(PRBool *aDisabled)
+PRBool
+moz_dom_GetDisabled (htmlselectelement)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+    PREINIT:
+	PRBool disabled;
+    CODE:
+	htmlselectelement->GetDisabled(&disabled);
+	RETVAL = disabled;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::SetDisabled
+
+=for signature $htmlselectelement->SetDisabled($disabled)
+
+
+
+=cut
+
+## SetDisabled(PRBool aDisabled)
+void
+moz_dom_SetDisabled (htmlselectelement, disabled)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+	PRBool  disabled;
+    CODE:
+	htmlselectelement->SetDisabled(disabled);
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::GetMultiple
+
+=for signature $bool = $htmlselectelement->GetMultiple()
+
+
+
+=cut
+
+## GetMultiple(PRBool *aMultiple)
+PRBool
+moz_dom_GetMultiple (htmlselectelement)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+    PREINIT:
+	PRBool multiple;
+    CODE:
+	htmlselectelement->GetMultiple(&multiple);
+	RETVAL = multiple;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::SetMultiple
+
+=for signature $htmlselectelement->SetMultiple($multiple)
+
+
+
+=cut
+
+## SetMultiple(PRBool aMultiple)
+void
+moz_dom_SetMultiple (htmlselectelement, multiple)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+	PRBool  multiple;
+    CODE:
+	htmlselectelement->SetMultiple(multiple);
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::GetName
+
+=for signature $name = $htmlselectelement->GetName()
+
+
+
+=cut
+
+## GetName(nsAString & aName)
+nsEmbedString
+moz_dom_GetName (htmlselectelement)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+    PREINIT:
+	nsEmbedString name;
+    CODE:
+	htmlselectelement->GetName(name);
+	RETVAL = name;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::SetName
+
+=for signature $htmlselectelement->SetName($name)
+
+
+
+=cut
+
+## SetName(const nsAString & aName)
+void
+moz_dom_SetName (htmlselectelement, name)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+	nsEmbedString name;
+    CODE:
+	htmlselectelement->SetName(name);
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::GetSize
+
+=for signature $size = $htmlselectelement->GetSize()
+
+
+
+=cut
+
+## GetSize(PRInt32 *aSize)
+PRInt32
+moz_dom_GetSize (htmlselectelement)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+    PREINIT:
+	PRInt32 size;
+    CODE:
+	htmlselectelement->GetSize(&size);
+	RETVAL = size;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::SetSize
+
+=for signature $htmlselectelement->SetSize($size)
+
+
+
+=cut
+
+## SetSize(PRInt32 aSize)
+void
+moz_dom_SetSize (htmlselectelement, size)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+	PRInt32  size;
+    CODE:
+	htmlselectelement->SetSize(size);
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::GetTabIndex
+
+=for signature $tabindex = $htmlselectelement->GetTabIndex()
+
+
+
+=cut
+
+## GetTabIndex(PRInt32 *aTabIndex)
+PRInt32
+moz_dom_GetTabIndex (htmlselectelement)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+    PREINIT:
+	PRInt32 tabindex;
+    CODE:
+	htmlselectelement->GetTabIndex(&tabindex);
+	RETVAL = tabindex;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::SetTabIndex
+
+=for signature $htmlselectelement->SetTabIndex($tabindex)
+
+
+
+=cut
+
+## SetTabIndex(PRInt32 aTabIndex)
+void
+moz_dom_SetTabIndex (htmlselectelement, tabindex)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+	PRInt32  tabindex;
+    CODE:
+	htmlselectelement->SetTabIndex(tabindex);
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::Add
+
+=for signature $htmlselectelement->Add($element, $before)
+
+
+
+=cut
+
+## Add(nsIDOMHTMLElement *element, nsIDOMHTMLElement *before)
+void
+moz_dom_Add (htmlselectelement, element, before)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+	nsIDOMHTMLElement * element;
+	nsIDOMHTMLElement * before;
+    CODE:
+	htmlselectelement->Add(element, before);
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::Remove
+
+=for signature $htmlselectelement->Remove($index)
+
+
+
+=cut
+
+## Remove(PRInt32 index)
+void
+moz_dom_Remove (htmlselectelement, index)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+	PRInt32  index;
+    CODE:
+	htmlselectelement->Remove(index);
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::Blur
+
+=for signature $htmlselectelement->Blur()
+
+
+
+=cut
+
+## Blur(void)
+void
+moz_dom_Blur (htmlselectelement)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+    CODE:
+	htmlselectelement->Blur();
+
+=for apidoc Mozilla::DOM::HTMLSelectElement::Focus
+
+=for signature $htmlselectelement->Focus()
+
+
+
+=cut
+
+## Focus(void)
+void
+moz_dom_Focus (htmlselectelement)
+	nsIDOMHTMLSelectElement *htmlselectelement;
+    CODE:
+	htmlselectelement->Focus();
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLStyleElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLStyleElement.h
+
+=for object Mozilla::DOM::HTMLStyleElement
+
+Mozilla::DOM::HTMLStyleElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLStyleElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLStyleElement interface is the interface to a [X]HTML
+ * style element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLStyleElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLSTYLEELEMENT_IID)
+static nsIID
+nsIDOMHTMLStyleElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLStyleElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLStyleElement::GetDisabled
+
+=for signature $bool = $htmlstyleelement->GetDisabled()
+
+
+
+=cut
+
+## GetDisabled(PRBool *aDisabled)
+PRBool
+moz_dom_GetDisabled (htmlstyleelement)
+	nsIDOMHTMLStyleElement *htmlstyleelement;
+    PREINIT:
+	PRBool disabled;
+    CODE:
+	htmlstyleelement->GetDisabled(&disabled);
+	RETVAL = disabled;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLStyleElement::SetDisabled
+
+=for signature $htmlstyleelement->SetDisabled($disabled)
+
+
+
+=cut
+
+## SetDisabled(PRBool aDisabled)
+void
+moz_dom_SetDisabled (htmlstyleelement, disabled)
+	nsIDOMHTMLStyleElement *htmlstyleelement;
+	PRBool  disabled;
+    CODE:
+	htmlstyleelement->SetDisabled(disabled);
+
+=for apidoc Mozilla::DOM::HTMLStyleElement::GetMedia
+
+=for signature $media = $htmlstyleelement->GetMedia()
+
+
+
+=cut
+
+## GetMedia(nsAString & aMedia)
+nsEmbedString
+moz_dom_GetMedia (htmlstyleelement)
+	nsIDOMHTMLStyleElement *htmlstyleelement;
+    PREINIT:
+	nsEmbedString media;
+    CODE:
+	htmlstyleelement->GetMedia(media);
+	RETVAL = media;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLStyleElement::SetMedia
+
+=for signature $htmlstyleelement->SetMedia($media)
+
+
+
+=cut
+
+## SetMedia(const nsAString & aMedia)
+void
+moz_dom_SetMedia (htmlstyleelement, media)
+	nsIDOMHTMLStyleElement *htmlstyleelement;
+	nsEmbedString media;
+    CODE:
+	htmlstyleelement->SetMedia(media);
+
+=for apidoc Mozilla::DOM::HTMLStyleElement::GetType
+
+=for signature $type = $htmlstyleelement->GetType()
+
+
+
+=cut
+
+## GetType(nsAString & aType)
+nsEmbedString
+moz_dom_GetType (htmlstyleelement)
+	nsIDOMHTMLStyleElement *htmlstyleelement;
+    PREINIT:
+	nsEmbedString type;
+    CODE:
+	htmlstyleelement->GetType(type);
+	RETVAL = type;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLStyleElement::SetType
+
+=for signature $htmlstyleelement->SetType($type)
+
+
+
+=cut
+
+## SetType(const nsAString & aType)
+void
+moz_dom_SetType (htmlstyleelement, type)
+	nsIDOMHTMLStyleElement *htmlstyleelement;
+	nsEmbedString type;
+    CODE:
+	htmlstyleelement->SetType(type);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLTableCaptionElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLTableCaptionElem.h
+
+=for object Mozilla::DOM::HTMLTableCaptionElement
+
+Mozilla::DOM::HTMLTableCaptionElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLTableCaptionElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLTableCaptionElement interface is the interface to a
+ * [X]HTML caption element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLTableCaptionElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLTABLECAPTIONELEMENT_IID)
+static nsIID
+nsIDOMHTMLTableCaptionElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLTableCaptionElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableCaptionElement::GetAlign
+
+=for signature $align = $htmltablecaptionelement->GetAlign()
+
+
+
+=cut
+
+## GetAlign(nsAString & aAlign)
+nsEmbedString
+moz_dom_GetAlign (htmltablecaptionelement)
+	nsIDOMHTMLTableCaptionElement *htmltablecaptionelement;
+    PREINIT:
+	nsEmbedString align;
+    CODE:
+	htmltablecaptionelement->GetAlign(align);
+	RETVAL = align;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableCaptionElement::SetAlign
+
+=for signature $htmltablecaptionelement->SetAlign($align)
+
+
+
+=cut
+
+## SetAlign(const nsAString & aAlign)
+void
+moz_dom_SetAlign (htmltablecaptionelement, align)
+	nsIDOMHTMLTableCaptionElement *htmltablecaptionelement;
+	nsEmbedString align;
+    CODE:
+	htmltablecaptionelement->SetAlign(align);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLTableCellElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLTableCellElement.h
+
+=for object Mozilla::DOM::HTMLTableCellElement
+
+Mozilla::DOM::HTMLTableCellElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLTableCellElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLTableCellElement interface is the interface to a
+ * [X]HTML td element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLTableCellElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLTABLECELLELEMENT_IID)
+static nsIID
+nsIDOMHTMLTableCellElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLTableCellElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::GetCellIndex
+
+=for signature $cellindex = $htmltablecellelement->GetCellIndex()
+
+
+
+=cut
+
+## GetCellIndex(PRInt32 *aCellIndex)
+PRInt32
+moz_dom_GetCellIndex (htmltablecellelement)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+    PREINIT:
+	PRInt32 cellindex;
+    CODE:
+	htmltablecellelement->GetCellIndex(&cellindex);
+	RETVAL = cellindex;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::GetAbbr
+
+=for signature $abbr = $htmltablecellelement->GetAbbr()
+
+
+
+=cut
+
+## GetAbbr(nsAString & aAbbr)
+nsEmbedString
+moz_dom_GetAbbr (htmltablecellelement)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+    PREINIT:
+	nsEmbedString abbr;
+    CODE:
+	htmltablecellelement->GetAbbr(abbr);
+	RETVAL = abbr;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::SetAbbr
+
+=for signature $htmltablecellelement->SetAbbr($abbr)
+
+
+
+=cut
+
+## SetAbbr(const nsAString & aAbbr)
+void
+moz_dom_SetAbbr (htmltablecellelement, abbr)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+	nsEmbedString abbr;
+    CODE:
+	htmltablecellelement->SetAbbr(abbr);
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::GetAlign
+
+=for signature $align = $htmltablecellelement->GetAlign()
+
+
+
+=cut
+
+## GetAlign(nsAString & aAlign)
+nsEmbedString
+moz_dom_GetAlign (htmltablecellelement)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+    PREINIT:
+	nsEmbedString align;
+    CODE:
+	htmltablecellelement->GetAlign(align);
+	RETVAL = align;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::SetAlign
+
+=for signature $htmltablecellelement->SetAlign($align)
+
+
+
+=cut
+
+## SetAlign(const nsAString & aAlign)
+void
+moz_dom_SetAlign (htmltablecellelement, align)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+	nsEmbedString align;
+    CODE:
+	htmltablecellelement->SetAlign(align);
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::GetAxis
+
+=for signature $axis = $htmltablecellelement->GetAxis()
+
+
+
+=cut
+
+## GetAxis(nsAString & aAxis)
+nsEmbedString
+moz_dom_GetAxis (htmltablecellelement)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+    PREINIT:
+	nsEmbedString axis;
+    CODE:
+	htmltablecellelement->GetAxis(axis);
+	RETVAL = axis;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::SetAxis
+
+=for signature $htmltablecellelement->SetAxis($axis)
+
+
+
+=cut
+
+## SetAxis(const nsAString & aAxis)
+void
+moz_dom_SetAxis (htmltablecellelement, axis)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+	nsEmbedString axis;
+    CODE:
+	htmltablecellelement->SetAxis(axis);
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::GetBgColor
+
+=for signature $bgcolor = $htmltablecellelement->GetBgColor()
+
+
+
+=cut
+
+## GetBgColor(nsAString & aBgColor)
+nsEmbedString
+moz_dom_GetBgColor (htmltablecellelement)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+    PREINIT:
+	nsEmbedString bgcolor;
+    CODE:
+	htmltablecellelement->GetBgColor(bgcolor);
+	RETVAL = bgcolor;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::SetBgColor
+
+=for signature $htmltablecellelement->SetBgColor($bgcolor)
+
+
+
+=cut
+
+## SetBgColor(const nsAString & aBgColor)
+void
+moz_dom_SetBgColor (htmltablecellelement, bgcolor)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+	nsEmbedString bgcolor;
+    CODE:
+	htmltablecellelement->SetBgColor(bgcolor);
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::GetCh
+
+=for signature $ch = $htmltablecellelement->GetCh()
+
+
+
+=cut
+
+## GetCh(nsAString & aCh)
+nsEmbedString
+moz_dom_GetCh (htmltablecellelement)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+    PREINIT:
+	nsEmbedString ch;
+    CODE:
+	htmltablecellelement->GetCh(ch);
+	RETVAL = ch;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::SetCh
+
+=for signature $htmltablecellelement->SetCh($ch)
+
+
+
+=cut
+
+## SetCh(const nsAString & aCh)
+void
+moz_dom_SetCh (htmltablecellelement, ch)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+	nsEmbedString ch;
+    CODE:
+	htmltablecellelement->SetCh(ch);
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::GetChOff
+
+=for signature $choff = $htmltablecellelement->GetChOff()
+
+
+
+=cut
+
+## GetChOff(nsAString & aChOff)
+nsEmbedString
+moz_dom_GetChOff (htmltablecellelement)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+    PREINIT:
+	nsEmbedString choff;
+    CODE:
+	htmltablecellelement->GetChOff(choff);
+	RETVAL = choff;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::SetChOff
+
+=for signature $htmltablecellelement->SetChOff($choff)
+
+
+
+=cut
+
+## SetChOff(const nsAString & aChOff)
+void
+moz_dom_SetChOff (htmltablecellelement, choff)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+	nsEmbedString choff;
+    CODE:
+	htmltablecellelement->SetChOff(choff);
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::GetColSpan
+
+=for signature $colspan = $htmltablecellelement->GetColSpan()
+
+
+
+=cut
+
+## GetColSpan(PRInt32 *aColSpan)
+PRInt32
+moz_dom_GetColSpan (htmltablecellelement)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+    PREINIT:
+	PRInt32 colspan;
+    CODE:
+	htmltablecellelement->GetColSpan(&colspan);
+	RETVAL = colspan;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::SetColSpan
+
+=for signature $htmltablecellelement->SetColSpan($colspan)
+
+
+
+=cut
+
+## SetColSpan(PRInt32 aColSpan)
+void
+moz_dom_SetColSpan (htmltablecellelement, colspan)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+	PRInt32  colspan;
+    CODE:
+	htmltablecellelement->SetColSpan(colspan);
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::GetHeaders
+
+=for signature $headers = $htmltablecellelement->GetHeaders()
+
+
+
+=cut
+
+## GetHeaders(nsAString & aHeaders)
+nsEmbedString
+moz_dom_GetHeaders (htmltablecellelement)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+    PREINIT:
+	nsEmbedString headers;
+    CODE:
+	htmltablecellelement->GetHeaders(headers);
+	RETVAL = headers;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::SetHeaders
+
+=for signature $htmltablecellelement->SetHeaders($headers)
+
+
+
+=cut
+
+## SetHeaders(const nsAString & aHeaders)
+void
+moz_dom_SetHeaders (htmltablecellelement, headers)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+	nsEmbedString headers;
+    CODE:
+	htmltablecellelement->SetHeaders(headers);
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::GetHeight
+
+=for signature $height = $htmltablecellelement->GetHeight()
+
+
+
+=cut
+
+## GetHeight(nsAString & aHeight)
+nsEmbedString
+moz_dom_GetHeight (htmltablecellelement)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+    PREINIT:
+	nsEmbedString height;
+    CODE:
+	htmltablecellelement->GetHeight(height);
+	RETVAL = height;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::SetHeight
+
+=for signature $htmltablecellelement->SetHeight($height)
+
+
+
+=cut
+
+## SetHeight(const nsAString & aHeight)
+void
+moz_dom_SetHeight (htmltablecellelement, height)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+	nsEmbedString height;
+    CODE:
+	htmltablecellelement->SetHeight(height);
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::GetNoWrap
+
+=for signature $bool = $htmltablecellelement->GetNoWrap()
+
+
+
+=cut
+
+## GetNoWrap(PRBool *aNoWrap)
+PRBool
+moz_dom_GetNoWrap (htmltablecellelement)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+    PREINIT:
+	PRBool nowrap;
+    CODE:
+	htmltablecellelement->GetNoWrap(&nowrap);
+	RETVAL = nowrap;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::SetNoWrap
+
+=for signature $htmltablecellelement->SetNoWrap($nowrap)
+
+
+
+=cut
+
+## SetNoWrap(PRBool aNoWrap)
+void
+moz_dom_SetNoWrap (htmltablecellelement, nowrap)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+	PRBool  nowrap;
+    CODE:
+	htmltablecellelement->SetNoWrap(nowrap);
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::GetRowSpan
+
+=for signature $rowspan = $htmltablecellelement->GetRowSpan()
+
+
+
+=cut
+
+## GetRowSpan(PRInt32 *aRowSpan)
+PRInt32
+moz_dom_GetRowSpan (htmltablecellelement)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+    PREINIT:
+	PRInt32 rowspan;
+    CODE:
+	htmltablecellelement->GetRowSpan(&rowspan);
+	RETVAL = rowspan;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::SetRowSpan
+
+=for signature $htmltablecellelement->SetRowSpan($rowspan)
+
+
+
+=cut
+
+## SetRowSpan(PRInt32 aRowSpan)
+void
+moz_dom_SetRowSpan (htmltablecellelement, rowspan)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+	PRInt32  rowspan;
+    CODE:
+	htmltablecellelement->SetRowSpan(rowspan);
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::GetScope
+
+=for signature $scope = $htmltablecellelement->GetScope()
+
+
+
+=cut
+
+## GetScope(nsAString & aScope)
+nsEmbedString
+moz_dom_GetScope (htmltablecellelement)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+    PREINIT:
+	nsEmbedString scope;
+    CODE:
+	htmltablecellelement->GetScope(scope);
+	RETVAL = scope;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::SetScope
+
+=for signature $htmltablecellelement->SetScope($scope)
+
+
+
+=cut
+
+## SetScope(const nsAString & aScope)
+void
+moz_dom_SetScope (htmltablecellelement, scope)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+	nsEmbedString scope;
+    CODE:
+	htmltablecellelement->SetScope(scope);
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::GetVAlign
+
+=for signature $valign = $htmltablecellelement->GetVAlign()
+
+
+
+=cut
+
+## GetVAlign(nsAString & aVAlign)
+nsEmbedString
+moz_dom_GetVAlign (htmltablecellelement)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+    PREINIT:
+	nsEmbedString valign;
+    CODE:
+	htmltablecellelement->GetVAlign(valign);
+	RETVAL = valign;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::SetVAlign
+
+=for signature $htmltablecellelement->SetVAlign($valign)
+
+
+
+=cut
+
+## SetVAlign(const nsAString & aVAlign)
+void
+moz_dom_SetVAlign (htmltablecellelement, valign)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+	nsEmbedString valign;
+    CODE:
+	htmltablecellelement->SetVAlign(valign);
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::GetWidth
+
+=for signature $width = $htmltablecellelement->GetWidth()
+
+
+
+=cut
+
+## GetWidth(nsAString & aWidth)
+nsEmbedString
+moz_dom_GetWidth (htmltablecellelement)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+    PREINIT:
+	nsEmbedString width;
+    CODE:
+	htmltablecellelement->GetWidth(width);
+	RETVAL = width;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableCellElement::SetWidth
+
+=for signature $htmltablecellelement->SetWidth($width)
+
+
+
+=cut
+
+## SetWidth(const nsAString & aWidth)
+void
+moz_dom_SetWidth (htmltablecellelement, width)
+	nsIDOMHTMLTableCellElement *htmltablecellelement;
+	nsEmbedString width;
+    CODE:
+	htmltablecellelement->SetWidth(width);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLTableColElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLTableColElement.h
+
+=for object Mozilla::DOM::HTMLTableColElement
+
+Mozilla::DOM::HTMLTableColElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLTableColElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLTableColElement interface is the interface to a
+ * [X]HTML col element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLTableColElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLTABLECOLELEMENT_IID)
+static nsIID
+nsIDOMHTMLTableColElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLTableColElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableColElement::GetAlign
+
+=for signature $align = $htmltablecolelement->GetAlign()
+
+
+
+=cut
+
+## GetAlign(nsAString & aAlign)
+nsEmbedString
+moz_dom_GetAlign (htmltablecolelement)
+	nsIDOMHTMLTableColElement *htmltablecolelement;
+    PREINIT:
+	nsEmbedString align;
+    CODE:
+	htmltablecolelement->GetAlign(align);
+	RETVAL = align;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableColElement::SetAlign
+
+=for signature $htmltablecolelement->SetAlign($align)
+
+
+
+=cut
+
+## SetAlign(const nsAString & aAlign)
+void
+moz_dom_SetAlign (htmltablecolelement, align)
+	nsIDOMHTMLTableColElement *htmltablecolelement;
+	nsEmbedString align;
+    CODE:
+	htmltablecolelement->SetAlign(align);
+
+=for apidoc Mozilla::DOM::HTMLTableColElement::GetCh
+
+=for signature $ch = $htmltablecolelement->GetCh()
+
+
+
+=cut
+
+## GetCh(nsAString & aCh)
+nsEmbedString
+moz_dom_GetCh (htmltablecolelement)
+	nsIDOMHTMLTableColElement *htmltablecolelement;
+    PREINIT:
+	nsEmbedString ch;
+    CODE:
+	htmltablecolelement->GetCh(ch);
+	RETVAL = ch;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableColElement::SetCh
+
+=for signature $htmltablecolelement->SetCh($ch)
+
+
+
+=cut
+
+## SetCh(const nsAString & aCh)
+void
+moz_dom_SetCh (htmltablecolelement, ch)
+	nsIDOMHTMLTableColElement *htmltablecolelement;
+	nsEmbedString ch;
+    CODE:
+	htmltablecolelement->SetCh(ch);
+
+=for apidoc Mozilla::DOM::HTMLTableColElement::GetChOff
+
+=for signature $choff = $htmltablecolelement->GetChOff()
+
+
+
+=cut
+
+## GetChOff(nsAString & aChOff)
+nsEmbedString
+moz_dom_GetChOff (htmltablecolelement)
+	nsIDOMHTMLTableColElement *htmltablecolelement;
+    PREINIT:
+	nsEmbedString choff;
+    CODE:
+	htmltablecolelement->GetChOff(choff);
+	RETVAL = choff;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableColElement::SetChOff
+
+=for signature $htmltablecolelement->SetChOff($choff)
+
+
+
+=cut
+
+## SetChOff(const nsAString & aChOff)
+void
+moz_dom_SetChOff (htmltablecolelement, choff)
+	nsIDOMHTMLTableColElement *htmltablecolelement;
+	nsEmbedString choff;
+    CODE:
+	htmltablecolelement->SetChOff(choff);
+
+=for apidoc Mozilla::DOM::HTMLTableColElement::GetSpan
+
+=for signature $span = $htmltablecolelement->GetSpan()
+
+
+
+=cut
+
+## GetSpan(PRInt32 *aSpan)
+PRInt32
+moz_dom_GetSpan (htmltablecolelement)
+	nsIDOMHTMLTableColElement *htmltablecolelement;
+    PREINIT:
+	PRInt32 span;
+    CODE:
+	htmltablecolelement->GetSpan(&span);
+	RETVAL = span;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableColElement::SetSpan
+
+=for signature $htmltablecolelement->SetSpan($span)
+
+
+
+=cut
+
+## SetSpan(PRInt32 aSpan)
+void
+moz_dom_SetSpan (htmltablecolelement, span)
+	nsIDOMHTMLTableColElement *htmltablecolelement;
+	PRInt32  span;
+    CODE:
+	htmltablecolelement->SetSpan(span);
+
+=for apidoc Mozilla::DOM::HTMLTableColElement::GetVAlign
+
+=for signature $valign = $htmltablecolelement->GetVAlign()
+
+
+
+=cut
+
+## GetVAlign(nsAString & aVAlign)
+nsEmbedString
+moz_dom_GetVAlign (htmltablecolelement)
+	nsIDOMHTMLTableColElement *htmltablecolelement;
+    PREINIT:
+	nsEmbedString valign;
+    CODE:
+	htmltablecolelement->GetVAlign(valign);
+	RETVAL = valign;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableColElement::SetVAlign
+
+=for signature $htmltablecolelement->SetVAlign($valign)
+
+
+
+=cut
+
+## SetVAlign(const nsAString & aVAlign)
+void
+moz_dom_SetVAlign (htmltablecolelement, valign)
+	nsIDOMHTMLTableColElement *htmltablecolelement;
+	nsEmbedString valign;
+    CODE:
+	htmltablecolelement->SetVAlign(valign);
+
+=for apidoc Mozilla::DOM::HTMLTableColElement::GetWidth
+
+=for signature $width = $htmltablecolelement->GetWidth()
+
+
+
+=cut
+
+## GetWidth(nsAString & aWidth)
+nsEmbedString
+moz_dom_GetWidth (htmltablecolelement)
+	nsIDOMHTMLTableColElement *htmltablecolelement;
+    PREINIT:
+	nsEmbedString width;
+    CODE:
+	htmltablecolelement->GetWidth(width);
+	RETVAL = width;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableColElement::SetWidth
+
+=for signature $htmltablecolelement->SetWidth($width)
+
+
+
+=cut
+
+## SetWidth(const nsAString & aWidth)
+void
+moz_dom_SetWidth (htmltablecolelement, width)
+	nsIDOMHTMLTableColElement *htmltablecolelement;
+	nsEmbedString width;
+    CODE:
+	htmltablecolelement->SetWidth(width);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLTableElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLTableElement.h
+
+=for object Mozilla::DOM::HTMLTableElement
+
+Mozilla::DOM::HTMLTableElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLTableElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLTableElement interface is the interface to a [X]HTML
+ * table element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLTableElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLTABLEELEMENT_IID)
+static nsIID
+nsIDOMHTMLTableElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLTableElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::GetCaption
+
+=for signature $caption = $htmltableelement->GetCaption()
+
+
+
+=cut
+
+## GetCaption(nsIDOMHTMLTableCaptionElement * *aCaption)
+nsIDOMHTMLTableCaptionElement *
+moz_dom_GetCaption (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    PREINIT:
+	nsIDOMHTMLTableCaptionElement * caption;
+    CODE:
+	htmltableelement->GetCaption(&caption);
+	RETVAL = caption;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::SetCaption
+
+=for signature $htmltableelement->SetCaption($caption)
+
+
+
+=cut
+
+## SetCaption(nsIDOMHTMLTableCaptionElement * aCaption)
+void
+moz_dom_SetCaption (htmltableelement, caption)
+	nsIDOMHTMLTableElement *htmltableelement;
+	nsIDOMHTMLTableCaptionElement *  caption;
+    CODE:
+	htmltableelement->SetCaption(caption);
+
+=for apidoc Mozilla::DOM::HTMLTableElement::GetTHead
+
+=for signature $thead = $htmltableelement->GetTHead()
+
+
+
+=cut
+
+## GetTHead(nsIDOMHTMLTableSectionElement * *aTHead)
+nsIDOMHTMLTableSectionElement *
+moz_dom_GetTHead (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    PREINIT:
+	nsIDOMHTMLTableSectionElement * thead;
+    CODE:
+	htmltableelement->GetTHead(&thead);
+	RETVAL = thead;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::SetTHead
+
+=for signature $htmltableelement->SetTHead($thead)
+
+
+
+=cut
+
+## SetTHead(nsIDOMHTMLTableSectionElement * aTHead)
+void
+moz_dom_SetTHead (htmltableelement, thead)
+	nsIDOMHTMLTableElement *htmltableelement;
+	nsIDOMHTMLTableSectionElement *  thead;
+    CODE:
+	htmltableelement->SetTHead(thead);
+
+=for apidoc Mozilla::DOM::HTMLTableElement::GetTFoot
+
+=for signature $tfoot = $htmltableelement->GetTFoot()
+
+
+
+=cut
+
+## GetTFoot(nsIDOMHTMLTableSectionElement * *aTFoot)
+nsIDOMHTMLTableSectionElement *
+moz_dom_GetTFoot (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    PREINIT:
+	nsIDOMHTMLTableSectionElement * tfoot;
+    CODE:
+	htmltableelement->GetTFoot(&tfoot);
+	RETVAL = tfoot;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::SetTFoot
+
+=for signature $htmltableelement->SetTFoot($tfoot)
+
+
+
+=cut
+
+## SetTFoot(nsIDOMHTMLTableSectionElement * aTFoot)
+void
+moz_dom_SetTFoot (htmltableelement, tfoot)
+	nsIDOMHTMLTableElement *htmltableelement;
+	nsIDOMHTMLTableSectionElement *  tfoot;
+    CODE:
+	htmltableelement->SetTFoot(tfoot);
+
+=for apidoc Mozilla::DOM::HTMLTableElement::GetRows
+
+=for signature $rows = $htmltableelement->GetRows()
+
+
+
+=cut
+
+## GetRows(nsIDOMHTMLCollection * *aRows)
+nsIDOMHTMLCollection *
+moz_dom_GetRows (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    PREINIT:
+	nsIDOMHTMLCollection * rows;
+    CODE:
+	htmltableelement->GetRows(&rows);
+	RETVAL = rows;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::GetTBodies
+
+=for signature $tbodies = $htmltableelement->GetTBodies()
+
+
+
+=cut
+
+## GetTBodies(nsIDOMHTMLCollection * *aTBodies)
+nsIDOMHTMLCollection *
+moz_dom_GetTBodies (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    PREINIT:
+	nsIDOMHTMLCollection * tbodies;
+    CODE:
+	htmltableelement->GetTBodies(&tbodies);
+	RETVAL = tbodies;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::GetAlign
+
+=for signature $align = $htmltableelement->GetAlign()
+
+
+
+=cut
+
+## GetAlign(nsAString & aAlign)
+nsEmbedString
+moz_dom_GetAlign (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    PREINIT:
+	nsEmbedString align;
+    CODE:
+	htmltableelement->GetAlign(align);
+	RETVAL = align;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::SetAlign
+
+=for signature $htmltableelement->SetAlign($align)
+
+
+
+=cut
+
+## SetAlign(const nsAString & aAlign)
+void
+moz_dom_SetAlign (htmltableelement, align)
+	nsIDOMHTMLTableElement *htmltableelement;
+	nsEmbedString align;
+    CODE:
+	htmltableelement->SetAlign(align);
+
+=for apidoc Mozilla::DOM::HTMLTableElement::GetBgColor
+
+=for signature $bgcolor = $htmltableelement->GetBgColor()
+
+
+
+=cut
+
+## GetBgColor(nsAString & aBgColor)
+nsEmbedString
+moz_dom_GetBgColor (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    PREINIT:
+	nsEmbedString bgcolor;
+    CODE:
+	htmltableelement->GetBgColor(bgcolor);
+	RETVAL = bgcolor;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::SetBgColor
+
+=for signature $htmltableelement->SetBgColor($bgcolor)
+
+
+
+=cut
+
+## SetBgColor(const nsAString & aBgColor)
+void
+moz_dom_SetBgColor (htmltableelement, bgcolor)
+	nsIDOMHTMLTableElement *htmltableelement;
+	nsEmbedString bgcolor;
+    CODE:
+	htmltableelement->SetBgColor(bgcolor);
+
+=for apidoc Mozilla::DOM::HTMLTableElement::GetBorder
+
+=for signature $border = $htmltableelement->GetBorder()
+
+
+
+=cut
+
+## GetBorder(nsAString & aBorder)
+nsEmbedString
+moz_dom_GetBorder (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    PREINIT:
+	nsEmbedString border;
+    CODE:
+	htmltableelement->GetBorder(border);
+	RETVAL = border;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::SetBorder
+
+=for signature $htmltableelement->SetBorder($border)
+
+
+
+=cut
+
+## SetBorder(const nsAString & aBorder)
+void
+moz_dom_SetBorder (htmltableelement, border)
+	nsIDOMHTMLTableElement *htmltableelement;
+	nsEmbedString border;
+    CODE:
+	htmltableelement->SetBorder(border);
+
+=for apidoc Mozilla::DOM::HTMLTableElement::GetCellPadding
+
+=for signature $cellpadding = $htmltableelement->GetCellPadding()
+
+
+
+=cut
+
+## GetCellPadding(nsAString & aCellPadding)
+nsEmbedString
+moz_dom_GetCellPadding (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    PREINIT:
+	nsEmbedString cellpadding;
+    CODE:
+	htmltableelement->GetCellPadding(cellpadding);
+	RETVAL = cellpadding;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::SetCellPadding
+
+=for signature $htmltableelement->SetCellPadding($cellpadding)
+
+
+
+=cut
+
+## SetCellPadding(const nsAString & aCellPadding)
+void
+moz_dom_SetCellPadding (htmltableelement, cellpadding)
+	nsIDOMHTMLTableElement *htmltableelement;
+	nsEmbedString cellpadding;
+    CODE:
+	htmltableelement->SetCellPadding(cellpadding);
+
+=for apidoc Mozilla::DOM::HTMLTableElement::GetCellSpacing
+
+=for signature $cellspacing = $htmltableelement->GetCellSpacing()
+
+
+
+=cut
+
+## GetCellSpacing(nsAString & aCellSpacing)
+nsEmbedString
+moz_dom_GetCellSpacing (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    PREINIT:
+	nsEmbedString cellspacing;
+    CODE:
+	htmltableelement->GetCellSpacing(cellspacing);
+	RETVAL = cellspacing;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::SetCellSpacing
+
+=for signature $htmltableelement->SetCellSpacing($cellspacing)
+
+
+
+=cut
+
+## SetCellSpacing(const nsAString & aCellSpacing)
+void
+moz_dom_SetCellSpacing (htmltableelement, cellspacing)
+	nsIDOMHTMLTableElement *htmltableelement;
+	nsEmbedString cellspacing;
+    CODE:
+	htmltableelement->SetCellSpacing(cellspacing);
+
+=for apidoc Mozilla::DOM::HTMLTableElement::GetFrame
+
+=for signature $frame = $htmltableelement->GetFrame()
+
+
+
+=cut
+
+## GetFrame(nsAString & aFrame)
+nsEmbedString
+moz_dom_GetFrame (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    PREINIT:
+	nsEmbedString frame;
+    CODE:
+	htmltableelement->GetFrame(frame);
+	RETVAL = frame;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::SetFrame
+
+=for signature $htmltableelement->SetFrame($frame)
+
+
+
+=cut
+
+## SetFrame(const nsAString & aFrame)
+void
+moz_dom_SetFrame (htmltableelement, frame)
+	nsIDOMHTMLTableElement *htmltableelement;
+	nsEmbedString frame;
+    CODE:
+	htmltableelement->SetFrame(frame);
+
+=for apidoc Mozilla::DOM::HTMLTableElement::GetRules
+
+=for signature $rules = $htmltableelement->GetRules()
+
+
+
+=cut
+
+## GetRules(nsAString & aRules)
+nsEmbedString
+moz_dom_GetRules (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    PREINIT:
+	nsEmbedString rules;
+    CODE:
+	htmltableelement->GetRules(rules);
+	RETVAL = rules;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::SetRules
+
+=for signature $htmltableelement->SetRules($rules)
+
+
+
+=cut
+
+## SetRules(const nsAString & aRules)
+void
+moz_dom_SetRules (htmltableelement, rules)
+	nsIDOMHTMLTableElement *htmltableelement;
+	nsEmbedString rules;
+    CODE:
+	htmltableelement->SetRules(rules);
+
+=for apidoc Mozilla::DOM::HTMLTableElement::GetSummary
+
+=for signature $summary = $htmltableelement->GetSummary()
+
+
+
+=cut
+
+## GetSummary(nsAString & aSummary)
+nsEmbedString
+moz_dom_GetSummary (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    PREINIT:
+	nsEmbedString summary;
+    CODE:
+	htmltableelement->GetSummary(summary);
+	RETVAL = summary;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::SetSummary
+
+=for signature $htmltableelement->SetSummary($summary)
+
+
+
+=cut
+
+## SetSummary(const nsAString & aSummary)
+void
+moz_dom_SetSummary (htmltableelement, summary)
+	nsIDOMHTMLTableElement *htmltableelement;
+	nsEmbedString summary;
+    CODE:
+	htmltableelement->SetSummary(summary);
+
+=for apidoc Mozilla::DOM::HTMLTableElement::GetWidth
+
+=for signature $width = $htmltableelement->GetWidth()
+
+
+
+=cut
+
+## GetWidth(nsAString & aWidth)
+nsEmbedString
+moz_dom_GetWidth (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    PREINIT:
+	nsEmbedString width;
+    CODE:
+	htmltableelement->GetWidth(width);
+	RETVAL = width;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::SetWidth
+
+=for signature $htmltableelement->SetWidth($width)
+
+
+
+=cut
+
+## SetWidth(const nsAString & aWidth)
+void
+moz_dom_SetWidth (htmltableelement, width)
+	nsIDOMHTMLTableElement *htmltableelement;
+	nsEmbedString width;
+    CODE:
+	htmltableelement->SetWidth(width);
+
+=for apidoc Mozilla::DOM::HTMLTableElement::CreateTHead
+
+=for signature $retval = $htmltableelement->CreateTHead()
+
+
+
+=cut
+
+## CreateTHead(nsIDOMHTMLElement **_retval)
+nsIDOMHTMLElement *
+moz_dom_CreateTHead (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    PREINIT:
+	nsIDOMHTMLElement * retval;
+    CODE:
+	htmltableelement->CreateTHead(&retval);
+	RETVAL = retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::DeleteTHead
+
+=for signature $htmltableelement->DeleteTHead()
+
+
+
+=cut
+
+## DeleteTHead(void)
+void
+moz_dom_DeleteTHead (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    CODE:
+	htmltableelement->DeleteTHead();
+
+=for apidoc Mozilla::DOM::HTMLTableElement::CreateTFoot
+
+=for signature $retval = $htmltableelement->CreateTFoot()
+
+
+
+=cut
+
+## CreateTFoot(nsIDOMHTMLElement **_retval)
+nsIDOMHTMLElement *
+moz_dom_CreateTFoot (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    PREINIT:
+	nsIDOMHTMLElement * retval;
+    CODE:
+	htmltableelement->CreateTFoot(&retval);
+	RETVAL = retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::DeleteTFoot
+
+=for signature $htmltableelement->DeleteTFoot()
+
+
+
+=cut
+
+## DeleteTFoot(void)
+void
+moz_dom_DeleteTFoot (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    CODE:
+	htmltableelement->DeleteTFoot();
+
+=for apidoc Mozilla::DOM::HTMLTableElement::CreateCaption
+
+=for signature $retval = $htmltableelement->CreateCaption()
+
+
+
+=cut
+
+## CreateCaption(nsIDOMHTMLElement **_retval)
+nsIDOMHTMLElement *
+moz_dom_CreateCaption (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    PREINIT:
+	nsIDOMHTMLElement * retval;
+    CODE:
+	htmltableelement->CreateCaption(&retval);
+	RETVAL = retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::DeleteCaption
+
+=for signature $htmltableelement->DeleteCaption()
+
+
+
+=cut
+
+## DeleteCaption(void)
+void
+moz_dom_DeleteCaption (htmltableelement)
+	nsIDOMHTMLTableElement *htmltableelement;
+    CODE:
+	htmltableelement->DeleteCaption();
+
+=for apidoc Mozilla::DOM::HTMLTableElement::InsertRow
+
+=for signature $retval = $htmltableelement->InsertRow($index)
+
+
+
+=cut
+
+## InsertRow(PRInt32 index, nsIDOMHTMLElement **_retval)
+nsIDOMHTMLElement *
+moz_dom_InsertRow (htmltableelement, index)
+	nsIDOMHTMLTableElement *htmltableelement;
+	PRInt32  index;
+    PREINIT:
+	nsIDOMHTMLElement * retval;
+    CODE:
+	htmltableelement->InsertRow(index, &retval);
+	RETVAL = retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableElement::DeleteRow
+
+=for signature $htmltableelement->DeleteRow($index)
+
+
+
+=cut
+
+## DeleteRow(PRInt32 index)
+void
+moz_dom_DeleteRow (htmltableelement, index)
+	nsIDOMHTMLTableElement *htmltableelement;
+	PRInt32  index;
+    CODE:
+	htmltableelement->DeleteRow(index);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLTableRowElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLTableRowElement.h
+
+=for object Mozilla::DOM::HTMLTableRowElement
+
+Mozilla::DOM::HTMLTableRowElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLTableRowElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLTableRowElement interface is the interface to a
+ * [X]HTML tr element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLTableRowElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLTABLEROWELEMENT_IID)
+static nsIID
+nsIDOMHTMLTableRowElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLTableRowElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableRowElement::GetRowIndex
+
+=for signature $rowindex = $htmltablerowelement->GetRowIndex()
+
+
+
+=cut
+
+## GetRowIndex(PRInt32 *aRowIndex)
+PRInt32
+moz_dom_GetRowIndex (htmltablerowelement)
+	nsIDOMHTMLTableRowElement *htmltablerowelement;
+    PREINIT:
+	PRInt32 rowindex;
+    CODE:
+	htmltablerowelement->GetRowIndex(&rowindex);
+	RETVAL = rowindex;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableRowElement::GetSectionRowIndex
+
+=for signature $sectionrowindex = $htmltablerowelement->GetSectionRowIndex()
+
+
+
+=cut
+
+## GetSectionRowIndex(PRInt32 *aSectionRowIndex)
+PRInt32
+moz_dom_GetSectionRowIndex (htmltablerowelement)
+	nsIDOMHTMLTableRowElement *htmltablerowelement;
+    PREINIT:
+	PRInt32 sectionrowindex;
+    CODE:
+	htmltablerowelement->GetSectionRowIndex(&sectionrowindex);
+	RETVAL = sectionrowindex;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableRowElement::GetCells
+
+=for signature $cells = $htmltablerowelement->GetCells()
+
+
+
+=cut
+
+## GetCells(nsIDOMHTMLCollection * *aCells)
+nsIDOMHTMLCollection *
+moz_dom_GetCells (htmltablerowelement)
+	nsIDOMHTMLTableRowElement *htmltablerowelement;
+    PREINIT:
+	nsIDOMHTMLCollection * cells;
+    CODE:
+	htmltablerowelement->GetCells(&cells);
+	RETVAL = cells;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableRowElement::GetAlign
+
+=for signature $align = $htmltablerowelement->GetAlign()
+
+
+
+=cut
+
+## GetAlign(nsAString & aAlign)
+nsEmbedString
+moz_dom_GetAlign (htmltablerowelement)
+	nsIDOMHTMLTableRowElement *htmltablerowelement;
+    PREINIT:
+	nsEmbedString align;
+    CODE:
+	htmltablerowelement->GetAlign(align);
+	RETVAL = align;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableRowElement::SetAlign
+
+=for signature $htmltablerowelement->SetAlign($align)
+
+
+
+=cut
+
+## SetAlign(const nsAString & aAlign)
+void
+moz_dom_SetAlign (htmltablerowelement, align)
+	nsIDOMHTMLTableRowElement *htmltablerowelement;
+	nsEmbedString align;
+    CODE:
+	htmltablerowelement->SetAlign(align);
+
+=for apidoc Mozilla::DOM::HTMLTableRowElement::GetBgColor
+
+=for signature $bgcolor = $htmltablerowelement->GetBgColor()
+
+
+
+=cut
+
+## GetBgColor(nsAString & aBgColor)
+nsEmbedString
+moz_dom_GetBgColor (htmltablerowelement)
+	nsIDOMHTMLTableRowElement *htmltablerowelement;
+    PREINIT:
+	nsEmbedString bgcolor;
+    CODE:
+	htmltablerowelement->GetBgColor(bgcolor);
+	RETVAL = bgcolor;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableRowElement::SetBgColor
+
+=for signature $htmltablerowelement->SetBgColor($bgcolor)
+
+
+
+=cut
+
+## SetBgColor(const nsAString & aBgColor)
+void
+moz_dom_SetBgColor (htmltablerowelement, bgcolor)
+	nsIDOMHTMLTableRowElement *htmltablerowelement;
+	nsEmbedString bgcolor;
+    CODE:
+	htmltablerowelement->SetBgColor(bgcolor);
+
+=for apidoc Mozilla::DOM::HTMLTableRowElement::GetCh
+
+=for signature $ch = $htmltablerowelement->GetCh()
+
+
+
+=cut
+
+## GetCh(nsAString & aCh)
+nsEmbedString
+moz_dom_GetCh (htmltablerowelement)
+	nsIDOMHTMLTableRowElement *htmltablerowelement;
+    PREINIT:
+	nsEmbedString ch;
+    CODE:
+	htmltablerowelement->GetCh(ch);
+	RETVAL = ch;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableRowElement::SetCh
+
+=for signature $htmltablerowelement->SetCh($ch)
+
+
+
+=cut
+
+## SetCh(const nsAString & aCh)
+void
+moz_dom_SetCh (htmltablerowelement, ch)
+	nsIDOMHTMLTableRowElement *htmltablerowelement;
+	nsEmbedString ch;
+    CODE:
+	htmltablerowelement->SetCh(ch);
+
+=for apidoc Mozilla::DOM::HTMLTableRowElement::GetChOff
+
+=for signature $choff = $htmltablerowelement->GetChOff()
+
+
+
+=cut
+
+## GetChOff(nsAString & aChOff)
+nsEmbedString
+moz_dom_GetChOff (htmltablerowelement)
+	nsIDOMHTMLTableRowElement *htmltablerowelement;
+    PREINIT:
+	nsEmbedString choff;
+    CODE:
+	htmltablerowelement->GetChOff(choff);
+	RETVAL = choff;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableRowElement::SetChOff
+
+=for signature $htmltablerowelement->SetChOff($choff)
+
+
+
+=cut
+
+## SetChOff(const nsAString & aChOff)
+void
+moz_dom_SetChOff (htmltablerowelement, choff)
+	nsIDOMHTMLTableRowElement *htmltablerowelement;
+	nsEmbedString choff;
+    CODE:
+	htmltablerowelement->SetChOff(choff);
+
+=for apidoc Mozilla::DOM::HTMLTableRowElement::GetVAlign
+
+=for signature $valign = $htmltablerowelement->GetVAlign()
+
+
+
+=cut
+
+## GetVAlign(nsAString & aVAlign)
+nsEmbedString
+moz_dom_GetVAlign (htmltablerowelement)
+	nsIDOMHTMLTableRowElement *htmltablerowelement;
+    PREINIT:
+	nsEmbedString valign;
+    CODE:
+	htmltablerowelement->GetVAlign(valign);
+	RETVAL = valign;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableRowElement::SetVAlign
+
+=for signature $htmltablerowelement->SetVAlign($valign)
+
+
+
+=cut
+
+## SetVAlign(const nsAString & aVAlign)
+void
+moz_dom_SetVAlign (htmltablerowelement, valign)
+	nsIDOMHTMLTableRowElement *htmltablerowelement;
+	nsEmbedString valign;
+    CODE:
+	htmltablerowelement->SetVAlign(valign);
+
+=for apidoc Mozilla::DOM::HTMLTableRowElement::InsertCell
+
+=for signature $retval = $htmltablerowelement->InsertCell($index)
+
+
+
+=cut
+
+## InsertCell(PRInt32 index, nsIDOMHTMLElement **_retval)
+nsIDOMHTMLElement *
+moz_dom_InsertCell (htmltablerowelement, index)
+	nsIDOMHTMLTableRowElement *htmltablerowelement;
+	PRInt32  index;
+    PREINIT:
+	nsIDOMHTMLElement * retval;
+    CODE:
+	htmltablerowelement->InsertCell(index, &retval);
+	RETVAL = retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableRowElement::DeleteCell
+
+=for signature $htmltablerowelement->DeleteCell($index)
+
+
+
+=cut
+
+## DeleteCell(PRInt32 index)
+void
+moz_dom_DeleteCell (htmltablerowelement, index)
+	nsIDOMHTMLTableRowElement *htmltablerowelement;
+	PRInt32  index;
+    CODE:
+	htmltablerowelement->DeleteCell(index);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLTableSectionElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLTableSectionElem.h
+
+=for object Mozilla::DOM::HTMLTableSectionElement
+
+Mozilla::DOM::HTMLTableSectionElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLTableSectionElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLTableSectionElement interface is the interface to a
+ * [X]HTML thead, tbody, and tfoot element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLTableSectionElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLTABLESECTIONELEMENT_IID)
+static nsIID
+nsIDOMHTMLTableSectionElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLTableSectionElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableSectionElement::GetAlign
+
+=for signature $align = $htmltablesectionelement->GetAlign()
+
+
+
+=cut
+
+## GetAlign(nsAString & aAlign)
+nsEmbedString
+moz_dom_GetAlign (htmltablesectionelement)
+	nsIDOMHTMLTableSectionElement *htmltablesectionelement;
+    PREINIT:
+	nsEmbedString align;
+    CODE:
+	htmltablesectionelement->GetAlign(align);
+	RETVAL = align;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableSectionElement::SetAlign
+
+=for signature $htmltablesectionelement->SetAlign($align)
+
+
+
+=cut
+
+## SetAlign(const nsAString & aAlign)
+void
+moz_dom_SetAlign (htmltablesectionelement, align)
+	nsIDOMHTMLTableSectionElement *htmltablesectionelement;
+	nsEmbedString align;
+    CODE:
+	htmltablesectionelement->SetAlign(align);
+
+=for apidoc Mozilla::DOM::HTMLTableSectionElement::GetCh
+
+=for signature $ch = $htmltablesectionelement->GetCh()
+
+
+
+=cut
+
+## GetCh(nsAString & aCh)
+nsEmbedString
+moz_dom_GetCh (htmltablesectionelement)
+	nsIDOMHTMLTableSectionElement *htmltablesectionelement;
+    PREINIT:
+	nsEmbedString ch;
+    CODE:
+	htmltablesectionelement->GetCh(ch);
+	RETVAL = ch;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableSectionElement::SetCh
+
+=for signature $htmltablesectionelement->SetCh($ch)
+
+
+
+=cut
+
+## SetCh(const nsAString & aCh)
+void
+moz_dom_SetCh (htmltablesectionelement, ch)
+	nsIDOMHTMLTableSectionElement *htmltablesectionelement;
+	nsEmbedString ch;
+    CODE:
+	htmltablesectionelement->SetCh(ch);
+
+=for apidoc Mozilla::DOM::HTMLTableSectionElement::GetChOff
+
+=for signature $choff = $htmltablesectionelement->GetChOff()
+
+
+
+=cut
+
+## GetChOff(nsAString & aChOff)
+nsEmbedString
+moz_dom_GetChOff (htmltablesectionelement)
+	nsIDOMHTMLTableSectionElement *htmltablesectionelement;
+    PREINIT:
+	nsEmbedString choff;
+    CODE:
+	htmltablesectionelement->GetChOff(choff);
+	RETVAL = choff;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableSectionElement::SetChOff
+
+=for signature $htmltablesectionelement->SetChOff($choff)
+
+
+
+=cut
+
+## SetChOff(const nsAString & aChOff)
+void
+moz_dom_SetChOff (htmltablesectionelement, choff)
+	nsIDOMHTMLTableSectionElement *htmltablesectionelement;
+	nsEmbedString choff;
+    CODE:
+	htmltablesectionelement->SetChOff(choff);
+
+=for apidoc Mozilla::DOM::HTMLTableSectionElement::GetVAlign
+
+=for signature $valign = $htmltablesectionelement->GetVAlign()
+
+
+
+=cut
+
+## GetVAlign(nsAString & aVAlign)
+nsEmbedString
+moz_dom_GetVAlign (htmltablesectionelement)
+	nsIDOMHTMLTableSectionElement *htmltablesectionelement;
+    PREINIT:
+	nsEmbedString valign;
+    CODE:
+	htmltablesectionelement->GetVAlign(valign);
+	RETVAL = valign;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableSectionElement::SetVAlign
+
+=for signature $htmltablesectionelement->SetVAlign($valign)
+
+
+
+=cut
+
+## SetVAlign(const nsAString & aVAlign)
+void
+moz_dom_SetVAlign (htmltablesectionelement, valign)
+	nsIDOMHTMLTableSectionElement *htmltablesectionelement;
+	nsEmbedString valign;
+    CODE:
+	htmltablesectionelement->SetVAlign(valign);
+
+=for apidoc Mozilla::DOM::HTMLTableSectionElement::GetRows
+
+=for signature $rows = $htmltablesectionelement->GetRows()
+
+
+
+=cut
+
+## GetRows(nsIDOMHTMLCollection * *aRows)
+nsIDOMHTMLCollection *
+moz_dom_GetRows (htmltablesectionelement)
+	nsIDOMHTMLTableSectionElement *htmltablesectionelement;
+    PREINIT:
+	nsIDOMHTMLCollection * rows;
+    CODE:
+	htmltablesectionelement->GetRows(&rows);
+	RETVAL = rows;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableSectionElement::InsertRow
+
+=for signature $retval = $htmltablesectionelement->InsertRow($index)
+
+
+
+=cut
+
+## InsertRow(PRInt32 index, nsIDOMHTMLElement **_retval)
+nsIDOMHTMLElement *
+moz_dom_InsertRow (htmltablesectionelement, index)
+	nsIDOMHTMLTableSectionElement *htmltablesectionelement;
+	PRInt32  index;
+    PREINIT:
+	nsIDOMHTMLElement * retval;
+    CODE:
+	htmltablesectionelement->InsertRow(index, &retval);
+	RETVAL = retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTableSectionElement::DeleteRow
+
+=for signature $htmltablesectionelement->DeleteRow($index)
+
+
+
+=cut
+
+## DeleteRow(PRInt32 index)
+void
+moz_dom_DeleteRow (htmltablesectionelement, index)
+	nsIDOMHTMLTableSectionElement *htmltablesectionelement;
+	PRInt32  index;
+    CODE:
+	htmltablesectionelement->DeleteRow(index);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLTextAreaElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLTextAreaElement.h
+
+=for object Mozilla::DOM::HTMLTextAreaElement
+
+Mozilla::DOM::HTMLTextAreaElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLTextAreaElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLTextAreaElement interface is the interface to a
+ * [X]HTML textarea element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLTextAreaElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLTEXTAREAELEMENT_IID)
+static nsIID
+nsIDOMHTMLTextAreaElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLTextAreaElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::GetDefaultValue
+
+=for signature $defaultvalue = $htmltextareaelement->GetDefaultValue()
+
+
+
+=cut
+
+## GetDefaultValue(nsAString & aDefaultValue)
+nsEmbedString
+moz_dom_GetDefaultValue (htmltextareaelement)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+    PREINIT:
+	nsEmbedString defaultvalue;
+    CODE:
+	htmltextareaelement->GetDefaultValue(defaultvalue);
+	RETVAL = defaultvalue;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::SetDefaultValue
+
+=for signature $htmltextareaelement->SetDefaultValue($defaultvalue)
+
+
+
+=cut
+
+## SetDefaultValue(const nsAString & aDefaultValue)
+void
+moz_dom_SetDefaultValue (htmltextareaelement, defaultvalue)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+	nsEmbedString defaultvalue;
+    CODE:
+	htmltextareaelement->SetDefaultValue(defaultvalue);
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::GetForm
+
+=for signature $form = $htmltextareaelement->GetForm()
+
+
+
+=cut
+
+## GetForm(nsIDOMHTMLFormElement * *aForm)
+nsIDOMHTMLFormElement *
+moz_dom_GetForm (htmltextareaelement)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+    PREINIT:
+	nsIDOMHTMLFormElement * form;
+    CODE:
+	htmltextareaelement->GetForm(&form);
+	RETVAL = form;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::GetAccessKey
+
+=for signature $accesskey = $htmltextareaelement->GetAccessKey()
+
+
+
+=cut
+
+## GetAccessKey(nsAString & aAccessKey)
+nsEmbedString
+moz_dom_GetAccessKey (htmltextareaelement)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+    PREINIT:
+	nsEmbedString accesskey;
+    CODE:
+	htmltextareaelement->GetAccessKey(accesskey);
+	RETVAL = accesskey;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::SetAccessKey
+
+=for signature $htmltextareaelement->SetAccessKey($accesskey)
+
+
+
+=cut
+
+## SetAccessKey(const nsAString & aAccessKey)
+void
+moz_dom_SetAccessKey (htmltextareaelement, accesskey)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+	nsEmbedString accesskey;
+    CODE:
+	htmltextareaelement->SetAccessKey(accesskey);
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::GetCols
+
+=for signature $cols = $htmltextareaelement->GetCols()
+
+
+
+=cut
+
+## GetCols(PRInt32 *aCols)
+PRInt32
+moz_dom_GetCols (htmltextareaelement)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+    PREINIT:
+	PRInt32 cols;
+    CODE:
+	htmltextareaelement->GetCols(&cols);
+	RETVAL = cols;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::SetCols
+
+=for signature $htmltextareaelement->SetCols($cols)
+
+
+
+=cut
+
+## SetCols(PRInt32 aCols)
+void
+moz_dom_SetCols (htmltextareaelement, cols)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+	PRInt32  cols;
+    CODE:
+	htmltextareaelement->SetCols(cols);
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::GetDisabled
+
+=for signature $bool = $htmltextareaelement->GetDisabled()
+
+
+
+=cut
+
+## GetDisabled(PRBool *aDisabled)
+PRBool
+moz_dom_GetDisabled (htmltextareaelement)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+    PREINIT:
+	PRBool disabled;
+    CODE:
+	htmltextareaelement->GetDisabled(&disabled);
+	RETVAL = disabled;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::SetDisabled
+
+=for signature $htmltextareaelement->SetDisabled($disabled)
+
+
+
+=cut
+
+## SetDisabled(PRBool aDisabled)
+void
+moz_dom_SetDisabled (htmltextareaelement, disabled)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+	PRBool  disabled;
+    CODE:
+	htmltextareaelement->SetDisabled(disabled);
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::GetName
+
+=for signature $name = $htmltextareaelement->GetName()
+
+
+
+=cut
+
+## GetName(nsAString & aName)
+nsEmbedString
+moz_dom_GetName (htmltextareaelement)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+    PREINIT:
+	nsEmbedString name;
+    CODE:
+	htmltextareaelement->GetName(name);
+	RETVAL = name;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::SetName
+
+=for signature $htmltextareaelement->SetName($name)
+
+
+
+=cut
+
+## SetName(const nsAString & aName)
+void
+moz_dom_SetName (htmltextareaelement, name)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+	nsEmbedString name;
+    CODE:
+	htmltextareaelement->SetName(name);
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::GetReadOnly
+
+=for signature $bool = $htmltextareaelement->GetReadOnly()
+
+
+
+=cut
+
+## GetReadOnly(PRBool *aReadOnly)
+PRBool
+moz_dom_GetReadOnly (htmltextareaelement)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+    PREINIT:
+	PRBool readonly;
+    CODE:
+	htmltextareaelement->GetReadOnly(&readonly);
+	RETVAL = readonly;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::SetReadOnly
+
+=for signature $htmltextareaelement->SetReadOnly($readonly)
+
+
+
+=cut
+
+## SetReadOnly(PRBool aReadOnly)
+void
+moz_dom_SetReadOnly (htmltextareaelement, readonly)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+	PRBool  readonly;
+    CODE:
+	htmltextareaelement->SetReadOnly(readonly);
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::GetRows
+
+=for signature $rows = $htmltextareaelement->GetRows()
+
+
+
+=cut
+
+## GetRows(PRInt32 *aRows)
+PRInt32
+moz_dom_GetRows (htmltextareaelement)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+    PREINIT:
+	PRInt32 rows;
+    CODE:
+	htmltextareaelement->GetRows(&rows);
+	RETVAL = rows;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::SetRows
+
+=for signature $htmltextareaelement->SetRows($rows)
+
+
+
+=cut
+
+## SetRows(PRInt32 aRows)
+void
+moz_dom_SetRows (htmltextareaelement, rows)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+	PRInt32  rows;
+    CODE:
+	htmltextareaelement->SetRows(rows);
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::GetTabIndex
+
+=for signature $tabindex = $htmltextareaelement->GetTabIndex()
+
+
+
+=cut
+
+## GetTabIndex(PRInt32 *aTabIndex)
+PRInt32
+moz_dom_GetTabIndex (htmltextareaelement)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+    PREINIT:
+	PRInt32 tabindex;
+    CODE:
+	htmltextareaelement->GetTabIndex(&tabindex);
+	RETVAL = tabindex;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::SetTabIndex
+
+=for signature $htmltextareaelement->SetTabIndex($tabindex)
+
+
+
+=cut
+
+## SetTabIndex(PRInt32 aTabIndex)
+void
+moz_dom_SetTabIndex (htmltextareaelement, tabindex)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+	PRInt32  tabindex;
+    CODE:
+	htmltextareaelement->SetTabIndex(tabindex);
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::GetType
+
+=for signature $type = $htmltextareaelement->GetType()
+
+
+
+=cut
+
+## GetType(nsAString & aType)
+nsEmbedString
+moz_dom_GetType (htmltextareaelement)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+    PREINIT:
+	nsEmbedString type;
+    CODE:
+	htmltextareaelement->GetType(type);
+	RETVAL = type;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::GetValue
+
+=for signature $value = $htmltextareaelement->GetValue()
+
+
+
+=cut
+
+## GetValue(nsAString & aValue)
+nsEmbedString
+moz_dom_GetValue (htmltextareaelement)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+    PREINIT:
+	nsEmbedString value;
+    CODE:
+	htmltextareaelement->GetValue(value);
+	RETVAL = value;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::SetValue
+
+=for signature $htmltextareaelement->SetValue($value)
+
+
+
+=cut
+
+## SetValue(const nsAString & aValue)
+void
+moz_dom_SetValue (htmltextareaelement, value)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+	nsEmbedString value;
+    CODE:
+	htmltextareaelement->SetValue(value);
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::Blur
+
+=for signature $htmltextareaelement->Blur()
+
+
+
+=cut
+
+## Blur(void)
+void
+moz_dom_Blur (htmltextareaelement)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+    CODE:
+	htmltextareaelement->Blur();
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::Focus
+
+=for signature $htmltextareaelement->Focus()
+
+
+
+=cut
+
+## Focus(void)
+void
+moz_dom_Focus (htmltextareaelement)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+    CODE:
+	htmltextareaelement->Focus();
+
+=for apidoc Mozilla::DOM::HTMLTextAreaElement::Select
+
+=for signature $htmltextareaelement->Select()
+
+
+
+=cut
+
+## Select(void)
+void
+moz_dom_Select (htmltextareaelement)
+	nsIDOMHTMLTextAreaElement *htmltextareaelement;
+    CODE:
+	htmltextareaelement->Select();
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLTitleElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLTitleElement.h
+
+=for object Mozilla::DOM::HTMLTitleElement
+
+Mozilla::DOM::HTMLTitleElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLTitleElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLTitleElement interface is the interface to a [X]HTML
+ * title element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLTitleElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLTITLEELEMENT_IID)
+static nsIID
+nsIDOMHTMLTitleElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLTitleElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTitleElement::GetText
+
+=for signature $text = $htmltitleelement->GetText()
+
+
+
+=cut
+
+## GetText(nsAString & aText)
+nsEmbedString
+moz_dom_GetText (htmltitleelement)
+	nsIDOMHTMLTitleElement *htmltitleelement;
+    PREINIT:
+	nsEmbedString text;
+    CODE:
+	htmltitleelement->GetText(text);
+	RETVAL = text;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLTitleElement::SetText
+
+=for signature $htmltitleelement->SetText($text)
+
+
+
+=cut
+
+## SetText(const nsAString & aText)
+void
+moz_dom_SetText (htmltitleelement, text)
+	nsIDOMHTMLTitleElement *htmltitleelement;
+	nsEmbedString text;
+    CODE:
+	htmltitleelement->SetText(text);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::HTMLUListElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMHTMLUListElement.h
+
+=for object Mozilla::DOM::HTMLUListElement
+
+Mozilla::DOM::HTMLUListElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLUListElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLUListElement interface is the interface to a [X]HTML
+ * ul element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLUListElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHTMLULISTELEMENT_IID)
+static nsIID
+nsIDOMHTMLUListElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHTMLUListElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLUListElement::GetCompact
+
+=for signature $bool = $htmlulistelement->GetCompact()
+
+
+
+=cut
+
+## GetCompact(PRBool *aCompact)
+PRBool
+moz_dom_GetCompact (htmlulistelement)
+	nsIDOMHTMLUListElement *htmlulistelement;
+    PREINIT:
+	PRBool compact;
+    CODE:
+	htmlulistelement->GetCompact(&compact);
+	RETVAL = compact;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLUListElement::SetCompact
+
+=for signature $htmlulistelement->SetCompact($compact)
+
+
+
+=cut
+
+## SetCompact(PRBool aCompact)
+void
+moz_dom_SetCompact (htmlulistelement, compact)
+	nsIDOMHTMLUListElement *htmlulistelement;
+	PRBool  compact;
+    CODE:
+	htmlulistelement->SetCompact(compact);
+
+=for apidoc Mozilla::DOM::HTMLUListElement::GetType
+
+=for signature $type = $htmlulistelement->GetType()
+
+
+
+=cut
+
+## GetType(nsAString & aType)
+nsEmbedString
+moz_dom_GetType (htmlulistelement)
+	nsIDOMHTMLUListElement *htmlulistelement;
+    PREINIT:
+	nsEmbedString type;
+    CODE:
+	htmlulistelement->GetType(type);
+	RETVAL = type;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::HTMLUListElement::SetType
+
+=for signature $htmlulistelement->SetType($type)
+
+
+
+=cut
+
+## SetType(const nsAString & aType)
+void
+moz_dom_SetType (htmlulistelement, type)
+	nsIDOMHTMLUListElement *htmlulistelement;
+	nsEmbedString type;
+    CODE:
+	htmlulistelement->SetType(type);
 

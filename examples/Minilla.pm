@@ -1,9 +1,10 @@
 # This is a minimal example of using Gtk2::MozEmbed, basically
 # a stripped-down pumzilla. It displays your home directory
 # and has no extra signal handlers or chrome. This is for comparing
-# to the other examples to see what they add.
+# to the other examples to see what they add. It does nothing
+# related to Mozilla::DOM.
 #
-# $CVSHeader: Mozilla-DOM/examples/Minilla.pm,v 1.2 2005/04/10 19:38:51 slanning Exp $
+# $CVSHeader: Mozilla-DOM/examples/Minilla.pm,v 1.3 2005/04/18 05:30:28 slanning Exp $
 
 
 package Minilla;

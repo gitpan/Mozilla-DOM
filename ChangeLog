@@ -1,3 +1,12 @@
+0.11  2005-04-18
+  - wrapped more interfaces (total is 88 now; there are >260 in Mozilla)
+    o  54 HTML*Element classes
+    o  HTMLCollection and HTMLOptionsCollection
+  - added HTMLElements example
+  - added the gendomxsubs.pl script which I use to generate XSUBs
+    from Mozilla headers
+  - fixed GetIID POD (but not yet the warnings during `make`)
+
 0.10  2005-04-16
   - implemented Supports (QueryInterface method, plus GetIID class method
     for all interfaces), which means we can now create events!

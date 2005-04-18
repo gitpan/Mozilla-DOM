@@ -1,7 +1,7 @@
 # This example shows how to access DOM elements.
 # Refer also to the Minilla and Signals examples.
 #
-# $CVSHeader$
+# $CVSHeader: Mozilla-DOM/examples/Elements.pm,v 1.2 2005/04/18 05:30:28 slanning Exp $
 
 
 package Elements;
@@ -11,7 +11,7 @@ use warnings;
 
 use Glib qw(TRUE FALSE);
 use Gtk2;
-use Gtk2::MozEmbed;
+use Gtk2::MozEmbed '0.04';
 use Mozilla::DOM '0.07';   # for Element and Node methods
 
 use Glib::Object::Subclass Gtk2::Window::;

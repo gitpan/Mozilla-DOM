@@ -22,3 +22,5 @@ Signals: All the signals in Gtk2::MozEmbed
 Elements: DOM manipulation, e.g. inserting text and changing attributes
 
 Events: Firing DOM events, such as mouse clicks
+
+HTMLElements: demonstrates HTML*Element classes

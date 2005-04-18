@@ -1,6 +1,8 @@
+Add Firefox support in Makefile.PL like Gtk2::MozEmbed does.
+
 Remove POD from XS file so that it's not auto-generated
 and to remove Glib.pm dependence. Split DOM.xs into
-separate files. (DOM.xs = 6300 lines at last count)
+separate files. (DOM.xs > 19000 lines at last count)
 Work out how to export constants from various packages.
 
 Make some methods more perlish. For example,
@@ -10,16 +12,17 @@ in list context. Also, some method arguments
 could be made optional.
 
 Figure out EventListener, EventTarget, DOMException.
+(I'm not sure if DOMException is even relevant from C++.)
+Continue wrapping interfaces like a maniac.
 
-Find reference of different interfaces for each class
+Find a reference for different interfaces of each class
 (DocumentEvent for Document, etc.), what interfaces are
 valid to switch to with QueryInterface.
 
-Wrap nsIDOMHTML*Element interfaces
 Mozilla::Mechanize
 
-Document how to add this to a module using ExtUtils::Depends.
-
 Add more examples.
+Fill out missing documentation.
+Document how to add this to a module using ExtUtils::Depends.
 
 Tests....

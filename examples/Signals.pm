@@ -2,7 +2,7 @@
 # that can be used from Gtk2::MozEmbed. Comments already noted in
 # Minilla are omitted.
 #
-# $CVSHeader: Mozilla-DOM/examples/Signals.pm,v 1.1 2005/04/10 19:38:51 slanning Exp $
+# $CVSHeader: Mozilla-DOM/examples/Signals.pm,v 1.3 2005/04/18 05:30:28 slanning Exp $
 
 
 package Signals;
@@ -12,7 +12,7 @@ use warnings;
 
 use Glib qw(TRUE FALSE);
 use Gtk2;
-use Gtk2::MozEmbed;
+use Gtk2::MozEmbed '0.04';
 
 use Glib::Object::Subclass Gtk2::Window::;
 
@@ -102,7 +102,7 @@ sub net_state_all_cb {
 
 }
 
-# When the load of a document starts.
+# When the loading of a document starts.
 sub net_start_cb {
     my $embed = shift;
 

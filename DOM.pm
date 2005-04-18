@@ -1,6 +1,6 @@
 package Mozilla::DOM;
 
-# $Id: DOM.pm,v 1.10 2005/04/10 23:48:18 slanning Exp $
+# $Id: DOM.pm,v 1.12 2005/04/18 05:30:24 slanning Exp $
 
 use 5.008;
 use strict;
@@ -10,7 +10,7 @@ require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 
 sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 
@@ -421,6 +421,342 @@ package Mozilla::DOM::Supports;
 
 # -----------------------------------------------------------------------------
 
+package Mozilla::DOM::HTMLAreaElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLDirectoryElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLAnchorElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLAppletElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLBRElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLBaseElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLBaseFontElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLBodyElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLButtonElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLCollection;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLDListElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLDivElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLElement;
+
+our @ISA = qw(Mozilla::DOM::Element);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLEmbedElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLFieldSetElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLFontElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLFrameElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLFormElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLFrameSetElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLHRElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLHeadElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLHeadingElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLHtmlElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLIFrameElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLImageElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLInputElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLIsIndexElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLLIElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLLabelElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLLegendElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLLinkElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLMapElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLMenuElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLMetaElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLModElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLOListElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLObjectElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLOptGroupElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLOptionElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLOptionsCollection;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLParagraphElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLParamElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLPreElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLQuoteElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLScriptElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLSelectElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLStyleElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLTableCaptionElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLTableCellElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLTableColElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLTableElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLTableRowElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLTableSectionElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLTextAreaElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLTitleElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::HTMLUListElement;
+
+our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
 package Mozilla::DOM;
 
 1;
@@ -447,6 +783,8 @@ Mozilla::DOM - Perl wrapping of the Mozilla/Gecko DOM
   );
 
 =head1 ABSTRACT
+
+XXX: update this
 
 The current purpose of this module is to wrap DOM event methods
 to be used with the L<Gtk2::MozEmbed|Gtk2::MozEmbed> module, which
@@ -493,7 +831,8 @@ A C++ example of using GtkMozEmbed to make a minimal browser.
 The header files for Mozilla's interfaces. Generally, if a module
 is called Mozilla::DOM::Something, the corresponding header file
 is named 'nsIDOMSomething.h'. Three exceptions are nsISupports,
-nsIWebBrowser, and nsISelection.
+nsIWebBrowser, and nsISelection, where the interface name doesn't
+include "DOM".
 
 =item L<http:E<sol>E<sol>mozilla.orgE<sol>htmlE<sol>projectsE<sol>embeddingE<sol>PublicAPIs.html>
 
