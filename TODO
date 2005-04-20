@@ -3,25 +3,57 @@ Add Firefox support in Makefile.PL like Gtk2::MozEmbed does.
 Remove POD from XS file so that it's not auto-generated
 and to remove Glib.pm dependence. Split DOM.xs into
 separate files. (DOM.xs > 19000 lines at last count)
-Work out how to export constants from various packages.
+
+Constants are currently broken. I hope nobody's using them.
+Need to work out how to export constants from various packages.
+I think they should be accessible like
+
+  ... if $event->GetEventPhase == $Mozilla::DOM::Event::AT_TARGET;
+
+or
+
+  use Mozilla::DOM::Event qw(:phases);
+  ... if $event->GetEventPhase == AT_TARGET;
+
+however you can't `use Mozilla::DOM::Event':
+"Can't locate Mozilla/DOM/Event.pm in @INC ..."
+It must not be that hard to fix..
 
 Make some methods more perlish. For example,
 GetElementsByTagName returns a NodeList,
 but it would be nicer if it was a list of Nodes
-in list context. Also, some method arguments
-could be made optional.
+(or Elements...) in list context.
+Also, some method arguments could be made optional.
 
-Figure out EventListener, EventTarget, DOMException.
-(I'm not sure if DOMException is even relevant from C++.)
-Continue wrapping interfaces like a maniac.
+Figure out DOMException.
+I'm not sure if DOMException is even relevant from C++,
+as I think integers are always returned on failure.
+(need to verify)
+
+Wrap interfaces like a maniac.
+nsIDOMSVG*, CSS*, XPath*, and XUL* anyone? Heh,
+maybe those should wait till after I split DOM.xs apart.
+Check out dom/src/base/nsDOMClassInfo.cpp.
+If I'm not mistaken, you can QI from Window
+to WindowInternal and JSWindow, which give
+you access to all the Browser Objects (Navigator, History,
+Location - but I wonder if these are applicable in GtkMozEmbed?)
+and javascript things like SetTimeout, SetInterval, window.open.
+What is EventReceiver?
 
 Find a reference for different interfaces of each class
 (DocumentEvent for Document, etc.), what interfaces are
-valid to switch to with QueryInterface.
+valid to switch to with QueryInterface. Do I have to
+scour Mozilla's .cpp files? I did
+find . -name '*.cpp' -exec fgrep -H _MAP_ {} \;
+which seems to list QI-able interfaces.
 
-Mozilla::Mechanize
+Mozilla::Automate - I was going to call it Mozilla::Mechanize
+and have an identical interface to WWW::Mechanize, but recently
+I'm thinking that would be too restrictive. WWW::Mechanize
+is great as a coating on top of LWP::UserAgent, but what more
+can we do with full DOM access?
 
-Add more examples.
 Fill out missing documentation.
 Document how to add this to a module using ExtUtils::Depends.
 

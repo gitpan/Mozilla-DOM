@@ -1,6 +1,5 @@
 #!/usr/bin/perl
-# Sloppy script to generate XSUBs for nsIDOM* interfaces.
-# (It doesn't work for nsISupports, etc., only nsIDOM*.)
+# Sloppy script to generate XSUBs for nsI* interfaces.
 #
 # Given the name of a Mozilla DOM interface header file,
 # this generates XSUBs for a Mozilla::DOM package. For example,
@@ -23,14 +22,34 @@ unless (@ARGV == 1 && $ARGV[0] =~ /nsI.+\.h$/) {
     die "Usage: $0 /path/nsISomething.h\n";
 }
 
+# This gets output for pasting convenience
+my @wrappercode = ();
+
 my $headerfile = $ARGV[0];
 (my $iface = $headerfile) =~ s{.*/([^.]+)\.h}{$1};
-(my $obj = lc($iface)) =~ s/^nsidom//i;
+
+my $pkgbase = 'Mozilla::DOM';
+(my $pkgname = $iface) =~ s/^nsI(DOM)?//;
+my $pkg = "$pkgbase\::$pkgname";
+my $outfile = "genxsubs/$iface.xs";
+
+push @wrappercode, "cat $outfile >> xs/DOM.xs\n";
+push @wrappercode, qq{#include "$iface.h"\n};
+push @wrappercode, "MOZDOM_DECL_DOM_TYPEMAPPERS($pkgname)\n";
+push @wrappercode, "MOZDOM_DEF_DOM_TYPEMAPPERS($pkgname)\n";
+
+(my $obj = lc($iface)) =~ s/^nsi(dom)?//i;
+unless (defined $1) {
+    $wrappercode[-1] =~ s/_DOM_/_I_/;
+    $wrappercode[-2] =~ s/_DOM_/_I_/;
+}
+push @wrappercode, "$iface *\t\tT_MOZDOM_GENERIC_WRAPPER\n";
+push @wrappercode, "$iface\t\t$pkg\n";
+
+print $_ for @wrappercode;
+
 
 my $prefix = 'moz_dom_';
-my $pkgbase = 'Mozilla::DOM';
-(my $pkgname = $iface) =~ s/^nsIDOM//;
-my $pkg = "$pkgbase\::$pkgname";
 my $parentclass = '';
 my $inapi = 0;
 
@@ -83,7 +102,7 @@ while (<>) {
         # Beginning of class declaration
         if (defined $1) {
             $parentclass = $1;
-            $parentclass =~ s/^nsI(DOM)//;
+            $parentclass =~ s/^nsI(DOM)?//;
         } else {
             die "no parent class found\n";
         }
@@ -109,7 +128,7 @@ while (<>) {
                 inputs => [],
             );
 
-            print $method{orig}, $/;
+            # print $method{orig}, $/;
 
             if ($raisecomment) {
                 $method{raises} = $raisecomment;
@@ -126,9 +145,9 @@ while (<>) {
                     die "unknown type '$type' in method signature\n"
                       unless $type =~ /(nsAString|nsIDOM|PR[BIU].*|DOMTimeStamp)/;
 
-                    $name =~ s/_//g;
-                    $name =~ s/^[a-z]([A-Z])/$1/;
-                    $name = lc $name;
+#                    $name =~ s/_//g;
+#                    $name =~ s/^[a-z]([A-Z])/$1/;
+#                    $name = lc $name;
 
                     if ($type =~ s/\*\s*\*$/*/
                           or $type =~ s/(PR(?:Bool|Uint16|Uint32|Int16|Int32))\s*\*/$1/)
@@ -165,7 +184,7 @@ $classcomment = '' unless $gotclasscomment;
 # Write out the XS file
 mkdir 'genxsubs';
 
-open(OUT, ">genxsubs/$iface.xs") || die "can't open genxsubs/$iface.xs: $!";
+open(OUT, ">$outfile") || die "can't open $outfile: $!";
 
 print OUT <<EOH;
 # -----------------------------------------------------------------------------
@@ -202,7 +221,7 @@ if (@enums) {
 print OUT <<EOG;
 =head1 CLASS METHODS
 
-=head2 $iid = $pkg\->B\<GetIID>()
+=head2 \$iid = $pkg\->B\<GetIID>()
 
 Pass this to QueryInterface.
 
@@ -227,10 +246,21 @@ foreach my $method (@methods) {
         if ($method->{output}{type} =~ /bool/i) {
             $pret .= '$bool = ';
         } else {
-            $pret .= '$' . $method->{output}{name} . ' = ';
+            my $name = $method->{output}{name};
+            $name =~ s/_//g;
+            $name =~ s/^[a-z]([A-Z])/$1/;
+            $name = lc $name;
+
+            $pret .= "\$$name = ";
         }
     }
-    my $psig = join(', ', map {"\$$_->{name}"} @{ $method->{inputs} });
+    my $psig = join(', ', map {
+        my $name = $_->{name};
+        $name =~ s/_//g;
+        $name =~ s/^[a-z]([A-Z])/$1/;
+        $name = lc $name;
+        "\$$name"
+    } @{ $method->{inputs} });
 
     my $xsret = (exists $method->{output})
       ? $method->{output}{type}

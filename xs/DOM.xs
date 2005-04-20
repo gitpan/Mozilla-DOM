@@ -118,6 +118,46 @@ MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLUListElement)
 
 /* ------------------------------------------------------------------------- */
 
+/* I'm not a C++ or XS whiz, so let me know if I'm doing something stupid. */
+
+NS_IMPL_ISUPPORTS1(MozDomEventListener, nsIDOMEventListener)
+
+MozDomEventListener::MozDomEventListener()
+{
+	return;
+}
+
+MozDomEventListener::MozDomEventListener(SV *handler)
+	: mHandler(newSVsv(handler))
+{
+	return;
+}
+
+MozDomEventListener::~MozDomEventListener()
+{
+	/* XXX: do we need sv_free(mHandler) or SvREFCNT ? */
+	return;
+}
+
+NS_IMETHODIMP MozDomEventListener::HandleEvent(nsIDOMEvent *event) {
+	dSP;
+
+	ENTER;
+	SAVETMPS;
+
+	PUSHMARK(SP);
+	XPUSHs(sv_2mortal(newSVnsIDOMEvent(event)));
+	PUTBACK;
+
+	/* call the subroutine passed to `new' */
+	call_sv(mHandler, G_DISCARD);
+
+	FREETMPS;
+	LEAVE;
+}
+
+/* ------------------------------------------------------------------------- */
+
 
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::AbstractView	PREFIX = moz_dom_
 
@@ -248,6 +288,9 @@ The constants CAPTURING_PHASE, AT_TARGET, and BUBBLING_PHASE are available
 for comparing with L</GetEventPhase>. Currently these are accessed through
 the (mouse or key) event object, like $event->AT_TARGET, but maybe they
 should be exportable class constants (if I can figure out how to do that).
+DEPRECATED: a little premature to deprecate, not having an alternative
+(aside from using the numbers directly), but I really don't like how
+they're currently implemented.
 
 =cut
 
@@ -303,8 +346,8 @@ to which the Event was originally dispatched.
 
 Get the L<EventTarget|Mozilla::DOM::EventTarget>
 whose L<EventListener|Mozilla::DOM::EventListener>s
-are currently being processed. This is particularly useful during capturing
-and bubbling.
+are currently being processed. This is particularly useful
+during capturing and bubbling.
 
 =cut
 
@@ -1343,6 +1386,9 @@ do key events.
 The following constants are available to be compared with L</GetKeyCode>.
 XXX: This is currently buggy, because you have to call them as methods on the
 key event object.
+DEPRECATED: a little premature to deprecate, not having an alternative
+(aside from using the numbers directly), but I really don't like how
+they're currently implemented.
 
 =over 4
 
@@ -1617,6 +1663,9 @@ L<UIEvent|Mozilla::DOM::Event>.
 The following constants are available to be compared with L</GetAttrChange>.
 XXX: This is currently buggy, because you have to call them as methods on the
 mutation event object.
+DEPRECATED: a little premature to deprecate, not having an alternative
+(aside from using the numbers directly), but I really don't like how
+they're currently implemented.
 
 =over 4
 
@@ -1838,6 +1887,8 @@ nsIDOMEventTarget::GetIID()
 
 =for signature $target->AddEventListener($type, $listener, $useCapture)
 
+THIS METHOD IS EXPERIMENTAL.
+
 This method allows the registration of EventListeners on the event target.
 If an L<EventListener|Mozilla::DOM::EventListener> is added to an EventTarget
 while it is processing an L<Event|Mozilla::DOM::Event>, it will not be triggered
@@ -1850,14 +1901,13 @@ discarded. They do not cause the EventListener to be called twice,
 and since they are discarded they do not need to be removed with the
 L</RemoveEventListener> method.
 
-XXX: but how do you create an event listener?
-
 =over 4
 
 =item $type
 
 The event type for which the user is registering. This is a string
-such as 'mouse_over'.
+such as 'click'. See L<Mozilla::DOM::Event::InitEvent|Mozilla::DOM::Event::InitEvent>
+for other types.
 
 =item $listener
 
@@ -1881,6 +1931,8 @@ an EventListener designated to use capture.
 
 =for signature $target->RemoveEventListener($type, $listener, $useCapture)
 
+THIS METHOD IS EXPERIMENTAL.
+
 This method allows the removal of event listeners from the event 
 target. If an L<EventListener|Mozilla::DOM::EventListener> is removed
 from an EventTarget while it is processing an event, it will not be triggered
@@ -1893,7 +1945,9 @@ any currently registered EventListener on the EventTarget has no effect.
 =item $type
 
 Specifies the event type of the L<EventListener|Mozilla::DOM::EventListener>
-being removed. This is a string such as 'key_down'.
+being removed. This is a string such as 'mouseover'. See
+L<Mozilla::DOM::Event::InitEvent|Mozilla::DOM::Event::InitEvent>
+for the possible types.
 
 =item $listener
 
@@ -1917,17 +1971,21 @@ void
 moz_dom_AddEventListener (target, type, listener, usecapture)
 	nsIDOMEventTarget *target;
 	nsEmbedString type;
-	nsIDOMEventListener *listener;
+	MozDomEventListener *listener;
 	PRBool usecapture;
     ALIAS:
 	Mozilla::DOM::EventTarget::RemoveEventListener = 1
     CODE:
 	switch (ix) {
 		case 0:
+			/* XXX: here is where we should probably actually create
+				the MozDomEventListener */
 			target->AddEventListener(type, listener, usecapture);
 			break;
 		case 1:
 			target->RemoveEventListener(type, listener, usecapture);
+			/* XXX: here is where we should probably actually destroy
+				the MozDomEventListener */
 			break;
 		default: break;
 	}
@@ -1983,6 +2041,8 @@ MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::EventListener	PREFIX = moz_dom_
 
 =for object Mozilla::DOM::EventListener
 
+THIS CLASS IS EXPERIMENTAL.
+
 Mozilla::DOM::EventListener is a wrapper around an instance of Mozilla's
 nsIDOMEventListener interface. This class inherits from
 L<Supports|Mozilla::DOM::Supports>.
@@ -1993,8 +2053,6 @@ L<Supports|Mozilla::DOM::Supports>.
  * For more information on this interface please see 
  * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-EventsE<sol>>
 
-XXX: this isn't wrapped/implemented yet.
-
 From DOM 2 spec:
 The EventListener interface is the primary method
 for handling events. Users implement the EventListener interface and
@@ -2002,9 +2060,31 @@ register their listener on an EventTarget using the AddEventListener
 method. The users should also remove their EventListener from its
 EventTarget after they have completed using the listener.
 
-Trying to find an "event listener factory".
-Looking thru mozilla headers, I found nsIDOM(Mouse|Key|Text|*)Listener.
-I see nsIDOMScriptObjectFactory/nsIJSEventListener (not sure it's relevant).
+Here is why support for EventListener is considered "experimental".
+If your listener goes out of scope, HandleEvent will segfault
+because the class's destructor gets called. (So you have to put
+the listener in some "global" variable.) Obviously I need to prevent
+the segfault from happening, but the current workaround is to make
+sure there's always something pointing to an EventListener so that
+it doesn't go out of scope.
+  The ideal situation would be the following. Say that you
+call AddEventListener in one signal handler with a certain
+EventListener. You're not likely to want to also call RemoveEventListener
+from the same handler. However, how would you access the original
+EventListener if it's out of scope? You could create a new
+EventListener with the same parameters as the one you previously
+passed to AddEventListener. It wouldn't even matter what subref you
+passed to it; calling RemoveEventListener with this EventListener
+would have the same effect as calling it with the original EventListener.
+  But the problem is keeping the internal event listener object alive
+even after the Mozilla::DOM::EventListener object has been destroyed,
+because otherwise when HandleEvent is called it will point to an
+invalid event listener. I think the way to do this will be to only
+create the internal event listener object when AddEventListener is
+called, and only if no previous EventListener of the same type has
+been added. Then only destroy the internal event listener when
+RemoveEventListener is called, checking first that one exists to
+be destroyed. I think these changes would be backwards compatible.
 
 =cut
 
@@ -2025,26 +2105,39 @@ nsIDOMEventListener::GetIID()
     OUTPUT:
 	RETVAL
 
-=for apidoc Mozilla::DOM::EventListener::HandleEvent
+=head2 Mozilla::DOM::EventListener->B<new>(\&handler)
 
-=for signature $listener->HandleEvent($event)
+The constructor for this class. Pass a subroutine reference
+as its argument. This subroutine will be called from the
+HandleEvent method.
+
+=cut
+
+## See C++ class at the top of this file.
+## MozDomEventListner isa nsIDOMEventListener.
+MozDomEventListener *
+MozDomEventListener::new(handler)
+	SV *handler;
+    PREINIT:
+	MozDomEventListener *listener;
+    CODE:
+	warn("new EventListener\n");
+	listener = new MozDomEventListener(handler);
+	RETVAL = listener;
+    OUTPUT:
+	RETVAL
+
+void
+MozDomEventListener::DESTROY()
+
+=head2 $listener->HandleEvent($event)
+
+Note: you cannot call this method from Perl. Instead you pass
+a handler (subroutine reference) to this class's `new' method.
+The handler's argument will be the event being handled by HandleEvent.
 
 This method is called whenever an event occurs of the type for which 
 the EventListener interface was registered.
-
-
-
-
-
-XXX: hooboy, how the hell's this going to work?
-Maybe I need to implement this class in C++
-and somehow let users hook Perl subroutines onto it.
-It would be cool because it would be like JavaScript
-event callbacks (onclick, onsubmit) but written in Perl.
-
-=over 4
-
-=item $event
 
 The L<Event|Mozilla::DOM::Event> contains contextual information about
 the event. It also contains the
@@ -2052,11 +2145,10 @@ L<StopPropagation|Mozilla::DOM::Event/StopPropagation> and
 L<PreventDefault|Mozilla::DOM::Event/PreventDefault> methods
 which are used in determining the event's flow and default action.
 
-=back
-
 =cut
 
 ## HandleEvent(nsIDOMEvent *event)
+## See the C++ class at the top of this file
 
 # -----------------------------------------------------------------------------
 
@@ -2610,6 +2702,9 @@ L<Supports|Mozilla::DOM::Supports>.
 The following constants are available to be compared with L</GetNodeType>.
 XXX: This is currently buggy, because you have to call them as methods on the
 node object.
+DEPRECATED: a little premature to deprecate, not having an alternative
+(aside from using the numbers directly), but I really don't like how
+they're currently implemented.
 
 =over 4
 
@@ -5659,6 +5754,9 @@ The constants START_TO_START, START_TO_END, END_TO_END, and END_TO_START
 are available for the "how" argument to L</CompareBoundaryPoints>.
 XXX: Currently these are accessed through methods on the object; this will
 change when I figure out how to export them as constants or class methods.
+DEPRECATED: a little premature to deprecate, not having an alternative
+(aside from using the numbers directly), but I really don't like how
+they're currently implemented.
 
 =cut
 
@@ -19079,4 +19177,5 @@ moz_dom_SetType (htmlulistelement, type)
 	nsEmbedString type;
     CODE:
 	htmlulistelement->SetType(type);
+
 

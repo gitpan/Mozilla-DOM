@@ -1,4 +1,5 @@
-# This example shows how to use the HTMLElement classes.
+# This example shows how to use the HTMLElement classes,
+# in particular for an HTMLSelectElement.
 # Refer also to the Elements example.
 #
 # $CVSHeader: Mozilla-DOM/examples/HTMLElements.pm,v 1.1 2005/04/18 05:30:28 slanning Exp $
@@ -59,8 +60,8 @@ sub net_stop_cb {
     _dump_options($optlist);
 
     $select->SetSelectedIndex(2);
-    print "selected option 2\n";
 
+    print "selected option 2\n";
     _dump_options($optlist);
 }
 
@@ -83,6 +84,7 @@ sub _dump_options {
 1;
 
 __END__
+
 I only demonstrated HTMLSelectElement, but there are 53 subclasses
 of HTMLElement. HTMLElement itself is a subclass of Element,
 which is a subclass of Node.
@@ -143,3 +145,20 @@ Mozilla::DOM::HTMLTableSectionElement
 Mozilla::DOM::HTMLTextAreaElement
 Mozilla::DOM::HTMLTitleElement
 Mozilla::DOM::HTMLUListElement
+
+
+I made this table of events that can occur on HTML elements,
+from section 18.2.3 of the HTML 4.1 specification:
+
+Anchor: focus, blur
+Area: focus, blur
+Body: load, unload
+Button: focus, blur
+Form: submit
+FrameSet: load, unload
+Input: focus, blur, select, change
+Label: focus, blur
+Select: focus, blur, change
+TextArea: focus, blur, select, change
+Most elements: click, dblclick, mousedown, mouseup, mouseover,
+  mousemove, mouseout, keypress, keydown, keyup

@@ -59,6 +59,9 @@ sub click_cb {
     # and sleeping between events just makes it wait to display.
     # Also, clicking on the buttons manually doesn't refresh the
     # selected one. Can you refresh the Gtk2::Window?
+    #   Duhrr, wait a minute.. If I click on a button,
+    # then click_cb gets called.. so...
+    # I should be doing this stuff in the press_cb.
     my $click = _create_event($embed, 'MouseEvent', 'click');
     foreach my $i (0 .. 2) {
         my $radio = _get_input($embed, 'radio', $i);

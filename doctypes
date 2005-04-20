@@ -100,3 +100,5 @@ PRInt32				integer (long)
 PRInt16				integer (long)
 I32				integer (long)
 DOMTimeStamp			milliseconds from Unix epoch
+
+MozDomEventListener             Mozilla::DOM::EventListener

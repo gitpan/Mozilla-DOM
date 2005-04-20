@@ -265,6 +265,21 @@ MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLTitleElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLUListElement)
 
 
+class MozDomEventListener : public nsIDOMEventListener
+{
+public:
+	NS_DECL_ISUPPORTS
+	NS_DECL_NSIDOMEVENTLISTENER
+
+	MozDomEventListener();
+	MozDomEventListener(SV *handler);
+	~MozDomEventListener();
+
+private:
+	SV *mHandler;
+};
+
+
 #include "mozilladom2perl-version.h"
 /* #include "mozilladom2perl-autogen.h" */
 

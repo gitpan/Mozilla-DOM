@@ -1,3 +1,10 @@
+0.12  2005-04-20
+  - keep in mind that Mozilla::DOM is alpha software, subject to change:
+    o  added experimental EventListener support, with an example
+       EventListeners.pm
+    o deprecated all constants, although I didn't reimplement them
+      correctly yet :/
+
 0.11  2005-04-18
   - wrapped more interfaces (total is 88 now; there are >260 in Mozilla)
     o  54 HTML*Element classes

@@ -15,12 +15,15 @@ a command-line argument. For example,
 A description of the examples follows. I recommend looking at
 them in order.
 
-Minilla: Minimal example of using Gtk2::MozEmbed
+Minilla: minimal example of using Gtk2::MozEmbed
 
-Signals: All the signals in Gtk2::MozEmbed
+Signals: all the signals in Gtk2::MozEmbed
 
 Elements: DOM manipulation, e.g. inserting text and changing attributes
 
-Events: Firing DOM events, such as mouse clicks
+Events: firing DOM events, such as mouse clicks
 
 HTMLElements: demonstrates HTML*Element classes
+
+EventListeners: add DOM event handlers, but in Perl instead of JavaScript
+
