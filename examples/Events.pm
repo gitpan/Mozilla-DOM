@@ -2,7 +2,7 @@
 # DOM calesthenics thrown in.
 # Refer also to the Minilla, Signals, and Elements examples.
 #
-# $CVSHeader: Mozilla-DOM/examples/Events.pm,v 1.2 2005/04/18 05:30:28 slanning Exp $
+# $CVSHeader: Mozilla-DOM/examples/Events.pm,v 1.3 2005/04/20 15:50:37 slanning Exp $
 
 
 package Events;

@@ -6,7 +6,7 @@ separate files. (DOM.xs > 19000 lines at last count)
 
 Constants are currently broken. I hope nobody's using them.
 Need to work out how to export constants from various packages.
-I think they should be accessible like
+I think they should be useable like
 
   ... if $event->GetEventPhase == $Mozilla::DOM::Event::AT_TARGET;
 
@@ -22,31 +22,28 @@ It must not be that hard to fix..
 Make some methods more perlish. For example,
 GetElementsByTagName returns a NodeList,
 but it would be nicer if it was a list of Nodes
-(or Elements...) in list context.
+(or (HTML)Elements...) in list context.
 Also, some method arguments could be made optional.
 
 Figure out DOMException.
 I'm not sure if DOMException is even relevant from C++,
 as I think integers are always returned on failure.
 (need to verify)
+There isn't any error checking at the moment..
 
 Wrap interfaces like a maniac.
 nsIDOMSVG*, CSS*, XPath*, and XUL* anyone? Heh,
 maybe those should wait till after I split DOM.xs apart.
-Check out dom/src/base/nsDOMClassInfo.cpp.
-If I'm not mistaken, you can QI from Window
-to WindowInternal and JSWindow, which give
-you access to all the Browser Objects (Navigator, History,
-Location - but I wonder if these are applicable in GtkMozEmbed?)
-and javascript things like SetTimeout, SetInterval, window.open.
+Add JSWindow, with things like SetTimeout, SetInterval, window.open.
+Check out content/base/src/ns*.cpp and dom/src/base/ns*.cpp.
 What is EventReceiver?
 
 Find a reference for different interfaces of each class
 (DocumentEvent for Document, etc.), what interfaces are
-valid to switch to with QueryInterface. Do I have to
-scour Mozilla's .cpp files? I did
+valid to switch to with QueryInterface. It looks like I have
+to scour Mozilla's .cpp files. I did
 find . -name '*.cpp' -exec fgrep -H _MAP_ {} \;
-which seems to list QI-able interfaces.
+which seems to kind of list QI-able interfaces.
 
 Mozilla::Automate - I was going to call it Mozilla::Mechanize
 and have an identical interface to WWW::Mechanize, but recently

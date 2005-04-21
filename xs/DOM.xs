@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $CVSHeader: Mozilla-DOM/xs/DOM.xs,v 1.15 2005/04/18 05:30:31 slanning Exp $
+ * $CVSHeader: Mozilla-DOM/xs/DOM.xs,v 1.16 2005/04/20 15:50:39 slanning Exp $
  */
 
 #include "mozilladom2perl.h"
@@ -39,6 +39,8 @@ MOZDOM_DEF_DOM_TYPEMAPPERS(MouseEvent)
 MOZDOM_DEF_DOM_TYPEMAPPERS(EventTarget)
 MOZDOM_DEF_DOM_TYPEMAPPERS(EventListener)
 MOZDOM_DEF_DOM_TYPEMAPPERS(Window)
+MOZDOM_DEF_DOM_TYPEMAPPERS(Window2)
+MOZDOM_DEF_DOM_TYPEMAPPERS(WindowInternal)
 MOZDOM_DEF_DOM_TYPEMAPPERS(WindowCollection)
 MOZDOM_DEF_DOM_TYPEMAPPERS(Document)
 MOZDOM_DEF_DOM_TYPEMAPPERS(DocumentFragment)
@@ -57,6 +59,11 @@ MOZDOM_DEF_DOM_TYPEMAPPERS(CharacterData)
 MOZDOM_DEF_DOM_TYPEMAPPERS(Text)
 MOZDOM_DEF_DOM_TYPEMAPPERS(DOMImplementation)
 MOZDOM_DEF_DOM_TYPEMAPPERS(Range)
+
+MOZDOM_DEF_DOM_TYPEMAPPERS(History)
+MOZDOM_DEF_DOM_TYPEMAPPERS(Location)
+MOZDOM_DEF_DOM_TYPEMAPPERS(Navigator)
+MOZDOM_DEF_DOM_TYPEMAPPERS(Screen)
 
 MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLAreaElement)
 MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLDirectoryElement)
@@ -2121,7 +2128,6 @@ MozDomEventListener::new(handler)
     PREINIT:
 	MozDomEventListener *listener;
     CODE:
-	warn("new EventListener\n");
 	listener = new MozDomEventListener(handler);
 	RETVAL = listener;
     OUTPUT:
@@ -2583,6 +2589,1333 @@ moz_dom_GetSelection (window)
 =end comment
 
 =cut
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Window2	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMWindow2.h
+
+=for object Mozilla::DOM::Window2
+
+Mozilla::DOM::Window2 is a wrapper around an instance of Mozilla's
+nsIDOMWindow2 interface. This class inherits from
+L<Window|Mozilla::DOM::Window>.
+
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::Window2->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMWINDOW2_IID)
+static nsIID
+nsIDOMWindow2::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMWindow2::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Window2::GetWindowRoot
+
+=for signature $windowroot = $window2->GetWindowRoot()
+
+
+
+=cut
+
+## GetWindowRoot(nsIDOMEventTarget * *aWindowRoot)
+nsIDOMEventTarget *
+moz_dom_GetWindowRoot (window2)
+	nsIDOMWindow2 *window2;
+    PREINIT:
+	nsIDOMEventTarget * aWindowRoot;
+    CODE:
+	window2->GetWindowRoot(&aWindowRoot);
+	RETVAL = aWindowRoot;
+    OUTPUT:
+	RETVAL
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::WindowInternal	PREFIX = moz_dom_
+
+# /usr/include/mozilla/dom/nsIDOMWindowInternal.h
+
+=for object Mozilla::DOM::WindowInternal
+
+Mozilla::DOM::WindowInternal is a wrapper around an instance of Mozilla's
+nsIDOMWindowInternal interface. This class inherits from
+L<Window2|Mozilla::DOM::Window2>.
+
+Note: the following methods are not wrapped (yet?):
+GetCrypto, GetPkcs11, GetControllers, GetPrompter,
+GetMenubar, GetToolbar, GetLocationbar, GetPersonalbar,
+GetStatusbar, GetDirectories.
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::WindowInternal->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMWINDOWINTERNAL_IID)
+static nsIID
+nsIDOMWindowInternal::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMWindowInternal::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::GetWindow
+
+=for signature $window = $windowinternal->GetWindow()
+
+
+
+=cut
+
+## GetWindow(nsIDOMWindowInternal * *aWindow)
+nsIDOMWindowInternal *
+moz_dom_GetWindow (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	nsIDOMWindowInternal * aWindow;
+    CODE:
+	windowinternal->GetWindow(&aWindow);
+	RETVAL = aWindow;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::GetSelf
+
+=for signature $self = $windowinternal->GetSelf()
+
+
+
+=cut
+
+## GetSelf(nsIDOMWindowInternal * *aSelf)
+nsIDOMWindowInternal *
+moz_dom_GetSelf (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	nsIDOMWindowInternal * aSelf;
+    CODE:
+	windowinternal->GetSelf(&aSelf);
+	RETVAL = aSelf;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::GetNavigator
+
+=for signature $navigator = $windowinternal->GetNavigator()
+
+
+
+=cut
+
+## GetNavigator(nsIDOMNavigator * *aNavigator)
+nsIDOMNavigator *
+moz_dom_GetNavigator (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	nsIDOMNavigator * aNavigator;
+    CODE:
+	windowinternal->GetNavigator(&aNavigator);
+	RETVAL = aNavigator;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::GetScreen
+
+=for signature $screen = $windowinternal->GetScreen()
+
+
+
+=cut
+
+## GetScreen(nsIDOMScreen * *aScreen)
+nsIDOMScreen *
+moz_dom_GetScreen (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	nsIDOMScreen * aScreen;
+    CODE:
+	windowinternal->GetScreen(&aScreen);
+	RETVAL = aScreen;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::GetHistory
+
+=for signature $history = $windowinternal->GetHistory()
+
+
+
+=cut
+
+## GetHistory(nsIDOMHistory * *aHistory)
+nsIDOMHistory *
+moz_dom_GetHistory (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	nsIDOMHistory * aHistory;
+    CODE:
+	windowinternal->GetHistory(&aHistory);
+	RETVAL = aHistory;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::GetContent
+
+=for signature $content = $windowinternal->GetContent()
+
+
+
+=cut
+
+## GetContent(nsIDOMWindow * *aContent)
+nsIDOMWindow *
+moz_dom_GetContent (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	nsIDOMWindow * aContent;
+    CODE:
+	windowinternal->GetContent(&aContent);
+	RETVAL = aContent;
+    OUTPUT:
+	RETVAL
+
+#=for apidoc Mozilla::DOM::WindowInternal::GetPrompter
+#
+#=for signature $prompter = $windowinternal->GetPrompter()
+#
+#
+#
+#=cut
+#
+### GetPrompter(nsIPrompt * *aPrompter)
+#nsIPrompt *
+#moz_dom_GetPrompter (windowinternal)
+#	nsIDOMWindowInternal *windowinternal;
+#    PREINIT:
+#	nsIPrompt * aPrompter;
+#    CODE:
+#	windowinternal->GetPrompter(&aPrompter);
+#	RETVAL = aPrompter;
+#    OUTPUT:
+#	RETVAL
+#
+#=for apidoc Mozilla::DOM::WindowInternal::GetMenubar
+#
+#=for signature $menubar = $windowinternal->GetMenubar()
+#
+#
+#
+#=cut
+#
+### GetMenubar(nsIDOMBarProp * *aMenubar)
+#nsIDOMBarProp *
+#moz_dom_GetMenubar (windowinternal)
+#	nsIDOMWindowInternal *windowinternal;
+#    PREINIT:
+#	nsIDOMBarProp * aMenubar;
+#    CODE:
+#	windowinternal->GetMenubar(&aMenubar);
+#	RETVAL = aMenubar;
+#    OUTPUT:
+#	RETVAL
+#
+#=for apidoc Mozilla::DOM::WindowInternal::GetToolbar
+#
+#=for signature $toolbar = $windowinternal->GetToolbar()
+#
+#
+#
+#=cut
+#
+### GetToolbar(nsIDOMBarProp * *aToolbar)
+#nsIDOMBarProp *
+#moz_dom_GetToolbar (windowinternal)
+#	nsIDOMWindowInternal *windowinternal;
+#    PREINIT:
+#	nsIDOMBarProp * aToolbar;
+#    CODE:
+#	windowinternal->GetToolbar(&aToolbar);
+#	RETVAL = aToolbar;
+#    OUTPUT:
+#	RETVAL
+#
+#=for apidoc Mozilla::DOM::WindowInternal::GetLocationbar
+#
+#=for signature $locationbar = $windowinternal->GetLocationbar()
+#
+#
+#
+#=cut
+#
+### GetLocationbar(nsIDOMBarProp * *aLocationbar)
+#nsIDOMBarProp *
+#moz_dom_GetLocationbar (windowinternal)
+#	nsIDOMWindowInternal *windowinternal;
+#    PREINIT:
+#	nsIDOMBarProp * aLocationbar;
+#    CODE:
+#	windowinternal->GetLocationbar(&aLocationbar);
+#	RETVAL = aLocationbar;
+#    OUTPUT:
+#	RETVAL
+#
+#=for apidoc Mozilla::DOM::WindowInternal::GetPersonalbar
+#
+#=for signature $personalbar = $windowinternal->GetPersonalbar()
+#
+#
+#
+#=cut
+#
+### GetPersonalbar(nsIDOMBarProp * *aPersonalbar)
+#nsIDOMBarProp *
+#moz_dom_GetPersonalbar (windowinternal)
+#	nsIDOMWindowInternal *windowinternal;
+#    PREINIT:
+#	nsIDOMBarProp * aPersonalbar;
+#    CODE:
+#	windowinternal->GetPersonalbar(&aPersonalbar);
+#	RETVAL = aPersonalbar;
+#    OUTPUT:
+#	RETVAL
+#
+#=for apidoc Mozilla::DOM::WindowInternal::GetStatusbar
+#
+#=for signature $statusbar = $windowinternal->GetStatusbar()
+#
+#
+#
+#=cut
+#
+### GetStatusbar(nsIDOMBarProp * *aStatusbar)
+#nsIDOMBarProp *
+#moz_dom_GetStatusbar (windowinternal)
+#	nsIDOMWindowInternal *windowinternal;
+#    PREINIT:
+#	nsIDOMBarProp * aStatusbar;
+#    CODE:
+#	windowinternal->GetStatusbar(&aStatusbar);
+#	RETVAL = aStatusbar;
+#    OUTPUT:
+#	RETVAL
+#
+#=for apidoc Mozilla::DOM::WindowInternal::GetDirectories
+#
+#=for signature $directories = $windowinternal->GetDirectories()
+#
+#
+#
+#=cut
+#
+### GetDirectories(nsIDOMBarProp * *aDirectories)
+#nsIDOMBarProp *
+#moz_dom_GetDirectories (windowinternal)
+#	nsIDOMWindowInternal *windowinternal;
+#    PREINIT:
+#	nsIDOMBarProp * aDirectories;
+#    CODE:
+#	windowinternal->GetDirectories(&aDirectories);
+#	RETVAL = aDirectories;
+#    OUTPUT:
+#	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::GetClosed
+
+=for signature $bool = $windowinternal->GetClosed()
+
+
+
+=cut
+
+## GetClosed(PRBool *aClosed)
+PRBool
+moz_dom_GetClosed (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	PRBool aClosed;
+    CODE:
+	windowinternal->GetClosed(&aClosed);
+	RETVAL = aClosed;
+    OUTPUT:
+	RETVAL
+
+#=for apidoc Mozilla::DOM::WindowInternal::GetCrypto
+#
+#=for signature $crypto = $windowinternal->GetCrypto()
+#
+#
+#
+#=cut
+#
+### GetCrypto(nsIDOMCrypto * *aCrypto)
+#nsIDOMCrypto *
+#moz_dom_GetCrypto (windowinternal)
+#	nsIDOMWindowInternal *windowinternal;
+#    PREINIT:
+#	nsIDOMCrypto * aCrypto;
+#    CODE:
+#	windowinternal->GetCrypto(&aCrypto);
+#	RETVAL = aCrypto;
+#    OUTPUT:
+#	RETVAL
+#
+#=for apidoc Mozilla::DOM::WindowInternal::GetPkcs11
+#
+#=for signature $pkcs11 = $windowinternal->GetPkcs11()
+#
+#
+#
+#=cut
+#
+### GetPkcs11(nsIDOMPkcs11 * *aPkcs11)
+#nsIDOMPkcs11 *
+#moz_dom_GetPkcs11 (windowinternal)
+#	nsIDOMWindowInternal *windowinternal;
+#    PREINIT:
+#	nsIDOMPkcs11 * aPkcs11;
+#    CODE:
+#	windowinternal->GetPkcs11(&aPkcs11);
+#	RETVAL = aPkcs11;
+#    OUTPUT:
+#	RETVAL
+#
+#=for apidoc Mozilla::DOM::WindowInternal::GetControllers
+#
+#=for signature $controllers = $windowinternal->GetControllers()
+#
+#
+#
+#=cut
+#
+### GetControllers(nsIControllers * *aControllers)
+#nsIControllers *
+#moz_dom_GetControllers (windowinternal)
+#	nsIDOMWindowInternal *windowinternal;
+#    PREINIT:
+#	nsIControllers * aControllers;
+#    CODE:
+#	windowinternal->GetControllers(&aControllers);
+#	RETVAL = aControllers;
+#    OUTPUT:
+#	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::GetOpener
+
+=for signature $opener = $windowinternal->GetOpener()
+
+
+
+=cut
+
+## GetOpener(nsIDOMWindowInternal * *aOpener)
+nsIDOMWindowInternal *
+moz_dom_GetOpener (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	nsIDOMWindowInternal * aOpener;
+    CODE:
+	windowinternal->GetOpener(&aOpener);
+	RETVAL = aOpener;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::SetOpener
+
+=for signature $windowinternal->SetOpener($opener)
+
+
+
+=cut
+
+## SetOpener(nsIDOMWindowInternal * aOpener)
+void
+moz_dom_SetOpener (windowinternal, aOpener)
+	nsIDOMWindowInternal *windowinternal;
+	nsIDOMWindowInternal *  aOpener;
+    CODE:
+	windowinternal->SetOpener(aOpener);
+
+=for apidoc Mozilla::DOM::WindowInternal::GetStatus
+
+=for signature $status = $windowinternal->GetStatus()
+
+
+
+=cut
+
+## GetStatus(nsAString & aStatus)
+nsEmbedString
+moz_dom_GetStatus (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	nsEmbedString aStatus;
+    CODE:
+	windowinternal->GetStatus(aStatus);
+	RETVAL = aStatus;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::SetStatus
+
+=for signature $windowinternal->SetStatus($status)
+
+
+
+=cut
+
+## SetStatus(const nsAString & aStatus)
+void
+moz_dom_SetStatus (windowinternal, aStatus)
+	nsIDOMWindowInternal *windowinternal;
+	nsEmbedString aStatus;
+    CODE:
+	windowinternal->SetStatus(aStatus);
+
+=for apidoc Mozilla::DOM::WindowInternal::GetDefaultStatus
+
+=for signature $defaultstatus = $windowinternal->GetDefaultStatus()
+
+
+
+=cut
+
+## GetDefaultStatus(nsAString & aDefaultStatus)
+nsEmbedString
+moz_dom_GetDefaultStatus (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	nsEmbedString aDefaultStatus;
+    CODE:
+	windowinternal->GetDefaultStatus(aDefaultStatus);
+	RETVAL = aDefaultStatus;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::SetDefaultStatus
+
+=for signature $windowinternal->SetDefaultStatus($defaultstatus)
+
+
+
+=cut
+
+## SetDefaultStatus(const nsAString & aDefaultStatus)
+void
+moz_dom_SetDefaultStatus (windowinternal, aDefaultStatus)
+	nsIDOMWindowInternal *windowinternal;
+	nsEmbedString aDefaultStatus;
+    CODE:
+	windowinternal->SetDefaultStatus(aDefaultStatus);
+
+=for apidoc Mozilla::DOM::WindowInternal::GetLocation
+
+=for signature $location = $windowinternal->GetLocation()
+
+
+
+=cut
+
+## GetLocation(nsIDOMLocation * *aLocation)
+nsIDOMLocation *
+moz_dom_GetLocation (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	nsIDOMLocation * aLocation;
+    CODE:
+	windowinternal->GetLocation(&aLocation);
+	RETVAL = aLocation;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::GetInnerWidth
+
+=for signature $innerwidth = $windowinternal->GetInnerWidth()
+
+
+
+=cut
+
+## GetInnerWidth(PRInt32 *aInnerWidth)
+PRInt32
+moz_dom_GetInnerWidth (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	PRInt32 aInnerWidth;
+    CODE:
+	windowinternal->GetInnerWidth(&aInnerWidth);
+	RETVAL = aInnerWidth;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::SetInnerWidth
+
+=for signature $windowinternal->SetInnerWidth($innerwidth)
+
+
+
+=cut
+
+## SetInnerWidth(PRInt32 aInnerWidth)
+void
+moz_dom_SetInnerWidth (windowinternal, aInnerWidth)
+	nsIDOMWindowInternal *windowinternal;
+	PRInt32  aInnerWidth;
+    CODE:
+	windowinternal->SetInnerWidth(aInnerWidth);
+
+=for apidoc Mozilla::DOM::WindowInternal::GetInnerHeight
+
+=for signature $innerheight = $windowinternal->GetInnerHeight()
+
+
+
+=cut
+
+## GetInnerHeight(PRInt32 *aInnerHeight)
+PRInt32
+moz_dom_GetInnerHeight (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	PRInt32 aInnerHeight;
+    CODE:
+	windowinternal->GetInnerHeight(&aInnerHeight);
+	RETVAL = aInnerHeight;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::SetInnerHeight
+
+=for signature $windowinternal->SetInnerHeight($innerheight)
+
+
+
+=cut
+
+## SetInnerHeight(PRInt32 aInnerHeight)
+void
+moz_dom_SetInnerHeight (windowinternal, aInnerHeight)
+	nsIDOMWindowInternal *windowinternal;
+	PRInt32  aInnerHeight;
+    CODE:
+	windowinternal->SetInnerHeight(aInnerHeight);
+
+=for apidoc Mozilla::DOM::WindowInternal::GetOuterWidth
+
+=for signature $outerwidth = $windowinternal->GetOuterWidth()
+
+
+
+=cut
+
+## GetOuterWidth(PRInt32 *aOuterWidth)
+PRInt32
+moz_dom_GetOuterWidth (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	PRInt32 aOuterWidth;
+    CODE:
+	windowinternal->GetOuterWidth(&aOuterWidth);
+	RETVAL = aOuterWidth;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::SetOuterWidth
+
+=for signature $windowinternal->SetOuterWidth($outerwidth)
+
+
+
+=cut
+
+## SetOuterWidth(PRInt32 aOuterWidth)
+void
+moz_dom_SetOuterWidth (windowinternal, aOuterWidth)
+	nsIDOMWindowInternal *windowinternal;
+	PRInt32  aOuterWidth;
+    CODE:
+	windowinternal->SetOuterWidth(aOuterWidth);
+
+=for apidoc Mozilla::DOM::WindowInternal::GetOuterHeight
+
+=for signature $outerheight = $windowinternal->GetOuterHeight()
+
+
+
+=cut
+
+## GetOuterHeight(PRInt32 *aOuterHeight)
+PRInt32
+moz_dom_GetOuterHeight (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	PRInt32 aOuterHeight;
+    CODE:
+	windowinternal->GetOuterHeight(&aOuterHeight);
+	RETVAL = aOuterHeight;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::SetOuterHeight
+
+=for signature $windowinternal->SetOuterHeight($outerheight)
+
+
+
+=cut
+
+## SetOuterHeight(PRInt32 aOuterHeight)
+void
+moz_dom_SetOuterHeight (windowinternal, aOuterHeight)
+	nsIDOMWindowInternal *windowinternal;
+	PRInt32  aOuterHeight;
+    CODE:
+	windowinternal->SetOuterHeight(aOuterHeight);
+
+=for apidoc Mozilla::DOM::WindowInternal::GetScreenX
+
+=for signature $screenx = $windowinternal->GetScreenX()
+
+
+
+=cut
+
+## GetScreenX(PRInt32 *aScreenX)
+PRInt32
+moz_dom_GetScreenX (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	PRInt32 aScreenX;
+    CODE:
+	windowinternal->GetScreenX(&aScreenX);
+	RETVAL = aScreenX;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::SetScreenX
+
+=for signature $windowinternal->SetScreenX($screenx)
+
+
+
+=cut
+
+## SetScreenX(PRInt32 aScreenX)
+void
+moz_dom_SetScreenX (windowinternal, aScreenX)
+	nsIDOMWindowInternal *windowinternal;
+	PRInt32  aScreenX;
+    CODE:
+	windowinternal->SetScreenX(aScreenX);
+
+=for apidoc Mozilla::DOM::WindowInternal::GetScreenY
+
+=for signature $screeny = $windowinternal->GetScreenY()
+
+
+
+=cut
+
+## GetScreenY(PRInt32 *aScreenY)
+PRInt32
+moz_dom_GetScreenY (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	PRInt32 aScreenY;
+    CODE:
+	windowinternal->GetScreenY(&aScreenY);
+	RETVAL = aScreenY;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::SetScreenY
+
+=for signature $windowinternal->SetScreenY($screeny)
+
+
+
+=cut
+
+## SetScreenY(PRInt32 aScreenY)
+void
+moz_dom_SetScreenY (windowinternal, aScreenY)
+	nsIDOMWindowInternal *windowinternal;
+	PRInt32  aScreenY;
+    CODE:
+	windowinternal->SetScreenY(aScreenY);
+
+=for apidoc Mozilla::DOM::WindowInternal::GetPageXOffset
+
+=for signature $pagexoffset = $windowinternal->GetPageXOffset()
+
+
+
+=cut
+
+## GetPageXOffset(PRInt32 *aPageXOffset)
+PRInt32
+moz_dom_GetPageXOffset (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	PRInt32 aPageXOffset;
+    CODE:
+	windowinternal->GetPageXOffset(&aPageXOffset);
+	RETVAL = aPageXOffset;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::GetPageYOffset
+
+=for signature $pageyoffset = $windowinternal->GetPageYOffset()
+
+
+
+=cut
+
+## GetPageYOffset(PRInt32 *aPageYOffset)
+PRInt32
+moz_dom_GetPageYOffset (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	PRInt32 aPageYOffset;
+    CODE:
+	windowinternal->GetPageYOffset(&aPageYOffset);
+	RETVAL = aPageYOffset;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::GetScrollMaxX
+
+=for signature $scrollmaxx = $windowinternal->GetScrollMaxX()
+
+
+
+=cut
+
+## GetScrollMaxX(PRInt32 *aScrollMaxX)
+PRInt32
+moz_dom_GetScrollMaxX (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	PRInt32 aScrollMaxX;
+    CODE:
+	windowinternal->GetScrollMaxX(&aScrollMaxX);
+	RETVAL = aScrollMaxX;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::GetScrollMaxY
+
+=for signature $scrollmaxy = $windowinternal->GetScrollMaxY()
+
+
+
+=cut
+
+## GetScrollMaxY(PRInt32 *aScrollMaxY)
+PRInt32
+moz_dom_GetScrollMaxY (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	PRInt32 aScrollMaxY;
+    CODE:
+	windowinternal->GetScrollMaxY(&aScrollMaxY);
+	RETVAL = aScrollMaxY;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::GetLength
+
+=for signature $length = $windowinternal->GetLength()
+
+
+
+=cut
+
+## GetLength(PRUint32 *aLength)
+PRUint32
+moz_dom_GetLength (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	PRUint32 aLength;
+    CODE:
+	windowinternal->GetLength(&aLength);
+	RETVAL = aLength;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::GetFullScreen
+
+=for signature $bool = $windowinternal->GetFullScreen()
+
+
+
+=cut
+
+## GetFullScreen(PRBool *aFullScreen)
+PRBool
+moz_dom_GetFullScreen (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	PRBool aFullScreen;
+    CODE:
+	windowinternal->GetFullScreen(&aFullScreen);
+	RETVAL = aFullScreen;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::SetFullScreen
+
+=for signature $windowinternal->SetFullScreen($fullscreen)
+
+
+
+=cut
+
+## SetFullScreen(PRBool aFullScreen)
+void
+moz_dom_SetFullScreen (windowinternal, aFullScreen)
+	nsIDOMWindowInternal *windowinternal;
+	PRBool  aFullScreen;
+    CODE:
+	windowinternal->SetFullScreen(aFullScreen);
+
+=for apidoc Mozilla::DOM::WindowInternal::Alert
+
+=for signature $windowinternal->Alert($text)
+
+
+
+=cut
+
+## Alert(const nsAString & text)
+void
+moz_dom_Alert (windowinternal, text)
+	nsIDOMWindowInternal *windowinternal;
+	nsEmbedString text;
+    CODE:
+	windowinternal->Alert(text);
+
+=for apidoc Mozilla::DOM::WindowInternal::Confirm
+
+=for signature $bool = $windowinternal->Confirm($text)
+
+
+
+=cut
+
+## Confirm(const nsAString & text, PRBool *_retval)
+PRBool
+moz_dom_Confirm (windowinternal, text)
+	nsIDOMWindowInternal *windowinternal;
+	nsEmbedString text;
+    PREINIT:
+	PRBool _retval;
+    CODE:
+	windowinternal->Confirm(text, &_retval);
+	RETVAL = _retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::Prompt
+
+=for signature $retval = $windowinternal->Prompt($message, $initial, $title, $savepassword)
+
+
+
+=cut
+
+## Prompt(const nsAString & aMessage, const nsAString & aInitial, const nsAString & aTitle, PRUint32 aSavePassword, nsAString & _retval)
+nsEmbedString
+moz_dom_Prompt (windowinternal, aMessage, aInitial, aTitle, aSavePassword)
+	nsIDOMWindowInternal *windowinternal;
+	nsEmbedString aMessage;
+	nsEmbedString aInitial;
+	nsEmbedString aTitle;
+	PRUint32  aSavePassword;
+    PREINIT:
+	nsEmbedString _retval;
+    CODE:
+	windowinternal->Prompt(aMessage, aInitial, aTitle, aSavePassword, _retval);
+	RETVAL = _retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::Focus
+
+=for signature $windowinternal->Focus()
+
+
+
+=cut
+
+## Focus(void)
+void
+moz_dom_Focus (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    CODE:
+	windowinternal->Focus();
+
+=for apidoc Mozilla::DOM::WindowInternal::Blur
+
+=for signature $windowinternal->Blur()
+
+
+
+=cut
+
+## Blur(void)
+void
+moz_dom_Blur (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    CODE:
+	windowinternal->Blur();
+
+=for apidoc Mozilla::DOM::WindowInternal::Back
+
+=for signature $windowinternal->Back()
+
+
+
+=cut
+
+## Back(void)
+void
+moz_dom_Back (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    CODE:
+	windowinternal->Back();
+
+=for apidoc Mozilla::DOM::WindowInternal::Forward
+
+=for signature $windowinternal->Forward()
+
+
+
+=cut
+
+## Forward(void)
+void
+moz_dom_Forward (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    CODE:
+	windowinternal->Forward();
+
+=for apidoc Mozilla::DOM::WindowInternal::Home
+
+=for signature $windowinternal->Home()
+
+
+
+=cut
+
+## Home(void)
+void
+moz_dom_Home (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    CODE:
+	windowinternal->Home();
+
+=for apidoc Mozilla::DOM::WindowInternal::Stop
+
+=for signature $windowinternal->Stop()
+
+
+
+=cut
+
+## Stop(void)
+void
+moz_dom_Stop (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    CODE:
+	windowinternal->Stop();
+
+=for apidoc Mozilla::DOM::WindowInternal::Print
+
+=for signature $windowinternal->Print()
+
+
+
+=cut
+
+## Print(void)
+void
+moz_dom_Print (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    CODE:
+	windowinternal->Print();
+
+=for apidoc Mozilla::DOM::WindowInternal::MoveTo
+
+=for signature $windowinternal->MoveTo($pos, $pos)
+
+
+
+=cut
+
+## MoveTo(PRInt32 xPos, PRInt32 yPos)
+void
+moz_dom_MoveTo (windowinternal, xPos, yPos)
+	nsIDOMWindowInternal *windowinternal;
+	PRInt32  xPos;
+	PRInt32  yPos;
+    CODE:
+	windowinternal->MoveTo(xPos, yPos);
+
+=for apidoc Mozilla::DOM::WindowInternal::MoveBy
+
+=for signature $windowinternal->MoveBy($dif, $dif)
+
+
+
+=cut
+
+## MoveBy(PRInt32 xDif, PRInt32 yDif)
+void
+moz_dom_MoveBy (windowinternal, xDif, yDif)
+	nsIDOMWindowInternal *windowinternal;
+	PRInt32  xDif;
+	PRInt32  yDif;
+    CODE:
+	windowinternal->MoveBy(xDif, yDif);
+
+=for apidoc Mozilla::DOM::WindowInternal::ResizeTo
+
+=for signature $windowinternal->ResizeTo($width, $height)
+
+
+
+=cut
+
+## ResizeTo(PRInt32 width, PRInt32 height)
+void
+moz_dom_ResizeTo (windowinternal, width, height)
+	nsIDOMWindowInternal *windowinternal;
+	PRInt32  width;
+	PRInt32  height;
+    CODE:
+	windowinternal->ResizeTo(width, height);
+
+=for apidoc Mozilla::DOM::WindowInternal::ResizeBy
+
+=for signature $windowinternal->ResizeBy($widthdif, $heightdif)
+
+
+
+=cut
+
+## ResizeBy(PRInt32 widthDif, PRInt32 heightDif)
+void
+moz_dom_ResizeBy (windowinternal, widthDif, heightDif)
+	nsIDOMWindowInternal *windowinternal;
+	PRInt32  widthDif;
+	PRInt32  heightDif;
+    CODE:
+	windowinternal->ResizeBy(widthDif, heightDif);
+
+=for apidoc Mozilla::DOM::WindowInternal::Scroll
+
+=for signature $windowinternal->Scroll($scroll, $scroll)
+
+
+
+=cut
+
+## Scroll(PRInt32 xScroll, PRInt32 yScroll)
+void
+moz_dom_Scroll (windowinternal, xScroll, yScroll)
+	nsIDOMWindowInternal *windowinternal;
+	PRInt32  xScroll;
+	PRInt32  yScroll;
+    CODE:
+	windowinternal->Scroll(xScroll, yScroll);
+
+=for apidoc Mozilla::DOM::WindowInternal::Open
+
+=for signature $retval = $windowinternal->Open($url, $name, $options)
+
+
+
+=cut
+
+## Open(const nsAString & url, const nsAString & name, const nsAString & options, nsIDOMWindow **_retval)
+nsIDOMWindow *
+moz_dom_Open (windowinternal, url, name, options)
+	nsIDOMWindowInternal *windowinternal;
+	nsEmbedString url;
+	nsEmbedString name;
+	nsEmbedString options;
+    PREINIT:
+	nsIDOMWindow * _retval;
+    CODE:
+	windowinternal->Open(url, name, options, &_retval);
+	RETVAL = _retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::OpenDialog
+
+=for signature $retval = $windowinternal->OpenDialog($url, $name, $options, $extraargument)
+
+
+
+=cut
+
+## OpenDialog(const nsAString & url, const nsAString & name, const nsAString & options, nsISupports *aExtraArgument, nsIDOMWindow **_retval)
+nsIDOMWindow *
+moz_dom_OpenDialog (windowinternal, url, name, options, aExtraArgument)
+	nsIDOMWindowInternal *windowinternal;
+	nsEmbedString url;
+	nsEmbedString name;
+	nsEmbedString options;
+	nsISupports * aExtraArgument;
+    PREINIT:
+	nsIDOMWindow * _retval;
+    CODE:
+	windowinternal->OpenDialog(url, name, options, aExtraArgument, &_retval);
+	RETVAL = _retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::Close
+
+=for signature $windowinternal->Close()
+
+
+
+=cut
+
+## Close(void)
+void
+moz_dom_Close (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    CODE:
+	windowinternal->Close();
+
+=for apidoc Mozilla::DOM::WindowInternal::UpdateCommands
+
+=for signature $windowinternal->UpdateCommands($action)
+
+
+
+=cut
+
+## UpdateCommands(const nsAString & action)
+void
+moz_dom_UpdateCommands (windowinternal, action)
+	nsIDOMWindowInternal *windowinternal;
+	nsEmbedString action;
+    CODE:
+	windowinternal->UpdateCommands(action);
+
+=for apidoc Mozilla::DOM::WindowInternal::Find
+
+=for signature $bool = $windowinternal->Find($str, $casesensitive, $backwards, $wraparound, $wholeword, $searchinframes, $showdialog)
+
+
+
+=cut
+
+## Find(const nsAString & str, PRBool caseSensitive, PRBool backwards, PRBool wrapAround, PRBool wholeWord, PRBool searchInFrames, PRBool showDialog, PRBool *_retval)
+PRBool
+moz_dom_Find (windowinternal, str, caseSensitive, backwards, wrapAround, wholeWord, searchInFrames, showDialog)
+	nsIDOMWindowInternal *windowinternal;
+	nsEmbedString str;
+	PRBool  caseSensitive;
+	PRBool  backwards;
+	PRBool  wrapAround;
+	PRBool  wholeWord;
+	PRBool  searchInFrames;
+	PRBool  showDialog;
+    PREINIT:
+	PRBool _retval;
+    CODE:
+	windowinternal->Find(str, caseSensitive, backwards, wrapAround, wholeWord, searchInFrames, showDialog, &_retval);
+	RETVAL = _retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::Atob
+
+=for signature $retval = $windowinternal->Atob($asciistring)
+
+
+
+=cut
+
+## Atob(const nsAString & aAsciiString, nsAString & _retval)
+nsEmbedString
+moz_dom_Atob (windowinternal, aAsciiString)
+	nsIDOMWindowInternal *windowinternal;
+	nsEmbedString aAsciiString;
+    PREINIT:
+	nsEmbedString _retval;
+    CODE:
+	windowinternal->Atob(aAsciiString, _retval);
+	RETVAL = _retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::Btoa
+
+=for signature $retval = $windowinternal->Btoa($base64data)
+
+
+
+=cut
+
+## Btoa(const nsAString & aBase64Data, nsAString & _retval)
+nsEmbedString
+moz_dom_Btoa (windowinternal, aBase64Data)
+	nsIDOMWindowInternal *windowinternal;
+	nsEmbedString aBase64Data;
+    PREINIT:
+	nsEmbedString _retval;
+    CODE:
+	windowinternal->Btoa(aBase64Data, _retval);
+	RETVAL = _retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WindowInternal::GetFrameElement
+
+=for signature $frameelement = $windowinternal->GetFrameElement()
+
+
+
+=cut
+
+## GetFrameElement(nsIDOMElement * *aFrameElement)
+nsIDOMElement *
+moz_dom_GetFrameElement (windowinternal)
+	nsIDOMWindowInternal *windowinternal;
+    PREINIT:
+	nsIDOMElement * aFrameElement;
+    CODE:
+	windowinternal->GetFrameElement(&aFrameElement);
+	RETVAL = aFrameElement;
+    OUTPUT:
+	RETVAL
 
 # -----------------------------------------------------------------------------
 
@@ -6332,8 +7665,20 @@ moz_dom_QueryInterface (supports, uuid)
 		RETVAL = newSVnsIWebBrowser((nsIWebBrowser *)res);
 	} else if (uuid.Equals(nsIDOMWindow::GetIID())) {
 		RETVAL = newSVnsIDOMWindow((nsIDOMWindow *)res);
+	} else if (uuid.Equals(nsIDOMWindow2::GetIID())) {
+		RETVAL = newSVnsIDOMWindow2((nsIDOMWindow2 *)res);
+	} else if (uuid.Equals(nsIDOMWindowInternal::GetIID())) {
+		RETVAL = newSVnsIDOMWindowInternal((nsIDOMWindowInternal *)res);
 	} else if (uuid.Equals(nsIDOMWindowCollection::GetIID())) {
 		RETVAL = newSVnsIDOMWindowCollection((nsIDOMWindowCollection *)res);
+	} else if (uuid.Equals(nsIDOMHistory::GetIID())) {
+		RETVAL = newSVnsIDOMHistory((nsIDOMHistory *)res);
+	} else if (uuid.Equals(nsIDOMLocation::GetIID())) {
+		RETVAL = newSVnsIDOMLocation((nsIDOMLocation *)res);
+	} else if (uuid.Equals(nsIDOMNavigator::GetIID())) {
+		RETVAL = newSVnsIDOMNavigator((nsIDOMNavigator *)res);
+	} else if (uuid.Equals(nsIDOMScreen::GetIID())) {
+		RETVAL = newSVnsIDOMScreen((nsIDOMScreen *)res);
 
 	/* nsIDOMHTML* */
 	} else if (uuid.Equals(nsIDOMHTMLAnchorElement::GetIID())) {
@@ -19178,4 +20523,1181 @@ moz_dom_SetType (htmlulistelement, type)
     CODE:
 	htmlulistelement->SetType(type);
 
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Navigator	PREFIX = moz_dom_
+
+# /usr/include/mozilla/dom/nsIDOMNavigator.h
+
+=for object Mozilla::DOM::Navigator
+
+Mozilla::DOM::Navigator is a wrapper around an instance of Mozilla's
+nsIDOMNavigator interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
+
+Note: the GetMimeTypes and GetPlugins methods are not wrapped
+(otherwise, have to wrap Plugin, PluginArray, MimeType, MimeTypeArray).
+Let me know if you think those would actually be useful.
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::Navigator->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMNAVIGATOR_IID)
+static nsIID
+nsIDOMNavigator::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMNavigator::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Navigator::GetAppCodeName
+
+=for signature $appcodename = $navigator->GetAppCodeName()
+
+
+
+=cut
+
+## GetAppCodeName(nsAString & aAppCodeName)
+nsEmbedString
+moz_dom_GetAppCodeName (navigator)
+	nsIDOMNavigator *navigator;
+    PREINIT:
+	nsEmbedString aAppCodeName;
+    CODE:
+	navigator->GetAppCodeName(aAppCodeName);
+	RETVAL = aAppCodeName;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Navigator::GetAppName
+
+=for signature $appname = $navigator->GetAppName()
+
+
+
+=cut
+
+## GetAppName(nsAString & aAppName)
+nsEmbedString
+moz_dom_GetAppName (navigator)
+	nsIDOMNavigator *navigator;
+    PREINIT:
+	nsEmbedString aAppName;
+    CODE:
+	navigator->GetAppName(aAppName);
+	RETVAL = aAppName;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Navigator::GetAppVersion
+
+=for signature $appversion = $navigator->GetAppVersion()
+
+
+
+=cut
+
+## GetAppVersion(nsAString & aAppVersion)
+nsEmbedString
+moz_dom_GetAppVersion (navigator)
+	nsIDOMNavigator *navigator;
+    PREINIT:
+	nsEmbedString aAppVersion;
+    CODE:
+	navigator->GetAppVersion(aAppVersion);
+	RETVAL = aAppVersion;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Navigator::GetLanguage
+
+=for signature $language = $navigator->GetLanguage()
+
+
+
+=cut
+
+## GetLanguage(nsAString & aLanguage)
+nsEmbedString
+moz_dom_GetLanguage (navigator)
+	nsIDOMNavigator *navigator;
+    PREINIT:
+	nsEmbedString aLanguage;
+    CODE:
+	navigator->GetLanguage(aLanguage);
+	RETVAL = aLanguage;
+    OUTPUT:
+	RETVAL
+
+#=for apidoc Mozilla::DOM::Navigator::GetMimeTypes
+#
+#=for signature $mimetypes = $navigator->GetMimeTypes()
+#
+#
+#
+#=cut
+#
+### GetMimeTypes(nsIDOMMimeTypeArray * *aMimeTypes)
+#nsIDOMMimeTypeArray *
+#moz_dom_GetMimeTypes (navigator)
+#	nsIDOMNavigator *navigator;
+#    PREINIT:
+#	nsIDOMMimeTypeArray * aMimeTypes;
+#    CODE:
+#	navigator->GetMimeTypes(&aMimeTypes);
+#	RETVAL = aMimeTypes;
+#    OUTPUT:
+#	RETVAL
+
+=for apidoc Mozilla::DOM::Navigator::GetPlatform
+
+=for signature $platform = $navigator->GetPlatform()
+
+
+
+=cut
+
+## GetPlatform(nsAString & aPlatform)
+nsEmbedString
+moz_dom_GetPlatform (navigator)
+	nsIDOMNavigator *navigator;
+    PREINIT:
+	nsEmbedString aPlatform;
+    CODE:
+	navigator->GetPlatform(aPlatform);
+	RETVAL = aPlatform;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Navigator::GetOscpu
+
+=for signature $oscpu = $navigator->GetOscpu()
+
+
+
+=cut
+
+## GetOscpu(nsAString & aOscpu)
+nsEmbedString
+moz_dom_GetOscpu (navigator)
+	nsIDOMNavigator *navigator;
+    PREINIT:
+	nsEmbedString aOscpu;
+    CODE:
+	navigator->GetOscpu(aOscpu);
+	RETVAL = aOscpu;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Navigator::GetVendor
+
+=for signature $vendor = $navigator->GetVendor()
+
+
+
+=cut
+
+## GetVendor(nsAString & aVendor)
+nsEmbedString
+moz_dom_GetVendor (navigator)
+	nsIDOMNavigator *navigator;
+    PREINIT:
+	nsEmbedString aVendor;
+    CODE:
+	navigator->GetVendor(aVendor);
+	RETVAL = aVendor;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Navigator::GetVendorSub
+
+=for signature $vendorsub = $navigator->GetVendorSub()
+
+
+
+=cut
+
+## GetVendorSub(nsAString & aVendorSub)
+nsEmbedString
+moz_dom_GetVendorSub (navigator)
+	nsIDOMNavigator *navigator;
+    PREINIT:
+	nsEmbedString aVendorSub;
+    CODE:
+	navigator->GetVendorSub(aVendorSub);
+	RETVAL = aVendorSub;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Navigator::GetProduct
+
+=for signature $product = $navigator->GetProduct()
+
+
+
+=cut
+
+## GetProduct(nsAString & aProduct)
+nsEmbedString
+moz_dom_GetProduct (navigator)
+	nsIDOMNavigator *navigator;
+    PREINIT:
+	nsEmbedString aProduct;
+    CODE:
+	navigator->GetProduct(aProduct);
+	RETVAL = aProduct;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Navigator::GetProductSub
+
+=for signature $productsub = $navigator->GetProductSub()
+
+
+
+=cut
+
+## GetProductSub(nsAString & aProductSub)
+nsEmbedString
+moz_dom_GetProductSub (navigator)
+	nsIDOMNavigator *navigator;
+    PREINIT:
+	nsEmbedString aProductSub;
+    CODE:
+	navigator->GetProductSub(aProductSub);
+	RETVAL = aProductSub;
+    OUTPUT:
+	RETVAL
+
+#=for apidoc Mozilla::DOM::Navigator::GetPlugins
+#
+#=for signature $plugins = $navigator->GetPlugins()
+#
+#
+#
+#=cut
+#
+### GetPlugins(nsIDOMPluginArray * *aPlugins)
+#nsIDOMPluginArray *
+#moz_dom_GetPlugins (navigator)
+#	nsIDOMNavigator *navigator;
+#    PREINIT:
+#	nsIDOMPluginArray * aPlugins;
+#    CODE:
+#	navigator->GetPlugins(&aPlugins);
+#	RETVAL = aPlugins;
+#    OUTPUT:
+#	RETVAL
+
+=for apidoc Mozilla::DOM::Navigator::GetSecurityPolicy
+
+=for signature $securitypolicy = $navigator->GetSecurityPolicy()
+
+
+
+=cut
+
+## GetSecurityPolicy(nsAString & aSecurityPolicy)
+nsEmbedString
+moz_dom_GetSecurityPolicy (navigator)
+	nsIDOMNavigator *navigator;
+    PREINIT:
+	nsEmbedString aSecurityPolicy;
+    CODE:
+	navigator->GetSecurityPolicy(aSecurityPolicy);
+	RETVAL = aSecurityPolicy;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Navigator::GetUserAgent
+
+=for signature $useragent = $navigator->GetUserAgent()
+
+
+
+=cut
+
+## GetUserAgent(nsAString & aUserAgent)
+nsEmbedString
+moz_dom_GetUserAgent (navigator)
+	nsIDOMNavigator *navigator;
+    PREINIT:
+	nsEmbedString aUserAgent;
+    CODE:
+	navigator->GetUserAgent(aUserAgent);
+	RETVAL = aUserAgent;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Navigator::GetCookieEnabled
+
+=for signature $bool = $navigator->GetCookieEnabled()
+
+
+
+=cut
+
+## GetCookieEnabled(PRBool *aCookieEnabled)
+PRBool
+moz_dom_GetCookieEnabled (navigator)
+	nsIDOMNavigator *navigator;
+    PREINIT:
+	PRBool aCookieEnabled;
+    CODE:
+	navigator->GetCookieEnabled(&aCookieEnabled);
+	RETVAL = aCookieEnabled;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Navigator::JavaEnabled
+
+=for signature $bool = $navigator->JavaEnabled()
+
+
+
+=cut
+
+## JavaEnabled(PRBool *_retval)
+PRBool
+moz_dom_JavaEnabled (navigator)
+	nsIDOMNavigator *navigator;
+    PREINIT:
+	PRBool _retval;
+    CODE:
+	navigator->JavaEnabled(&_retval);
+	RETVAL = _retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Navigator::TaintEnabled
+
+=for signature $bool = $navigator->TaintEnabled()
+
+
+
+=cut
+
+## TaintEnabled(PRBool *_retval)
+PRBool
+moz_dom_TaintEnabled (navigator)
+	nsIDOMNavigator *navigator;
+    PREINIT:
+	PRBool _retval;
+    CODE:
+	navigator->TaintEnabled(&_retval);
+	RETVAL = _retval;
+    OUTPUT:
+	RETVAL
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::History	PREFIX = moz_dom_
+
+# /usr/include/mozilla/dom/nsIDOMHistory.h
+
+=for object Mozilla::DOM::History
+
+Mozilla::DOM::History is a wrapper around an instance of Mozilla's
+nsIDOMHistory interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
+
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::History->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMHISTORY_IID)
+static nsIID
+nsIDOMHistory::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMHistory::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::History::GetLength
+
+=for signature $length = $history->GetLength()
+
+
+
+=cut
+
+## GetLength(PRInt32 *aLength)
+PRInt32
+moz_dom_GetLength (history)
+	nsIDOMHistory *history;
+    PREINIT:
+	PRInt32 aLength;
+    CODE:
+	history->GetLength(&aLength);
+	RETVAL = aLength;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::History::GetCurrent
+
+=for signature $current = $history->GetCurrent()
+
+
+
+=cut
+
+## GetCurrent(nsAString & aCurrent)
+nsEmbedString
+moz_dom_GetCurrent (history)
+	nsIDOMHistory *history;
+    PREINIT:
+	nsEmbedString aCurrent;
+    CODE:
+	history->GetCurrent(aCurrent);
+	RETVAL = aCurrent;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::History::GetPrevious
+
+=for signature $previous = $history->GetPrevious()
+
+
+
+=cut
+
+## GetPrevious(nsAString & aPrevious)
+nsEmbedString
+moz_dom_GetPrevious (history)
+	nsIDOMHistory *history;
+    PREINIT:
+	nsEmbedString aPrevious;
+    CODE:
+	history->GetPrevious(aPrevious);
+	RETVAL = aPrevious;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::History::GetNext
+
+=for signature $next = $history->GetNext()
+
+
+
+=cut
+
+## GetNext(nsAString & aNext)
+nsEmbedString
+moz_dom_GetNext (history)
+	nsIDOMHistory *history;
+    PREINIT:
+	nsEmbedString aNext;
+    CODE:
+	history->GetNext(aNext);
+	RETVAL = aNext;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::History::Back
+
+=for signature $history->Back()
+
+
+
+=cut
+
+## Back(void)
+void
+moz_dom_Back (history)
+	nsIDOMHistory *history;
+    CODE:
+	history->Back();
+
+=for apidoc Mozilla::DOM::History::Forward
+
+=for signature $history->Forward()
+
+
+
+=cut
+
+## Forward(void)
+void
+moz_dom_Forward (history)
+	nsIDOMHistory *history;
+    CODE:
+	history->Forward();
+
+=for apidoc Mozilla::DOM::History::Go
+
+=for signature $history->Go($delta)
+
+
+
+=cut
+
+## Go(PRInt32 aDelta)
+void
+moz_dom_Go (history, aDelta)
+	nsIDOMHistory *history;
+	PRInt32  aDelta;
+    CODE:
+	history->Go(aDelta);
+
+=for apidoc Mozilla::DOM::History::Item
+
+=for signature $retval = $history->Item($index)
+
+
+
+=cut
+
+## Item(PRUint32 index, nsAString & _retval)
+nsEmbedString
+moz_dom_Item (history, index)
+	nsIDOMHistory *history;
+	PRUint32  index;
+    PREINIT:
+	nsEmbedString _retval;
+    CODE:
+	history->Item(index, _retval);
+	RETVAL = _retval;
+    OUTPUT:
+	RETVAL
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Location	PREFIX = moz_dom_
+
+# /usr/include/mozilla/dom/nsIDOMLocation.h
+
+=for object Mozilla::DOM::Location
+
+Mozilla::DOM::Location is a wrapper around an instance of Mozilla's
+nsIDOMLocation interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
+
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::Location->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMLOCATION_IID)
+static nsIID
+nsIDOMLocation::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMLocation::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Location::GetHash
+
+=for signature $hash = $location->GetHash()
+
+
+
+=cut
+
+## GetHash(nsAString & aHash)
+nsEmbedString
+moz_dom_GetHash (location)
+	nsIDOMLocation *location;
+    PREINIT:
+	nsEmbedString aHash;
+    CODE:
+	location->GetHash(aHash);
+	RETVAL = aHash;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Location::SetHash
+
+=for signature $location->SetHash($hash)
+
+
+
+=cut
+
+## SetHash(const nsAString & aHash)
+void
+moz_dom_SetHash (location, aHash)
+	nsIDOMLocation *location;
+	nsEmbedString aHash;
+    CODE:
+	location->SetHash(aHash);
+
+=for apidoc Mozilla::DOM::Location::GetHost
+
+=for signature $host = $location->GetHost()
+
+
+
+=cut
+
+## GetHost(nsAString & aHost)
+nsEmbedString
+moz_dom_GetHost (location)
+	nsIDOMLocation *location;
+    PREINIT:
+	nsEmbedString aHost;
+    CODE:
+	location->GetHost(aHost);
+	RETVAL = aHost;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Location::SetHost
+
+=for signature $location->SetHost($host)
+
+
+
+=cut
+
+## SetHost(const nsAString & aHost)
+void
+moz_dom_SetHost (location, aHost)
+	nsIDOMLocation *location;
+	nsEmbedString aHost;
+    CODE:
+	location->SetHost(aHost);
+
+=for apidoc Mozilla::DOM::Location::GetHostname
+
+=for signature $hostname = $location->GetHostname()
+
+
+
+=cut
+
+## GetHostname(nsAString & aHostname)
+nsEmbedString
+moz_dom_GetHostname (location)
+	nsIDOMLocation *location;
+    PREINIT:
+	nsEmbedString aHostname;
+    CODE:
+	location->GetHostname(aHostname);
+	RETVAL = aHostname;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Location::SetHostname
+
+=for signature $location->SetHostname($hostname)
+
+
+
+=cut
+
+## SetHostname(const nsAString & aHostname)
+void
+moz_dom_SetHostname (location, aHostname)
+	nsIDOMLocation *location;
+	nsEmbedString aHostname;
+    CODE:
+	location->SetHostname(aHostname);
+
+=for apidoc Mozilla::DOM::Location::GetHref
+
+=for signature $href = $location->GetHref()
+
+
+
+=cut
+
+## GetHref(nsAString & aHref)
+nsEmbedString
+moz_dom_GetHref (location)
+	nsIDOMLocation *location;
+    PREINIT:
+	nsEmbedString aHref;
+    CODE:
+	location->GetHref(aHref);
+	RETVAL = aHref;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Location::SetHref
+
+=for signature $location->SetHref($href)
+
+
+
+=cut
+
+## SetHref(const nsAString & aHref)
+void
+moz_dom_SetHref (location, aHref)
+	nsIDOMLocation *location;
+	nsEmbedString aHref;
+    CODE:
+	location->SetHref(aHref);
+
+=for apidoc Mozilla::DOM::Location::GetPathname
+
+=for signature $pathname = $location->GetPathname()
+
+
+
+=cut
+
+## GetPathname(nsAString & aPathname)
+nsEmbedString
+moz_dom_GetPathname (location)
+	nsIDOMLocation *location;
+    PREINIT:
+	nsEmbedString aPathname;
+    CODE:
+	location->GetPathname(aPathname);
+	RETVAL = aPathname;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Location::SetPathname
+
+=for signature $location->SetPathname($pathname)
+
+
+
+=cut
+
+## SetPathname(const nsAString & aPathname)
+void
+moz_dom_SetPathname (location, aPathname)
+	nsIDOMLocation *location;
+	nsEmbedString aPathname;
+    CODE:
+	location->SetPathname(aPathname);
+
+=for apidoc Mozilla::DOM::Location::GetPort
+
+=for signature $port = $location->GetPort()
+
+
+
+=cut
+
+## GetPort(nsAString & aPort)
+nsEmbedString
+moz_dom_GetPort (location)
+	nsIDOMLocation *location;
+    PREINIT:
+	nsEmbedString aPort;
+    CODE:
+	location->GetPort(aPort);
+	RETVAL = aPort;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Location::SetPort
+
+=for signature $location->SetPort($port)
+
+
+
+=cut
+
+## SetPort(const nsAString & aPort)
+void
+moz_dom_SetPort (location, aPort)
+	nsIDOMLocation *location;
+	nsEmbedString aPort;
+    CODE:
+	location->SetPort(aPort);
+
+=for apidoc Mozilla::DOM::Location::GetProtocol
+
+=for signature $protocol = $location->GetProtocol()
+
+
+
+=cut
+
+## GetProtocol(nsAString & aProtocol)
+nsEmbedString
+moz_dom_GetProtocol (location)
+	nsIDOMLocation *location;
+    PREINIT:
+	nsEmbedString aProtocol;
+    CODE:
+	location->GetProtocol(aProtocol);
+	RETVAL = aProtocol;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Location::SetProtocol
+
+=for signature $location->SetProtocol($protocol)
+
+
+
+=cut
+
+## SetProtocol(const nsAString & aProtocol)
+void
+moz_dom_SetProtocol (location, aProtocol)
+	nsIDOMLocation *location;
+	nsEmbedString aProtocol;
+    CODE:
+	location->SetProtocol(aProtocol);
+
+=for apidoc Mozilla::DOM::Location::GetSearch
+
+=for signature $search = $location->GetSearch()
+
+
+
+=cut
+
+## GetSearch(nsAString & aSearch)
+nsEmbedString
+moz_dom_GetSearch (location)
+	nsIDOMLocation *location;
+    PREINIT:
+	nsEmbedString aSearch;
+    CODE:
+	location->GetSearch(aSearch);
+	RETVAL = aSearch;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Location::SetSearch
+
+=for signature $location->SetSearch($search)
+
+
+
+=cut
+
+## SetSearch(const nsAString & aSearch)
+void
+moz_dom_SetSearch (location, aSearch)
+	nsIDOMLocation *location;
+	nsEmbedString aSearch;
+    CODE:
+	location->SetSearch(aSearch);
+
+=for apidoc Mozilla::DOM::Location::Reload
+
+=for signature $location->Reload($forceget)
+
+
+
+=cut
+
+## Reload(PRBool forceget)
+void
+moz_dom_Reload (location, forceget)
+	nsIDOMLocation *location;
+	PRBool  forceget;
+    CODE:
+	location->Reload(forceget);
+
+=for apidoc Mozilla::DOM::Location::Replace
+
+=for signature $location->Replace($url)
+
+
+
+=cut
+
+## Replace(const nsAString & url)
+void
+moz_dom_Replace (location, url)
+	nsIDOMLocation *location;
+	nsEmbedString url;
+    CODE:
+	location->Replace(url);
+
+=for apidoc Mozilla::DOM::Location::Assign
+
+=for signature $location->Assign($url)
+
+
+
+=cut
+
+## Assign(const nsAString & url)
+void
+moz_dom_Assign (location, url)
+	nsIDOMLocation *location;
+	nsEmbedString url;
+    CODE:
+	location->Assign(url);
+
+=for apidoc Mozilla::DOM::Location::ToString
+
+=for signature $retval = $location->ToString()
+
+
+
+=cut
+
+## ToString(nsAString & _retval)
+nsEmbedString
+moz_dom_ToString (location)
+	nsIDOMLocation *location;
+    PREINIT:
+	nsEmbedString _retval;
+    CODE:
+	location->ToString(_retval);
+	RETVAL = _retval;
+    OUTPUT:
+	RETVAL
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Screen	PREFIX = moz_dom_
+
+# /usr/include/mozilla/dom/nsIDOMScreen.h
+
+=for object Mozilla::DOM::Screen
+
+Mozilla::DOM::Screen is a wrapper around an instance of Mozilla's
+nsIDOMScreen interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
+
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::Screen->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMSCREEN_IID)
+static nsIID
+nsIDOMScreen::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMScreen::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Screen::GetTop
+
+=for signature $top = $screen->GetTop()
+
+
+
+=cut
+
+## GetTop(PRInt32 *aTop)
+PRInt32
+moz_dom_GetTop (screen)
+	nsIDOMScreen *screen;
+    PREINIT:
+	PRInt32 aTop;
+    CODE:
+	screen->GetTop(&aTop);
+	RETVAL = aTop;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Screen::GetLeft
+
+=for signature $left = $screen->GetLeft()
+
+
+
+=cut
+
+## GetLeft(PRInt32 *aLeft)
+PRInt32
+moz_dom_GetLeft (screen)
+	nsIDOMScreen *screen;
+    PREINIT:
+	PRInt32 aLeft;
+    CODE:
+	screen->GetLeft(&aLeft);
+	RETVAL = aLeft;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Screen::GetWidth
+
+=for signature $width = $screen->GetWidth()
+
+
+
+=cut
+
+## GetWidth(PRInt32 *aWidth)
+PRInt32
+moz_dom_GetWidth (screen)
+	nsIDOMScreen *screen;
+    PREINIT:
+	PRInt32 aWidth;
+    CODE:
+	screen->GetWidth(&aWidth);
+	RETVAL = aWidth;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Screen::GetHeight
+
+=for signature $height = $screen->GetHeight()
+
+
+
+=cut
+
+## GetHeight(PRInt32 *aHeight)
+PRInt32
+moz_dom_GetHeight (screen)
+	nsIDOMScreen *screen;
+    PREINIT:
+	PRInt32 aHeight;
+    CODE:
+	screen->GetHeight(&aHeight);
+	RETVAL = aHeight;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Screen::GetPixelDepth
+
+=for signature $pixeldepth = $screen->GetPixelDepth()
+
+
+
+=cut
+
+## GetPixelDepth(PRInt32 *aPixelDepth)
+PRInt32
+moz_dom_GetPixelDepth (screen)
+	nsIDOMScreen *screen;
+    PREINIT:
+	PRInt32 aPixelDepth;
+    CODE:
+	screen->GetPixelDepth(&aPixelDepth);
+	RETVAL = aPixelDepth;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Screen::GetColorDepth
+
+=for signature $colordepth = $screen->GetColorDepth()
+
+
+
+=cut
+
+## GetColorDepth(PRInt32 *aColorDepth)
+PRInt32
+moz_dom_GetColorDepth (screen)
+	nsIDOMScreen *screen;
+    PREINIT:
+	PRInt32 aColorDepth;
+    CODE:
+	screen->GetColorDepth(&aColorDepth);
+	RETVAL = aColorDepth;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Screen::GetAvailWidth
+
+=for signature $availwidth = $screen->GetAvailWidth()
+
+
+
+=cut
+
+## GetAvailWidth(PRInt32 *aAvailWidth)
+PRInt32
+moz_dom_GetAvailWidth (screen)
+	nsIDOMScreen *screen;
+    PREINIT:
+	PRInt32 aAvailWidth;
+    CODE:
+	screen->GetAvailWidth(&aAvailWidth);
+	RETVAL = aAvailWidth;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Screen::GetAvailHeight
+
+=for signature $availheight = $screen->GetAvailHeight()
+
+
+
+=cut
+
+## GetAvailHeight(PRInt32 *aAvailHeight)
+PRInt32
+moz_dom_GetAvailHeight (screen)
+	nsIDOMScreen *screen;
+    PREINIT:
+	PRInt32 aAvailHeight;
+    CODE:
+	screen->GetAvailHeight(&aAvailHeight);
+	RETVAL = aAvailHeight;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Screen::GetAvailLeft
+
+=for signature $availleft = $screen->GetAvailLeft()
+
+
+
+=cut
+
+## GetAvailLeft(PRInt32 *aAvailLeft)
+PRInt32
+moz_dom_GetAvailLeft (screen)
+	nsIDOMScreen *screen;
+    PREINIT:
+	PRInt32 aAvailLeft;
+    CODE:
+	screen->GetAvailLeft(&aAvailLeft);
+	RETVAL = aAvailLeft;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::Screen::GetAvailTop
+
+=for signature $availtop = $screen->GetAvailTop()
+
+
+
+=cut
+
+## GetAvailTop(PRInt32 *aAvailTop)
+PRInt32
+moz_dom_GetAvailTop (screen)
+	nsIDOMScreen *screen;
+    PREINIT:
+	PRInt32 aAvailTop;
+    CODE:
+	screen->GetAvailTop(&aAvailTop);
+	RETVAL = aAvailTop;
+    OUTPUT:
+	RETVAL
 

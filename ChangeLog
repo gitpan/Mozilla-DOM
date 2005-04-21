@@ -1,3 +1,10 @@
+0.13  2005-04-21
+  - added browser object interfaces
+    o  Navigator, History, Location, and Screen
+    o  Window2 and WindowInternal, to get the browser objects
+  - added the example BrowserObjects.pm
+  - fixed the EventListener example
+
 0.12  2005-04-20
   - keep in mind that Mozilla::DOM is alpha software, subject to change:
     o  added experimental EventListener support, with an example

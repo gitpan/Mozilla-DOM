@@ -143,7 +143,7 @@ while (<>) {
                     my $name = $2;
 
                     die "unknown type '$type' in method signature\n"
-                      unless $type =~ /(nsAString|nsIDOM|PR[BIU].*|DOMTimeStamp)/;
+                      unless $type =~ /(nsAString|nsI|PR[BIU].*|DOMTimeStamp)/;
 
 #                    $name =~ s/_//g;
 #                    $name =~ s/^[a-z]([A-Z])/$1/;

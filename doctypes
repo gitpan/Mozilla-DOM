@@ -16,6 +16,8 @@ nsIDOMMouseEvent		Mozilla::DOM::MouseEvent
 nsIDOMEventTarget		Mozilla::DOM::EventTarget
 nsIDOMEventListener		Mozilla::DOM::EventListener
 nsIDOMWindow			Mozilla::DOM::Window
+nsIDOMWindow2			Mozilla::DOM::Window2
+nsIDOMWindowInternal		Mozilla::DOM::WindowInternal
 nsIDOMWindowCollection		Mozilla::DOM::WindowCollection
 nsIDOMDocument			Mozilla::DOM::Document
 nsIDOMDocumentFragment		Mozilla::DOM::DocumentFragment
@@ -34,6 +36,10 @@ nsIDOMCharacterData		Mozilla::DOM::CharacterData
 nsIDOMText			Mozilla::DOM::Text
 nsIDOMDOMImplementation		Mozilla::DOM::DOMImplementation
 nsIDOMRange			Mozilla::DOM::Range
+nsIDOMHistory			Mozilla::DOM::History
+nsIDOMLocation			Mozilla::DOM::Location
+nsIDOMNavigator			Mozilla::DOM::Navigator
+nsIDOMScreen			Mozilla::DOM::Screen
 
 nsIDOMHTMLAreaElement		Mozilla::DOM::HTMLAreaElement
 nsIDOMHTMLDirectoryElement	Mozilla::DOM::HTMLDirectoryElement

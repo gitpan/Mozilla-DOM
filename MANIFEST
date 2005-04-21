@@ -18,9 +18,11 @@ META.yml                                 Module meta-data (added by MakeMaker)
 examples/README
 examples/startapp.pl
 examples/index.html
+examples/index2.html
 examples/Elements.pm
 examples/Events.pm
 examples/Minilla.pm
 examples/Signals.pm
 examples/HTMLElements.pm
 examples/EventListeners.pm
+examples/BrowserObjects.pm

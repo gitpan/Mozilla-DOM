@@ -2,7 +2,7 @@
 # (Click on the button.)
 # Refer also to the Minilla, Signals, Elements, and Events examples.
 #
-# $CVSHeader$
+# $CVSHeader: Mozilla-DOM/examples/EventListeners.pm,v 1.1 2005/04/20 15:50:37 slanning Exp $
 
 
 package EventListeners;
@@ -15,7 +15,6 @@ use Glib qw(TRUE FALSE);
 use Gtk2;
 use Gtk2::MozEmbed '0.04';
 use Mozilla::DOM '0.12';   # for EventListener
-use Mozilla::DOM::Event;
 
 use Glib::Object::Subclass Gtk2::Window::;
 

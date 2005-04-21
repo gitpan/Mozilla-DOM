@@ -1,6 +1,6 @@
 package Mozilla::DOM;
 
-# $Id: DOM.pm,v 1.12 2005/04/18 05:30:24 slanning Exp $
+# $Id: DOM.pm,v 1.13 2005/04/20 15:50:34 slanning Exp $
 
 use 5.008;
 use strict;
@@ -10,11 +10,17 @@ require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 
 sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 
 __PACKAGE__->bootstrap($VERSION);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::Supports;
+
+# every interface inherits from this eventually
 
 # -----------------------------------------------------------------------------
 
@@ -256,6 +262,18 @@ our @ISA = qw(Mozilla::DOM::Supports);
 
 # -----------------------------------------------------------------------------
 
+package Mozilla::DOM::Window2;
+
+our @ISA = qw(Mozilla::DOM::Window);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::WindowInternal;
+
+our @ISA = qw(Mozilla::DOM::Window2);
+
+# -----------------------------------------------------------------------------
+
 package Mozilla::DOM::WindowCollection;
 
 our @ISA = qw(Mozilla::DOM::Supports);
@@ -407,17 +425,35 @@ use constant END_TO_START            => 3;
 
 # -----------------------------------------------------------------------------
 
+package Mozilla::DOM::History;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::Location;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::Navigator;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::Screen;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
 package Mozilla::DOM::WebBrowser;
 
 our @ISA = qw(Mozilla::DOM::Supports);
 
 *get_content_domwindow = \&GetContentDOMWindow;
-
-# -----------------------------------------------------------------------------
-
-package Mozilla::DOM::Supports;
-
-# every interface inherits from this eventually
 
 # -----------------------------------------------------------------------------
 

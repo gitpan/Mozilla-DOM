@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $CVSHeader: Mozilla-DOM/mozilladom2perl.h,v 1.12 2005/04/18 05:30:24 slanning Exp $
+ * $CVSHeader: Mozilla-DOM/mozilladom2perl.h,v 1.13 2005/04/20 15:50:34 slanning Exp $
  */
 
 #ifndef _MOZILLADOM2PERL_H_
@@ -41,9 +41,11 @@ extern "C" {
    2. definition macro to the top of xs/DOM.xs
    3. MODULE section to xs/DOM.xs
       (e.g. Mozilla::DOM::Event for nsIDOMEvent)
-   4. T_MOZDOM_GENERIC_WRAPPER line to the TYPEMAP section
+   4. add item to Supports::QueryInterface in xs/DOM.xs
+   5. T_MOZDOM_GENERIC_WRAPPER line to the TYPEMAP section
       in mozilladom.typemap
-   5. entry to doctypes
+   6. entry to doctypes
+   7. add package to DOM.pm
  */
 
 
@@ -86,7 +88,13 @@ extern "C" {
 #include "nsIDOMText.h"
 #include "nsIDOMUIEvent.h"
 #include "nsIDOMWindow.h"
+#include "nsIDOMWindow2.h"
+#include "nsIDOMWindowInternal.h"
 #include "nsIDOMWindowCollection.h"
+#include "nsIDOMHistory.h"
+#include "nsIDOMLocation.h"
+#include "nsIDOMNavigator.h"
+#include "nsIDOMScreen.h"
 
 #include "nsIDOMHTMLAreaElement.h"
 #include "nsIDOMHTMLDirectoryElement.h"
@@ -188,6 +196,8 @@ MOZDOM_DECL_DOM_TYPEMAPPERS(MouseEvent)
 MOZDOM_DECL_DOM_TYPEMAPPERS(EventTarget)
 MOZDOM_DECL_DOM_TYPEMAPPERS(EventListener)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Window)
+MOZDOM_DECL_DOM_TYPEMAPPERS(Window2)
+MOZDOM_DECL_DOM_TYPEMAPPERS(WindowInternal)
 MOZDOM_DECL_DOM_TYPEMAPPERS(WindowCollection)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Document)
 MOZDOM_DECL_DOM_TYPEMAPPERS(DOMException)
@@ -206,6 +216,10 @@ MOZDOM_DECL_DOM_TYPEMAPPERS(CharacterData)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Text)
 MOZDOM_DECL_DOM_TYPEMAPPERS(DOMImplementation)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Range)
+MOZDOM_DECL_DOM_TYPEMAPPERS(History)
+MOZDOM_DECL_DOM_TYPEMAPPERS(Location)
+MOZDOM_DECL_DOM_TYPEMAPPERS(Navigator)
+MOZDOM_DECL_DOM_TYPEMAPPERS(Screen)
 
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLAreaElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLDirectoryElement)
