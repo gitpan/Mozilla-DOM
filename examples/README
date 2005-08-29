@@ -29,3 +29,5 @@ EventListeners: add DOM event handlers, but in Perl instead of JavaScript
 
 BrowserObjects: shows Navigator, History, Location (and Screen)
 
+WebNav: shows WebNavigator, which is similar to the browser objects
+

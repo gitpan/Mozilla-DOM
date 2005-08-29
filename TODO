@@ -34,9 +34,14 @@ There isn't any error checking at the moment..
 Wrap interfaces like a maniac.
 nsIDOMSVG*, CSS*, XPath*, and XUL* anyone? Heh,
 maybe those should wait till after I split DOM.xs apart.
-Add JSWindow, with things like SetTimeout, SetInterval, window.open.
 Check out content/base/src/ns*.cpp and dom/src/base/ns*.cpp.
-What is EventReceiver?
+What is EventReceiver? WebProgressListener?
+
+Can IInputStream be gotten from IDocShellTreeItem ?
+# XXX: embedding/6496.txt how to create StringInputStream,
+# though I think it's changed to ByteArrayInputStream now;
+# see embedding/6662.txt.
+
 
 Find a reference for different interfaces of each class
 (DocumentEvent for Document, etc.), what interfaces are
@@ -44,6 +49,7 @@ valid to switch to with QueryInterface. It looks like I have
 to scour Mozilla's .cpp files. I did
 find . -name '*.cpp' -exec fgrep -H _MAP_ {} \;
 which seems to kind of list QI-able interfaces.
+See dom/src/base/nsDOMClassInfo.cpp.
 
 Mozilla::Automate - I was going to call it Mozilla::Mechanize
 and have an identical interface to WWW::Mechanize, but recently

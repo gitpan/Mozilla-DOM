@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $CVSHeader: Mozilla-DOM/mozilladom2perl.h,v 1.13 2005/04/20 15:50:34 slanning Exp $
+ * $CVSHeader: Mozilla-DOM/mozilladom2perl.h,v 1.15 2005/08/28 19:29:55 slanning Exp $
  */
 
 #ifndef _MOZILLADOM2PERL_H_
@@ -58,6 +58,8 @@ extern "C" {
 #include "nsIID.h"
 
 #include "nsIWebBrowser.h"
+#include "nsIWebNavigation.h"
+#include "nsIURI.h"
 #include "nsISelection.h"
 #include "nsISupports.h"
 
@@ -182,6 +184,8 @@ nsIDOM##name * SvnsIDOM##name (SV * name) {                         \
 
 
 MOZDOM_DECL_I_TYPEMAPPERS(WebBrowser)
+MOZDOM_DECL_I_TYPEMAPPERS(WebNavigation)
+MOZDOM_DECL_I_TYPEMAPPERS(URI)
 MOZDOM_DECL_I_TYPEMAPPERS(Selection)
 MOZDOM_DECL_I_TYPEMAPPERS(Supports)
 
@@ -279,6 +283,8 @@ MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLTitleElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLUListElement)
 
 
+#ifdef MDEXP_EVENT_LISTENER
+
 class MozDomEventListener : public nsIDOMEventListener
 {
 public:
@@ -292,6 +298,8 @@ public:
 private:
 	SV *mHandler;
 };
+
+#endif
 
 
 #include "mozilladom2perl-version.h"

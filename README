@@ -88,6 +88,22 @@ Try adding that directory to the set_inc method in Makefile.PL,
 and please report it to me.
 
 
+Expermental features
+--------------------
+
+Some features are added "experimentally". These are generally ones
+that are either known not to be completely working, or I'm not sure
+if they're really done right. I'll try to mark these clearly in the
+documentation as experimental. To enable an experimental feature,
+you pass an argument on the command line, for example
+
+  perl Makefile.PL DEFINE="-DMDEXP_EVENT_LISTENER"
+
+where "MDEXP" is just a (presumably) unique prefix and the rest
+of the name identifies which feature is being enabled. Currently
+only the following features are experimental: EVENT_LISTENER.
+
+
 Bugs
 ----
 

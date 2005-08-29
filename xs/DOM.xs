@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $CVSHeader: Mozilla-DOM/xs/DOM.xs,v 1.16 2005/04/20 15:50:39 slanning Exp $
+ * $CVSHeader: Mozilla-DOM/xs/DOM.xs,v 1.18 2005/08/28 19:30:22 slanning Exp $
  */
 
 #include "mozilladom2perl.h"
@@ -25,6 +25,8 @@
 /* conversion functions between Perl and C */
 
 MOZDOM_DEF_I_TYPEMAPPERS(WebBrowser)
+MOZDOM_DEF_I_TYPEMAPPERS(WebNavigation)
+MOZDOM_DEF_I_TYPEMAPPERS(URI)
 MOZDOM_DEF_I_TYPEMAPPERS(Selection)
 MOZDOM_DEF_I_TYPEMAPPERS(Supports)
 
@@ -59,7 +61,6 @@ MOZDOM_DEF_DOM_TYPEMAPPERS(CharacterData)
 MOZDOM_DEF_DOM_TYPEMAPPERS(Text)
 MOZDOM_DEF_DOM_TYPEMAPPERS(DOMImplementation)
 MOZDOM_DEF_DOM_TYPEMAPPERS(Range)
-
 MOZDOM_DEF_DOM_TYPEMAPPERS(History)
 MOZDOM_DEF_DOM_TYPEMAPPERS(Location)
 MOZDOM_DEF_DOM_TYPEMAPPERS(Navigator)
@@ -125,7 +126,11 @@ MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLUListElement)
 
 /* ------------------------------------------------------------------------- */
 
-/* I'm not a C++ or XS whiz, so let me know if I'm doing something stupid. */
+/* I'm not a C++ or XS whiz, so let me know if I'm doing something stupid.
+   Support for this is "experimental". It will only be enabled if you
+   do `perl Makefile.PL DEFINE=MDEXP_EVENT_LISTENER`. */
+
+#ifdef MDEXP_EVENT_LISTENER
 
 NS_IMPL_ISUPPORTS1(MozDomEventListener, nsIDOMEventListener)
 
@@ -162,6 +167,8 @@ NS_IMETHODIMP MozDomEventListener::HandleEvent(nsIDOMEvent *event) {
 	FREETMPS;
 	LEAVE;
 }
+
+#endif /* MDEXP_EVENT_LISTENER */
 
 /* ------------------------------------------------------------------------- */
 
@@ -1860,6 +1867,10 @@ What this means is you use QueryInterface to transform
 a Node into an EventTarget. See the documentation below
 for GetIID.
 
+The AddEventListener and RemoveEventListener methods are only
+implemented EXPERIMENTALLY. See README for how to enable
+experimental features.
+
 =cut
 
 =head1 CLASS METHODS
@@ -1890,11 +1901,13 @@ nsIDOMEventTarget::GetIID()
 
 # INCLUDE: perl -pe 's/XXXXX/DOMEventTarget/g' GetIID.xsh |
 
+#ifdef MDEXP_EVENT_LISTENER
+
 =for apidoc Mozilla::DOM::EventTarget::AddEventListener
 
 =for signature $target->AddEventListener($type, $listener, $useCapture)
 
-THIS METHOD IS EXPERIMENTAL.
+THIS METHOD IS EXPERIMENTAL. SEE README FOR HOW TO ENABLE EXPERIMENTAL FEATURES.
 
 This method allows the registration of EventListeners on the event target.
 If an L<EventListener|Mozilla::DOM::EventListener> is added to an EventTarget
@@ -1938,7 +1951,7 @@ an EventListener designated to use capture.
 
 =for signature $target->RemoveEventListener($type, $listener, $useCapture)
 
-THIS METHOD IS EXPERIMENTAL.
+THIS METHOD IS EXPERIMENTAL. SEE README FOR HOW TO ENABLE EXPERIMENTAL FEATURES.
 
 This method allows the removal of event listeners from the event 
 target. If an L<EventListener|Mozilla::DOM::EventListener> is removed
@@ -1997,6 +2010,8 @@ moz_dom_AddEventListener (target, type, listener, usecapture)
 		default: break;
 	}
 
+#endif /* MDEXP_EVENT_LISTENER */
+
 =for apidoc Mozilla::DOM::EventTarget::DispatchEvent
 
 =for signature $bool = $target->DispatchEvent($event)
@@ -2046,9 +2061,11 @@ MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::EventListener	PREFIX = moz_dom_
 
 # /usr/include/mozilla/nsIDOMEventListener.h
 
+#ifdef MDEXP_EVENT_LISTENER
+
 =for object Mozilla::DOM::EventListener
 
-THIS CLASS IS EXPERIMENTAL.
+THIS CLASS IS EXPERIMENTAL. SEE README FOR HOW TO ENABLE EXPERIMENTAL FEATURES.
 
 Mozilla::DOM::EventListener is a wrapper around an instance of Mozilla's
 nsIDOMEventListener interface. This class inherits from
@@ -2155,6 +2172,8 @@ which are used in determining the event's flow and default action.
 
 ## HandleEvent(nsIDOMEvent *event)
 ## See the C++ class at the top of this file
+
+#endif /* MDEXP_EVENT_LISTENER */
 
 # -----------------------------------------------------------------------------
 
@@ -7663,6 +7682,10 @@ moz_dom_QueryInterface (supports, uuid)
 		RETVAL = newSVnsIDOMUIEvent((nsIDOMUIEvent *)res);
 	} else if (uuid.Equals(nsIWebBrowser::GetIID())) {
 		RETVAL = newSVnsIWebBrowser((nsIWebBrowser *)res);
+	} else if (uuid.Equals(nsIWebNavigation::GetIID())) {
+		RETVAL = newSVnsIWebNavigation((nsIWebNavigation *)res);
+	} else if (uuid.Equals(nsIURI::GetIID())) {
+		RETVAL = newSVnsIURI((nsIURI *)res);
 	} else if (uuid.Equals(nsIDOMWindow::GetIID())) {
 		RETVAL = newSVnsIDOMWindow((nsIDOMWindow *)res);
 	} else if (uuid.Equals(nsIDOMWindow2::GetIID())) {
@@ -7800,7 +7823,6 @@ moz_dom_QueryInterface (supports, uuid)
 
 # -----------------------------------------------------------------------------
 
-
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::WebBrowser	PREFIX = moz_dom_
 
 # /usr/include/mozilla/nsIWebBrowser.h
@@ -7859,6 +7881,1026 @@ moz_dom_GetContentDOMWindow (browser)
 		XSRETURN_UNDEF;
 	else
 		RETVAL = window;
+    OUTPUT:
+	RETVAL
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::WebNavigation	PREFIX = moz_dom_
+
+# /usr/include/mozilla/docshell/nsIWebNavigation.h
+
+=for object Mozilla::DOM::WebNavigation
+
+Mozilla::DOM::WebNavigation is a wrapper around an instance of Mozilla's
+nsIWebNavigation interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
+
+Note: the nsIWebNavigation interface isn't marked FROZEN in Gecko,
+so it can change.
+
+You can get this object by QueryInterfacing WebBrowser:
+
+  $iid = Mozilla::DOM::WebNavigation->GetIID;
+  $navigation = $browser->QueryInterface($iid);
+
+XXX: The following methods are unfortunately not wrapped yet:
+LoadURI, GetSessionHistory, SetSessionHistory. I'd especially
+like to have LoadURI, but I don't know how to do nsIInputStream
+for its last two arguments.
+
+=cut
+
+=begin enums
+
+The following constants are available.
+XXX: This is currently buggy, because you have to call them
+as instance methods. This will change soon.
+
+=over 4
+
+=item LOAD_FLAGS_MASK => 65535
+
+=item LOAD_FLAGS_NONE => 0
+
+  * Normal load flag.
+
+=item LOAD_FLAGS_IS_REFRESH => 16
+
+  * Meta-refresh flag.  The cache is bypassed.  This type of load is
+  *                     usually the result of a meta-refresh tag, or a HTTP
+  *                     'refresh' header.
+
+=item LOAD_FLAGS_IS_LINK => 32
+
+  * Link-click flag. 
+
+=item LOAD_FLAGS_BYPASS_HISTORY => 64
+
+  * Bypass history flag.
+
+=item LOAD_FLAGS_REPLACE_HISTORY => 128
+
+  * Replace history entry flag.
+
+=item LOAD_FLAGS_BYPASS_CACHE => 256
+
+=item LOAD_FLAGS_BYPASS_PROXY => 512
+
+=item LOAD_FLAGS_CHARSET_CHANGE => 1024
+
+=item STOP_NETWORK => 1
+
+  * Stop all network activity.  This includes both active network loads and
+  * pending meta-refreshes.
+
+=item STOP_CONTENT => 2
+
+  * Stop all content activity.  This includes animated images, plugins and
+  * pending Javascript timeouts.
+
+=item STOP_ALL => 3
+
+  * Stop all activity.
+
+=back
+
+=end enums
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::WebNavigation->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IWEBNAVIGATION_IID)
+static nsIID
+nsIWebNavigation::GetIID()
+    CODE:
+	const nsIID &id = nsIWebNavigation::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WebNavigation::GetCanGoBack
+
+=for signature $bool = $webnavigation->GetCanGoBack()
+
+  * Indicates if the object can go back.  If true this indicates that
+  * there is back session history available for navigation.
+
+Note: this method is available in Gtk2::MozEmbed:
+
+  $embed->can_go_back
+
+=cut
+
+## GetCanGoBack(PRBool *aCanGoBack)
+PRBool
+moz_dom_GetCanGoBack (webnavigation)
+	nsIWebNavigation *webnavigation;
+    PREINIT:
+	PRBool aCanGoBack;
+    CODE:
+	webnavigation->GetCanGoBack(&aCanGoBack);
+	RETVAL = aCanGoBack;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WebNavigation::GetCanGoForward
+
+=for signature $bool = $webnavigation->GetCanGoForward()
+
+  * Indicates if the object can go forward.  If true this indicates that
+  * there is forward session history available for navigation
+
+Note: this method is available in Gtk2::MozEmbed:
+
+  $embed->can_go_forward
+
+=cut
+
+## GetCanGoForward(PRBool *aCanGoForward)
+PRBool
+moz_dom_GetCanGoForward (webnavigation)
+	nsIWebNavigation *webnavigation;
+    PREINIT:
+	PRBool aCanGoForward;
+    CODE:
+	webnavigation->GetCanGoForward(&aCanGoForward);
+	RETVAL = aCanGoForward;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WebNavigation::GoBack
+
+=for signature $webnavigation->GoBack()
+
+  * Tells the object to navigate to the previous session history item.  When
+  * a page is loaded from session history, all content is loaded from the
+  * cache (if available) and page state (such as form values, scroll position)
+  * is restored.
+  *
+  * @return NS_OK               - Backward navigation was successful.
+  *         NS_ERROR_UNEXPECTED - This call was unexpected at this time.  Most
+  *                               likely you can't go back right now.
+
+Note: this method is available in Gtk2::MozEmbed:
+
+  $embed->go_back()
+
+=cut
+
+## GoBack(void)
+void
+moz_dom_GoBack (webnavigation)
+	nsIWebNavigation *webnavigation;
+    CODE:
+	webnavigation->GoBack();
+
+=for apidoc Mozilla::DOM::WebNavigation::GoForward
+
+=for signature $webnavigation->GoForward()
+
+  * Tells the object to navigate to the next Forward session history item.
+  * When a page is loaded from session history, all content is loaded from
+  * the cache (if available) and page state (such as form values, scroll
+  * position) is restored.
+  *
+  * @return NS_OK               - Forward was successful.
+  *         NS_ERROR_UNEXPECTED - This call was unexpected at this time.  Most
+  *                               likely you can't go forward right now.
+
+Note: this method is available in Gtk2::MozEmbed:
+
+  $embed->go_forward()
+
+=cut
+
+## GoForward(void)
+void
+moz_dom_GoForward (webnavigation)
+	nsIWebNavigation *webnavigation;
+    CODE:
+	webnavigation->GoForward();
+
+=for apidoc Mozilla::DOM::WebNavigation::GotoIndex
+
+=for signature $webnavigation->GotoIndex($index)
+
+  * Tells the object to navigate to the session history item at index.
+  *
+  * @return NS_OK -               GotoIndex was successful.
+  *         NS_ERROR_UNEXPECTED - This call was unexpected at this time.  Most
+  *                               likely you can't goto that index
+
+=cut
+
+## GotoIndex(PRInt32 index)
+void
+moz_dom_GotoIndex (webnavigation, index)
+	nsIWebNavigation *webnavigation;
+	PRInt32  index;
+    CODE:
+	webnavigation->GotoIndex(index);
+
+#=for apidoc Mozilla::DOM::WebNavigation::LoadURI
+#
+#=for signature $webnavigation->LoadURI($uri, $loadflags, $referrer, $postdata, $headers)
+#
+#  * Loads a given URI.  This will give priority to loading the requested URI
+#  * in the object implementing	this interface.  If it can't be loaded here
+#  * however, the URL dispatcher will go through its normal process of content
+#  * loading.
+#  *
+#  * @param uri       - The URI string to load.
+#  * @param loadFlags - Flags modifying load behaviour. Generally you will pass
+#  *                    LOAD_FLAGS_NONE for this parameter.
+#  * @param referrer  - The referring URI.  If this argument is NULL, the
+#  *                    referring URI will be inferred internally.
+#  * @param postData  - nsIInputStream containing POST data for the request.
+#
+#Note: there is a similar method in Gtk2::MozEmbed:
+#
+#  $embed->load_url($url)
+#
+#=cut
+#
+### LoadURI(const PRUnichar *uri, PRUint32 loadFlags, nsIURI *referrer, nsIInputStream *postData, nsIInputStream *headers)
+#void
+#moz_dom_LoadURI (webnavigation, uri, loadFlags, referrer, postData, headers)
+#	nsIWebNavigation *webnavigation;
+#	const PRUnichar * uri;
+#	PRUint32  loadFlags;
+#	nsIURI * referrer;
+#	nsIInputStream * postData;
+#	nsIInputStream * headers;
+#    CODE:
+#	webnavigation->LoadURI(uri, loadFlags, referrer, postData, headers);
+
+=for apidoc Mozilla::DOM::WebNavigation::Reload
+
+=for signature $webnavigation->Reload($reloadflags)
+
+  * Tells the Object to reload the current page.
+  *
+  * @param reloadFlags - Flags modifying reload behaviour. Generally you will
+  *                      pass LOAD_FLAGS_NONE for this parameter.
+
+Note: this method is available in Gtk2::MozEmbed:
+
+  $embed->reload($flags)
+
+(See also the section "flags Gtk2::MozEmbed::Reload"
+in `perldoc Gtk2::MozEmbed::main`.)
+
+=cut
+
+## Reload(PRUint32 reloadFlags)
+void
+moz_dom_Reload (webnavigation, reloadFlags)
+	nsIWebNavigation *webnavigation;
+	PRUint32  reloadFlags;
+    CODE:
+	webnavigation->Reload(reloadFlags);
+
+=for apidoc Mozilla::DOM::WebNavigation::Stop
+
+=for signature $webnavigation->Stop($stopflags)
+
+  * Stops a load of a URI.
+  *
+  * @param stopFlags - Flags indicating the stop behavior.
+
+Note: this method is available in Gtk2::MozEmbed:
+
+  $embed->stop_load();
+
+=cut
+
+## Stop(PRUint32 stopFlags)
+void
+moz_dom_Stop (webnavigation, stopFlags)
+	nsIWebNavigation *webnavigation;
+	PRUint32  stopFlags;
+    CODE:
+	webnavigation->Stop(stopFlags);
+
+=for apidoc Mozilla::DOM::WebNavigation::GetDocument
+
+=for signature $document = $webnavigation->GetDocument()
+
+  * Retrieves the current DOM document for the frame, or lazily creates a
+  * blank document if there is none. This attribute never returns null except
+  * for unexpected error situations.
+
+Note: this document is also available by doing
+
+    my $browser = $embed->get_nsIWebBrowser;
+    my $window = $browser->GetContentDOMWindow;
+    my $doc = $window->GetDocument;
+
+=cut
+
+## GetDocument(nsIDOMDocument * *aDocument)
+nsIDOMDocument *
+moz_dom_GetDocument (webnavigation)
+	nsIWebNavigation *webnavigation;
+    PREINIT:
+	nsIDOMDocument * aDocument;
+    CODE:
+	webnavigation->GetDocument(&aDocument);
+	RETVAL = aDocument;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WebNavigation::GetCurrentURI
+
+=for signature $currenturi = $webnavigation->GetCurrentURI()
+
+  * The currently loaded URI or null.
+
+Note: I think this is the same as
+
+  $embed->get_location
+
+in Gtk2::MozEmbed.
+
+=cut
+
+## GetCurrentURI(nsIURI * *aCurrentURI)
+nsIURI *
+moz_dom_GetCurrentURI (webnavigation)
+	nsIWebNavigation *webnavigation;
+    PREINIT:
+	nsIURI * aCurrentURI;
+    CODE:
+	webnavigation->GetCurrentURI(&aCurrentURI);
+	RETVAL = aCurrentURI;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::WebNavigation::GetReferringURI
+
+=for signature $referringuri = $webnavigation->GetReferringURI()
+
+  * The referring URI.
+
+=cut
+
+## GetReferringURI(nsIURI * *aReferringURI)
+nsIURI *
+moz_dom_GetReferringURI (webnavigation)
+	nsIWebNavigation *webnavigation;
+    PREINIT:
+	nsIURI * aReferringURI;
+    CODE:
+	webnavigation->GetReferringURI(&aReferringURI);
+	RETVAL = aReferringURI;
+    OUTPUT:
+	RETVAL
+
+#=for apidoc Mozilla::DOM::WebNavigation::GetSessionHistory
+#
+#=for signature $sessionhistory = $webnavigation->GetSessionHistory()
+#
+#  * The session history object used to store the session history for the
+#  * session.
+#
+#=cut
+#
+### GetSessionHistory(nsISHistory * *aSessionHistory)
+#nsISHistory *
+#moz_dom_GetSessionHistory (webnavigation)
+#	nsIWebNavigation *webnavigation;
+#    PREINIT:
+#	nsISHistory * aSessionHistory;
+#    CODE:
+#	webnavigation->GetSessionHistory(&aSessionHistory);
+#	RETVAL = aSessionHistory;
+#    OUTPUT:
+#	RETVAL
+#
+#=for apidoc Mozilla::DOM::WebNavigation::SetSessionHistory
+#
+#=for signature $webnavigation->SetSessionHistory($sessionhistory)
+#
+#
+#
+#=cut
+#
+### SetSessionHistory(nsISHistory * aSessionHistory)
+#void
+#moz_dom_SetSessionHistory (webnavigation, aSessionHistory)
+#	nsIWebNavigation *webnavigation;
+#	nsISHistory *  aSessionHistory;
+#    CODE:
+#	webnavigation->SetSessionHistory(aSessionHistory);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::URI	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIURI.h
+
+=for object Mozilla::DOM::URI
+
+Mozilla::DOM::URI is a wrapper around an instance of Mozilla's
+nsIURI interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
+
+ * nsIURI - interface for an uniform resource identifier w/ i18n support.
+ *
+ * AUTF8String attributes may contain unescaped UTF-8 characters.
+ * Consumers should be careful to escape the UTF-8 strings as necessary, but
+ * should always try to "display" the UTF-8 version as provided by this
+ * interface.
+ *
+ * AUTF8String attributes may also contain escaped characters.
+ * 
+ * Unescaping URI segments is unadvised unless there is intimate
+ * knowledge of the underlying charset or there is no plan to display (or
+ * otherwise enforce a charset on) the resulting URI substring.
+ * 
+ * @status FROZEN
+
+ * URIs are essentially structured names for things -- anything. This interface
+ * provides accessors to set and query the most basic components of an URI.
+ * Subclasses, including nsIURL, impose greater structure on the URI.
+ *
+ * This interface follows Tim Berners-Lee's URI spec (RFC2396) [1], where the
+ * basic URI components are defined as such:
+ *  
+ *      ftp://username:password@hostname:portnumber/pathname
+ *      \ /   \               / \      / \        /\       /
+ *       -     ---------------   ------   --------  -------
+ *       |            |             |        |         |
+ *       |            |             |        |        Path
+ *       |            |             |       Port         
+ *       |            |            Host      /
+ *       |         UserPass                 /
+ *     Scheme                              /
+ *       \                                /
+ *        --------------------------------
+ *                       |
+ *                    PrePath
+ *
+ * The definition of the URI components has been extended to allow for
+ * internationalized domain names [2] and the more generic IRI structure [3].
+ *
+ * [1] http://www.ietf.org/rfc/rfc2396.txt
+ * [2] http://www.ietf.org/internet-drafts/draft-ietf-idn-idna-06.txt
+ * [3] http://www.ietf.org/internet-drafts/draft-masinter-url-i18n-08.txt
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::URI->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IURI_IID)
+static nsIID
+nsIURI::GetIID()
+    CODE:
+	const nsIID &id = nsIURI::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::URI::GetSpec
+
+=for signature $spec = $uri->GetSpec()
+
+     * Returns a string representation of the URI. Setting the spec causes
+     * the new spec to be parsed, initializing the URI.
+     *
+     * Some characters may be escaped.
+
+=cut
+
+## GetSpec(nsACString & aSpec)
+nsEmbedCString
+moz_dom_GetSpec (uri)
+	nsIURI *uri;
+    PREINIT:
+	nsEmbedCString aSpec;
+    CODE:
+	uri->GetSpec(aSpec);
+	RETVAL = aSpec;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::URI::SetSpec
+
+=for signature $uri->SetSpec($spec)
+
+See GetSpec.
+
+=cut
+
+## SetSpec(const nsACString & aSpec)
+void
+moz_dom_SetSpec (uri, aSpec)
+	nsIURI *uri;
+	nsEmbedCString aSpec;
+    CODE:
+	uri->SetSpec(aSpec);
+
+=for apidoc Mozilla::DOM::URI::GetPrePath
+
+=for signature $prepath = $uri->GetPrePath()
+
+     * The prePath (eg. scheme://user:password@host:port) returns the string
+     * before the path.  This is useful for authentication or managing sessions.
+     *
+     * Some characters may be escaped.
+
+=cut
+
+## GetPrePath(nsACString & aPrePath)
+nsEmbedCString
+moz_dom_GetPrePath (uri)
+	nsIURI *uri;
+    PREINIT:
+	nsEmbedCString aPrePath;
+    CODE:
+	uri->GetPrePath(aPrePath);
+	RETVAL = aPrePath;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::URI::GetScheme
+
+=for signature $scheme = $uri->GetScheme()
+
+     * The Scheme is the protocol to which this URI refers.  The scheme is
+     * restricted to the US-ASCII charset per RFC2396.
+
+=cut
+
+## GetScheme(nsACString & aScheme)
+nsEmbedCString
+moz_dom_GetScheme (uri)
+	nsIURI *uri;
+    PREINIT:
+	nsEmbedCString aScheme;
+    CODE:
+	uri->GetScheme(aScheme);
+	RETVAL = aScheme;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::URI::SetScheme
+
+=for signature $uri->SetScheme($scheme)
+
+See GetScheme.
+
+=cut
+
+## SetScheme(const nsACString & aScheme)
+void
+moz_dom_SetScheme (uri, aScheme)
+	nsIURI *uri;
+	nsEmbedCString aScheme;
+    CODE:
+	uri->SetScheme(aScheme);
+
+=for apidoc Mozilla::DOM::URI::GetUserPass
+
+=for signature $userpass = $uri->GetUserPass()
+
+     * The username:password (or username only if value doesn't contain a ':')
+     *
+     * Some characters may be escaped.
+
+=cut
+
+## GetUserPass(nsACString & aUserPass)
+nsEmbedCString
+moz_dom_GetUserPass (uri)
+	nsIURI *uri;
+    PREINIT:
+	nsEmbedCString aUserPass;
+    CODE:
+	uri->GetUserPass(aUserPass);
+	RETVAL = aUserPass;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::URI::SetUserPass
+
+=for signature $uri->SetUserPass($userpass)
+
+See GetUserPass.
+
+=cut
+
+## SetUserPass(const nsACString & aUserPass)
+void
+moz_dom_SetUserPass (uri, aUserPass)
+	nsIURI *uri;
+	nsEmbedCString aUserPass;
+    CODE:
+	uri->SetUserPass(aUserPass);
+
+=for apidoc Mozilla::DOM::URI::GetUsername
+
+=for signature $username = $uri->GetUsername()
+
+     * The optional username and password, assuming the preHost consists of
+     * username:password.
+     *
+     * Some characters may be escaped.
+
+=cut
+
+## GetUsername(nsACString & aUsername)
+nsEmbedCString
+moz_dom_GetUsername (uri)
+	nsIURI *uri;
+    PREINIT:
+	nsEmbedCString aUsername;
+    CODE:
+	uri->GetUsername(aUsername);
+	RETVAL = aUsername;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::URI::SetUsername
+
+=for signature $uri->SetUsername($username)
+
+See GetUserName.
+
+=cut
+
+## SetUsername(const nsACString & aUsername)
+void
+moz_dom_SetUsername (uri, aUsername)
+	nsIURI *uri;
+	nsEmbedCString aUsername;
+    CODE:
+	uri->SetUsername(aUsername);
+
+=for apidoc Mozilla::DOM::URI::GetPassword
+
+=for signature $password = $uri->GetPassword()
+
+See GetUserName.
+
+=cut
+
+## GetPassword(nsACString & aPassword)
+nsEmbedCString
+moz_dom_GetPassword (uri)
+	nsIURI *uri;
+    PREINIT:
+	nsEmbedCString aPassword;
+    CODE:
+	uri->GetPassword(aPassword);
+	RETVAL = aPassword;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::URI::SetPassword
+
+=for signature $uri->SetPassword($password)
+
+See GetUserName.
+
+=cut
+
+## SetPassword(const nsACString & aPassword)
+void
+moz_dom_SetPassword (uri, aPassword)
+	nsIURI *uri;
+	nsEmbedCString aPassword;
+    CODE:
+	uri->SetPassword(aPassword);
+
+=for apidoc Mozilla::DOM::URI::GetHostPort
+
+=for signature $hostport = $uri->GetHostPort()
+
+     * The host:port (or simply the host, if port == -1).
+     *
+     * Characters are NOT escaped.
+
+=cut
+
+## GetHostPort(nsACString & aHostPort)
+nsEmbedCString
+moz_dom_GetHostPort (uri)
+	nsIURI *uri;
+    PREINIT:
+	nsEmbedCString aHostPort;
+    CODE:
+	uri->GetHostPort(aHostPort);
+	RETVAL = aHostPort;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::URI::SetHostPort
+
+=for signature $uri->SetHostPort($hostport)
+
+See GetHostPort.
+
+=cut
+
+## SetHostPort(const nsACString & aHostPort)
+void
+moz_dom_SetHostPort (uri, aHostPort)
+	nsIURI *uri;
+	nsEmbedCString aHostPort;
+    CODE:
+	uri->SetHostPort(aHostPort);
+
+=for apidoc Mozilla::DOM::URI::GetHost
+
+=for signature $host = $uri->GetHost()
+
+     * The host is the internet domain name to which this URI refers.  It could
+     * be an IPv4 (or IPv6) address literal.  If supported, it could be a
+     * non-ASCII internationalized domain name.
+     *
+     * Characters are NOT escaped.
+
+=cut
+
+## GetHost(nsACString & aHost)
+nsEmbedCString
+moz_dom_GetHost (uri)
+	nsIURI *uri;
+    PREINIT:
+	nsEmbedCString aHost;
+    CODE:
+	uri->GetHost(aHost);
+	RETVAL = aHost;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::URI::SetHost
+
+=for signature $uri->SetHost($host)
+
+See GetHost.
+
+=cut
+
+## SetHost(const nsACString & aHost)
+void
+moz_dom_SetHost (uri, aHost)
+	nsIURI *uri;
+	nsEmbedCString aHost;
+    CODE:
+	uri->SetHost(aHost);
+
+=for apidoc Mozilla::DOM::URI::GetPort
+
+=for signature $port = $uri->GetPort()
+
+     * A port value of -1 corresponds to the protocol's default port (eg. -1
+     * implies port 80 for http URIs).
+
+=cut
+
+## GetPort(PRInt32 *aPort)
+PRInt32
+moz_dom_GetPort (uri)
+	nsIURI *uri;
+    PREINIT:
+	PRInt32 aPort;
+    CODE:
+	uri->GetPort(&aPort);
+	RETVAL = aPort;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::URI::SetPort
+
+=for signature $uri->SetPort($port)
+
+See GetPort.
+
+=cut
+
+## SetPort(PRInt32 aPort)
+void
+moz_dom_SetPort (uri, aPort)
+	nsIURI *uri;
+	PRInt32  aPort;
+    CODE:
+	uri->SetPort(aPort);
+
+=for apidoc Mozilla::DOM::URI::GetPath
+
+=for signature $path = $uri->GetPath()
+
+     * The path, typically including at least a leading '/' (but may also be
+     * empty, depending on the protocol).
+     *
+     * Some characters may be escaped.
+
+=cut
+
+## GetPath(nsACString & aPath)
+nsEmbedCString
+moz_dom_GetPath (uri)
+	nsIURI *uri;
+    PREINIT:
+	nsEmbedCString aPath;
+    CODE:
+	uri->GetPath(aPath);
+	RETVAL = aPath;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::URI::SetPath
+
+=for signature $uri->SetPath($path)
+
+See GetPath.
+
+=cut
+
+## SetPath(const nsACString & aPath)
+void
+moz_dom_SetPath (uri, aPath)
+	nsIURI *uri;
+	nsEmbedCString aPath;
+    CODE:
+	uri->SetPath(aPath);
+
+=for apidoc Mozilla::DOM::URI::Equals
+
+=for signature $bool = $uri->Equals($other)
+
+     * URI equivalence test (not a strict string comparison).
+     *
+     * eg. http://foo.com:80/ == http://foo.com/
+
+=cut
+
+## Equals(nsIURI *other, PRBool *_retval)
+PRBool
+moz_dom_Equals (uri, other)
+	nsIURI *uri;
+	nsIURI * other;
+    PREINIT:
+	PRBool _retval;
+    CODE:
+	uri->Equals(other, &_retval);
+	RETVAL = _retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::URI::SchemeIs
+
+=for signature $bool = $uri->SchemeIs($scheme)
+
+     * An optimization to do scheme checks without requiring the users of nsIURI
+     * to GetScheme, thereby saving extra allocating and freeing. Returns true if
+     * the schemes match (case ignored).
+
+=cut
+
+## SchemeIs(const char *scheme, PRBool *_retval)
+PRBool
+moz_dom_SchemeIs (uri, scheme)
+	nsIURI *uri;
+	const char * scheme;
+    PREINIT:
+	PRBool _retval;
+    CODE:
+	uri->SchemeIs(scheme, &_retval);
+	RETVAL = _retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::URI::Clone
+
+=for signature $retval = $uri->Clone()
+
+     * Clones the current URI.  For some protocols, this is more than just an
+     * optimization.  For example, under MacOS, the spec of a file URL does not
+     * necessarily uniquely identify a file since two volumes could share the
+     * same name.
+
+=cut
+
+## Clone(nsIURI **_retval)
+nsIURI *
+moz_dom_Clone (uri)
+	nsIURI *uri;
+    PREINIT:
+	nsIURI * _retval;
+    CODE:
+	uri->Clone(&_retval);
+	RETVAL = _retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::URI::Resolve
+
+=for signature $retval = $uri->Resolve($relativepath)
+
+     * This method resolves a relative string into an absolute URI string,
+     * using this URI as the base. 
+     *
+     * NOTE: some implementations may have no concept of a relative URI.
+
+=cut
+
+## Resolve(const nsACString & relativePath, nsACString & _retval)
+nsEmbedCString
+moz_dom_Resolve (uri, relativePath)
+	nsIURI *uri;
+	nsEmbedCString relativePath;
+    PREINIT:
+	nsEmbedCString _retval;
+    CODE:
+	uri->Resolve(relativePath, _retval);
+	RETVAL = _retval;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::URI::GetAsciiSpec
+
+=for signature $asciispec = $uri->GetAsciiSpec()
+
+     * The URI spec with an ASCII compatible encoding.  Host portion follows
+     * the IDNA draft spec.  Other parts are URL-escaped per the rules of
+     * RFC2396.  The result is strictly ASCII.
+
+=cut
+
+## GetAsciiSpec(nsACString & aAsciiSpec)
+nsEmbedCString
+moz_dom_GetAsciiSpec (uri)
+	nsIURI *uri;
+    PREINIT:
+	nsEmbedCString aAsciiSpec;
+    CODE:
+	uri->GetAsciiSpec(aAsciiSpec);
+	RETVAL = aAsciiSpec;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::URI::GetAsciiHost
+
+=for signature $asciihost = $uri->GetAsciiHost()
+
+     * The URI host with an ASCII compatible encoding.  Follows the IDNA
+     * draft spec for converting internationalized domain names (UTF-8) to
+     * ASCII for compatibility with existing internet infrasture.
+
+=cut
+
+## GetAsciiHost(nsACString & aAsciiHost)
+nsEmbedCString
+moz_dom_GetAsciiHost (uri)
+	nsIURI *uri;
+    PREINIT:
+	nsEmbedCString aAsciiHost;
+    CODE:
+	uri->GetAsciiHost(aAsciiHost);
+	RETVAL = aAsciiHost;
+    OUTPUT:
+	RETVAL
+
+=for apidoc Mozilla::DOM::URI::GetOriginCharset
+
+=for signature $origincharset = $uri->GetOriginCharset()
+
+     * The charset of the document from which this URI originated.  An empty
+     * value implies UTF-8.
+     *
+     * If this value is something other than UTF-8 then the URI components
+     * (e.g., spec, prePath, username, etc.) will all be fully URL-escaped.
+     * Otherwise, the URI components may contain unescaped multibyte UTF-8
+     * characters.
+
+=cut
+
+## GetOriginCharset(nsACString & aOriginCharset)
+nsEmbedCString
+moz_dom_GetOriginCharset (uri)
+	nsIURI *uri;
+    PREINIT:
+	nsEmbedCString aOriginCharset;
+    CODE:
+	uri->GetOriginCharset(aOriginCharset);
+	RETVAL = aOriginCharset;
     OUTPUT:
 	RETVAL
 
@@ -21701,3 +22743,5 @@ moz_dom_GetAvailTop (screen)
     OUTPUT:
 	RETVAL
 
+
+# -----------------------------------------------------------------------------

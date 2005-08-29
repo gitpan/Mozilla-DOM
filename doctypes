@@ -1,9 +1,12 @@
 nsIWebBrowser			Mozilla::DOM::WebBrowser
+nsIWebNavigation		Mozilla::DOM::WebNavigation
+nsIURI				Mozilla::DOM::URI
 nsISelection			Mozilla::DOM::Selection
 nsISupports			Mozilla::DOM::Supports
 
 nsIID				Mozilla::DOM::IID
 nsEmbedString			string
+nsEmbedCString			string
 
 nsIDOMAbstractView		Mozilla::DOM::AbstractView
 nsIDOMDocumentView		Mozilla::DOM::DocumentView

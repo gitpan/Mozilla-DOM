@@ -1,8 +1,12 @@
+# NB: to use EventListeners, you have to specifically enable them
+# when building Mozilla::DOM (this example won't work otherwise).
+# See README for how to enable experimental features.
+#
 # This example shows how to create event listeners.
 # (Click on the button.)
 # Refer also to the Minilla, Signals, Elements, and Events examples.
 #
-# $CVSHeader: Mozilla-DOM/examples/EventListeners.pm,v 1.1 2005/04/20 15:50:37 slanning Exp $
+# $CVSHeader: Mozilla-DOM/examples/EventListeners.pm,v 1.3 2005/08/28 19:30:14 slanning Exp $
 
 
 package EventListeners;

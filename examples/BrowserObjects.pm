@@ -3,7 +3,7 @@
 # from JavaScript). It also shows Screen, though I don't think
 # that's really considered a "browser object".
 #
-# $CVSHeader$
+# $CVSHeader: Mozilla-DOM/examples/BrowserObjects.pm,v 1.2 2005/08/28 19:30:14 slanning Exp $
 
 
 package BrowserObjects;
@@ -15,12 +15,12 @@ use Cwd 'getcwd';
 use Glib qw(TRUE FALSE);
 use Gtk2;
 use Gtk2::MozEmbed '0.04';
-use Mozilla::DOM '0.13';   # for History, Location, Navigator
+use Mozilla::DOM '0.13';   # for History, Location, Navigator, Screen
 
 use Glib::Object::Subclass Gtk2::Window::;
 
 # Will set these to zero after they're displayed once,
-# since they're always the same.
+# since their output is always the same.
 my $shownavigator = 1;
 my $showscreen = 1;
 

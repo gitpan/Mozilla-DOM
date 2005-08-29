@@ -143,7 +143,7 @@ while (<>) {
                     my $name = $2;
 
                     die "unknown type '$type' in method signature\n"
-                      unless $type =~ /(nsAString|nsI|PR[BIU].*|DOMTimeStamp)/;
+                      unless $type =~ /(nsAC?String|nsI|PR[BIU].*|DOMTimeStamp|const char \*)/;
 
 #                    $name =~ s/_//g;
 #                    $name =~ s/^[a-z]([A-Z])/$1/;
@@ -155,14 +155,14 @@ while (<>) {
                         # It's an output argument like 'nsIDOMAttr **'
                         # or 'PRBool *'
                         $method{output} = { type => $type, name => $name };
-                    } elsif ($type =~ /nsAString/ and $type !~ /const/) {
+                    } elsif ($type !~ /const/ and $type =~ /nsA(C?String)/) {
                         # It's an output argument like 'nsAString &'
-                        $type = 'nsEmbedString';
+                        $type = "nsEmbed$1";
                         $method{output} = { type => $type, name => $name };
                     } else {
                         # It's an input argument
-                        if ($type =~ /nsAString/) {
-                            $type = 'nsEmbedString';
+                        if ($type =~ /nsA(C?String)/) {
+                            $type = "nsEmbed$1";
                         }
                         push @{ $method{inputs} }, { type => $type, name => $name };
                     }
@@ -284,7 +284,7 @@ foreach my $method (@methods) {
     $ccode .= join(', ', map {$_->{name}} @{ $method->{inputs} });
     if (exists $method->{output}) {
         $ccode .= ', ' if @{ $method->{inputs} };
-        $ccode .= '&' unless $method->{output}{type} eq 'nsEmbedString';
+        $ccode .= '&' unless $method->{output}{type} =~ /nsEmbedC?String/;
         $ccode .= $method->{output}{name};
     }
     $ccode .= ');';

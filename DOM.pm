@@ -1,6 +1,6 @@
 package Mozilla::DOM;
 
-# $Id: DOM.pm,v 1.13 2005/04/20 15:50:34 slanning Exp $
+# $Id: DOM.pm,v 1.15 2005/08/28 19:29:55 slanning Exp $
 
 use 5.008;
 use strict;
@@ -10,11 +10,35 @@ require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.13';
+our $VERSION = '0.14';
 
 sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 
 __PACKAGE__->bootstrap($VERSION);
+
+=begin comment
+
+Steps to do for each release:
+
+0) make sure ChangeLog and TODO are up to date
+1) make sure that Mozilla::DOM and Gtk2::MozEmbed build
+    make realclean
+    perl Makefile.PL
+    make
+    make test
+    sudo make install
+2) create the distribution tarball (Mozilla-DOM-0.vv.tar.gz)
+    make dist
+3) upload tarball to PAUSE at https://pause.perl.org/
+4) move dist tarball to `releases' directory
+5) commit to CVS and tag release
+    cvs commit
+    cvs tag rel-0_vv-yyyy-mm-dd
+6) increment $VERSION above
+
+=end comment
+
+=cut
 
 # -----------------------------------------------------------------------------
 
@@ -454,6 +478,31 @@ package Mozilla::DOM::WebBrowser;
 our @ISA = qw(Mozilla::DOM::Supports);
 
 *get_content_domwindow = \&GetContentDOMWindow;
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::WebNavigation;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+use constant LOAD_FLAGS_MASK => 65535;
+use constant LOAD_FLAGS_NONE => 0;
+use constant LOAD_FLAGS_IS_REFRESH => 16;
+use constant LOAD_FLAGS_IS_LINK => 32;
+use constant LOAD_FLAGS_BYPASS_HISTORY => 64;
+use constant LOAD_FLAGS_REPLACE_HISTORY => 128;
+use constant LOAD_FLAGS_BYPASS_CACHE => 256;
+use constant LOAD_FLAGS_BYPASS_PROXY => 512;
+use constant LOAD_FLAGS_CHARSET_CHANGE => 1024;
+use constant STOP_NETWORK => 1;
+use constant STOP_CONTENT => 2;
+use constant STOP_ALL => 3;
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::URI;
+
+our @ISA = qw(Mozilla::DOM::Supports);
 
 # -----------------------------------------------------------------------------
 

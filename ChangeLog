@@ -1,3 +1,10 @@
+0.14  2005-08-29
+  - added most of WebNavigation, with an example WebNav.pm
+  - require specifically enabling EventListener, using
+    `perl Makefile.PL DEFINE="-DMDEXP_EVENT_LISTENER"`,
+    after Torsten Schoenfeld reported that compiling Gtk2::MozEmbed
+    was giving warnings
+
 0.13  2005-04-21
   - added browser object interfaces
     o  Navigator, History, Location, and Screen

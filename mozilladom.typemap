@@ -1,6 +1,8 @@
 TYPEMAP
 
 nsIWebBrowser *			T_MOZDOM_GENERIC_WRAPPER
+nsIWebNavigation *		T_MOZDOM_GENERIC_WRAPPER
+nsIURI *			T_MOZDOM_GENERIC_WRAPPER
 nsISelection *			T_MOZDOM_GENERIC_WRAPPER
 nsISupports *			T_MOZDOM_GENERIC_WRAPPER
 
@@ -115,6 +117,7 @@ DOMTimeStamp	T_UV
 #     CODE:
 # 	event->InitEvent(type, ...)
 nsEmbedString	T_NSASTRING
+nsEmbedCString	T_NSACSTRING
 
 nsIID	T_NSIID
 
@@ -143,6 +146,11 @@ T_NSASTRING
 	char * str$var = (char *) SvPV_nolen($arg);
 	nsEmbedCString u8$var(str$var);
 	NS_CStringToUTF16(u8$var, NS_CSTRING_ENCODING_UTF8, $var);
+
+# Same but UTF-8 version
+T_NSACSTRING
+	char * str$var = (char *) SvPV_nolen($arg);
+	$var = str$var;
 
 T_NSIID
 	char * str$var = (char *) SvPV_nolen($arg);
@@ -186,7 +194,13 @@ T_NSASTRING
 	const char * u8str$var;
 	NS_UTF16ToCString($var, NS_CSTRING_ENCODING_UTF8, u8$var);
 	u8str$var = u8$var.get();
-	sv_setpv((SV*)$arg, u8str$var);
+	sv_setpv((SV *)$arg, u8str$var);
+
+# Same but UTF-8 version
+T_NSACSTRING
+	const char * str$var;
+	str$var = $var.get();
+	sv_setpv((SV *)$arg, str$var);
 
 # XXX: I think ToString leaks since I don't free the string
 T_NSIID
