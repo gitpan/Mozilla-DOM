@@ -1,8 +1,6 @@
 Add Firefox support in Makefile.PL like Gtk2::MozEmbed does.
 
-Remove POD from XS file so that it's not auto-generated
-and to remove Glib.pm dependence. Split DOM.xs into
-separate files. (DOM.xs > 19000 lines at last count)
+Split DOM.xs into separate files. (DOM.xs > 19000 lines at last count)
 
 Constants are currently broken. I hope nobody's using them.
 Need to work out how to export constants from various packages.

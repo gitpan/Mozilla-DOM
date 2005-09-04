@@ -1,0 +1,506 @@
+=head1 NAME
+
+Mozilla::DOM::HTMLTableElement
+
+=for object Mozilla::DOM::HTMLTableElement
+
+Mozilla::DOM::HTMLTableElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLTableElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLTableElement interface is the interface to a [X]HTML
+ * table element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLTableElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+
+
+
+=head1 METHODS
+
+=head2 $retval = $htmltableelement->B<CreateCaption>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $retval = $htmltableelement->B<CreateTFoot>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $retval = $htmltableelement->B<CreateTHead>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $htmltableelement->B<DeleteCaption>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $htmltableelement->B<DeleteRow>($index)
+
+=over
+
+=over
+
+=item * $index (integer (long)) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmltableelement->B<DeleteTFoot>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $htmltableelement->B<DeleteTHead>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $align = $htmltableelement->B<GetAlign>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $bgcolor = $htmltableelement->B<GetBgColor>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $border = $htmltableelement->B<GetBorder>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $caption = $htmltableelement->B<GetCaption>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $cellpadding = $htmltableelement->B<GetCellPadding>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $cellspacing = $htmltableelement->B<GetCellSpacing>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $frame = $htmltableelement->B<GetFrame>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $rows = $htmltableelement->B<GetRows>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $rules = $htmltableelement->B<GetRules>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $summary = $htmltableelement->B<GetSummary>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $tbodies = $htmltableelement->B<GetTBodies>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $tfoot = $htmltableelement->B<GetTFoot>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $thead = $htmltableelement->B<GetTHead>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $width = $htmltableelement->B<GetWidth>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $retval = $htmltableelement->B<InsertRow>($index)
+
+=over
+
+=over
+
+=item * $index (integer (long)) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmltableelement->B<SetAlign>($align)
+
+=over
+
+=over
+
+=item * $align (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmltableelement->B<SetBgColor>($bgcolor)
+
+=over
+
+=over
+
+=item * $bgcolor (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmltableelement->B<SetBorder>($border)
+
+=over
+
+=over
+
+=item * $border (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmltableelement->B<SetCaption>($caption)
+
+=over
+
+=over
+
+=item * $caption (Mozilla::DOM::HTMLTableCaptionElement) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmltableelement->B<SetCellPadding>($cellpadding)
+
+=over
+
+=over
+
+=item * $cellpadding (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmltableelement->B<SetCellSpacing>($cellspacing)
+
+=over
+
+=over
+
+=item * $cellspacing (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmltableelement->B<SetFrame>($frame)
+
+=over
+
+=over
+
+=item * $frame (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmltableelement->B<SetRules>($rules)
+
+=over
+
+=over
+
+=item * $rules (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmltableelement->B<SetSummary>($summary)
+
+=over
+
+=over
+
+=item * $summary (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmltableelement->B<SetTFoot>($tfoot)
+
+=over
+
+=over
+
+=item * $tfoot (Mozilla::DOM::HTMLTableSectionElement) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmltableelement->B<SetTHead>($thead)
+
+=over
+
+=over
+
+=item * $thead (Mozilla::DOM::HTMLTableSectionElement) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmltableelement->B<SetWidth>($width)
+
+=over
+
+=over
+
+=item * $width (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+
+=head1 SEE ALSO
+
+L<Mozilla::DOM>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005, Scott Lanning
+
+This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
+
+
+=cut
+

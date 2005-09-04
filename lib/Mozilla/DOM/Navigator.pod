@@ -1,0 +1,208 @@
+=head1 NAME
+
+Mozilla::DOM::Navigator
+
+=for object Mozilla::DOM::Navigator
+
+Mozilla::DOM::Navigator is a wrapper around an instance of Mozilla's
+nsIDOMNavigator interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
+
+Note: the GetMimeTypes and GetPlugins methods are not wrapped
+(otherwise, have to wrap Plugin, PluginArray, MimeType, MimeTypeArray).
+Let me know if you think those would actually be useful.
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::Navigator->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+
+
+
+=head1 METHODS
+
+=head2 $appcodename = $navigator->B<GetAppCodeName>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $appname = $navigator->B<GetAppName>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $appversion = $navigator->B<GetAppVersion>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $bool = $navigator->B<GetCookieEnabled>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $language = $navigator->B<GetLanguage>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $oscpu = $navigator->B<GetOscpu>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $platform = $navigator->B<GetPlatform>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $product = $navigator->B<GetProduct>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $productsub = $navigator->B<GetProductSub>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $securitypolicy = $navigator->B<GetSecurityPolicy>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $useragent = $navigator->B<GetUserAgent>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $vendor = $navigator->B<GetVendor>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $vendorsub = $navigator->B<GetVendorSub>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $bool = $navigator->B<JavaEnabled>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $bool = $navigator->B<TaintEnabled>()
+
+=over
+
+
+
+
+
+
+=back
+
+
+=head1 SEE ALSO
+
+L<Mozilla::DOM>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005, Scott Lanning
+
+This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
+
+
+=cut
+

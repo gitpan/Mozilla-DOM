@@ -1,0 +1,338 @@
+=head1 NAME
+
+Mozilla::DOM::Window
+
+=head1 DESCRIPTION
+
+Mozilla::DOM::Window is a wrapper around an instance of Mozilla's
+nsIDOMWindow interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
+
+ * The nsIDOMWindow interface is the primary interface for a DOM
+ * window object. It represents a single window object that may
+ * contain child windows if the document in the window contains a
+ * HTML frameset document or if the document contains iframe elements.
+ *
+ * This interface is not officially defined by any standard bodies, it
+ * originates from the defacto DOM Level 0 standard.
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::Window->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=begin comment
+
+  /**
+   * Accessor for the object that controls whether or not scrollbars
+   * are shown in this window.
+   *
+   * This attribute is "replaceable" in JavaScript
+   */
+  /* readonly attribute nsIDOMBarProp scrollbars; */
+#=for apidoc Mozilla::DOM::Window::GetScrollbars
+#
+#=for signature $window->GetScrollbars(nsIDOMBarProp * *aScrollbars)
+#
+#
+#
+#=cut
+#
+### GetScrollbars(nsIDOMBarProp * *aScrollbars)
+#somereturn *
+#moz_dom_GetScrollbars (window, aScrollbars)
+#	nsIDOMWindow *window;
+#	nsIDOMBarProp * *aScrollbars ;
+#    PREINIT:
+#
+#    CODE:
+#	window->GetScrollbars(&);
+#	RETVAL = ;
+#    OUTPUT:
+#	RETVAL
+
+  /**
+   * Accessor for the current x scroll position in this window in
+   * pixels.
+   *
+   * This attribute is "replaceable" in JavaScript
+   */
+  /* readonly attribute long scrollX; */
+#=for apidoc Mozilla::DOM::Window::GetScrollX
+#
+#=for signature $window->GetScrollX(PRInt32 *aScrollX)
+#
+#
+#
+#=cut
+#
+### GetScrollX(PRInt32 *aScrollX)
+#somereturn *
+#moz_dom_GetScrollX (window, aScrollX)
+#	nsIDOMWindow *window;
+#	PRInt32 *aScrollX ;
+#    PREINIT:
+#
+#    CODE:
+#	window->GetScrollX(&);
+#	RETVAL = ;
+#    OUTPUT:
+#	RETVAL
+
+  /**
+   * Accessor for the current y scroll position in this window in
+   * pixels.
+   *
+   * This attribute is "replaceable" in JavaScript
+   */
+  /* readonly attribute long scrollY; */
+#=for apidoc Mozilla::DOM::Window::GetScrollY
+#
+#=for signature $window->GetScrollY(PRInt32 *aScrollY)
+#
+#
+#
+#=cut
+#
+### GetScrollY(PRInt32 *aScrollY)
+#somereturn *
+#moz_dom_GetScrollY (window, aScrollY)
+#	nsIDOMWindow *window;
+#	PRInt32 *aScrollY ;
+#    PREINIT:
+#
+#    CODE:
+#	window->GetScrollY(&);
+#	RETVAL = ;
+#    OUTPUT:
+#	RETVAL
+
+  /**
+   * Method for scrolling this window to an absolute pixel offset.
+   */
+  /* void scrollTo (in long xScroll, in long yScroll); */
+#=for apidoc Mozilla::DOM::Window::ScrollTo
+#
+#=for signature $window->ScrollTo(PRInt32 xScroll, PRInt32 yScroll)
+#
+#
+#
+#=cut
+#
+### ScrollTo(PRInt32 xScroll, PRInt32 yScroll)
+#somereturn *
+#moz_dom_ScrollTo (window, xScroll, yScroll)
+#	nsIDOMWindow *window;
+#	PRInt32 xScroll ;
+#	PRInt32 yScroll ;
+#    PREINIT:
+#
+#    CODE:
+#	window->ScrollTo(&);
+#	RETVAL = ;
+#    OUTPUT:
+#	RETVAL
+
+  /**
+   * Method for scrolling this window to a pixel offset relative to
+   * the current scroll position.
+   */
+  /* void scrollBy (in long xScrollDif, in long yScrollDif); */
+#=for apidoc Mozilla::DOM::Window::ScrollBy
+#
+#=for signature $window->ScrollBy(PRInt32 xScrollDif, PRInt32 yScrollDif)
+#
+#
+#
+#=cut
+#
+### ScrollBy(PRInt32 xScrollDif, PRInt32 yScrollDif)
+#somereturn *
+#moz_dom_ScrollBy (window, xScrollDif, yScrollDif)
+#	nsIDOMWindow *window;
+#	PRInt32 xScrollDif ;
+#	PRInt32 yScrollDif ;
+#    PREINIT:
+#
+#    CODE:
+#	window->ScrollBy(&);
+#	RETVAL = ;
+#    OUTPUT:
+#	RETVAL
+
+  /**
+   * Method for scrolling this window by a number of lines.
+   */
+  /* void scrollByLines (in long numLines); */
+#=for apidoc Mozilla::DOM::Window::ScrollByLines
+#
+#=for signature $window->ScrollByLines(PRInt32 numLines)
+#
+#
+#
+#=cut
+#
+### ScrollByLines(PRInt32 numLines)
+#somereturn *
+#moz_dom_ScrollByLines (window, numLines)
+#	nsIDOMWindow *window;
+#	PRInt32 numLines ;
+#    PREINIT:
+#
+#    CODE:
+#	window->ScrollByLines(&);
+#	RETVAL = ;
+#    OUTPUT:
+#	RETVAL
+
+  /**
+   * Method for scrolling this window by a number of pages.
+   */
+  /* void scrollByPages (in long numPages); */
+#=for apidoc Mozilla::DOM::Window::ScrollByPages
+#
+#=for signature $window->ScrollByPages(PRInt32 numPages)
+#
+#
+#
+#=cut
+#
+### ScrollByPages(PRInt32 numPages)
+#somereturn *
+#moz_dom_ScrollByPages (window, numPages)
+#	nsIDOMWindow *window;
+#	PRInt32 numPages ;
+#    PREINIT:
+#
+#    CODE:
+#	window->ScrollByPages(&);
+#	RETVAL = ;
+#    OUTPUT:
+#	RETVAL
+
+=end comment
+
+=head1 METHODS
+
+=head2 $document = $window->B<GetDocument>()
+
+=over
+
+   * Accessor for the document in this window.
+
+=back
+
+=head2 $document_collection = $window->B<GetFrames>()
+
+=over
+
+   * Accessor for the child windows in this window.
+
+=back
+
+=head2 $name = $window->B<GetName>()
+
+=over
+
+Get the name of this window.
+
+This corresponds to window.name in JavaScript.
+
+=back
+
+=head2 $window = $window->B<GetParent>()
+
+=over
+
+   * Accessor for this window's parent window, or the window itself if
+   * there is no parent, or if the parent is of different type
+   * (i.e. this does not cross chrome-content boundaries).
+
+=back
+
+=head2 $selection = $window->B<GetSelection>()
+
+=over
+
+   * Method for accessing this window's selection object.
+
+=back
+
+=head2 $num = $window->B<GetTextZoom>()
+
+=over
+
+   * Set/Get the document scale factor as a multiplier on the default
+   * size. When setting this attribute, a NS_ERROR_NOT_IMPLEMENTED
+   * error may be returned by implementations not supporting
+   * zoom. Implementations not supporting zoom should return 1.0 all
+   * the time for the Get operation. 1.0 is equals normal size,
+   * i.e. no zoom.
+
+=back
+
+=head2 $window = $window->B<GetTop>()
+
+=over
+
+   * Accessor for the root of this hierarchy of windows. This root may
+   * be the window itself if there is no parent, or if the parent is
+   * of different type (i.e. this does not cross chrome-content
+   * boundaries).
+   *
+   * This property is "replaceable" in JavaScript */
+
+=back
+
+=head2 $window->B<SetName>($name)
+
+=over
+
+=over
+
+=item * $name (string)
+
+=back
+
+Set the name of this window.
+
+"This attribute is 'replaceable' in JavaScript";
+where it corresponds to window.name.
+
+=back
+
+=head2 $window->B<SetTextZoom>($num)
+
+=over
+
+=over
+
+=item * $zoom (double)
+
+=back
+
+=back
+
+=head2 $window->B<SizeToContent>()
+
+=over
+
+   * Method for sizing this window to the content in the window.
+
+XXX: doesn't seem to work. Maybe window resize is disabled,
+or maybe Gtk2 prevents it.
+
+=back
+
+=head1 SEE ALSO
+
+L<Mozilla::DOM>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005, Scott Lanning
+
+This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
+
+=cut

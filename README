@@ -6,18 +6,28 @@ In conjuction with an embedded Gecko widget (e.g. Gtk2::MozEmbed),
 you can use Perl to manipulate the browser DOM, handle DOM signals,
 and create events such as mouse clicks -- all within a Mozilla-like
 browser (so it also does JavaScript). See `perldoc Mozilla::DOM`
-for more details.
-
-Mozilla::DOM comes with automatically generated API documentation:
-
-  perldoc Mozilla::DOM::index
-
-Much of this documentation was copied from Mozilla headers
-and the DOM Level 2 specifications.
+for more details. 
 
 There are examples in the `examples' directory showing how
 to use this module with Gtk2::MozEmbed. See the README file
-in that directory.
+in that directory. `perldoc Mozilla::DOM::index` for a list
+of all the POD distributed with this module.
+
+
+Dependencies
+------------
+
+You might have to manually install ExtUtils::Depends and ExtUtils::PkgConfig
+before anything else. Sorry about that. You'll also have to install Mozilla
+with its development headers (I think you can also just install an SDK).
+
+Mozilla::DOM depends on:
+
+  ExtUtils::Depends
+  ExtUtils::PkgConfig
+  `pkg-config --modversion mozilla-xpcom` >= 1.7
+
+I hope to add the equivalent of mozilla-xpcom for Firefox.
 
 
 Installation
@@ -36,37 +46,28 @@ To install Mozilla::DOM, run the following commands:
 
 (See dependencies below.)
 
-It's normal to see warnings during `make` such as
-
-  missing: Mozilla::DOM::EventTarget::nsIDOMEventTarget->GetIID
-  !! is not registered with the GLib type system.
-
-These are due to limitations in the POD generator
-(which I intend to take out).
-
 For this module to be useful, you'll probably also want
-to install Gtk2::MozEmbed (> 0.03) _after_ you install this.
-That module includes Mozilla::DOM (through the magic of
-ExtUtils::Depends) if it's already installed. Similarly,
-if you upgrade Mozilla::DOM, you'll also want to rebuild
-and reinstall Gtk2::MozEmbed.
+to build and install Gtk2::MozEmbed (> 0.03) _after_ you
+install this. That module includes Mozilla::DOM (through
+the magic of ExtUtils::Depends) if it's already installed.
+Similarly, if you upgrade Mozilla::DOM, you'll also want
+to rebuild and reinstall Gtk2::MozEmbed.
 
 
-Dependencies
-------------
+Experimental features
+---------------------
 
-You might have to manually install ExtUtils::Depends and ExtUtils::PkgConfig
-before anything else. Sorry about that. You'll also have to install Mozilla
-with its development headers.
+Some features are added "experimentally". These are generally ones
+that are either known not to be completely working, or I'm not sure
+if they're really done right. I'll try to mark these clearly in the
+documentation as experimental. To enable an experimental feature,
+you pass an argument on the command line, for example
 
-Mozilla::DOM depends on:
+  perl Makefile.PL DEFINE="-DMDEXP_EVENT_LISTENER"
 
-  ExtUtils::Depends
-  ExtUtils::PkgConfig
-  Glib.pm
-  `pkg-config --modversion mozilla-xpcom` >= 1.7
-
-I hope to remove Glib and add the equivalent of mozilla-xpcom for Firefox.
+where "MDEXP" is just a (presumably) unique prefix and the rest
+of the name identifies which feature is being enabled. Currently
+only the following features are experimental: EVENT_LISTENER.
 
 
 Troubleshooting
@@ -86,22 +87,6 @@ from within the Mozilla include directory (e.g. /usr/include/mozilla).
 It will probably be under some directory of /usr/include/mozilla/.
 Try adding that directory to the set_inc method in Makefile.PL,
 and please report it to me.
-
-
-Expermental features
---------------------
-
-Some features are added "experimentally". These are generally ones
-that are either known not to be completely working, or I'm not sure
-if they're really done right. I'll try to mark these clearly in the
-documentation as experimental. To enable an experimental feature,
-you pass an argument on the command line, for example
-
-  perl Makefile.PL DEFINE="-DMDEXP_EVENT_LISTENER"
-
-where "MDEXP" is just a (presumably) unique prefix and the rest
-of the name identifies which feature is being enabled. Currently
-only the following features are experimental: EVENT_LISTENER.
 
 
 Bugs

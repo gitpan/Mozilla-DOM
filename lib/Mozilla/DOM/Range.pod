@@ -1,0 +1,394 @@
+=head1 NAME
+
+Mozilla::DOM::Range
+
+=for object Mozilla::DOM::Range
+
+Mozilla::DOM::Range is a wrapper around an instance of Mozilla's
+nsIDOMRange interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
+
+ * The nsIDOMRange interface is an interface to a DOM range object.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-Traversal-Range/
+
+The constants START_TO_START, START_TO_END, END_TO_END, and END_TO_START
+are available for the "how" argument to L</CompareBoundaryPoints>.
+XXX: Currently these are accessed through methods on the object; this will
+change when I figure out how to export them as constants or class methods.
+DEPRECATED: a little premature to deprecate, not having an alternative
+(aside from using the numbers directly), but I really don't like how
+they're currently implemented.
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::Range->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+
+
+
+=head1 METHODS
+
+=head2 $documentfragment = $range->B<CloneContents>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $range->B<CloneRange>($range)
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $range->B<Collapse>($bool)
+
+=over
+
+=over
+
+=item * $toStart (boolean) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $num = $range->B<CompareBoundaryPoints>($how, $sourceRange)
+
+=over
+
+=over
+
+=item * $how (integer (short)) 
+
+=item * $sourceRange (Mozilla::DOM::Range) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $range->B<DeleteContents>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $range->B<Detach>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $documentfragment = $range->B<ExtractContents>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $bool = $range->B<GetCollapsed>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $node = $range->B<GetCommonAncestorContainer>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $node = $range->B<GetEndContainer>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $offset = $range->B<GetEndOffset>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $node = $range->B<GetStartContainer>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $offset = $range->B<GetStartOffset>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $range->B<InsertNode>($node)
+
+=over
+
+=over
+
+=item * $newNode (Mozilla::DOM::Node) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $range->B<SelectNode>($node)
+
+=over
+
+=over
+
+=item * $refNode (Mozilla::DOM::Node) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $range->B<SelectNodeContents>($node)
+
+=over
+
+=over
+
+=item * $refNode (Mozilla::DOM::Node) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $range->B<SetEnd>($node, $offset)
+
+=over
+
+=over
+
+=item * $refNode (Mozilla::DOM::Node) 
+
+=item * $offset (integer (long)) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $range->B<SetEndAfter>($node)
+
+=over
+
+=over
+
+=item * $refNode (Mozilla::DOM::Node) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $range->B<SetEndBefore>($node)
+
+=over
+
+=over
+
+=item * $refNode (Mozilla::DOM::Node) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $range->B<SetStart>($node, $offset)
+
+=over
+
+=over
+
+=item * $refNode (Mozilla::DOM::Node) 
+
+=item * $offset (integer (long)) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $range->B<SetStartAfter>($node)
+
+=over
+
+=over
+
+=item * $refNode (Mozilla::DOM::Node) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $range->B<SetStartBefore>($node)
+
+=over
+
+=over
+
+=item * $refNode (Mozilla::DOM::Node) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $range->B<SurroundContents>($newParentNode)
+
+=over
+
+=over
+
+=item * $newParent (Mozilla::DOM::Node) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $str = $range->B<ToString>()
+
+=over
+
+
+
+
+
+
+=back
+
+
+=head1 SEE ALSO
+
+L<Mozilla::DOM>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005, Scott Lanning
+
+This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
+
+
+=cut
+

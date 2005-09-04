@@ -1,0 +1,298 @@
+=head1 NAME
+
+Mozilla::DOM::Node
+
+=head1 DESCRIPTION
+
+Mozilla::DOM::Node is a wrapper around an instance of Mozilla's
+nsIDOMNode interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
+
+ * The nsIDOMNode interface is the primary datatype for the entire
+ * Document Object Model.
+ * It represents a single node in the document tree.
+ *
+ * For more information on this interface please see
+ * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-CoreE<sol>>
+
+The following constants are available to be compared with L</GetNodeType>.
+XXX: This is currently buggy, because you have to call them as methods on the
+node object.
+DEPRECATED: a little premature to deprecate, not having an alternative
+(aside from using the numbers directly), but I really don't like how
+they're currently implemented.
+
+=over 4
+
+=item ELEMENT_NODE
+
+=item ATTRIBUTE_NODE
+
+=item TEXT_NODE
+
+=item CDATA_SECTION_NODE
+
+=item ENTITY_REFERENCE_NODE
+
+=item ENTITY_NODE
+
+=item PROCESSING_INSTRUCTION_NODE
+
+=item COMMENT_NODE
+
+=item DOCUMENT_NODE
+
+=item DOCUMENT_TYPE_NODE
+
+=item DOCUMENT_FRAGMENT_NODE
+
+=item NOTATION_NODE
+
+=back
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::Node->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=head1 METHODS
+
+=head2 $node = $node->GetLastChild()
+
+=head2 $node = $node->B<AppendChild>($newChildNode)
+
+=over
+
+=over
+
+=item * $newChild (Mozilla::DOM::Node)
+
+=back
+
+=back
+
+=head2 $node = $node->B<CloneNode>($deep)
+
+=over
+
+=over
+
+=item * $deep (boolean)
+
+=back
+
+$deep is a boolean
+
+DOM 2 spec:
+When a Node is copied using the cloneNode method the EventListeners
+attached to the source Node are not attached to the copied Node. If
+the user wishes the same EventListeners to be added to the newly
+created copy the user must add them manually.
+
+=back
+
+=head2 $namednodemap = $node->B<GetAttributes>()
+
+=over
+
+XXX: I'm thinking that methods like this should also return
+a list in list context. It's kinda gimpy having to call GetLength
+and loop over index numbers calling Item.
+Also, why does everything return NamedNodeMap or NodeList?
+I'd rather get a list of Attr.
+
+
+=back
+
+=head2 $nodelist = $node->B<GetChildNodes>()
+
+=over
+
+=back
+
+=head2 $node = $node->B<GetFirstChild>()
+
+=over
+
+=back
+
+=head2 node = $node-E<gt>B<GetLastChild>
+
+=over
+
+=back
+
+=head2 $name = $node->B<GetLocalName>()
+
+=over
+
+=back
+
+=head2 $uri = $node->B<GetNamespaceURI>()
+
+=over
+
+=back
+
+=head2 $node = $node->B<GetNextSibling>()
+
+=over
+
+=back
+
+=head2 $name = $node->B<GetNodeName>()
+
+=over
+
+=back
+
+=head2 $type = $node->B<GetNodeType>()
+
+=over
+
+$type is a number
+
+=back
+
+=head2 $value = $node->B<GetNodeValue>()
+
+=over
+
+$value is a string
+
+=back
+
+=head2 $document = $node->B<GetOwnerDocument>()
+
+=over
+
+=back
+
+=head2 $node = $node->B<GetParentNode>()
+
+=over
+
+=back
+
+=head2 $prefix = $node->B<GetPrefix>()
+
+=over
+
+=back
+
+=head2 $node = $node->B<GetPreviousSibling>()
+
+=over
+
+=back
+
+=head2 $bool = $node->B<HasAttributes>()
+
+=over
+
+=back
+
+=head2 $bool = $node->B<HasChildNodes>()
+
+=over
+
+=back
+
+=head2 $node = $node->B<InsertBefore>($newChildNode, $refChildNode)
+
+=over
+
+=over
+
+=item * $newChild (Mozilla::DOM::Node)
+
+=item * $refChild (Mozilla::DOM::Node)
+
+=back
+
+=back
+
+=head2 $bool = $node->B<IsSupported>($feature, $version)
+
+=over
+
+=over
+
+=item * $feature (string)
+
+=item * $version (string)
+
+=back
+
+two string args
+
+=back
+
+=head2 $node->B<Normalize>()
+
+=over
+
+=back
+
+=head2 $node = $node->B<RemoveChild>($oldChildNode)
+
+=over
+
+=over
+
+=item * $oldChild (Mozilla::DOM::Node)
+
+=back
+
+=back
+
+=head2 $node = $node->B<ReplaceChild>($newChildNode, $oldChildNode)
+
+=over
+
+=over
+
+=item * $newChild (Mozilla::DOM::Node)
+
+=item * $oldChild (Mozilla::DOM::Node)
+
+=back
+
+=back
+
+=head2 $node->B<SetNodeValue>($value)
+
+=over
+
+=over
+
+=item * $value (string)
+
+=back
+
+=back
+
+=head2 $node->B<SetPrefix>($prefix)
+
+=over
+
+=over
+
+=item * $aPrefix (string)
+
+=back
+
+=back
+
+=head1 SEE ALSO
+
+L<Mozilla::DOM>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005, Scott Lanning
+
+This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
+
+=cut

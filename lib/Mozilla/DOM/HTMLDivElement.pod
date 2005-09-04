@@ -1,0 +1,76 @@
+=head1 NAME
+
+Mozilla::DOM::HTMLDivElement
+
+=for object Mozilla::DOM::HTMLDivElement
+
+Mozilla::DOM::HTMLDivElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLDivElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLDivElement interface is the interface to a [X]HTML
+ * div element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLDivElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+
+
+
+=head1 METHODS
+
+=head2 $align = $htmldivelement->B<GetAlign>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $htmldivelement->B<SetAlign>($align)
+
+=over
+
+=over
+
+=item * $align (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+
+=head1 SEE ALSO
+
+L<Mozilla::DOM>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005, Scott Lanning
+
+This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
+
+
+=cut
+

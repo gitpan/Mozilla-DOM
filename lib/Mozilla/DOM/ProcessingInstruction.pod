@@ -1,0 +1,85 @@
+=head1 NAME
+
+Mozilla::DOM::ProcessingInstruction
+
+=for object Mozilla::DOM::ProcessingInstruction
+
+Mozilla::DOM::ProcessingInstruction is a wrapper around an instance of Mozilla's
+nsIDOMProcessingInstruction interface. This inherits from
+L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
+
+ * The nsIDOMProcessingInstruction interface represents a 
+ * "processing instruction", used in XML as a way to keep processor-specific 
+ * information in the text of the document.
+ *
+ * For more information on this interface please see 
+ * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-CoreE<sol>>
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::ProcessingInstruction->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+
+
+
+=head1 METHODS
+
+=head2 $data = $processinginstruction->B<GetData>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $str = $processinginstruction->B<GetTarget>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $processinginstruction->B<SetData>($data)
+
+=over
+
+=over
+
+=item * $data (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+
+=head1 SEE ALSO
+
+L<Mozilla::DOM>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005, Scott Lanning
+
+This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
+
+
+=cut
+

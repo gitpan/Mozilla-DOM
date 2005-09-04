@@ -10,7 +10,7 @@ require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.14';
+our $VERSION = '0.15';
 
 sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 
@@ -429,6 +429,22 @@ our @ISA = qw(Mozilla::DOM::Supports);
 package Mozilla::DOM::DOMException;
 
 our @ISA = qw(Mozilla::DOM::Supports);
+
+#  enum { INDEX_SIZE_ERR = 1U };
+#  enum { DOMSTRING_SIZE_ERR = 2U };
+#  enum { HIERARCHY_REQUEST_ERR = 3U };
+#  enum { WRONG_DOCUMENT_ERR = 4U };
+#  enum { INVALID_CHARACTER_ERR = 5U };
+#  enum { NO_DATA_ALLOWED_ERR = 6U };
+#  enum { NO_MODIFICATION_ALLOWED_ERR = 7U };
+#  enum { NOT_FOUND_ERR = 8U };
+#  enum { NOT_SUPPORTED_ERR = 9U };
+#  enum { INUSE_ATTRIBUTE_ERR = 10U };
+#  enum { INVALID_STATE_ERR = 11U };
+#  enum { SYNTAX_ERR = 12U };
+#  enum { INVALID_MODIFICATION_ERR = 13U };
+#  enum { NAMESPACE_ERR = 14U };
+#  enum { INVALID_ACCESS_ERR = 15U };
 
 # -----------------------------------------------------------------------------
 
@@ -894,6 +910,8 @@ functionality provided by this module probably isn't very useful.
 =over 4
 
 =item L<Mozilla::DOM::index|Mozilla::DOM::index>
+
+A list of all the POD files distributed with this module.
 
 =item L<Gtk2::MozEmbed|Gtk2::MozEmbed>
 

@@ -1,0 +1,115 @@
+=head1 NAME
+
+Mozilla::DOM::HTMLLegendElement
+
+=for object Mozilla::DOM::HTMLLegendElement
+
+Mozilla::DOM::HTMLLegendElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLLegendElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLLegendElement interface is the interface to a [X]HTML
+ * legend element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLLegendElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+
+
+
+=head1 METHODS
+
+=head2 $accesskey = $htmllegendelement->B<GetAccessKey>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $align = $htmllegendelement->B<GetAlign>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $form = $htmllegendelement->B<GetForm>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $htmllegendelement->B<SetAccessKey>($accesskey)
+
+=over
+
+=over
+
+=item * $accesskey (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmllegendelement->B<SetAlign>($align)
+
+=over
+
+=over
+
+=item * $align (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+
+=head1 SEE ALSO
+
+L<Mozilla::DOM>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005, Scott Lanning
+
+This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
+
+
+=cut
+

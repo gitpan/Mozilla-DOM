@@ -1,0 +1,255 @@
+=head1 NAME
+
+Mozilla::DOM::HTMLTableRowElement
+
+=for object Mozilla::DOM::HTMLTableRowElement
+
+Mozilla::DOM::HTMLTableRowElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLTableRowElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLTableRowElement interface is the interface to a
+ * [X]HTML tr element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLTableRowElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+
+
+
+=head1 METHODS
+
+=head2 $htmltablerowelement->B<DeleteCell>($index)
+
+=over
+
+=over
+
+=item * $index (integer (long)) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $align = $htmltablerowelement->B<GetAlign>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $bgcolor = $htmltablerowelement->B<GetBgColor>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $cells = $htmltablerowelement->B<GetCells>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $ch = $htmltablerowelement->B<GetCh>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $choff = $htmltablerowelement->B<GetChOff>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $rowindex = $htmltablerowelement->B<GetRowIndex>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $sectionrowindex = $htmltablerowelement->B<GetSectionRowIndex>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $valign = $htmltablerowelement->B<GetVAlign>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $retval = $htmltablerowelement->B<InsertCell>($index)
+
+=over
+
+=over
+
+=item * $index (integer (long)) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmltablerowelement->B<SetAlign>($align)
+
+=over
+
+=over
+
+=item * $align (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmltablerowelement->B<SetBgColor>($bgcolor)
+
+=over
+
+=over
+
+=item * $bgcolor (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmltablerowelement->B<SetCh>($ch)
+
+=over
+
+=over
+
+=item * $ch (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmltablerowelement->B<SetChOff>($choff)
+
+=over
+
+=over
+
+=item * $choff (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmltablerowelement->B<SetVAlign>($valign)
+
+=over
+
+=over
+
+=item * $valign (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+
+=head1 SEE ALSO
+
+L<Mozilla::DOM>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005, Scott Lanning
+
+This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
+
+
+=cut
+

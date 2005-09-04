@@ -1,3 +1,0 @@
-Copyright (C) 2005, Scott Lanning
-
-This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.

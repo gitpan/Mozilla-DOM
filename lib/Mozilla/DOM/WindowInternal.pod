@@ -1,0 +1,552 @@
+=head1 NAME
+
+Mozilla::DOM::WindowInternal
+
+=head1 DESCRIPTION
+
+Mozilla::DOM::WindowInternal is a wrapper around an instance of Mozilla's
+nsIDOMWindowInternal interface. This class inherits from
+L<Window2|Mozilla::DOM::Window2>.
+
+Note: the following methods are not wrapped (yet?):
+GetCrypto, GetPkcs11, GetControllers, GetPrompter,
+GetMenubar, GetToolbar, GetLocationbar, GetPersonalbar,
+GetStatusbar, GetDirectories.
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::WindowInternal->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=head1 METHODS
+
+=head2 $windowinternal->B<Alert>($text)
+
+=over
+
+=over
+
+=item * $text (string)
+
+=back
+
+=back
+
+=head2 $retval = $windowinternal->B<Atob>($asciistring)
+
+=over
+
+=over
+
+=item * $aAsciiString (string)
+
+=back
+
+=back
+
+=head2 $windowinternal->B<Back>()
+
+=over
+
+=back
+
+=head2 $windowinternal->B<Blur>()
+
+=over
+
+=back
+
+=head2 $retval = $windowinternal->B<Btoa>($base64data)
+
+=over
+
+=over
+
+=item * $aBase64Data (string)
+
+=back
+
+=back
+
+=head2 $windowinternal->B<Close>()
+
+=over
+
+=back
+
+=head2 $bool = $windowinternal->B<Confirm>($text)
+
+=over
+
+=over
+
+=item * $text (string)
+
+=back
+
+=back
+
+=head2 $bool = $windowinternal->B<Find>($str, $casesensitive, $backwards, $wraparound, $wholeword, $searchinframes, $showdialog)
+
+=over
+
+=over
+
+=item * $str (string)
+
+=item * $caseSensitive (boolean)
+
+=item * $backwards (boolean)
+
+=item * $wrapAround (boolean)
+
+=item * $wholeWord (boolean)
+
+=item * $searchInFrames (boolean)
+
+=item * $showDialog (boolean)
+
+=back
+
+=back
+
+=head2 $windowinternal->B<Focus>()
+
+=over
+
+=back
+
+=head2 $windowinternal->B<Forward>()
+
+=over
+
+=back
+
+=head2 $bool = $windowinternal->B<GetClosed>()
+
+=over
+
+=back
+
+=head2 $content = $windowinternal->B<GetContent>()
+
+=over
+
+=back
+
+=head2 $defaultstatus = $windowinternal->B<GetDefaultStatus>()
+
+=over
+
+=back
+
+=head2 $frameelement = $windowinternal->B<GetFrameElement>()
+
+=over
+
+=back
+
+=head2 $bool = $windowinternal->B<GetFullScreen>()
+
+=over
+
+=back
+
+=head2 $history = $windowinternal->B<GetHistory>()
+
+=over
+
+=back
+
+=head2 $innerheight = $windowinternal->B<GetInnerHeight>()
+
+=over
+
+=back
+
+=head2 $innerwidth = $windowinternal->B<GetInnerWidth>()
+
+=over
+
+=back
+
+=head2 $length = $windowinternal->B<GetLength>()
+
+=over
+
+=back
+
+=head2 $location = $windowinternal->B<GetLocation>()
+
+=over
+
+=back
+
+=head2 $navigator = $windowinternal->B<GetNavigator>()
+
+=over
+
+=back
+
+=head2 $opener = $windowinternal->B<GetOpener>()
+
+=over
+
+=back
+
+=head2 $outerheight = $windowinternal->B<GetOuterHeight>()
+
+=over
+
+=back
+
+=head2 $outerwidth = $windowinternal->B<GetOuterWidth>()
+
+=over
+
+=back
+
+=head2 $pagexoffset = $windowinternal->B<GetPageXOffset>()
+
+=over
+
+=back
+
+=head2 $pageyoffset = $windowinternal->B<GetPageYOffset>()
+
+=over
+
+=back
+
+=head2 $screen = $windowinternal->B<GetScreen>()
+
+=over
+
+=back
+
+=head2 $screenx = $windowinternal->B<GetScreenX>()
+
+=over
+
+=back
+
+=head2 $screeny = $windowinternal->B<GetScreenY>()
+
+=over
+
+=back
+
+=head2 $scrollmaxx = $windowinternal->B<GetScrollMaxX>()
+
+=over
+
+=back
+
+=head2 $scrollmaxy = $windowinternal->B<GetScrollMaxY>()
+
+=over
+
+=back
+
+=head2 $self = $windowinternal->B<GetSelf>()
+
+=over
+
+=back
+
+=head2 $status = $windowinternal->B<GetStatus>()
+
+=over
+
+=back
+
+=head2 $window = $windowinternal->B<GetWindow>()
+
+=over
+
+=back
+
+=head2 $windowinternal->B<Home>()
+
+=over
+
+=back
+
+=head2 $windowinternal->B<MoveBy>($dif, $dif)
+
+=over
+
+=over
+
+=item * $xDif (integer (long))
+
+=item * $yDif (integer (long))
+
+=back
+
+=back
+
+=head2 $windowinternal->B<MoveTo>($pos, $pos)
+
+=over
+
+=over
+
+=item * $xPos (integer (long))
+
+=item * $yPos (integer (long))
+
+=back
+
+=back
+
+=head2 $retval = $windowinternal->B<Open>($url, $name, $options)
+
+=over
+
+=over
+
+=item * $url (string)
+
+=item * $name (string)
+
+=item * $options (string)
+
+=back
+
+=back
+
+=head2 $retval = $windowinternal->B<OpenDialog>($url, $name, $options, $extraargument)
+
+=over
+
+=over
+
+=item * $url (string)
+
+=item * $name (string)
+
+=item * $options (string)
+
+=item * $aExtraArgument (Mozilla::DOM::Supports)
+
+=back
+
+=back
+
+=head2 $windowinternal->B<Print>()
+
+=over
+
+=back
+
+=head2 $retval = $windowinternal->B<Prompt>($message, $initial, $title, $savepassword)
+
+=over
+
+=over
+
+=item * $aMessage (string)
+
+=item * $aInitial (string)
+
+=item * $aTitle (string)
+
+=item * $aSavePassword (integer (long))
+
+=back
+
+=back
+
+=head2 $windowinternal->B<ResizeBy>($widthdif, $heightdif)
+
+=over
+
+=over
+
+=item * $widthDif (integer (long))
+
+=item * $heightDif (integer (long))
+
+=back
+
+=back
+
+=head2 $windowinternal->B<ResizeTo>($width, $height)
+
+=over
+
+=over
+
+=item * $width (integer (long))
+
+=item * $height (integer (long))
+
+=back
+
+=back
+
+=head2 $windowinternal->B<Scroll>($scroll, $scroll)
+
+=over
+
+=over
+
+=item * $xScroll (integer (long))
+
+=item * $yScroll (integer (long))
+
+=back
+
+=back
+
+=head2 $windowinternal->B<SetDefaultStatus>($defaultstatus)
+
+=over
+
+=over
+
+=item * $aDefaultStatus (string)
+
+=back
+
+=back
+
+=head2 $windowinternal->B<SetFullScreen>($fullscreen)
+
+=over
+
+=over
+
+=item * $aFullScreen (boolean)
+
+=back
+
+=back
+
+=head2 $windowinternal->B<SetInnerHeight>($innerheight)
+
+=over
+
+=over
+
+=item * $aInnerHeight (integer (long))
+
+=back
+
+=back
+
+=head2 $windowinternal->B<SetInnerWidth>($innerwidth)
+
+=over
+
+=over
+
+=item * $aInnerWidth (integer (long))
+
+=back
+
+=back
+
+=head2 $windowinternal->B<SetOpener>($opener)
+
+=over
+
+=over
+
+=item * $aOpener (Mozilla::DOM::WindowInternal)
+
+=back
+
+=back
+
+=head2 $windowinternal->B<SetOuterHeight>($outerheight)
+
+=over
+
+=over
+
+=item * $aOuterHeight (integer (long))
+
+=back
+
+=back
+
+=head2 $windowinternal->B<SetOuterWidth>($outerwidth)
+
+=over
+
+=over
+
+=item * $aOuterWidth (integer (long))
+
+=back
+
+=back
+
+=head2 $windowinternal->B<SetScreenX>($screenx)
+
+=over
+
+=over
+
+=item * $aScreenX (integer (long))
+
+=back
+
+=back
+
+=head2 $windowinternal->B<SetScreenY>($screeny)
+
+=over
+
+=over
+
+=item * $aScreenY (integer (long))
+
+=back
+
+=back
+
+=head2 $windowinternal->B<SetStatus>($status)
+
+=over
+
+=over
+
+=item * $aStatus (string)
+
+=back
+
+=back
+
+=head2 $windowinternal->B<Stop>()
+
+=over
+
+=back
+
+=head2 $windowinternal->B<UpdateCommands>($action)
+
+=over
+
+=over
+
+=item * $action (string)
+
+=back
+
+=back
+
+=head1 SEE ALSO
+
+L<Mozilla::DOM>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005, Scott Lanning
+
+This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
+
+=cut

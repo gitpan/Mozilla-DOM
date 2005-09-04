@@ -1,0 +1,356 @@
+=head1 NAME
+
+Mozilla::DOM::HTMLAppletElement
+
+=for object Mozilla::DOM::HTMLAppletElement
+
+Mozilla::DOM::HTMLAppletElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLAppletElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLAppletElement interface is the interface to a [X]HTML
+ * applet element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLAppletElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+
+
+
+=head1 METHODS
+
+=head2 $align = $htmlappletelement->B<GetAlign>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $alt = $htmlappletelement->B<GetAlt>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $archive = $htmlappletelement->B<GetArchive>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $code = $htmlappletelement->B<GetCode>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $codebase = $htmlappletelement->B<GetCodeBase>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $height = $htmlappletelement->B<GetHeight>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $hspace = $htmlappletelement->B<GetHspace>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $name = $htmlappletelement->B<GetName>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $object = $htmlappletelement->B<GetObject>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $vspace = $htmlappletelement->B<GetVspace>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $width = $htmlappletelement->B<GetWidth>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $htmlappletelement->B<SetAlign>($align)
+
+=over
+
+=over
+
+=item * $align (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmlappletelement->B<SetAlt>($alt)
+
+=over
+
+=over
+
+=item * $alt (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmlappletelement->B<SetArchive>($archive)
+
+=over
+
+=over
+
+=item * $archive (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmlappletelement->B<SetCode>($code)
+
+=over
+
+=over
+
+=item * $code (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmlappletelement->B<SetCodeBase>($codebase)
+
+=over
+
+=over
+
+=item * $codebase (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmlappletelement->B<SetHeight>($height)
+
+=over
+
+=over
+
+=item * $height (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmlappletelement->B<SetHspace>($hspace)
+
+=over
+
+=over
+
+=item * $hspace (integer (long)) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmlappletelement->B<SetName>($name)
+
+=over
+
+=over
+
+=item * $name (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmlappletelement->B<SetObject>($object)
+
+=over
+
+=over
+
+=item * $object (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmlappletelement->B<SetVspace>($vspace)
+
+=over
+
+=over
+
+=item * $vspace (integer (long)) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmlappletelement->B<SetWidth>($width)
+
+=over
+
+=over
+
+=item * $width (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+
+=head1 SEE ALSO
+
+L<Mozilla::DOM>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005, Scott Lanning
+
+This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
+
+
+=cut
+

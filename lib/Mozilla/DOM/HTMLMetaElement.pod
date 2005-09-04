@@ -1,0 +1,160 @@
+=head1 NAME
+
+Mozilla::DOM::HTMLMetaElement
+
+=for object Mozilla::DOM::HTMLMetaElement
+
+Mozilla::DOM::HTMLMetaElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLMetaElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLMetaElement interface is the interface to a [X]HTML
+ * meta element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLMetaElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+
+
+
+=head1 METHODS
+
+=head2 $content = $htmlmetaelement->B<GetContent>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $httpequiv = $htmlmetaelement->B<GetHttpEquiv>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $name = $htmlmetaelement->B<GetName>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $scheme = $htmlmetaelement->B<GetScheme>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $htmlmetaelement->B<SetContent>($content)
+
+=over
+
+=over
+
+=item * $content (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmlmetaelement->B<SetHttpEquiv>($httpequiv)
+
+=over
+
+=over
+
+=item * $httpequiv (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmlmetaelement->B<SetName>($name)
+
+=over
+
+=over
+
+=item * $name (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+=head2 $htmlmetaelement->B<SetScheme>($scheme)
+
+=over
+
+=over
+
+=item * $scheme (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+
+=head1 SEE ALSO
+
+L<Mozilla::DOM>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005, Scott Lanning
+
+This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
+
+
+=cut
+

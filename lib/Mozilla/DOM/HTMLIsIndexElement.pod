@@ -1,0 +1,87 @@
+=head1 NAME
+
+Mozilla::DOM::HTMLIsIndexElement
+
+=for object Mozilla::DOM::HTMLIsIndexElement
+
+Mozilla::DOM::HTMLIsIndexElement is a wrapper around an instance of Mozilla's
+nsIDOMHTMLIsIndexElement interface. This class inherits from
+L<HTMLElement|Mozilla::DOM::HTMLElement>.
+
+ * The nsIDOMHTMLIsIndexElement interface is the interface to a
+ * [X]HTML isindex element.
+ *
+ * For more information on this interface please see
+ * http://www.w3.org/TR/DOM-Level-2-HTML/
+ *
+ * @status FROZEN
+
+
+=cut
+
+=head1 CLASS METHODS
+
+=head2 $iid = Mozilla::DOM::HTMLIsIndexElement->B<GetIID>()
+
+Pass this to QueryInterface.
+
+=cut
+
+
+
+
+=head1 METHODS
+
+=head2 $form = $htmlisindexelement->B<GetForm>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $prompt = $htmlisindexelement->B<GetPrompt>()
+
+=over
+
+
+
+
+
+
+=back
+
+=head2 $htmlisindexelement->B<SetPrompt>($prompt)
+
+=over
+
+=over
+
+=item * $prompt (string) 
+
+=back
+
+
+
+
+
+
+=back
+
+
+=head1 SEE ALSO
+
+L<Mozilla::DOM>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005, Scott Lanning
+
+This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
+
+
+=cut
+
