@@ -8,14 +8,16 @@ use Config;
 use Cwd qw(cwd);
 use File::Spec;
 
-# $Id: Makefile.PL,v 1.9 2005/08/28 19:29:55 slanning Exp $
+# $Id: Makefile.PL,v 1.10 2005/09/04 20:05:04 slanning Exp $
 
 my $mozpkg = 'mozilla-xpcom';
+my $ffpkg  = 'firefox-xpcom';
 
 our %build_reqs = (
     'perl-ExtUtils-Depends'   => '0.205',
     'perl-ExtUtils-PkgConfig' => '1.07',
     $mozpkg                   => '1.7',
+    $ffpkg                    => '1.0',
 );
 
 unless (eval "use ExtUtils::Depends '$build_reqs{'perl-ExtUtils-Depends'}';"
@@ -32,18 +34,20 @@ unless (eval "use ExtUtils::Depends '$build_reqs{'perl-ExtUtils-Depends'}';"
     exit 1; # not reached
 }
 
-my %pkgcfg = ExtUtils::PkgConfig->find("$mozpkg >= " . $build_reqs{$mozpkg});
+my %pkgcfg = ExtUtils::PkgConfig->find("$mozpkg >= " . $build_reqs{$mozpkg},
+                                       "$ffpkg >= " . $build_reqs{$ffpkg});
+my $pkg = $pkgcfg{pkg} =~ /mozilla/ ? $mozpkg : $ffpkg;
 
 mkdir 'build', 0777;
 
 ExtUtils::PkgConfig->write_version_macros (
     "build/mozilladom2perl-version.h",
-    $mozpkg => 'MOZ_DOM',
+    $pkg => 'MOZ_DOM',
 );
 
 # $incdir is for "nsIDOMKeyEvent.h", etc.
-my $incdir = `pkg-config --variable=includedir $mozpkg`;
-my $libdir = `pkg-config --variable=libdir $mozpkg`;
+my $incdir = `pkg-config --variable=includedir $pkg`;
+my $libdir = `pkg-config --variable=libdir $pkg`;
 chomp($incdir, $libdir);
 
 my $mozdom = ExtUtils::Depends->new('Mozilla::DOM');
@@ -61,9 +65,9 @@ $mozdom->add_pm('DOM.pm' => '$(INST_LIBDIR)/DOM.pm',
                 } <lib/Mozilla/DOM/*.pod>);
 $mozdom->add_typemaps(map {File::Spec->catfile(cwd(), $_)} ('mozilladom.typemap'));
 
-$mozdom->install("mozilladom2perl.h",
-                 # "build/mozilladom2perl-autogen.h",
-                 "build/mozilladom2perl-version.h",
+$mozdom->install('mozilladom2perl.h',
+                 # 'build/mozilladom2perl-autogen.h',
+                 'build/mozilladom2perl-version.h',
                  'doctypes');
 $mozdom->save_config('build/IFiles.pm');
 
@@ -72,10 +76,14 @@ WriteMakefile(
     VERSION_FROM  => 'DOM.pm',
     ABSTRACT_FROM => 'DOM.pm',
     XSPROTOARG    => '-noprototypes',
-    MAN3PODS => {},    # don't create man pages
-    LD            => "LD_RUN_PATH=$libdir $Config{ld}",    #  '$(CC)'
+    MAN3PODS      => {},    # don't create man pages
+    LD            => "LD_RUN_PATH=$libdir $Config{ld}",
     CC            => 'g++',
     XSOPT         => '-C++',
+    dist => {
+        # don't index examples directory on CPAN
+        PREOP => 'echo -e "no_index:\n  dir:\n  - examples" >> ${DISTVNAME}/META.yml',
+    },
     $mozdom->get_makefile_vars,
 );
 
@@ -85,7 +93,7 @@ package MY;
 # Copied from Glib::MakeHelper
 # (see NOTICE in `perldoc Glib::MakeHelper` on const_cccmd)
 sub const_cccmd {
-        my $inherited = shift->SUPER::const_cccmd (@_);
+        my $inherited = shift->SUPER::const_cccmd(@_);
         return '' unless $inherited;
         use Config;
         $inherited .= ($Config{cc} eq 'cl') ? ' /Fo$@' : ' -o $@';

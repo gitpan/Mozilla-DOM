@@ -10,8 +10,8 @@ for more details.
 
 There are examples in the `examples' directory showing how
 to use this module with Gtk2::MozEmbed. See the README file
-in that directory. `perldoc Mozilla::DOM::index` for a list
-of all the POD distributed with this module.
+in that directory. See `perldoc Mozilla::DOM::index` for a list
+of all the POD files distributed with this module.
 
 
 Dependencies
@@ -19,23 +19,23 @@ Dependencies
 
 You might have to manually install ExtUtils::Depends and ExtUtils::PkgConfig
 before anything else. Sorry about that. You'll also have to install Mozilla
-with its development headers (I think you can also just install an SDK).
+with its development headers (I think you can also just install the SDK).
 
 Mozilla::DOM depends on:
 
   ExtUtils::Depends
   ExtUtils::PkgConfig
   `pkg-config --modversion mozilla-xpcom` >= 1.7
-
-I hope to add the equivalent of mozilla-xpcom for Firefox.
+    or
+  `pkg-config --modversion firefox-gtkmozembed` >= 1.0
 
 
 Installation
 ------------
 
-Note: I've only built this on Debian Linux with Mozilla 1.7.5.
-People running Gentoo with Mozilla 1.7.6 have reported being
-able to build it.
+Note: I've only built this on Debian Linux with Mozilla 1.7.5
+and 1.7.10. People running Gentoo with Mozilla 1.7.6 have reported
+being able to build it.
 
 To install Mozilla::DOM, run the following commands:
 
@@ -44,10 +44,10 @@ To install Mozilla::DOM, run the following commands:
   make test      (not really any tests yet)
   make install   (as root)
 
-(See dependencies below.)
+(See "Dependencies" above.)
 
 For this module to be useful, you'll probably also want
-to build and install Gtk2::MozEmbed (> 0.03) _after_ you
+to build and install Gtk2::MozEmbed (> 0.03) *after* you
 install this. That module includes Mozilla::DOM (through
 the magic of ExtUtils::Depends) if it's already installed.
 Similarly, if you upgrade Mozilla::DOM, you'll also want
@@ -84,8 +84,8 @@ If this happens, do
   find . -name 'nsIWebBrowser.h'
 
 from within the Mozilla include directory (e.g. /usr/include/mozilla).
-It will probably be under some directory of /usr/include/mozilla/.
-Try adding that directory to the set_inc method in Makefile.PL,
+It will probably be under a subdirectory of /usr/include/mozilla/.
+Try adding that subdirectory to the set_inc method in Makefile.PL,
 and please report it to me.
 
 

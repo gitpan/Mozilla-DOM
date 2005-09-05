@@ -1,4 +1,10 @@
-0.15  2005-09-
+0.16  2005-09-05
+  - added support for Firefox to Makefile.PL (copied from Gtk2::MozEmbed;
+    untested, please report success or failure)
+  - added no_index to META.yml to suppress indexing the examples on CPAN.
+    Thanks to Adam Kennedy for pointing that out.
+
+0.15  2005-09-04
   - moved POD from xs/DOM.xs into lib/Mozilla/DOM/*.pod. At the expense of
     the POD no longer being auto-generated, people can now read the POD
     without having to install the module (e.g. on CPAN), install time

@@ -12,3 +12,6 @@ Makefile\.old$
 \.spec$
 \.sw.$
 \.tar\.gz$
+releases
+genxsubs
+\.c$

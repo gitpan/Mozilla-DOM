@@ -1,16 +1,15 @@
 package Mozilla::DOM;
 
-# $Id: DOM.pm,v 1.15 2005/08/28 19:29:55 slanning Exp $
+# $Id: DOM.pm,v 1.16 2005/09/04 20:05:04 slanning Exp $
 
 use 5.008;
 use strict;
 use warnings;
 
 require DynaLoader;
-
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.15';
+our $VERSION = '0.16';
 
 sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 
@@ -20,7 +19,7 @@ __PACKAGE__->bootstrap($VERSION);
 
 Steps to do for each release:
 
-0) make sure ChangeLog and TODO are up to date
+0) make sure ChangeLog, TODO, and MANIFEST are up to date
 1) make sure that Mozilla::DOM and Gtk2::MozEmbed build
     make realclean
     perl Makefile.PL
@@ -29,6 +28,10 @@ Steps to do for each release:
     sudo make install
 2) create the distribution tarball (Mozilla-DOM-0.vv.tar.gz)
     make dist
+   don't index 'examples' in META.yml (look into $(PREOP) for `make tardist`):
+    no_index:
+      dir:
+      - examples
 3) upload tarball to PAUSE at https://pause.perl.org/
 4) move dist tarball to `releases' directory
 5) commit to CVS and tag release
@@ -64,8 +67,8 @@ package Mozilla::DOM::Event;
 
 our @ISA = qw(Mozilla::DOM::Supports Exporter);
 
-# XXX: how do I make it where a program can export things,
-# like with `use Mozilla::DOM::Event qw(:phases);'  ???
+# XXX: how could I make it where a program can export things
+# with `use Mozilla::DOM::Event qw(:phases);'  ???
 # With this, you have to use $event->BUBBLING_PHASE,
 # where $event is a MouseEvent or KeyEvent in a signal handler.
 # Also can I directly export the class constants from the C++ header?
@@ -104,6 +107,7 @@ package Mozilla::DOM::MouseEvent;
 
 our @ISA = qw(Mozilla::DOM::UIEvent);
 
+# backward compatibility - will remove
 *get_screen_x = \&GetScreenX;
 *get_screen_y = \&GetScreenY;
 *get_client_x = \&GetClientX;
@@ -238,6 +242,7 @@ use constant DOM_VK_CLOSE_BRACKET => 221;
 use constant DOM_VK_QUOTE => 222;
 use constant DOM_VK_META => 224;
 
+# backward compatibility - will remove
 *get_char_code = \&GetCharCode;
 *get_key_code = \&GetKeyCode;
 *get_ctrl_key = \&GetCtrlKey;

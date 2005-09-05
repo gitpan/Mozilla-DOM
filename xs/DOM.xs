@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $CVSHeader: Mozilla-DOM/xs/DOM.xs,v 1.18 2005/08/28 19:30:22 slanning Exp $
+ * $CVSHeader: Mozilla-DOM/xs/DOM.xs,v 1.19 2005/09/04 20:05:09 slanning Exp $
  */
 
 #include "mozilladom2perl.h"
@@ -333,7 +333,7 @@ moz_dom_InitEvent (event, eventtype, canbubble, cancelable)
 	PRBool canbubble;
 	PRBool cancelable;
     CODE:
-	/* XXX: this can thrown an exception, so should check... */
+	/* XXX: this can throw an exception, so should check... */
 	event->InitEvent(eventtype, canbubble, cancelable);
 
 # -----------------------------------------------------------------------------
@@ -409,7 +409,7 @@ moz_dom_CreateEvent (docevent, eventtype)
     PREINIT:
 	nsIDOMEvent *event;
     CODE:
-	/* XXX: this can thrown an exception, so should check... */
+	/* XXX: this can throw an exception, so should check... */
 	docevent->CreateEvent(eventtype, &event);
 	RETVAL = event;
     OUTPUT:
