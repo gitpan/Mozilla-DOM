@@ -26,8 +26,8 @@ for its last two arguments.
 =begin enums
 
 The following constants are available.
-XXX: This is currently buggy, because you have to call them
-as instance methods. This will change soon.
+You can export them all with C<use Mozilla::DOM::WebNavigation qw(:flags)>
+or export them individually.
 
 =over 4
 

@@ -13,12 +13,14 @@ use Glib qw(TRUE FALSE);
 use Gtk2;
 use Gtk2::MozEmbed '0.04';
 use Mozilla::DOM '0.14';   # for WebNavigation
-
+use Mozilla::DOM::WebNavigation qw(:flags);
 
 use Glib::Object::Subclass Gtk2::Window::;
 
 sub INIT_INSTANCE {
     my $self = shift;
+
+    print "LOAD_FLAGS_MASK=", LOAD_FLAGS_MASK, $/;
 
     my $embed = Gtk2::MozEmbed->new();
     $embed->signal_connect(net_stop => \&net_stop_cb);

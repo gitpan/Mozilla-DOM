@@ -15,11 +15,8 @@ L<Supports|Mozilla::DOM::Supports>.
 
 The constants START_TO_START, START_TO_END, END_TO_END, and END_TO_START
 are available for the "how" argument to L</CompareBoundaryPoints>.
-XXX: Currently these are accessed through methods on the object; this will
-change when I figure out how to export them as constants or class methods.
-DEPRECATED: a little premature to deprecate, not having an alternative
-(aside from using the numbers directly), but I really don't like how
-they're currently implemented.
+You can export them all with C<use Mozilla::DOM::Range qw(:how)>
+or export them individually.
 
 =cut
 

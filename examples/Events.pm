@@ -14,7 +14,10 @@ use Cwd 'getcwd';
 use Glib qw(TRUE FALSE);
 use Gtk2;
 use Gtk2::MozEmbed '0.04';
-use Mozilla::DOM '0.10';   # for Supports and GetIID
+use Mozilla::DOM '0.17';   # for exporting :phases
+#use Mozilla::DOM::Event qw(:phases);  # XXX: need to add examples
+#use Mozilla::DOM::KeyEvent qw(:keycodes);
+#use Mozilla::DOM::MutationEvent qw(:changes);
 
 use Glib::Object::Subclass Gtk2::Window::;
 

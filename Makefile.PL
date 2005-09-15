@@ -8,7 +8,7 @@ use Config;
 use Cwd qw(cwd);
 use File::Spec;
 
-# $Id: Makefile.PL,v 1.10 2005/09/04 20:05:04 slanning Exp $
+# $Id: Makefile.PL,v 1.11 2005/09/05 12:43:14 slanning Exp $
 
 my $mozpkg = 'mozilla-xpcom';
 my $ffpkg  = 'firefox-xpcom';
@@ -57,12 +57,14 @@ $mozdom->set_inc($pkgcfg{cflags}, '-I.', '-I./build',
 $mozdom->set_libs($pkgcfg{libs});
 $mozdom->add_xs(<xs/*.xs>);
 # XXX: should move DOM.pm into lib/Mozilla/ then use PMLIBDIRS in WriteMakefile instead
-$mozdom->add_pm('DOM.pm' => '$(INST_LIBDIR)/DOM.pm',
-                map {   # .pod files in lib/Mozilla/DOM/
-                    my $inst = $_;
-                    $inst =~ s{lib/Mozilla}{};
-                    $_ => "\$(INST_LIBDIR)$inst";
-                } <lib/Mozilla/DOM/*.pod>);
+$mozdom->add_pm(
+    'DOM.pm' => '$(INST_LIBDIR)/DOM.pm',
+    map {   # .pod and .pm files in lib/Mozilla/DOM/
+        my $inst = $_;
+        $inst =~ s{lib/Mozilla}{};
+        $_ => "\$(INST_LIBDIR)$inst";
+    } glob('lib/Mozilla/DOM/*.{pod,pm}'),
+);
 $mozdom->add_typemaps(map {File::Spec->catfile(cwd(), $_)} ('mozilladom.typemap'));
 
 $mozdom->install('mozilladom2perl.h',
@@ -82,7 +84,7 @@ WriteMakefile(
     XSOPT         => '-C++',
     dist => {
         # don't index examples directory on CPAN
-        PREOP => 'echo -e "no_index:\n  dir:\n  - examples" >> ${DISTVNAME}/META.yml',
+        PREOP => 'echo -e "no_index:\n  dir:\n  - examples\n  file:\n  - gendomxsubs.pl" >> ${DISTVNAME}/META.yml',
     },
     $mozdom->get_makefile_vars,
 );

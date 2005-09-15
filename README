@@ -40,7 +40,7 @@ being able to build it.
 To install Mozilla::DOM, run the following commands:
 
   perl Makefile.PL
-  make
+  make           (this can take a while)
   make test      (not really any tests yet)
   make install   (as root)
 

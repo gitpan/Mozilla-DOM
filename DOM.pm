@@ -1,6 +1,6 @@
 package Mozilla::DOM;
 
-# $Id: DOM.pm,v 1.16 2005/09/04 20:05:04 slanning Exp $
+# $Id: DOM.pm,v 1.17 2005/09/05 12:43:14 slanning Exp $
 
 use 5.008;
 use strict;
@@ -9,7 +9,7 @@ use warnings;
 require DynaLoader;
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.16';
+our $VERSION = '0.17';
 
 sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 
@@ -28,10 +28,6 @@ Steps to do for each release:
     sudo make install
 2) create the distribution tarball (Mozilla-DOM-0.vv.tar.gz)
     make dist
-   don't index 'examples' in META.yml (look into $(PREOP) for `make tardist`):
-    no_index:
-      dir:
-      - examples
 3) upload tarball to PAUSE at https://pause.perl.org/
 4) move dist tarball to `releases' directory
 5) commit to CVS and tag release
@@ -67,14 +63,6 @@ package Mozilla::DOM::Event;
 
 our @ISA = qw(Mozilla::DOM::Supports Exporter);
 
-# XXX: how could I make it where a program can export things
-# with `use Mozilla::DOM::Event qw(:phases);'  ???
-# With this, you have to use $event->BUBBLING_PHASE,
-# where $event is a MouseEvent or KeyEvent in a signal handler.
-# Also can I directly export the class constants from the C++ header?
-# Update: I found you can put 'static' before the XSUB return type,
-# and this will behave as a class method.
-
 use constant CAPTURING_PHASE => 1;
 use constant AT_TARGET       => 2;
 use constant BUBBLING_PHASE  => 3;
@@ -107,24 +95,11 @@ package Mozilla::DOM::MouseEvent;
 
 our @ISA = qw(Mozilla::DOM::UIEvent);
 
-# backward compatibility - will remove
-*get_screen_x = \&GetScreenX;
-*get_screen_y = \&GetScreenY;
-*get_client_x = \&GetClientX;
-*get_client_y = \&GetClientY;
-*get_ctrl_key = \&GetCtrlKey;
-*get_shift_key = \&GetShiftKey;
-*get_alt_key = \&GetAltKey;
-*get_meta_key = \&GetMetaKey;
-*get_button = \&GetButton;
-*get_related_target = \&GetRelatedTarget;
-*init_mouse_event = \&InitMouseEvent;
-
 # -----------------------------------------------------------------------------
 
 package Mozilla::DOM::KeyEvent;
 
-our @ISA = qw(Mozilla::DOM::UIEvent);
+our @ISA = qw(Mozilla::DOM::UIEvent Exporter);
 
 use constant DOM_VK_CANCEL => 3;
 use constant DOM_VK_HELP => 6;
@@ -242,14 +217,127 @@ use constant DOM_VK_CLOSE_BRACKET => 221;
 use constant DOM_VK_QUOTE => 222;
 use constant DOM_VK_META => 224;
 
-# backward compatibility - will remove
-*get_char_code = \&GetCharCode;
-*get_key_code = \&GetKeyCode;
-*get_ctrl_key = \&GetCtrlKey;
-*get_shift_key = \&GetShiftKey;
-*get_alt_key = \&GetAltKey;
-*get_meta_key = \&GetMetaKey;
-*init_key_event = \&InitKeyEvent;
+our %EXPORT_TAGS = (
+    keycodes => [qw(
+        DOM_VK_CANCEL
+        DOM_VK_HELP
+        DOM_VK_BACK_SPACE
+        DOM_VK_TAB
+        DOM_VK_CLEAR
+        DOM_VK_RETURN
+        DOM_VK_ENTER
+        DOM_VK_SHIFT
+        DOM_VK_CONTROL
+        DOM_VK_ALT
+        DOM_VK_PAUSE
+        DOM_VK_CAPS_LOCK
+        DOM_VK_ESCAPE
+        DOM_VK_SPACE
+        DOM_VK_PAGE_UP
+        DOM_VK_PAGE_DOWN
+        DOM_VK_END
+        DOM_VK_HOME
+        DOM_VK_LEFT
+        DOM_VK_UP
+        DOM_VK_RIGHT
+        DOM_VK_DOWN
+        DOM_VK_PRINTSCREEN
+        DOM_VK_INSERT
+        DOM_VK_DELETE
+        DOM_VK_0
+        DOM_VK_1
+        DOM_VK_2
+        DOM_VK_3
+        DOM_VK_4
+        DOM_VK_5
+        DOM_VK_6
+        DOM_VK_7
+        DOM_VK_8
+        DOM_VK_9
+        DOM_VK_SEMICOLON
+        DOM_VK_EQUALS
+        DOM_VK_A
+        DOM_VK_B
+        DOM_VK_C
+        DOM_VK_D
+        DOM_VK_E
+        DOM_VK_F
+        DOM_VK_G
+        DOM_VK_H
+        DOM_VK_I
+        DOM_VK_J
+        DOM_VK_K
+        DOM_VK_L
+        DOM_VK_M
+        DOM_VK_N
+        DOM_VK_O
+        DOM_VK_P
+        DOM_VK_Q
+        DOM_VK_R
+        DOM_VK_S
+        DOM_VK_T
+        DOM_VK_U
+        DOM_VK_V
+        DOM_VK_W
+        DOM_VK_X
+        DOM_VK_Y
+        DOM_VK_Z
+        DOM_VK_CONTEXT_MENU
+        DOM_VK_NUMPAD0
+        DOM_VK_NUMPAD1
+        DOM_VK_NUMPAD2
+        DOM_VK_NUMPAD3
+        DOM_VK_NUMPAD4
+        DOM_VK_NUMPAD5
+        DOM_VK_NUMPAD6
+        DOM_VK_NUMPAD7
+        DOM_VK_NUMPAD8
+        DOM_VK_NUMPAD9
+        DOM_VK_MULTIPLY
+        DOM_VK_ADD
+        DOM_VK_SEPARATOR
+        DOM_VK_SUBTRACT
+        DOM_VK_DECIMAL
+        DOM_VK_DIVIDE
+        DOM_VK_F1
+        DOM_VK_F2
+        DOM_VK_F3
+        DOM_VK_F4
+        DOM_VK_F5
+        DOM_VK_F6
+        DOM_VK_F7
+        DOM_VK_F8
+        DOM_VK_F9
+        DOM_VK_F10
+        DOM_VK_F11
+        DOM_VK_F12
+        DOM_VK_F13
+        DOM_VK_F14
+        DOM_VK_F15
+        DOM_VK_F16
+        DOM_VK_F17
+        DOM_VK_F18
+        DOM_VK_F19
+        DOM_VK_F20
+        DOM_VK_F21
+        DOM_VK_F22
+        DOM_VK_F23
+        DOM_VK_F24
+        DOM_VK_NUM_LOCK
+        DOM_VK_SCROLL_LOCK
+        DOM_VK_COMMA
+        DOM_VK_PERIOD
+        DOM_VK_SLASH
+        DOM_VK_BACK_QUOTE
+        DOM_VK_OPEN_BRACKET
+        DOM_VK_BACK_SLASH
+        DOM_VK_CLOSE_BRACKET
+        DOM_VK_QUOTE
+        DOM_VK_META
+    )],
+);
+our @EXPORT_OK = map { @$_ } values(%EXPORT_TAGS);
+$EXPORT_TAGS{all} = \@EXPORT_OK;
 
 # -----------------------------------------------------------------------------
 
@@ -433,23 +521,45 @@ our @ISA = qw(Mozilla::DOM::Supports);
 
 package Mozilla::DOM::DOMException;
 
-our @ISA = qw(Mozilla::DOM::Supports);
+our @ISA = qw(Mozilla::DOM::Supports Exporter);
 
-#  enum { INDEX_SIZE_ERR = 1U };
-#  enum { DOMSTRING_SIZE_ERR = 2U };
-#  enum { HIERARCHY_REQUEST_ERR = 3U };
-#  enum { WRONG_DOCUMENT_ERR = 4U };
-#  enum { INVALID_CHARACTER_ERR = 5U };
-#  enum { NO_DATA_ALLOWED_ERR = 6U };
-#  enum { NO_MODIFICATION_ALLOWED_ERR = 7U };
-#  enum { NOT_FOUND_ERR = 8U };
-#  enum { NOT_SUPPORTED_ERR = 9U };
-#  enum { INUSE_ATTRIBUTE_ERR = 10U };
-#  enum { INVALID_STATE_ERR = 11U };
-#  enum { SYNTAX_ERR = 12U };
-#  enum { INVALID_MODIFICATION_ERR = 13U };
-#  enum { NAMESPACE_ERR = 14U };
-#  enum { INVALID_ACCESS_ERR = 15U };
+use constant INDEX_SIZE_ERR => 1;
+use constant DOMSTRING_SIZE_ERR => 2;
+use constant HIERARCHY_REQUEST_ERR => 3;
+use constant WRONG_DOCUMENT_ERR => 4;
+use constant INVALID_CHARACTER_ERR => 5;
+use constant NO_DATA_ALLOWED_ERR => 6;
+use constant NO_MODIFICATION_ALLOWED_ERR => 7;
+use constant NOT_FOUND_ERR => 8;
+use constant NOT_SUPPORTED_ERR => 9;
+use constant INUSE_ATTRIBUTE_ERR => 10;
+use constant INVALID_STATE_ERR => 11;
+use constant SYNTAX_ERR => 12;
+use constant INVALID_MODIFICATION_ERR => 13;
+use constant NAMESPACE_ERR => 14;
+use constant INVALID_ACCESS_ERR => 15;
+
+our %EXPORT_TAGS = (
+    errcodes => [qw(
+        INDEX_SIZE_ERR
+        DOMSTRING_SIZE_ERR
+        HIERARCHY_REQUEST_ERR
+        WRONG_DOCUMENT_ERR
+        INVALID_CHARACTER_ERR
+        NO_DATA_ALLOWED_ERR
+        NO_MODIFICATION_ALLOWED_ERR
+        NOT_FOUND_ERR
+        NOT_SUPPORTED_ERR
+        INUSE_ATTRIBUTE_ERR
+        INVALID_STATE_ERR
+        SYNTAX_ERR
+        INVALID_MODIFICATION_ERR
+        NAMESPACE_ERR
+        INVALID_ACCESS_ERR
+    )],
+);
+our @EXPORT_OK = map { @$_ } values(%EXPORT_TAGS);
+$EXPORT_TAGS{all} = \@EXPORT_OK;
 
 # -----------------------------------------------------------------------------
 
@@ -461,12 +571,23 @@ our @ISA = qw(Mozilla::DOM::Supports);
 
 package Mozilla::DOM::Range;
 
-our @ISA = qw(Mozilla::DOM::Supports);
+our @ISA = qw(Mozilla::DOM::Supports Exporter);
 
 use constant START_TO_START          => 0;
 use constant START_TO_END            => 1;
 use constant END_TO_END              => 2;
 use constant END_TO_START            => 3;
+
+our %EXPORT_TAGS = (
+    how => [qw(
+        START_TO_START
+        START_TO_END
+        END_TO_END
+        END_TO_START
+    )],
+);
+our @EXPORT_OK = map { @$_ } values(%EXPORT_TAGS);
+$EXPORT_TAGS{all} = \@EXPORT_OK;
 
 # -----------------------------------------------------------------------------
 
@@ -498,13 +619,11 @@ package Mozilla::DOM::WebBrowser;
 
 our @ISA = qw(Mozilla::DOM::Supports);
 
-*get_content_domwindow = \&GetContentDOMWindow;
-
 # -----------------------------------------------------------------------------
 
 package Mozilla::DOM::WebNavigation;
 
-our @ISA = qw(Mozilla::DOM::Supports);
+our @ISA = qw(Mozilla::DOM::Supports Exporter);
 
 use constant LOAD_FLAGS_MASK => 65535;
 use constant LOAD_FLAGS_NONE => 0;
@@ -518,6 +637,25 @@ use constant LOAD_FLAGS_CHARSET_CHANGE => 1024;
 use constant STOP_NETWORK => 1;
 use constant STOP_CONTENT => 2;
 use constant STOP_ALL => 3;
+
+our %EXPORT_TAGS = (
+    flags => [qw(
+        LOAD_FLAGS_MASK
+        LOAD_FLAGS_NONE
+        LOAD_FLAGS_IS_REFRESH
+        LOAD_FLAGS_IS_LINK
+        LOAD_FLAGS_BYPASS_HISTORY
+        LOAD_FLAGS_REPLACE_HISTORY
+        LOAD_FLAGS_BYPASS_CACHE
+        LOAD_FLAGS_BYPASS_PROXY
+        LOAD_FLAGS_CHARSET_CHANGE
+        STOP_NETWORK
+        STOP_CONTENT
+        STOP_ALL
+    )],
+);
+our @EXPORT_OK = map { @$_ } values(%EXPORT_TAGS);
+$EXPORT_TAGS{all} = \@EXPORT_OK;
 
 # -----------------------------------------------------------------------------
 

@@ -1,20 +1,5 @@
 Split DOM.xs into separate files. I'd like to have ones
-for Event, Node, HTMLElement.
-
-Constants are currently broken. I hope nobody's using them.
-Need to work out how to export constants from various packages.
-I think they should be useable like
-
-  ... if $event->GetEventPhase == $Mozilla::DOM::Event::AT_TARGET;
-
-or
-
-  use Mozilla::DOM::Event qw(:phases);
-  ... if $event->GetEventPhase == AT_TARGET;
-
-however you can't `use Mozilla::DOM::Event':
-"Can't locate Mozilla/DOM/Event.pm in @INC ..."
-It must not be that hard to fix.. (See Gtk2/pm/Pango.pm)
+for Event, Node, HTMLElement..
 
 Make some methods more perlish. For example,
 GetElementsByTagName returns a NodeList,
@@ -57,4 +42,4 @@ can we do with full DOM access?
 Fill out missing documentation.
 Document how to add this to a module using ExtUtils::Depends.
 
-Tests....
+Tests and more examples....

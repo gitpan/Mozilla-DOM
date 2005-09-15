@@ -9,11 +9,9 @@ nsIDOMMutationEvent interface. This inherits from
 L<UIEvent|Mozilla::DOM::Event>.
 
 The following constants are available to be compared with L</GetAttrChange>.
-XXX: This is currently buggy, because you have to call them as methods on the
-mutation event object.
-DEPRECATED: a little premature to deprecate, not having an alternative
-(aside from using the numbers directly), but I really don't like how
-they're currently implemented.
+You can access these either through the event object,
+like $event->MODIFICATION, export them all with
+C<use Mozilla::DOM::MutationEvent qw(:changes)>, or export them individually.
 
 =over 4
 

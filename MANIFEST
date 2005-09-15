@@ -126,3 +126,10 @@ lib/Mozilla/DOM/Window2.pod
 lib/Mozilla/DOM/WindowCollection.pod
 lib/Mozilla/DOM/WindowInternal.pod
 lib/Mozilla/DOM/index.pod
+lib/Mozilla/DOM/DOMException.pm
+lib/Mozilla/DOM/Event.pm
+lib/Mozilla/DOM/KeyEvent.pm
+lib/Mozilla/DOM/MutationEvent.pm
+lib/Mozilla/DOM/Node.pm
+lib/Mozilla/DOM/Range.pm
+lib/Mozilla/DOM/WebNavigation.pm

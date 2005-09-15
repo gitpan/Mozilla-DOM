@@ -1,3 +1,8 @@
+0.17  2005-09-15
+  - fixed constants: see DOMException (unsupported yet), Event, KeyEvent,
+    MutationEvent, Node, Range, and WebNavigation (partially supported)
+  - removed backwards-compatibility underscore_style aliases (see 0.06 below)
+
 0.16  2005-09-05
   - added support for Firefox to Makefile.PL (copied from Gtk2::MozEmbed;
     untested, please report success or failure)
@@ -9,7 +14,7 @@
     the POD no longer being auto-generated, people can now read the POD
     without having to install the module (e.g. on CPAN), install time
     is slightly reduced, and I have better control over the POD output.
-    (Still need to clean up the POD.)
+    (Still need to clean up the POD...)
     I also suppressed generating separate man pages because I don't see
     the point (you should delete any existing man/man3/Mozilla*.3pm files
     if you've installed this module before).
@@ -78,7 +83,7 @@
 0.06  2005-04-08
   - switched method names to StudlyCaps style instead of under_score,
     because it was too tedious when reading/creating documentation
-    and XSUBs; provided aliases for KeyEvent, MouseEvent, and WebBrowser)
+    and XSUBs; provided aliases for KeyEvent, MouseEvent, and WebBrowser.
     Otherwise, they should be considered deprecated (not that anyone is
     actually using this module yet).
   - wrapped methods:

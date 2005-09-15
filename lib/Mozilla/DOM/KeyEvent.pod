@@ -15,11 +15,9 @@ system) that KeyEvents were not supported, I found that you can in fact
 do key events.
 
 The following constants are available to be compared with L</GetKeyCode>.
-XXX: This is currently buggy, because you have to call them as methods on the
-key event object.
-DEPRECATED: a little premature to deprecate, not having an alternative
-(aside from using the numbers directly), but I really don't like how
-they're currently implemented.
+You can access these either through the (mouse or key) event object,
+like $event->DOM_VK_TAB, export them all with
+C<use Mozilla::DOM::KeyEvent qw(:keycodes)>, or export them individually.
 
 =over 4
 

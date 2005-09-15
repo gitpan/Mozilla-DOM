@@ -12,12 +12,15 @@ use warnings;
 use Glib qw(TRUE FALSE);
 use Gtk2;
 use Gtk2::MozEmbed '0.04';
-use Mozilla::DOM '0.07';   # for Element and Node methods
+use Mozilla::DOM '0.17';   # for exporting ::Node constants
+use Mozilla::DOM::Node qw(:types);
 
 use Glib::Object::Subclass Gtk2::Window::;
 
 sub INIT_INSTANCE {
     my $self = shift;
+
+    print "TEXT_NODE=", TEXT_NODE, $/;
 
     my $embed = Gtk2::MozEmbed->new();
 

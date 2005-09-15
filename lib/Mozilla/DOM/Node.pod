@@ -16,11 +16,8 @@ L<Supports|Mozilla::DOM::Supports>.
  * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-CoreE<sol>>
 
 The following constants are available to be compared with L</GetNodeType>.
-XXX: This is currently buggy, because you have to call them as methods on the
-node object.
-DEPRECATED: a little premature to deprecate, not having an alternative
-(aside from using the numbers directly), but I really don't like how
-they're currently implemented.
+You can export them all with C<use Mozilla::DOM::Node qw(:types)>
+or export them individually.
 
 =over 4
 
