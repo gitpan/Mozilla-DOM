@@ -11,7 +11,7 @@ inherits. This class inherits from L<Supports|Mozilla::DOM::Supports>.
  * The nsIDOMEvent interface is the primary datatype for all events in
  * the Document Object Model.
  *
- * For more information on this interface please see 
+ * For more information on this interface please see
  * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-EventsE<sol>>
 
 The constants CAPTURING_PHASE, AT_TARGET, and BUBBLING_PHASE are available
@@ -117,29 +117,29 @@ The name of the event (case-insensitive). The name must be an XML name.
 
 =back
 
-   * The initEvent method is used to initialize the value of an Event 
-   * created through the DocumentEvent interface. This method may only be 
-   * called before the Event has been dispatched via the dispatchEvent 
-   * method, though it may be called multiple times during that phase if 
-   * necessary. If called multiple times the final invocation takes 
-   * precedence. If called from a subclass of Event interface only the 
-   * values specified in the initEvent method are modified, all other 
+   * The initEvent method is used to initialize the value of an Event
+   * created through the DocumentEvent interface. This method may only be
+   * called before the Event has been dispatched via the dispatchEvent
+   * method, though it may be called multiple times during that phase if
+   * necessary. If called multiple times the final invocation takes
+   * precedence. If called from a subclass of Event interface only the
+   * values specified in the initEvent method are modified, all other
    * attributes are left unchanged.
    *
-   * @param   eventTypeArg Specifies the event type. This type may be 
-   *                       any event type currently defined in this 
-   *                       specification or a new event type.. The string 
+   * @param   eventTypeArg Specifies the event type. This type may be
+   *                       any event type currently defined in this
+   *                       specification or a new event type.. The string
    *                       must be an XML name.
-   *                       Any new event type must not begin with any 
-   *                       upper, lower, or mixed case version of the 
-   *                       string "DOM". This prefix is reserved for 
-   *                       future DOM event sets. It is also strongly 
-   *                       recommended that third parties adding their 
-   *                       own events use their own prefix to avoid 
-   *                       confusion and lessen the probability of 
+   *                       Any new event type must not begin with any
+   *                       upper, lower, or mixed case version of the
+   *                       string "DOM". This prefix is reserved for
+   *                       future DOM event sets. It is also strongly
+   *                       recommended that third parties adding their
+   *                       own events use their own prefix to avoid
+   *                       confusion and lessen the probability of
    *                       conflicts with other new events.
    * @param   canBubbleArg Specifies whether or not the event can bubble.
-   * @param   cancelableArg Specifies whether or not the event's default 
+   * @param   cancelableArg Specifies whether or not the event's default
    *                        action can be prevented.
 
 The $event object is an event created by DocumentEvent's

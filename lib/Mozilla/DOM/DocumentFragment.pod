@@ -8,26 +8,11 @@ Mozilla::DOM::DocumentFragment is a wrapper around an instance of Mozilla's
 nsIDOMDocumentFragment interface. This inherits from
 L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
 
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::DocumentFragment->B<GetIID>()
 
 Pass this to QueryInterface.
-
-=cut
-
-
-
-
-=head1 METHODS
-
-
-
-Some methods defined for Mozilla::DOM::DocumentFragment::nsIDOMDocumentFragment are not available in the particular
-library versions against which this module was compiled. 
-
 
 =head1 SEE ALSO
 
@@ -38,7 +23,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

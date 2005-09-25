@@ -16,19 +16,11 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLTextAreaElement->B<GetIID>()
 
 Pass this to QueryInterface.
-
-=cut
-
-
-
 
 =head1 METHODS
 
@@ -36,142 +28,11 @@ Pass this to QueryInterface.
 
 =over
 
-
-
-
-
-
 =back
 
 =head2 $htmltextareaelement->B<Focus>()
 
 =over
-
-
-
-
-
-
-=back
-
-=head2 $accesskey = $htmltextareaelement->B<GetAccessKey>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $cols = $htmltextareaelement->B<GetCols>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $defaultvalue = $htmltextareaelement->B<GetDefaultValue>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $bool = $htmltextareaelement->B<GetDisabled>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $form = $htmltextareaelement->B<GetForm>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $name = $htmltextareaelement->B<GetName>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $bool = $htmltextareaelement->B<GetReadOnly>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $rows = $htmltextareaelement->B<GetRows>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $tabindex = $htmltextareaelement->B<GetTabIndex>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $type = $htmltextareaelement->B<GetType>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $value = $htmltextareaelement->B<GetValue>()
-
-=over
-
-
-
-
-
 
 =back
 
@@ -179,10 +40,23 @@ Pass this to QueryInterface.
 
 =over
 
+=back
 
+=head2 $form = $htmltextareaelement->B<GetForm>()
 
+=over
 
+=back
 
+=head2 $type = $htmltextareaelement->B<GetType>()
+
+=over
+
+=back
+
+=head2 $accesskey = $htmltextareaelement->B<GetAccessKey>()
+
+=over
 
 =back
 
@@ -192,14 +66,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $accesskey (string) 
+=item * $accesskey (string)
 
 =back
 
+=back
 
+=head2 $cols = $htmltextareaelement->B<GetCols>()
 
-
-
+=over
 
 =back
 
@@ -209,14 +84,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $cols (integer (long)) 
+=item * $cols (integer (long))
 
 =back
 
+=back
 
+=head2 $defaultvalue = $htmltextareaelement->B<GetDefaultValue>()
 
-
-
+=over
 
 =back
 
@@ -226,14 +102,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $defaultvalue (string) 
+=item * $defaultvalue (string)
 
 =back
 
+=back
 
+=head2 $bool = $htmltextareaelement->B<GetDisabled>()
 
-
-
+=over
 
 =back
 
@@ -243,14 +120,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $disabled (boolean) 
+=item * $disabled (boolean)
 
 =back
 
+=back
 
+=head2 $name = $htmltextareaelement->B<GetName>()
 
-
-
+=over
 
 =back
 
@@ -260,14 +138,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $name (string) 
+=item * $name (string)
 
 =back
 
+=back
 
+=head2 $bool = $htmltextareaelement->B<GetReadOnly>()
 
-
-
+=over
 
 =back
 
@@ -277,14 +156,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $readonly (boolean) 
+=item * $readonly (boolean)
 
 =back
 
+=back
 
+=head2 $rows = $htmltextareaelement->B<GetRows>()
 
-
-
+=over
 
 =back
 
@@ -294,14 +174,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $rows (integer (long)) 
+=item * $rows (integer (long))
 
 =back
 
+=back
 
+=head2 $tabindex = $htmltextareaelement->B<GetTabIndex>()
 
-
-
+=over
 
 =back
 
@@ -311,14 +192,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $tabindex (integer (long)) 
+=item * $tabindex (integer (long))
 
 =back
 
+=back
 
+=head2 $value = $htmltextareaelement->B<GetValue>()
 
-
-
+=over
 
 =back
 
@@ -328,17 +210,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $value (string) 
+=item * $value (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -349,7 +225,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

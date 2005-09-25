@@ -27,7 +27,9 @@ Mozilla::DOM depends on:
   ExtUtils::PkgConfig
   `pkg-config --modversion mozilla-xpcom` >= 1.7
     or
-  `pkg-config --modversion firefox-gtkmozembed` >= 1.0
+  `pkg-config --modversion firefox-xpcom` >= 1.0
+
+(I have no idea if Firefox works.)
 
 
 Installation
@@ -50,7 +52,7 @@ For this module to be useful, you'll probably also want
 to build and install Gtk2::MozEmbed (> 0.03) *after* you
 install this. That module includes Mozilla::DOM (through
 the magic of ExtUtils::Depends) if it's already installed.
-Similarly, if you upgrade Mozilla::DOM, you'll also want
+IMPORTANT: if you upgrade Mozilla::DOM, you also need
 to rebuild and reinstall Gtk2::MozEmbed.
 
 
@@ -65,16 +67,17 @@ you pass an argument on the command line, for example
 
   perl Makefile.PL DEFINE="-DMDEXP_EVENT_LISTENER"
 
-where "MDEXP" is just a (presumably) unique prefix and the rest
+where "MDEXP" is just a (namespace-like) prefix and the rest
 of the name identifies which feature is being enabled. Currently
-only the following features are experimental: EVENT_LISTENER.
+the following features are experimental: EVENT_LISTENER.
 
 
 Troubleshooting
 ---------------
 
 A common problem seems to be that header files are put in different
-directories. If so, you'll get an error like
+directories for different installations of Mozilla. If so, you'll
+get an error like
 
   mozilladom2perl.h:37:27: nsIWebBrowser.h: No such file or directory
   mozilladom2perl.h:38:26: nsISelection.h: No such file or directory

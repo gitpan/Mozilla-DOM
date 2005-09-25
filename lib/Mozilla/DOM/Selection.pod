@@ -11,18 +11,11 @@ L<Supports|Mozilla::DOM::Supports>.
  * Interface for manipulating and querying the current selected range
  * of nodes within the document.
 
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::Selection->B<GetIID>()
 
 Pass this to QueryInterface.
-
-=cut
-
-
-
 
 =head1 METHODS
 
@@ -32,14 +25,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $range (Mozilla::DOM::Range) 
+=item * $range (Mozilla::DOM::Range)
 
 =back
 
-
-
      * Adds a range to the current selection.
-
 
 =back
 
@@ -49,13 +39,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $parentNode (Mozilla::DOM::Node) 
+=item * $parentNode (Mozilla::DOM::Node)
 
-=item * $offset (integer (long)) 
+=item * $offset (integer (long))
 
 =back
-
-
 
      * Collapses the selection to a single point, at the specified offset
      * in the given DOM node. When the selection is collapsed, and the content
@@ -65,6 +53,15 @@ Pass this to QueryInterface.
      * @param offset          Where in given dom node to place the selection
                               (the offset into the given node)
 
+=back
+
+=head2 $selection->B<CollapseToStart>()
+
+=over
+
+     * Collapses the whole selection to a single point at the start
+     * of the current selection (irrespective of direction).  If content
+     * is focused and editable, the caret will blink there.
 
 =back
 
@@ -72,25 +69,9 @@ Pass this to QueryInterface.
 
 =over
 
-
-
      * Collapses the whole selection to a single point at the end
      * of the current selection (irrespective of direction).  If content
      * is focused and editable, the caret will blink there.
-
-
-=back
-
-=head2 $selection->B<CollapseToStart>()
-
-=over
-
-
-
-     * Collapses the whole selection to a single point at the start
-     * of the current selection (irrespective of direction).  If content
-     * is focused and editable, the caret will blink there.
-
 
 =back
 
@@ -100,13 +81,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $node (Mozilla::DOM::Node) 
+=item * $node (Mozilla::DOM::Node)
 
-=item * $entirelyContained (boolean) 
+=item * $entirelyContained (boolean)
 
 =back
-
-
 
      * The value of entirelyContained determines the detail of the search to determine if
      * the selection contains the node.  If entirelyContained is set to PR_TRUE, t
@@ -115,17 +94,13 @@ Pass this to QueryInterface.
      * @param node      The node where the selection will be extended to
      * @param entirelyContained Whether
 
-
 =back
 
 =head2 $selection->B<DeleteFromDocument>()
 
 =over
 
-
-
      * Deletes this selection from document the nodes belong to.
-
 
 =back
 
@@ -135,13 +110,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $parentNode (Mozilla::DOM::Node) 
+=item * $parentNode (Mozilla::DOM::Node)
 
-=item * $offset (integer (long)) 
+=item * $offset (integer (long))
 
 =back
-
-
 
      * Extends the selection by moving the focus to the specified node and offset,
      * preserving the anchor postion.  The new selection end result will always
@@ -150,17 +123,13 @@ Pass this to QueryInterface.
      * @param parentNode      The node where the selection will be extended to
      * @param offset          Where in node to place the offset in the new focused node
 
-
 =back
 
 =head2 $node = $selection->B<GetAnchorNode>()
 
 =over
 
-
-
      * The node representing one end of the selection.
-
 
 =back
 
@@ -168,10 +137,7 @@ Pass this to QueryInterface.
 
 =over
 
-
-
      * The offset within the (text) node where the selection begins.
-
 
 =back
 
@@ -179,10 +145,7 @@ Pass this to QueryInterface.
 
 =over
 
-
-
      * The node with keyboard focus.
-
 
 =back
 
@@ -190,10 +153,7 @@ Pass this to QueryInterface.
 
 =over
 
-
-
      * The offset within the (text) node where focus starts.
-
 
 =back
 
@@ -201,10 +161,7 @@ Pass this to QueryInterface.
 
 =over
 
-
-
      * Indicates if the selection is collapsed or not.
-
 
 =back
 
@@ -214,14 +171,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $index (integer (long)) 
+=item * $index (integer (long))
 
 =back
 
-
-
      * Returns the range at the specified index.
-
 
 =back
 
@@ -229,10 +183,7 @@ Pass this to QueryInterface.
 
 =over
 
-
-
      * Returns the number of ranges in the selection.
-
 
 =back
 
@@ -240,10 +191,7 @@ Pass this to QueryInterface.
 
 =over
 
-
-
      * Removes all ranges from the current selection.
-
 
 =back
 
@@ -253,14 +201,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $range (Mozilla::DOM::Range) 
+=item * $range (Mozilla::DOM::Range)
 
 =back
 
-
-
      * Removes a range from the current selection.
-
 
 =back
 
@@ -270,16 +215,13 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $parentNode (Mozilla::DOM::Node) 
+=item * $parentNode (Mozilla::DOM::Node)
 
 =back
-
-
 
      * Adds all children of the specified node to the selection.
      *
      * @param parentNode  the parent of the children to be added to the selection.
-
 
 =back
 
@@ -289,17 +231,14 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $langRTL (boolean) 
+=item * $langRTL (boolean)
 
 =back
-
-
 
      * Modifies the cursor Bidi level after a change in keyboard direction
      *
      * @param langRTL is PR_TRUE if the new language is right-to-left or
      *                PR_FALSE if the new language is left-to-right.
-
 
 =back
 
@@ -307,13 +246,10 @@ Pass this to QueryInterface.
 
 =over
 
-
-
-     * Returns the whole selection into a plain text string.
-
+Returns the whole selection into a plain text string.
+Note: only the text, not the markup. (DAMN!)
 
 =back
-
 
 =head1 SEE ALSO
 
@@ -324,7 +260,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

@@ -9,7 +9,7 @@ use warnings;
 require DynaLoader;
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.17';
+our $VERSION = '0.18';
 
 sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 
@@ -26,14 +26,15 @@ Steps to do for each release:
     make
     make test
     sudo make install
-2) create the distribution tarball (Mozilla-DOM-0.vv.tar.gz)
+2) Try some examples in examples directory.
+3) create the distribution tarball (Mozilla-DOM-0.vv.tar.gz)
     make dist
-3) upload tarball to PAUSE at https://pause.perl.org/
-4) move dist tarball to `releases' directory
-5) commit to CVS and tag release
+4) upload tarball to PAUSE at https://pause.perl.org/
+5) move dist tarball to `releases' directory
+6) commit to CVS and tag release
     cvs commit
     cvs tag rel-0_vv-yyyy-mm-dd
-6) increment $VERSION above
+7) increment $VERSION above
 
 =end comment
 
@@ -447,6 +448,12 @@ our @ISA = qw(Mozilla::DOM::Supports);
 
 # -----------------------------------------------------------------------------
 
+package Mozilla::DOM::NSDocument;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
 package Mozilla::DOM::Document;
 
 our @ISA = qw(Mozilla::DOM::Node);
@@ -504,6 +511,12 @@ our @ISA = qw(Mozilla::DOM::CharacterData);
 package Mozilla::DOM::DocumentFragment;
 
 our @ISA = qw(Mozilla::DOM::Node);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::DocumentRange;
+
+our @ISA = qw(Mozilla::DOM::Supports);
 
 # -----------------------------------------------------------------------------
 
@@ -740,6 +753,12 @@ our @ISA = qw(Mozilla::DOM::HTMLElement);
 package Mozilla::DOM::HTMLElement;
 
 our @ISA = qw(Mozilla::DOM::Element);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::NSHTMLElement;
+
+our @ISA = qw(Mozilla::DOM::Supports);
 
 # -----------------------------------------------------------------------------
 
@@ -1098,7 +1117,7 @@ GtkMozEmbed: Gtk Mozilla Embedding Widget
 
 =over
 
-=item Scott Lanning E<lt>lannings at who dot intE<gt>
+=item Scott Lanning <slanning@cpan.org>
 
 =back
 

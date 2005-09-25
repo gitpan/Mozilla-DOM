@@ -130,7 +130,7 @@ when the mouse event occured.
 
 =back
 
-=head2 eventtarget = $event-E<gt>B<GetTarget>
+=head2 eventtarget = $event->B<GetTarget>
 
 =over
 

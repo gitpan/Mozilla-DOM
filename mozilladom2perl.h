@@ -70,8 +70,10 @@ extern "C" {
 #include "nsIDOMComment.h"
 #include "nsIDOMDOMImplementation.h"
 #include "nsIDOMDocument.h"
+#include "nsIDOMNSDocument.h"
 #include "nsIDOMDocumentEvent.h"
 #include "nsIDOMDocumentFragment.h"
+#include "nsIDOMDocumentRange.h"
 #include "nsIDOMDocumentType.h"
 #include "nsIDOMDocumentView.h"
 #include "nsIDOMElement.h"
@@ -111,6 +113,7 @@ extern "C" {
 #include "nsIDOMHTMLDListElement.h"
 #include "nsIDOMHTMLDivElement.h"
 #include "nsIDOMHTMLElement.h"
+#include "nsIDOMNSHTMLElement.h"
 #include "nsIDOMHTMLEmbedElement.h"
 #include "nsIDOMHTMLFieldSetElement.h"
 #include "nsIDOMHTMLFontElement.h"
@@ -204,8 +207,10 @@ MOZDOM_DECL_DOM_TYPEMAPPERS(Window2)
 MOZDOM_DECL_DOM_TYPEMAPPERS(WindowInternal)
 MOZDOM_DECL_DOM_TYPEMAPPERS(WindowCollection)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Document)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NSDocument)
 MOZDOM_DECL_DOM_TYPEMAPPERS(DOMException)
 MOZDOM_DECL_DOM_TYPEMAPPERS(DocumentFragment)
+MOZDOM_DECL_DOM_TYPEMAPPERS(DocumentRange)
 MOZDOM_DECL_DOM_TYPEMAPPERS(DocumentType)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Node)
 MOZDOM_DECL_DOM_TYPEMAPPERS(NodeList)
@@ -238,6 +243,7 @@ MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLCollection)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLDListElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLDivElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLElement)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NSHTMLElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLEmbedElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLFieldSetElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLFontElement)

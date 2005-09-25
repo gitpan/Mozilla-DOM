@@ -8,17 +8,15 @@ Mozilla::DOM::Element is a wrapper around an instance of Mozilla's
 nsIDOMElement interface. This inherits from
 L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
 
- * The nsIDOMElement interface represents an element in an HTML or 
- * XML document. 
+ * The nsIDOMElement interface represents an element in an HTML or
+ * XML document.
  *
- * For more information on this interface please see 
+ * For more information on this interface please see
  * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-CoreE<sol>>
 
 Note: you can QueryInterface an Element object to a subclass like
 L<HTMLSelectElement|Mozilla::DOM::HTMLSelectElement> (from which
 of course you can call Element methods).
-
-=cut
 
 =head1 CLASS METHODS
 
@@ -26,129 +24,11 @@ of course you can call Element methods).
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
-
-=head2 $attr = $element->B<GetAttribute>($name)
-
-=over
-
-=over
-
-=item * $name (string) 
-
-=back
-
-
-
-
-
-
-=back
-
-=head2 $attr = $element->B<GetAttributeNS>($namespaceURI, $localName)
-
-=over
-
-=over
-
-=item * $namespaceURI (string) 
-
-=item * $localName (string) 
-
-=back
-
-
-
-
-
-
-=back
-
-=head2 $attrnode = $element->B<GetAttributeNode>($name)
-
-=over
-
-=over
-
-=item * $name (string) 
-
-=back
-
-
-
-
-
-
-=back
-
-=head2 $attrnode = $element->B<GetAttributeNodeNS>($namespaceURI, $localName)
-
-=over
-
-=over
-
-=item * $namespaceURI (string) 
-
-=item * $localName (string) 
-
-=back
-
-
-
-
-
-
-=back
-
-=head2 $nodelist = $element->B<GetElementsByTagName>($name)
-
-=over
-
-=over
-
-=item * $name (string) 
-
-=back
-
-
-
-
-
-
-=back
-
-=head2 $nodelist = $element->B<GetElementsByTagNameNS>($namespaceURI, $localName)
-
-=over
-
-=over
-
-=item * $namespaceURI (string) 
-
-=item * $localName (string) 
-
-=back
-
-
-
-
-
-
-=back
 
 =head2 $tagname = $element->B<GetTagName>()
 
 =over
-
-
-
-
-
 
 =back
 
@@ -158,86 +38,21 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $name (string) 
+=item * $name (string)
 
 =back
 
-
-
-
-
-
 =back
 
-=head2 $bool = $element->B<HasAttributeNS>($namespaceURI, $localName)
+=head2 $attr = $element->B<GetAttribute>($name)
 
 =over
 
 =over
 
-=item * $namespaceURI (string) 
-
-=item * $localName (string) 
+=item * $name (string)
 
 =back
-
-
-
-
-
-
-=back
-
-=head2 $element->B<RemoveAttribute>($name)
-
-=over
-
-=over
-
-=item * $name (string) 
-
-=back
-
-
-
-
-
-
-=back
-
-=head2 $element->B<RemoveAttributeNS>($namespaceURI, $localName)
-
-=over
-
-=over
-
-=item * $namespaceURI (string) 
-
-=item * $localName (string) 
-
-=back
-
-
-
-
-
-
-=back
-
-=head2 $attrnode = $element->B<RemoveAttributeNode>($attrnode)
-
-=over
-
-=over
-
-=item * $oldAttr (Mozilla::DOM::Attr) 
-
-=back
-
-
-
-
-
 
 =back
 
@@ -247,16 +62,51 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $name (string) 
+=item * $name (string)
 
-=item * $value (string) 
+=item * $value (string)
 
 =back
 
+=back
 
+=head2 $element->B<RemoveAttribute>($name)
 
+=over
 
+=over
 
+=item * $name (string)
+
+=back
+
+=back
+
+=head2 $bool = $element->B<HasAttributeNS>($namespaceURI, $localName)
+
+=over
+
+=over
+
+=item * $namespaceURI (string)
+
+=item * $localName (string)
+
+=back
+
+=back
+
+=head2 $attr = $element->B<GetAttributeNS>($namespaceURI, $localName)
+
+=over
+
+=over
+
+=item * $namespaceURI (string)
+
+=item * $localName (string)
+
+=back
 
 =back
 
@@ -266,18 +116,39 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $namespaceURI (string) 
+=item * $namespaceURI (string)
 
-=item * $qualifiedName (string) 
+=item * $qualifiedName (string)
 
-=item * $value (string) 
+=item * $value (string)
 
 =back
 
+=back
 
+=head2 $element->B<RemoveAttributeNS>($namespaceURI, $localName)
 
+=over
 
+=over
 
+=item * $namespaceURI (string)
+
+=item * $localName (string)
+
+=back
+
+=back
+
+=head2 $attrnode = $element->B<GetAttributeNode>($name)
+
+=over
+
+=over
+
+=item * $name (string)
+
+=back
 
 =back
 
@@ -287,14 +158,35 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $newAttr (Mozilla::DOM::Attr) 
+=item * $newAttr (Mozilla::DOM::Attr)
 
 =back
 
+=back
 
+=head2 $attrnode = $element->B<RemoveAttributeNode>($attrnode)
 
+=over
 
+=over
 
+=item * $oldAttr (Mozilla::DOM::Attr)
+
+=back
+
+=back
+
+=head2 $attrnode = $element->B<GetAttributeNodeNS>($namespaceURI, $localName)
+
+=over
+
+=over
+
+=item * $namespaceURI (string)
+
+=item * $localName (string)
+
+=back
 
 =back
 
@@ -304,17 +196,37 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $newAttr (Mozilla::DOM::Attr) 
+=item * $newAttr (Mozilla::DOM::Attr)
 
 =back
 
+=back
 
+=head2 $nodelist = $element->B<GetElementsByTagName>($name)
 
+=over
 
+=over
 
+=item * $name (string)
 
 =back
 
+=back
+
+=head2 $nodelist = $element->B<GetElementsByTagNameNS>($namespaceURI, $localName)
+
+=over
+
+=over
+
+=item * $namespaceURI (string)
+
+=item * $localName (string)
+
+=back
+
+=back
 
 =head1 SEE ALSO
 
@@ -325,7 +237,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

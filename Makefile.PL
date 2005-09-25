@@ -84,7 +84,7 @@ WriteMakefile(
     XSOPT         => '-C++',
     dist => {
         # don't index examples directory on CPAN
-        PREOP => 'echo -e "no_index:\n  dir:\n  - examples\n  file:\n  - gendomxsubs.pl" >> ${DISTVNAME}/META.yml',
+        PREOP => 'echo -e "no_index:\n  dir:\n  - examples" >> ${DISTVNAME}/META.yml',
     },
     $mozdom->get_makefile_vars,
 );

@@ -16,19 +16,11 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLInputElement->B<GetIID>()
 
 Pass this to QueryInterface.
-
-=cut
-
-
-
 
 =head1 METHODS
 
@@ -36,21 +28,11 @@ Pass this to QueryInterface.
 
 =over
 
-
-
-
-
-
 =back
 
 =head2 $htmlinputelement->B<Click>()
 
 =over
-
-
-
-
-
 
 =back
 
@@ -58,98 +40,11 @@ Pass this to QueryInterface.
 
 =over
 
-
-
-
-
-
 =back
 
-=head2 $accept = $htmlinputelement->B<GetAccept>()
+=head2 $htmlinputelement->B<Select>()
 
 =over
-
-
-
-
-
-
-=back
-
-=head2 $accesskey = $htmlinputelement->B<GetAccessKey>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $align = $htmlinputelement->B<GetAlign>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $alt = $htmlinputelement->B<GetAlt>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $bool = $htmlinputelement->B<GetChecked>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $bool = $htmlinputelement->B<GetDefaultChecked>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $defaultvalue = $htmlinputelement->B<GetDefaultValue>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $bool = $htmlinputelement->B<GetDisabled>()
-
-=over
-
-
-
-
-
 
 =back
 
@@ -157,120 +52,11 @@ Pass this to QueryInterface.
 
 =over
 
-
-
-
-
-
 =back
 
-=head2 $maxlength = $htmlinputelement->B<GetMaxLength>()
+=head2 $accept = $htmlinputelement->B<GetAccept>()
 
 =over
-
-
-
-
-
-
-=back
-
-=head2 $name = $htmlinputelement->B<GetName>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $bool = $htmlinputelement->B<GetReadOnly>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $size = $htmlinputelement->B<GetSize>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $src = $htmlinputelement->B<GetSrc>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $tabindex = $htmlinputelement->B<GetTabIndex>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $type = $htmlinputelement->B<GetType>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $usemap = $htmlinputelement->B<GetUseMap>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $value = $htmlinputelement->B<GetValue>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $htmlinputelement->B<Select>()
-
-=over
-
-
-
-
-
 
 =back
 
@@ -280,14 +66,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $accept (string) 
+=item * $accept (string)
 
 =back
 
+=back
 
+=head2 $accesskey = $htmlinputelement->B<GetAccessKey>()
 
-
-
+=over
 
 =back
 
@@ -297,14 +84,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $accesskey (string) 
+=item * $accesskey (string)
 
 =back
 
+=back
 
+=head2 $align = $htmlinputelement->B<GetAlign>()
 
-
-
+=over
 
 =back
 
@@ -314,14 +102,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $align (string) 
+=item * $align (string)
 
 =back
 
+=back
 
+=head2 $alt = $htmlinputelement->B<GetAlt>()
 
-
-
+=over
 
 =back
 
@@ -331,14 +120,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $alt (string) 
+=item * $alt (string)
 
 =back
 
+=back
 
+=head2 $bool = $htmlinputelement->B<GetChecked>()
 
-
-
+=over
 
 =back
 
@@ -348,14 +138,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $checked (boolean) 
+=item * $checked (boolean)
 
 =back
 
+=back
 
+=head2 $bool = $htmlinputelement->B<GetDefaultChecked>()
 
-
-
+=over
 
 =back
 
@@ -365,14 +156,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $defaultchecked (boolean) 
+=item * $defaultchecked (boolean)
 
 =back
 
+=back
 
+=head2 $defaultvalue = $htmlinputelement->B<GetDefaultValue>()
 
-
-
+=over
 
 =back
 
@@ -382,14 +174,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $defaultvalue (string) 
+=item * $defaultvalue (string)
 
 =back
 
+=back
 
+=head2 $bool = $htmlinputelement->B<GetDisabled>()
 
-
-
+=over
 
 =back
 
@@ -399,14 +192,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $disabled (boolean) 
+=item * $disabled (boolean)
 
 =back
 
+=back
 
+=head2 $maxlength = $htmlinputelement->B<GetMaxLength>()
 
-
-
+=over
 
 =back
 
@@ -416,14 +210,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $maxlength (integer (long)) 
+=item * $maxlength (integer (long))
 
 =back
 
+=back
 
+=head2 $name = $htmlinputelement->B<GetName>()
 
-
-
+=over
 
 =back
 
@@ -433,14 +228,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $name (string) 
+=item * $name (string)
 
 =back
 
+=back
 
+=head2 $bool = $htmlinputelement->B<GetReadOnly>()
 
-
-
+=over
 
 =back
 
@@ -450,14 +246,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $readonly (boolean) 
+=item * $readonly (boolean)
 
 =back
 
+=back
 
+=head2 $size = $htmlinputelement->B<GetSize>()
 
-
-
+=over
 
 =back
 
@@ -467,14 +264,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $size (integer (long)) 
+=item * $size (integer (long))
 
 =back
 
+=back
 
+=head2 $src = $htmlinputelement->B<GetSrc>()
 
-
-
+=over
 
 =back
 
@@ -484,14 +282,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $src (string) 
+=item * $src (string)
 
 =back
 
+=back
 
+=head2 $tabindex = $htmlinputelement->B<GetTabIndex>()
 
-
-
+=over
 
 =back
 
@@ -501,14 +300,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $tabindex (integer (long)) 
+=item * $tabindex (integer (long))
 
 =back
 
+=back
 
+=head2 $type = $htmlinputelement->B<GetType>()
 
-
-
+=over
 
 =back
 
@@ -518,14 +318,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $type (string) 
+=item * $type (string)
 
 =back
 
+=back
 
+=head2 $usemap = $htmlinputelement->B<GetUseMap>()
 
-
-
+=over
 
 =back
 
@@ -535,14 +336,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $usemap (string) 
+=item * $usemap (string)
 
 =back
 
+=back
 
+=head2 $value = $htmlinputelement->B<GetValue>()
 
-
-
+=over
 
 =back
 
@@ -552,17 +354,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $value (string) 
+=item * $value (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -573,7 +369,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

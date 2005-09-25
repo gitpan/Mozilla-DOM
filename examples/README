@@ -31,3 +31,6 @@ BrowserObjects: shows Navigator, History, Location (and Screen)
 
 WebNav: shows WebNavigator, which is similar to the browser objects
 
+Range: set range boundaries, select nodes
+
+InnerHTML: print out HTML nodes as text

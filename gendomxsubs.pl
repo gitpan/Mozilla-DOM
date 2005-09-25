@@ -34,17 +34,21 @@ my $pkg = "$pkgbase\::$pkgname";
 my $outfile = "genxsubs/$iface.xs";
 
 push @wrappercode, "cat $outfile >> xs/DOM.xs\n";
-push @wrappercode, qq{#include "$iface.h"\n};
-push @wrappercode, "MOZDOM_DECL_DOM_TYPEMAPPERS($pkgname)\n";
-push @wrappercode, "MOZDOM_DEF_DOM_TYPEMAPPERS($pkgname)\n";
+push @wrappercode, qq{#include "$iface.h" (mozilladom2perl.h)\n};
+push @wrappercode, "MOZDOM_DECL_DOM_TYPEMAPPERS($pkgname) (mozilladom2perl.h)\n";
+push @wrappercode, "MOZDOM_DEF_DOM_TYPEMAPPERS($pkgname) (xs/DOM.xs)\n";
 
 (my $obj = lc($iface)) =~ s/^nsi(dom)?//i;
 unless (defined $1) {
     $wrappercode[-1] =~ s/_DOM_/_I_/;
     $wrappercode[-2] =~ s/_DOM_/_I_/;
 }
-push @wrappercode, "$iface *\t\tT_MOZDOM_GENERIC_WRAPPER\n";
-push @wrappercode, "$iface\t\t$pkg\n";
+push @wrappercode, "$iface *\t\tT_MOZDOM_GENERIC_WRAPPER  (mozilladom.typemap)\n";
+push @wrappercode, "$iface\t\t$pkg  (doctypes)\n";
+push @wrappercode, "add an entry to QueryInterface\n";
+push @wrappercode, "do ISA in DOM.pm\n";
+push @wrappercode, "add POD file\n";
+push @wrappercode, "update ChangeLog, MANIFEST\n";
 
 print $_ for @wrappercode;
 
@@ -206,9 +210,7 @@ $classcomment
 EOH
 
 if (@enums) {
-    print OUT "=begin enums\n\nThe following constants are available.\n",
-      "XXX: This is currently buggy, because you have to call them\n",
-      "as instance methods. This will change soon.\n\n",
+    print OUT "=begin enums\n\nThe following constants are available.\n\n",
       "=over 4\n\n";
 
     foreach my $enum (@enums) {
@@ -219,14 +221,6 @@ if (@enums) {
 }
 
 print OUT <<EOG;
-=head1 CLASS METHODS
-
-=head2 \$iid = $pkg\->B\<GetIID>()
-
-Pass this to QueryInterface.
-
-=cut
-
 ## $getiid
 static nsIID
 $iface\::GetIID()
@@ -238,6 +232,7 @@ $iface\::GetIID()
 
 EOG
 
+my @pod = ();
 foreach my $method (@methods) {
     # Ugh, this is horrible
 
@@ -289,15 +284,12 @@ foreach my $method (@methods) {
     }
     $ccode .= ');';
 
+    push @pod, <<EOP;
+=head2 $pret\$$obj\->B<$method->{name}>\($psig)
+
+EOP
+
     print OUT <<EOM;
-=for apidoc $pkg\::$method->{name}
-
-=for signature $pret\$$obj\->$method->{name}\($psig)
-
-
-
-=cut
-
 ## $method->{orig}
 $xsret
 ${prefix}$method->{name} \($xssig)
@@ -306,5 +298,35 @@ $xssigdecl$xspre$ccode
 $xsout
 EOM
 }
+
+print OUT <<POD;
+=head1 CLASS METHODS
+
+=head2 \$iid = $pkg\->B\<GetIID>()
+
+Pass this to QueryInterface.
+
+=head1 METHODS
+
+POD
+
+foreach my $pod (@pod) {
+    print OUT $pod;
+}
+
+print OUT <<FOOT;
+=head1 SEE ALSO
+
+L<Mozilla::DOM>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005, Scott Lanning
+
+This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
+
+=cut
+
+FOOT
 
 close(OUT);

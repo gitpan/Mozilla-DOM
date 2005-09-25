@@ -1,5 +1,7 @@
+Add Mozilla::DOM::Entity and Notation, add remaining nsIDOMNS* interfaces
+
 Split DOM.xs into separate files. I'd like to have ones
-for Event, Node, HTMLElement..
+for Event, Node, HTMLElement.. (would break interface, though)
 
 Make some methods more perlish. For example,
 GetElementsByTagName returns a NodeList,
@@ -38,6 +40,8 @@ and have an identical interface to WWW::Mechanize, but recently
 I'm thinking that would be too restrictive. WWW::Mechanize
 is great as a coating on top of LWP::UserAgent, but what more
 can we do with full DOM access?
+[see Mozilla::Mechanize - I still think the interface could
+be improved on, though]
 
 Fill out missing documentation.
 Document how to add this to a module using ExtUtils::Depends.

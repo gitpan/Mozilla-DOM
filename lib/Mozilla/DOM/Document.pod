@@ -9,28 +9,21 @@ nsIDOMDocument interface. This inherits from
 L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
 
  * The nsIDOMDocument interface represents the entire HTML or XML document.
- * Conceptually, it is the root of the document tree, and provides the 
+ * Conceptually, it is the root of the document tree, and provides the
  * primary access to the document's data.
- * Since elements, text nodes, comments, processing instructions, etc. 
- * cannot exist outside the context of a Document, the nsIDOMDocument 
- * interface also contains the factory methods needed to create these 
+ * Since elements, text nodes, comments, processing instructions, etc.
+ * cannot exist outside the context of a Document, the nsIDOMDocument
+ * interface also contains the factory methods needed to create these
  * objects.
  *
- * For more information on this interface please see 
+ * For more information on this interface please see
  * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-CoreE<sol>>
-
-=cut
 
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::Document->B<GetIID>()
 
 Pass this to QueryInterface.
-
-=cut
-
-
-
 
 =head1 METHODS
 
@@ -40,14 +33,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $name (string) 
+=item * $name (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -57,16 +45,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $namespaceURI (string) 
+=item * $namespaceURI (string)
 
-=item * $qualifiedName (string) 
+=item * $qualifiedName (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -76,14 +59,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $data (string) 
+=item * $data (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -93,25 +71,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $data (string) 
+=item * $data (string)
 
 =back
-
-
-
-
-
 
 =back
 
 =head2 $doc_fragment = $document->B<CreateDocumentFragment>()
 
 =over
-
-
-
-
-
 
 =back
 
@@ -121,14 +89,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $tagname (string) 
+=item * $tagname (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -138,16 +101,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $namespaceURI (string) 
+=item * $namespaceURI (string)
 
-=item * $qualifiedName (string) 
+=item * $qualifiedName (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -157,14 +115,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $name (string) 
+=item * $name (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -174,16 +127,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $target (string) 
+=item * $target (string)
 
-=item * $data (string) 
+=item * $data (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -193,14 +141,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $data (string) 
+=item * $data (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -208,21 +151,11 @@ Pass this to QueryInterface.
 
 =over
 
-
-
-
-
-
 =back
 
 =head2 $element = $document->B<GetDocumentElement>()
 
 =over
-
-
-
-
-
 
 =back
 
@@ -232,14 +165,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $elementId (string) 
+=item * $elementId (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -249,16 +177,13 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $tagname (string) 
+=item * $tagname (string)
 
 =back
-
-
 
 Gah, this returns a NodeList, not a list of Elements.
 Which is lame because you can't call Element methods on Nodes...
 (Maybe in list context, a list of elements could be returned instead?)
-
 
 =back
 
@@ -268,27 +193,17 @@ Which is lame because you can't call Element methods on Nodes...
 
 =over
 
-=item * $namespaceURI (string) 
+=item * $namespaceURI (string)
 
-=item * $localName (string) 
+=item * $localName (string)
 
 =back
-
-
-
-
-
 
 =back
 
 =head2 $dom_implementation = $document->B<GetImplementation>()
 
 =over
-
-
-
-
-
 
 =back
 
@@ -298,19 +213,15 @@ Which is lame because you can't call Element methods on Nodes...
 
 =over
 
-=item * $importedNode (Mozilla::DOM::Node) 
+=item * $importedNode (Mozilla::DOM::Node)
 
-=item * $deep (boolean) 
+=item * $deep (boolean)
 
 =back
-
-
 
 $deep = boolean
 
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -321,7 +232,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

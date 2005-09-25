@@ -23,7 +23,9 @@ nsIDOMWindow2			Mozilla::DOM::Window2
 nsIDOMWindowInternal		Mozilla::DOM::WindowInternal
 nsIDOMWindowCollection		Mozilla::DOM::WindowCollection
 nsIDOMDocument			Mozilla::DOM::Document
+nsIDOMNSDocument		Mozilla::DOM::NSDocument
 nsIDOMDocumentFragment		Mozilla::DOM::DocumentFragment
+nsIDOMDocumentRange             Mozilla::DOM::DocumentRange
 nsIDOMDocumentType		Mozilla::DOM::DocumentType
 nsIDOMDOMException		Mozilla::DOM::Exception
 nsIDOMNode			Mozilla::DOM::Node
@@ -57,6 +59,7 @@ nsIDOMHTMLCollection		Mozilla::DOM::HTMLCollection
 nsIDOMHTMLDListElement		Mozilla::DOM::HTMLDListElement
 nsIDOMHTMLDivElement		Mozilla::DOM::HTMLDivElement
 nsIDOMHTMLElement		Mozilla::DOM::HTMLElement
+nsIDOMNSHTMLElement		Mozilla::DOM::NSHTMLElement
 nsIDOMHTMLEmbedElement		Mozilla::DOM::HTMLEmbedElement
 nsIDOMHTMLFieldSetElement	Mozilla::DOM::HTMLFieldSetElement
 nsIDOMHTMLFontElement		Mozilla::DOM::HTMLFontElement

@@ -29,6 +29,8 @@ examples/HTMLElements.pm
 examples/EventListeners.pm
 examples/BrowserObjects.pm
 examples/WebNav.pm
+examples/Range.pm
+examples/InnerHTML.pm
 lib/Mozilla/DOM/AbstractView.pod
 lib/Mozilla/DOM/Attr.pod
 lib/Mozilla/DOM/CDATASection.pod
@@ -37,8 +39,10 @@ lib/Mozilla/DOM/Comment.pod
 lib/Mozilla/DOM/DOMException.pod
 lib/Mozilla/DOM/DOMImplementation.pod
 lib/Mozilla/DOM/Document.pod
+lib/Mozilla/DOM/NSDocument.pod
 lib/Mozilla/DOM/DocumentEvent.pod
 lib/Mozilla/DOM/DocumentFragment.pod
+lib/Mozilla/DOM/DocumentRange.pod
 lib/Mozilla/DOM/DocumentType.pod
 lib/Mozilla/DOM/DocumentView.pod
 lib/Mozilla/DOM/Element.pod
@@ -59,6 +63,7 @@ lib/Mozilla/DOM/HTMLDListElement.pod
 lib/Mozilla/DOM/HTMLDirectoryElement.pod
 lib/Mozilla/DOM/HTMLDivElement.pod
 lib/Mozilla/DOM/HTMLElement.pod
+lib/Mozilla/DOM/NSHTMLElement.pod
 lib/Mozilla/DOM/HTMLEmbedElement.pod
 lib/Mozilla/DOM/HTMLFieldSetElement.pod
 lib/Mozilla/DOM/HTMLFontElement.pod

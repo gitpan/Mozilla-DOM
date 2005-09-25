@@ -25,109 +25,11 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $acceptcharset = $htmlformelement->B<GetAcceptCharset>()
 
 =over
-
-
-
-
-
-
-=back
-
-=head2 $action = $htmlformelement->B<GetAction>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $elements = $htmlformelement->B<GetElements>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $enctype = $htmlformelement->B<GetEnctype>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $length = $htmlformelement->B<GetLength>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $method = $htmlformelement->B<GetMethod>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $name = $htmlformelement->B<GetName>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $target = $htmlformelement->B<GetTarget>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $htmlformelement->B<Reset>()
-
-=over
-
-
-
-
-
 
 =back
 
@@ -137,14 +39,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $acceptcharset (string) 
+=item * $acceptcharset (string)
 
 =back
 
+=back
 
+=head2 $action = $htmlformelement->B<GetAction>()
 
-
-
+=over
 
 =back
 
@@ -154,14 +57,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $action (string) 
+=item * $action (string)
 
 =back
 
+=back
 
+=head2 $enctype = $htmlformelement->B<GetEnctype>()
 
-
-
+=over
 
 =back
 
@@ -171,14 +75,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $enctype (string) 
+=item * $enctype (string)
 
 =back
 
+=back
 
+=head2 $method = $htmlformelement->B<GetMethod>()
 
-
-
+=over
 
 =back
 
@@ -188,14 +93,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $method (string) 
+=item * $method (string)
 
 =back
 
+=back
 
+=head2 $name = $htmlformelement->B<GetName>()
 
-
-
+=over
 
 =back
 
@@ -205,14 +111,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $name (string) 
+=item * $name (string)
 
 =back
 
+=back
 
+=head2 $target = $htmlformelement->B<GetTarget>()
 
-
-
+=over
 
 =back
 
@@ -222,28 +129,27 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $target (string) 
+=item * $target (string)
 
 =back
 
-
-
-
-
-
 =back
+
+=head2 $elements = $htmlformelement->B<GetElements>()
+
+$elements is a L<Mozilla::DOM::HTMLCollection>.
+
+=head2 $length = $htmlformelement->B<GetLength>()
+
+Number of elements returned by GetElements.
+
+=head2 $htmlformelement->B<Reset>()
+
+Reset inputs to their default values.
 
 =head2 $htmlformelement->B<Submit>()
 
-=over
-
-
-
-
-
-
-=back
-
+Submits the <form>, but doesn't trigger the onSubmit event.
 
 =head1 SEE ALSO
 

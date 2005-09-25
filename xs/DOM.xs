@@ -45,7 +45,9 @@ MOZDOM_DEF_DOM_TYPEMAPPERS(Window2)
 MOZDOM_DEF_DOM_TYPEMAPPERS(WindowInternal)
 MOZDOM_DEF_DOM_TYPEMAPPERS(WindowCollection)
 MOZDOM_DEF_DOM_TYPEMAPPERS(Document)
+MOZDOM_DEF_DOM_TYPEMAPPERS(NSDocument)
 MOZDOM_DEF_DOM_TYPEMAPPERS(DocumentFragment)
+MOZDOM_DEF_DOM_TYPEMAPPERS(DocumentRange)
 MOZDOM_DEF_DOM_TYPEMAPPERS(DocumentType)
 MOZDOM_DEF_DOM_TYPEMAPPERS(DOMException)
 MOZDOM_DEF_DOM_TYPEMAPPERS(Node)
@@ -79,6 +81,7 @@ MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLCollection)
 MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLDListElement)
 MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLDivElement)
 MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLElement)
+MOZDOM_DEF_DOM_TYPEMAPPERS(NSHTMLElement)
 MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLEmbedElement)
 MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLFieldSetElement)
 MOZDOM_DEF_DOM_TYPEMAPPERS(HTMLFontElement)
@@ -3644,6 +3647,33 @@ moz_dom_ToString (selection)
 
 # -----------------------------------------------------------------------------
 
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::DocumentRange	PREFIX = moz_dom_
+
+# /usr/include/mozilla/nsIDOMDocumentRange.h
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMDOCUMENTRANGE_IID)
+static nsIID
+nsIDOMDocumentRange::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMDocumentRange::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+## CreateRange(nsIDOMRange **_retval)
+nsIDOMRange *
+moz_dom_CreateRange (documentrange)
+	nsIDOMDocumentRange *documentrange;
+    PREINIT:
+	nsIDOMRange * _retval;
+    CODE:
+	documentrange->CreateRange(&_retval);
+	RETVAL = _retval;
+    OUTPUT:
+	RETVAL
+
+# -----------------------------------------------------------------------------
+
 MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::Range	PREFIX = moz_dom_
 
 # /usr/include/mozilla/nsIDOMRange.h
@@ -3949,10 +3979,14 @@ moz_dom_QueryInterface (supports, uuid)
 		RETVAL = newSVnsIDOMDOMImplementation((nsIDOMDOMImplementation *)res);
 	} else if (uuid.Equals(nsIDOMDocument::GetIID())) {
 		RETVAL = newSVnsIDOMDocument((nsIDOMDocument *)res);
+	} else if (uuid.Equals(nsIDOMNSDocument::GetIID())) {
+		RETVAL = newSVnsIDOMNSDocument((nsIDOMNSDocument *)res);
 	} else if (uuid.Equals(nsIDOMDocumentEvent::GetIID())) {
 		RETVAL = newSVnsIDOMDocumentEvent((nsIDOMDocumentEvent *)res);
 	} else if (uuid.Equals(nsIDOMDocumentFragment::GetIID())) {
 		RETVAL = newSVnsIDOMDocumentFragment((nsIDOMDocumentFragment *)res);
+	} else if (uuid.Equals(nsIDOMDocumentRange::GetIID())) {
+		RETVAL = newSVnsIDOMDocumentRange((nsIDOMDocumentRange *)res);
 	} else if (uuid.Equals(nsIDOMDocumentType::GetIID())) {
 		RETVAL = newSVnsIDOMDocumentType((nsIDOMDocumentType *)res);
 	} else if (uuid.Equals(nsIDOMDocumentView::GetIID())) {
@@ -4039,6 +4073,8 @@ moz_dom_QueryInterface (supports, uuid)
 		RETVAL = newSVnsIDOMHTMLDivElement((nsIDOMHTMLDivElement *)res);
 	} else if (uuid.Equals(nsIDOMHTMLElement::GetIID())) {
 		RETVAL = newSVnsIDOMHTMLElement((nsIDOMHTMLElement *)res);
+	} else if (uuid.Equals(nsIDOMNSHTMLElement::GetIID())) {
+		RETVAL = newSVnsIDOMNSHTMLElement((nsIDOMNSHTMLElement *)res);
 	} else if (uuid.Equals(nsIDOMHTMLEmbedElement::GetIID())) {
 		RETVAL = newSVnsIDOMHTMLEmbedElement((nsIDOMHTMLEmbedElement *)res);
 	} else if (uuid.Equals(nsIDOMHTMLFieldSetElement::GetIID())) {
@@ -4219,6 +4255,12 @@ moz_dom_GotoIndex (webnavigation, index)
 	PRInt32  index;
     CODE:
 	webnavigation->GotoIndex(index);
+
+# XXX: I really want this! (how do you get an nsIInputStream, though?)
+# [see mailing-list/xpcom/12660.txt & embedding/6646.txt
+#  g++ testdom.cpp `mozilla-config xpcom --cflags --libs` -I /usr/include/mozilla/content -I /usr/include/mozilla/necko -I /usr/include/mozilla/string -o testdom -Wall
+# need to link to xpcom and #include "nsCOMPtr.h"
+# ]
 
 #=for apidoc Mozilla::DOM::WebNavigation::LoadURI
 #
@@ -11947,3 +11989,340 @@ moz_dom_GetAvailTop (screen)
 
 
 # -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::NSHTMLElement	PREFIX = moz_dom_
+
+# /usr/include/mozilla/dom/nsIDOMNSHTMLElement.h
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMNSHTMLELEMENT_IID)
+static nsIID
+nsIDOMNSHTMLElement::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMNSHTMLElement::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+## GetOffsetTop(PRInt32 *aOffsetTop)
+PRInt32
+moz_dom_GetOffsetTop (nshtmlelement)
+	nsIDOMNSHTMLElement *nshtmlelement;
+    PREINIT:
+	PRInt32 aOffsetTop;
+    CODE:
+	nshtmlelement->GetOffsetTop(&aOffsetTop);
+	RETVAL = aOffsetTop;
+    OUTPUT:
+	RETVAL
+
+## GetOffsetLeft(PRInt32 *aOffsetLeft)
+PRInt32
+moz_dom_GetOffsetLeft (nshtmlelement)
+	nsIDOMNSHTMLElement *nshtmlelement;
+    PREINIT:
+	PRInt32 aOffsetLeft;
+    CODE:
+	nshtmlelement->GetOffsetLeft(&aOffsetLeft);
+	RETVAL = aOffsetLeft;
+    OUTPUT:
+	RETVAL
+
+## GetOffsetWidth(PRInt32 *aOffsetWidth)
+PRInt32
+moz_dom_GetOffsetWidth (nshtmlelement)
+	nsIDOMNSHTMLElement *nshtmlelement;
+    PREINIT:
+	PRInt32 aOffsetWidth;
+    CODE:
+	nshtmlelement->GetOffsetWidth(&aOffsetWidth);
+	RETVAL = aOffsetWidth;
+    OUTPUT:
+	RETVAL
+
+## GetOffsetHeight(PRInt32 *aOffsetHeight)
+PRInt32
+moz_dom_GetOffsetHeight (nshtmlelement)
+	nsIDOMNSHTMLElement *nshtmlelement;
+    PREINIT:
+	PRInt32 aOffsetHeight;
+    CODE:
+	nshtmlelement->GetOffsetHeight(&aOffsetHeight);
+	RETVAL = aOffsetHeight;
+    OUTPUT:
+	RETVAL
+
+## GetOffsetParent(nsIDOMElement * *aOffsetParent)
+nsIDOMElement *
+moz_dom_GetOffsetParent (nshtmlelement)
+	nsIDOMNSHTMLElement *nshtmlelement;
+    PREINIT:
+	nsIDOMElement * aOffsetParent;
+    CODE:
+	nshtmlelement->GetOffsetParent(&aOffsetParent);
+	RETVAL = aOffsetParent;
+    OUTPUT:
+	RETVAL
+
+## GetInnerHTML(nsAString & aInnerHTML)
+nsEmbedString
+moz_dom_GetInnerHTML (nshtmlelement)
+	nsIDOMNSHTMLElement *nshtmlelement;
+    PREINIT:
+	nsEmbedString aInnerHTML;
+    CODE:
+	nshtmlelement->GetInnerHTML(aInnerHTML);
+	RETVAL = aInnerHTML;
+    OUTPUT:
+	RETVAL
+
+## SetInnerHTML(const nsAString & aInnerHTML)
+void
+moz_dom_SetInnerHTML (nshtmlelement, aInnerHTML)
+	nsIDOMNSHTMLElement *nshtmlelement;
+	nsEmbedString aInnerHTML;
+    CODE:
+	nshtmlelement->SetInnerHTML(aInnerHTML);
+
+## GetScrollTop(PRInt32 *aScrollTop)
+PRInt32
+moz_dom_GetScrollTop (nshtmlelement)
+	nsIDOMNSHTMLElement *nshtmlelement;
+    PREINIT:
+	PRInt32 aScrollTop;
+    CODE:
+	nshtmlelement->GetScrollTop(&aScrollTop);
+	RETVAL = aScrollTop;
+    OUTPUT:
+	RETVAL
+
+## SetScrollTop(PRInt32 aScrollTop)
+void
+moz_dom_SetScrollTop (nshtmlelement, aScrollTop)
+	nsIDOMNSHTMLElement *nshtmlelement;
+	PRInt32  aScrollTop;
+    CODE:
+	nshtmlelement->SetScrollTop(aScrollTop);
+
+## GetScrollLeft(PRInt32 *aScrollLeft)
+PRInt32
+moz_dom_GetScrollLeft (nshtmlelement)
+	nsIDOMNSHTMLElement *nshtmlelement;
+    PREINIT:
+	PRInt32 aScrollLeft;
+    CODE:
+	nshtmlelement->GetScrollLeft(&aScrollLeft);
+	RETVAL = aScrollLeft;
+    OUTPUT:
+	RETVAL
+
+## SetScrollLeft(PRInt32 aScrollLeft)
+void
+moz_dom_SetScrollLeft (nshtmlelement, aScrollLeft)
+	nsIDOMNSHTMLElement *nshtmlelement;
+	PRInt32  aScrollLeft;
+    CODE:
+	nshtmlelement->SetScrollLeft(aScrollLeft);
+
+## GetScrollHeight(PRInt32 *aScrollHeight)
+PRInt32
+moz_dom_GetScrollHeight (nshtmlelement)
+	nsIDOMNSHTMLElement *nshtmlelement;
+    PREINIT:
+	PRInt32 aScrollHeight;
+    CODE:
+	nshtmlelement->GetScrollHeight(&aScrollHeight);
+	RETVAL = aScrollHeight;
+    OUTPUT:
+	RETVAL
+
+## GetScrollWidth(PRInt32 *aScrollWidth)
+PRInt32
+moz_dom_GetScrollWidth (nshtmlelement)
+	nsIDOMNSHTMLElement *nshtmlelement;
+    PREINIT:
+	PRInt32 aScrollWidth;
+    CODE:
+	nshtmlelement->GetScrollWidth(&aScrollWidth);
+	RETVAL = aScrollWidth;
+    OUTPUT:
+	RETVAL
+
+## GetClientHeight(PRInt32 *aClientHeight)
+PRInt32
+moz_dom_GetClientHeight (nshtmlelement)
+	nsIDOMNSHTMLElement *nshtmlelement;
+    PREINIT:
+	PRInt32 aClientHeight;
+    CODE:
+	nshtmlelement->GetClientHeight(&aClientHeight);
+	RETVAL = aClientHeight;
+    OUTPUT:
+	RETVAL
+
+## GetClientWidth(PRInt32 *aClientWidth)
+PRInt32
+moz_dom_GetClientWidth (nshtmlelement)
+	nsIDOMNSHTMLElement *nshtmlelement;
+    PREINIT:
+	PRInt32 aClientWidth;
+    CODE:
+	nshtmlelement->GetClientWidth(&aClientWidth);
+	RETVAL = aClientWidth;
+    OUTPUT:
+	RETVAL
+
+## ScrollIntoView(PRBool top)
+void
+moz_dom_ScrollIntoView (nshtmlelement, top)
+	nsIDOMNSHTMLElement *nshtmlelement;
+	PRBool  top;
+    CODE:
+	nshtmlelement->ScrollIntoView(top);
+
+# -----------------------------------------------------------------------------
+
+MODULE = Mozilla::DOM	PACKAGE = Mozilla::DOM::NSDocument	PREFIX = moz_dom_
+
+# /usr/include/mozilla/dom/nsIDOMNSDocument.h
+
+=for object Mozilla::DOM::NSDocument
+
+Mozilla::DOM::NSDocument is a wrapper around an instance of Mozilla's
+nsIDOMNSDocument interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
+
+
+
+=cut
+
+## NS_DEFINE_STATIC_IID_ACCESSOR(NS_IDOMNSDOCUMENT_IID)
+static nsIID
+nsIDOMNSDocument::GetIID()
+    CODE:
+	const nsIID &id = nsIDOMNSDocument::GetIID();
+	RETVAL = (nsIID) id;
+    OUTPUT:
+	RETVAL
+
+## GetCharacterSet(nsAString & aCharacterSet)
+nsEmbedString
+moz_dom_GetCharacterSet (nsdocument)
+	nsIDOMNSDocument *nsdocument;
+    PREINIT:
+	nsEmbedString aCharacterSet;
+    CODE:
+	nsdocument->GetCharacterSet(aCharacterSet);
+	RETVAL = aCharacterSet;
+    OUTPUT:
+	RETVAL
+
+## GetDir(nsAString & aDir)
+nsEmbedString
+moz_dom_GetDir (nsdocument)
+	nsIDOMNSDocument *nsdocument;
+    PREINIT:
+	nsEmbedString aDir;
+    CODE:
+	nsdocument->GetDir(aDir);
+	RETVAL = aDir;
+    OUTPUT:
+	RETVAL
+
+## SetDir(const nsAString & aDir)
+void
+moz_dom_SetDir (nsdocument, aDir)
+	nsIDOMNSDocument *nsdocument;
+	nsEmbedString aDir;
+    CODE:
+	nsdocument->SetDir(aDir);
+
+## GetLocation(nsIDOMLocation * *aLocation)
+nsIDOMLocation *
+moz_dom_GetLocation (nsdocument)
+	nsIDOMNSDocument *nsdocument;
+    PREINIT:
+	nsIDOMLocation * aLocation;
+    CODE:
+	nsdocument->GetLocation(&aLocation);
+	RETVAL = aLocation;
+    OUTPUT:
+	RETVAL
+
+## GetTitle(nsAString & aTitle)
+nsEmbedString
+moz_dom_GetTitle (nsdocument)
+	nsIDOMNSDocument *nsdocument;
+    PREINIT:
+	nsEmbedString aTitle;
+    CODE:
+	nsdocument->GetTitle(aTitle);
+	RETVAL = aTitle;
+    OUTPUT:
+	RETVAL
+
+## SetTitle(const nsAString & aTitle)
+void
+moz_dom_SetTitle (nsdocument, aTitle)
+	nsIDOMNSDocument *nsdocument;
+	nsEmbedString aTitle;
+    CODE:
+	nsdocument->SetTitle(aTitle);
+
+## GetContentType(nsAString & aContentType)
+nsEmbedString
+moz_dom_GetContentType (nsdocument)
+	nsIDOMNSDocument *nsdocument;
+    PREINIT:
+	nsEmbedString aContentType;
+    CODE:
+	nsdocument->GetContentType(aContentType);
+	RETVAL = aContentType;
+    OUTPUT:
+	RETVAL
+
+## GetLastModified(nsAString & aLastModified)
+nsEmbedString
+moz_dom_GetLastModified (nsdocument)
+	nsIDOMNSDocument *nsdocument;
+    PREINIT:
+	nsEmbedString aLastModified;
+    CODE:
+	nsdocument->GetLastModified(aLastModified);
+	RETVAL = aLastModified;
+    OUTPUT:
+	RETVAL
+
+## GetReferrer(nsAString & aReferrer)
+nsEmbedString
+moz_dom_GetReferrer (nsdocument)
+	nsIDOMNSDocument *nsdocument;
+    PREINIT:
+	nsEmbedString aReferrer;
+    CODE:
+	nsdocument->GetReferrer(aReferrer);
+	RETVAL = aReferrer;
+    OUTPUT:
+	RETVAL
+
+### GetBoxObjectFor(nsIDOMElement *elt, nsIBoxObject **_retval)
+#nsIBoxObject *
+#moz_dom_GetBoxObjectFor (nsdocument, elt)
+#	nsIDOMNSDocument *nsdocument;
+#	nsIDOMElement * elt;
+#    PREINIT:
+#	nsIBoxObject * _retval;
+#    CODE:
+#	nsdocument->GetBoxObjectFor(elt, &_retval);
+#	RETVAL = _retval;
+#    OUTPUT:
+#	RETVAL
+#
+### SetBoxObjectFor(nsIDOMElement *elt, nsIBoxObject *boxObject)
+#void
+#moz_dom_SetBoxObjectFor (nsdocument, elt, boxObject)
+#	nsIDOMNSDocument *nsdocument;
+#	nsIDOMElement * elt;
+#	nsIBoxObject * boxObject;
+#    CODE:
+#	nsdocument->SetBoxObjectFor(elt, boxObject);
+
