@@ -16,186 +16,43 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLTableCellElement->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $abbr = $htmltablecellelement->B<GetAbbr>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $align = $htmltablecellelement->B<GetAlign>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $axis = $htmltablecellelement->B<GetAxis>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $bgcolor = $htmltablecellelement->B<GetBgColor>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $cellindex = $htmltablecellelement->B<GetCellIndex>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $ch = $htmltablecellelement->B<GetCh>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $choff = $htmltablecellelement->B<GetChOff>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $colspan = $htmltablecellelement->B<GetColSpan>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $headers = $htmltablecellelement->B<GetHeaders>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $height = $htmltablecellelement->B<GetHeight>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $bool = $htmltablecellelement->B<GetNoWrap>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $rowspan = $htmltablecellelement->B<GetRowSpan>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $scope = $htmltablecellelement->B<GetScope>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $valign = $htmltablecellelement->B<GetVAlign>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $width = $htmltablecellelement->B<GetWidth>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $htmltablecellelement->B<SetAbbr>($abbr)
 
@@ -203,14 +60,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $abbr (string) 
+=item * $abbr (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -220,14 +72,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $align (string) 
+=item * $align (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -237,14 +84,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $axis (string) 
+=item * $axis (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -254,14 +96,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $bgcolor (string) 
+=item * $bgcolor (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -271,14 +108,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $ch (string) 
+=item * $ch (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -288,14 +120,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $choff (string) 
+=item * $choff (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -305,14 +132,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $colspan (integer (long)) 
+=item * $colspan (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -322,14 +144,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $headers (string) 
+=item * $headers (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -339,14 +156,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $height (string) 
+=item * $height (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -356,14 +168,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $nowrap (boolean) 
+=item * $nowrap (boolean)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -373,14 +180,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $rowspan (integer (long)) 
+=item * $rowspan (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -390,14 +192,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $scope (string) 
+=item * $scope (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -407,14 +204,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $valign (string) 
+=item * $valign (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -424,17 +216,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $width (string) 
+=item * $width (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -445,7 +231,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

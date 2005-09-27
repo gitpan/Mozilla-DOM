@@ -16,142 +16,35 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLIFrameElement->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $align = $htmliframeelement->B<GetAlign>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $contentdocument = $htmliframeelement->B<GetContentDocument>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $frameborder = $htmliframeelement->B<GetFrameBorder>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $height = $htmliframeelement->B<GetHeight>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $longdesc = $htmliframeelement->B<GetLongDesc>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $marginheight = $htmliframeelement->B<GetMarginHeight>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $marginwidth = $htmliframeelement->B<GetMarginWidth>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $name = $htmliframeelement->B<GetName>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $scrolling = $htmliframeelement->B<GetScrolling>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $src = $htmliframeelement->B<GetSrc>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $width = $htmliframeelement->B<GetWidth>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $htmliframeelement->B<SetAlign>($align)
 
@@ -159,14 +52,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $align (string) 
+=item * $align (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -176,14 +64,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $frameborder (string) 
+=item * $frameborder (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -193,14 +76,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $height (string) 
+=item * $height (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -210,14 +88,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $longdesc (string) 
+=item * $longdesc (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -227,14 +100,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $marginheight (string) 
+=item * $marginheight (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -244,14 +112,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $marginwidth (string) 
+=item * $marginwidth (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -261,14 +124,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $name (string) 
+=item * $name (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -278,14 +136,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $scrolling (string) 
+=item * $scrolling (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -295,14 +148,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $src (string) 
+=item * $src (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -312,17 +160,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $width (string) 
+=item * $width (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -333,7 +175,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

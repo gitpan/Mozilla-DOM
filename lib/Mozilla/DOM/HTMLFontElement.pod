@@ -16,54 +16,19 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLFontElement->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $color = $htmlfontelement->B<GetColor>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $face = $htmlfontelement->B<GetFace>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $size = $htmlfontelement->B<GetSize>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $htmlfontelement->B<SetColor>($color)
 
@@ -71,14 +36,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $color (string) 
+=item * $color (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -88,14 +48,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $face (string) 
+=item * $face (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -105,17 +60,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $size (string) 
+=item * $size (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -126,7 +75,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

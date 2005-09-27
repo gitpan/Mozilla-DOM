@@ -16,142 +16,35 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLAppletElement->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $align = $htmlappletelement->B<GetAlign>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $alt = $htmlappletelement->B<GetAlt>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $archive = $htmlappletelement->B<GetArchive>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $code = $htmlappletelement->B<GetCode>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $codebase = $htmlappletelement->B<GetCodeBase>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $height = $htmlappletelement->B<GetHeight>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $hspace = $htmlappletelement->B<GetHspace>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $name = $htmlappletelement->B<GetName>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $object = $htmlappletelement->B<GetObject>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $vspace = $htmlappletelement->B<GetVspace>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $width = $htmlappletelement->B<GetWidth>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $htmlappletelement->B<SetAlign>($align)
 
@@ -159,14 +52,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $align (string) 
+=item * $align (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -176,14 +64,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $alt (string) 
+=item * $alt (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -193,14 +76,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $archive (string) 
+=item * $archive (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -210,14 +88,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $code (string) 
+=item * $code (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -227,14 +100,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $codebase (string) 
+=item * $codebase (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -244,14 +112,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $height (string) 
+=item * $height (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -261,14 +124,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $hspace (integer (long)) 
+=item * $hspace (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -278,14 +136,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $name (string) 
+=item * $name (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -295,14 +148,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $object (string) 
+=item * $object (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -312,14 +160,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $vspace (integer (long)) 
+=item * $vspace (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -329,17 +172,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $width (string) 
+=item * $width (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -350,7 +187,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

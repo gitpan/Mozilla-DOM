@@ -15,7 +15,7 @@ inherits. This class inherits from L<Supports|Mozilla::DOM::Supports>.
  * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-EventsE<sol>>
 
 The constants CAPTURING_PHASE, AT_TARGET, and BUBBLING_PHASE are available
-for comparing with L</GetEventPhase>. You can access these either through
+for comparing with GetEventPhase. You can access these either through
 the (mouse or key) event object, like $event->AT_TARGET, export them all
 with C<use Mozilla::DOM::Event qw(:phases)>, or export them individually.
 

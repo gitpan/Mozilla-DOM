@@ -16,19 +16,11 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLTableRowElement->B<GetIID>()
 
 Pass this to QueryInterface.
-
-=cut
-
-
-
 
 =head1 METHODS
 
@@ -38,104 +30,27 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $index (integer (long)) 
+=item * $index (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
 =head2 $align = $htmltablerowelement->B<GetAlign>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $bgcolor = $htmltablerowelement->B<GetBgColor>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $cells = $htmltablerowelement->B<GetCells>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $ch = $htmltablerowelement->B<GetCh>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $choff = $htmltablerowelement->B<GetChOff>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $rowindex = $htmltablerowelement->B<GetRowIndex>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $sectionrowindex = $htmltablerowelement->B<GetSectionRowIndex>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $valign = $htmltablerowelement->B<GetVAlign>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $retval = $htmltablerowelement->B<InsertCell>($index)
 
@@ -143,14 +58,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $index (integer (long)) 
+=item * $index (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -160,14 +70,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $align (string) 
+=item * $align (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -177,14 +82,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $bgcolor (string) 
+=item * $bgcolor (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -194,14 +94,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $ch (string) 
+=item * $ch (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -211,14 +106,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $choff (string) 
+=item * $choff (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -228,17 +118,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $valign (string) 
+=item * $valign (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -249,7 +133,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

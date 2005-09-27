@@ -8,7 +8,7 @@ use Config;
 use Cwd qw(cwd);
 use File::Spec;
 
-# $Id: Makefile.PL,v 1.11 2005/09/05 12:43:14 slanning Exp $
+# $Id: Makefile.PL,v 1.12 2005/09/25 17:41:34 slanning Exp $
 
 my $mozpkg = 'mozilla-xpcom';
 my $ffpkg  = 'firefox-xpcom';
@@ -51,10 +51,14 @@ my $libdir = `pkg-config --variable=libdir $pkg`;
 chomp($incdir, $libdir);
 
 my $mozdom = ExtUtils::Depends->new('Mozilla::DOM');
+# -I/usr/include/mozilla -I/usr/include/mozilla/xpcom
+# -I/usr/include/mozilla/string -I/usr/include/mozilla/nspr
 $mozdom->set_inc($pkgcfg{cflags}, '-I.', '-I./build',
                  "-I$incdir", "-I$incdir/dom", "-I$incdir/webbrwsr",
                  "-I$incdir/content", "-I$incdir/docshell");
+# -L/usr/lib/mozilla -lxpcom -lplds4 -lplc4 -lnspr4 -ldl -lc -lpthread
 $mozdom->set_libs($pkgcfg{libs});
+
 $mozdom->add_xs(<xs/*.xs>);
 # XXX: should move DOM.pm into lib/Mozilla/ then use PMLIBDIRS in WriteMakefile instead
 $mozdom->add_pm(

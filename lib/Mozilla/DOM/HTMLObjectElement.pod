@@ -16,230 +16,51 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLObjectElement->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $align = $htmlobjectelement->B<GetAlign>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $archive = $htmlobjectelement->B<GetArchive>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $border = $htmlobjectelement->B<GetBorder>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $code = $htmlobjectelement->B<GetCode>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $codebase = $htmlobjectelement->B<GetCodeBase>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $codetype = $htmlobjectelement->B<GetCodeType>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $contentdocument = $htmlobjectelement->B<GetContentDocument>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $data = $htmlobjectelement->B<GetData>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $bool = $htmlobjectelement->B<GetDeclare>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $form = $htmlobjectelement->B<GetForm>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $height = $htmlobjectelement->B<GetHeight>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $hspace = $htmlobjectelement->B<GetHspace>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $name = $htmlobjectelement->B<GetName>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $standby = $htmlobjectelement->B<GetStandby>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $tabindex = $htmlobjectelement->B<GetTabIndex>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $type = $htmlobjectelement->B<GetType>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $usemap = $htmlobjectelement->B<GetUseMap>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $vspace = $htmlobjectelement->B<GetVspace>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $width = $htmlobjectelement->B<GetWidth>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $htmlobjectelement->B<SetAlign>($align)
 
@@ -247,14 +68,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $align (string) 
+=item * $align (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -264,14 +80,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $archive (string) 
+=item * $archive (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -281,14 +92,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $border (string) 
+=item * $border (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -298,14 +104,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $code (string) 
+=item * $code (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -315,14 +116,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $codebase (string) 
+=item * $codebase (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -332,14 +128,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $codetype (string) 
+=item * $codetype (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -349,14 +140,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $data (string) 
+=item * $data (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -366,14 +152,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $declare (boolean) 
+=item * $declare (boolean)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -383,14 +164,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $height (string) 
+=item * $height (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -400,14 +176,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $hspace (integer (long)) 
+=item * $hspace (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -417,14 +188,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $name (string) 
+=item * $name (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -434,14 +200,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $standby (string) 
+=item * $standby (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -451,14 +212,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $tabindex (integer (long)) 
+=item * $tabindex (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -468,14 +224,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $type (string) 
+=item * $type (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -485,14 +236,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $usemap (string) 
+=item * $usemap (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -502,14 +248,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $vspace (integer (long)) 
+=item * $vspace (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -519,17 +260,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $width (string) 
+=item * $width (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -540,7 +275,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

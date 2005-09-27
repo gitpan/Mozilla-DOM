@@ -16,43 +16,17 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLOptGroupElement->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $bool = $htmloptgroupelement->B<GetDisabled>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $label = $htmloptgroupelement->B<GetLabel>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $htmloptgroupelement->B<SetDisabled>($disabled)
 
@@ -60,14 +34,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $disabled (boolean) 
+=item * $disabled (boolean)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -77,17 +46,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $label (string) 
+=item * $label (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -98,7 +61,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

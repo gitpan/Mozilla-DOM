@@ -197,28 +197,7 @@ MODULE = $pkgbase	PACKAGE = $pkg	PREFIX = $prefix
 
 # $headerfile
 
-=for object $pkg
-
-$pkg is a wrapper around an instance of Mozilla's
-$iface interface. This class inherits from
-L\<$parentclass|$pkgbase\::$parentclass>.
-
-$classcomment
-
-=cut
-
 EOH
-
-if (@enums) {
-    print OUT "=begin enums\n\nThe following constants are available.\n\n",
-      "=over 4\n\n";
-
-    foreach my $enum (@enums) {
-        print OUT "=item $enum->{name} => $enum->{value}\n\n";
-    }
-
-    print OUT "=back\n\n=end enums\n\n=cut\n\n";
-}
 
 print OUT <<EOG;
 ## $getiid
@@ -284,10 +263,47 @@ foreach my $method (@methods) {
     }
     $ccode .= ');';
 
-    push @pod, <<EOP;
-=head2 $pret\$$obj\->B<$method->{name}>\($psig)
+    my $pod = "=head2 $pret\$$obj\->B<$method->{name}>\($psig)\n\n";
+    if (@{ $method->{inputs} }) {
+        $pod .= "Input:\n\n=over\n\n";
+        foreach my $input (@{ $method->{inputs} }) {
+            my $name = '$' . $input->{name};
+            my $type = $input->{type};
+            if ($type =~ s/^nsI(?:DOM)//) {
+                $type = 'Mozilla::DOM::' . $type;
+            }
+            $type =~ s/\s*\*\s*$//;
+            $type = 'int' if $type =~ /PR.*int/i;
+            $type = 'string' if $type =~ /string/i;
+            $type = 'bool' if $type =~ /bool/i;
+            $pod .= "=item $name ($type)\n\n";
+        }
+        $pod .= "=back\n\n";
+    }
+    if (exists $method->{output}) {
+        $pod .= "Output:\n\n=over\n\n";
 
-EOP
+        my $name = $method->{output}{name};
+        my $type = $method->{output}{type};
+
+        $name =~ s/_//g;
+        $name =~ s/^[a-z]([A-Z])/$1/;
+        $name = lc $name;
+        $name = 'bool' if $type =~ /bool/i;
+        $name = '$' . $name;
+
+        if ($type =~ s/^nsI(?:DOM)//) {
+            $type = 'Mozilla::DOM::' . $type;
+        }
+        $type =~ s/\s*\*\s*$//;
+        $type = 'int' if $type =~ /PR.*int/i;
+        $type = 'string' if $type =~ /string/i;
+        $type = 'bool' if $type =~ /bool/i;
+        $pod .= "=item $name ($type)\n\n";
+
+        $pod .= "=back\n\n";
+    }
+    push @pod, $pod;
 
     print OUT <<EOM;
 ## $method->{orig}
@@ -299,7 +315,41 @@ $xsout
 EOM
 }
 
-print OUT <<POD;
+close(OUT);
+
+
+# output POD to separate file
+
+my $podfile = "genxsubs/$pkgname.pod";
+open(POUT, ">$podfile") || die "can't open $podfile: $!";
+
+print POUT <<HEAD;
+=head1 NAME
+
+$pkg
+
+=for object $pkg
+
+$pkg is a wrapper around an instance of Mozilla's
+$iface interface. This class inherits from
+L\<$parentclass|$pkgbase\::$parentclass>.
+
+HEAD
+
+print POUT "$classcomment\n\n" if $classcomment;
+
+if (@enums) {
+    print POUT "The following constants are available.\n\n",
+      "=over 4\n\n";
+
+    foreach my $enum (@enums) {
+        print POUT "=item $enum->{name} => $enum->{value}\n\n";
+    }
+
+    print POUT "=back\n\n";
+}
+
+print POUT <<POD;
 =head1 CLASS METHODS
 
 =head2 \$iid = $pkg\->B\<GetIID>()
@@ -311,10 +361,10 @@ Pass this to QueryInterface.
 POD
 
 foreach my $pod (@pod) {
-    print OUT $pod;
+    print POUT $pod;
 }
 
-print OUT <<FOOT;
+print POUT <<FOOT;
 =head1 SEE ALSO
 
 L<Mozilla::DOM>
@@ -329,4 +379,4 @@ This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice
 
 FOOT
 
-close(OUT);
+close(POUT);

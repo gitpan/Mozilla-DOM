@@ -16,11 +16,11 @@ L<Supports|Mozilla::DOM::Supports>.
  * interface.
  *
  * AUTF8String attributes may also contain escaped characters.
- * 
+ *
  * Unescaping URI segments is unadvised unless there is intimate
  * knowledge of the underlying charset or there is no plan to display (or
  * otherwise enforce a charset on) the resulting URI substring.
- * 
+ *
  * @status FROZEN
 
  * URIs are essentially structured names for things -- anything. This interface
@@ -29,7 +29,7 @@ L<Supports|Mozilla::DOM::Supports>.
  *
  * This interface follows Tim Berners-Lee's URI spec (RFC2396) [1], where the
  * basic URI components are defined as such:
- *  
+ *
  *      ftp://username:password@hostname:portnumber/pathname
  *      \ /   \               / \      / \        /\       /
  *       -     ---------------   ------   --------  -------
@@ -51,18 +51,11 @@ L<Supports|Mozilla::DOM::Supports>.
  * [2] http://www.ietf.org/internet-drafts/draft-ietf-idn-idna-06.txt
  * [3] http://www.ietf.org/internet-drafts/draft-masinter-url-i18n-08.txt
 
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::URI->B<GetIID>()
 
 Pass this to QueryInterface.
-
-=cut
-
-
-
 
 =head1 METHODS
 
@@ -70,13 +63,10 @@ Pass this to QueryInterface.
 
 =over
 
-
-
      * Clones the current URI.  For some protocols, this is more than just an
      * optimization.  For example, under MacOS, the spec of a file URL does not
      * necessarily uniquely identify a file since two volumes could share the
      * same name.
-
 
 =back
 
@@ -86,16 +76,13 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $other (Mozilla::DOM::URI) 
+=item * $other (Mozilla::DOM::URI)
 
 =back
-
-
 
      * URI equivalence test (not a strict string comparison).
      *
      * eg. http://foo.com:80/ == http://foo.com/
-
 
 =back
 
@@ -103,12 +90,9 @@ Pass this to QueryInterface.
 
 =over
 
-
-
      * The URI host with an ASCII compatible encoding.  Follows the IDNA
      * draft spec for converting internationalized domain names (UTF-8) to
      * ASCII for compatibility with existing internet infrasture.
-
 
 =back
 
@@ -116,12 +100,9 @@ Pass this to QueryInterface.
 
 =over
 
-
-
      * The URI spec with an ASCII compatible encoding.  Host portion follows
      * the IDNA draft spec.  Other parts are URL-escaped per the rules of
      * RFC2396.  The result is strictly ASCII.
-
 
 =back
 
@@ -129,14 +110,11 @@ Pass this to QueryInterface.
 
 =over
 
-
-
      * The host is the internet domain name to which this URI refers.  It could
      * be an IPv4 (or IPv6) address literal.  If supported, it could be a
      * non-ASCII internationalized domain name.
      *
      * Characters are NOT escaped.
-
 
 =back
 
@@ -144,20 +122,15 @@ Pass this to QueryInterface.
 
 =over
 
-
-
      * The host:port (or simply the host, if port == -1).
      *
      * Characters are NOT escaped.
-
 
 =back
 
 =head2 $origincharset = $uri->B<GetOriginCharset>()
 
 =over
-
-
 
      * The charset of the document from which this URI originated.  An empty
      * value implies UTF-8.
@@ -167,17 +140,13 @@ Pass this to QueryInterface.
      * Otherwise, the URI components may contain unescaped multibyte UTF-8
      * characters.
 
-
 =back
 
 =head2 $password = $uri->B<GetPassword>()
 
 =over
 
-
-
 See GetUserName.
-
 
 =back
 
@@ -185,13 +154,10 @@ See GetUserName.
 
 =over
 
-
-
      * The path, typically including at least a leading '/' (but may also be
      * empty, depending on the protocol).
      *
      * Some characters may be escaped.
-
 
 =back
 
@@ -199,11 +165,8 @@ See GetUserName.
 
 =over
 
-
-
      * A port value of -1 corresponds to the protocol's default port (eg. -1
      * implies port 80 for http URIs).
-
 
 =back
 
@@ -211,13 +174,10 @@ See GetUserName.
 
 =over
 
-
-
      * The prePath (eg. scheme://user:password@host:port) returns the string
      * before the path.  This is useful for authentication or managing sessions.
      *
      * Some characters may be escaped.
-
 
 =back
 
@@ -225,11 +185,8 @@ See GetUserName.
 
 =over
 
-
-
      * The Scheme is the protocol to which this URI refers.  The scheme is
      * restricted to the US-ASCII charset per RFC2396.
-
 
 =back
 
@@ -237,13 +194,10 @@ See GetUserName.
 
 =over
 
-
-
      * Returns a string representation of the URI. Setting the spec causes
      * the new spec to be parsed, initializing the URI.
      *
      * Some characters may be escaped.
-
 
 =back
 
@@ -251,12 +205,9 @@ See GetUserName.
 
 =over
 
-
-
      * The username:password (or username only if value doesn't contain a ':')
      *
      * Some characters may be escaped.
-
 
 =back
 
@@ -264,13 +215,10 @@ See GetUserName.
 
 =over
 
-
-
      * The optional username and password, assuming the preHost consists of
      * username:password.
      *
      * Some characters may be escaped.
-
 
 =back
 
@@ -280,17 +228,14 @@ See GetUserName.
 
 =over
 
-=item * $relativePath (string) 
+=item * $relativePath (string)
 
 =back
 
-
-
      * This method resolves a relative string into an absolute URI string,
-     * using this URI as the base. 
+     * using this URI as the base.
      *
      * NOTE: some implementations may have no concept of a relative URI.
-
 
 =back
 
@@ -300,16 +245,13 @@ See GetUserName.
 
 =over
 
-=item * $scheme (string) 
+=item * $scheme (string)
 
 =back
-
-
 
      * An optimization to do scheme checks without requiring the users of nsIURI
      * to GetScheme, thereby saving extra allocating and freeing. Returns true if
      * the schemes match (case ignored).
-
 
 =back
 
@@ -319,14 +261,11 @@ See GetUserName.
 
 =over
 
-=item * $aHost (string) 
+=item * $aHost (string)
 
 =back
 
-
-
 See GetHost.
-
 
 =back
 
@@ -336,14 +275,11 @@ See GetHost.
 
 =over
 
-=item * $aHostPort (string) 
+=item * $aHostPort (string)
 
 =back
 
-
-
 See GetHostPort.
-
 
 =back
 
@@ -353,14 +289,11 @@ See GetHostPort.
 
 =over
 
-=item * $aPassword (string) 
+=item * $aPassword (string)
 
 =back
 
-
-
 See GetUserName.
-
 
 =back
 
@@ -370,14 +303,11 @@ See GetUserName.
 
 =over
 
-=item * $aPath (string) 
+=item * $aPath (string)
 
 =back
 
-
-
 See GetPath.
-
 
 =back
 
@@ -387,14 +317,11 @@ See GetPath.
 
 =over
 
-=item * $aPort (integer (long)) 
+=item * $aPort (integer (long))
 
 =back
 
-
-
 See GetPort.
-
 
 =back
 
@@ -404,14 +331,11 @@ See GetPort.
 
 =over
 
-=item * $aScheme (string) 
+=item * $aScheme (string)
 
 =back
 
-
-
 See GetScheme.
-
 
 =back
 
@@ -421,14 +345,11 @@ See GetScheme.
 
 =over
 
-=item * $aSpec (string) 
+=item * $aSpec (string)
 
 =back
 
-
-
 See GetSpec.
-
 
 =back
 
@@ -438,14 +359,11 @@ See GetSpec.
 
 =over
 
-=item * $aUserPass (string) 
+=item * $aUserPass (string)
 
 =back
 
-
-
 See GetUserPass.
-
 
 =back
 
@@ -455,17 +373,13 @@ See GetUserPass.
 
 =over
 
-=item * $aUsername (string) 
+=item * $aUsername (string)
 
 =back
-
-
 
 See GetUserName.
 
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -476,7 +390,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

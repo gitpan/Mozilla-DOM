@@ -1,3 +1,13 @@
+=head1 NAME
+
+Mozilla::DOM::NSDocument
+
+=for object Mozilla::DOM::NSDocument
+
+Mozilla::DOM::NSDocument is a wrapper around an instance of Mozilla's
+nsIDOMNSDocument interface. This class inherits from
+L<Supports|Mozilla::DOM::Supports>.
+
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::NSDocument->B<GetIID>()

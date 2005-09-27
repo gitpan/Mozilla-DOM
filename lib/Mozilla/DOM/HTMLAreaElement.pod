@@ -16,109 +16,29 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLAreaElement->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $accesskey = $htmlareaelement->B<GetAccessKey>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $alt = $htmlareaelement->B<GetAlt>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $coords = $htmlareaelement->B<GetCoords>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $href = $htmlareaelement->B<GetHref>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $bool = $htmlareaelement->B<GetNoHref>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $shape = $htmlareaelement->B<GetShape>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $tabindex = $htmlareaelement->B<GetTabIndex>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $target = $htmlareaelement->B<GetTarget>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $htmlareaelement->B<SetAccessKey>($accesskey)
 
@@ -126,14 +46,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $accesskey (string) 
+=item * $accesskey (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -143,14 +58,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $alt (string) 
+=item * $alt (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -160,14 +70,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $coords (string) 
+=item * $coords (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -177,14 +82,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $href (string) 
+=item * $href (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -194,14 +94,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $nohref (boolean) 
+=item * $nohref (boolean)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -211,14 +106,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $shape (string) 
+=item * $shape (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -228,14 +118,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $tabindex (integer (long)) 
+=item * $tabindex (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -245,17 +130,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $target (string) 
+=item * $target (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -266,7 +145,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

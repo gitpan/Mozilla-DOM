@@ -8,9 +8,9 @@ Mozilla::DOM::MutationEvent is a wrapper around an instance of Mozilla's
 nsIDOMMutationEvent interface. This inherits from
 L<UIEvent|Mozilla::DOM::Event>.
 
-The following constants are available to be compared with L</GetAttrChange>.
+The following constants are available to be compared with GetAttrChange.
 You can access these either through the event object,
-like $event->MODIFICATION, export them all with
+export them all with
 C<use Mozilla::DOM::MutationEvent qw(:changes)>, or export them individually.
 
 =over 4
@@ -28,8 +28,6 @@ C<use Mozilla::DOM::MutationEvent qw(:changes)>, or export them individually.
 =head2 $iid = Mozilla::DOM::MutationEvent->B<GetIID>()
 
 Pass this to QueryInterface.
-
-=end comment
 
 =head1 METHODS
 

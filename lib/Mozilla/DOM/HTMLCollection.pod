@@ -16,32 +16,15 @@ L<nsISupports|Mozilla::DOM::nsISupports>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLCollection->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $length = $htmlcollection->B<GetLength>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $retval = $htmlcollection->B<Item>($index)
 
@@ -49,14 +32,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $index (integer (long)) 
+=item * $index (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -66,17 +44,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $name (string) 
+=item * $name (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -87,7 +59,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

@@ -16,43 +16,17 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLBaseElement->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $href = $htmlbaseelement->B<GetHref>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $target = $htmlbaseelement->B<GetTarget>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $htmlbaseelement->B<SetHref>($href)
 
@@ -60,14 +34,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $href (string) 
+=item * $href (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -77,17 +46,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $target (string) 
+=item * $target (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -98,7 +61,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

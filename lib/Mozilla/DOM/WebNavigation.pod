@@ -21,10 +21,6 @@ LoadURI, GetSessionHistory, SetSessionHistory. I'd especially
 like to have LoadURI, but I don't know how to do nsIInputStream
 for its last two arguments.
 
-=cut
-
-=begin enums
-
 The following constants are available.
 You can export them all with C<use Mozilla::DOM::WebNavigation qw(:flags)>
 or export them individually.
@@ -77,28 +73,17 @@ or export them individually.
 
 =back
 
-=end enums
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::WebNavigation->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $bool = $webnavigation->B<GetCanGoBack>()
 
 =over
-
-
 
   * Indicates if the object can go back.  If true this indicates that
   * there is back session history available for navigation.
@@ -107,14 +92,11 @@ Note: this method is available in Gtk2::MozEmbed:
 
   $embed->can_go_back
 
-
 =back
 
 =head2 $bool = $webnavigation->B<GetCanGoForward>()
 
 =over
-
-
 
   * Indicates if the object can go forward.  If true this indicates that
   * there is forward session history available for navigation
@@ -123,14 +105,11 @@ Note: this method is available in Gtk2::MozEmbed:
 
   $embed->can_go_forward
 
-
 =back
 
 =head2 $currenturi = $webnavigation->B<GetCurrentURI>()
 
 =over
-
-
 
   * The currently loaded URI or null.
 
@@ -140,14 +119,11 @@ Note: I think this is the same as
 
 in Gtk2::MozEmbed.
 
-
 =back
 
 =head2 $document = $webnavigation->B<GetDocument>()
 
 =over
-
-
 
   * Retrieves the current DOM document for the frame, or lazily creates a
   * blank document if there is none. This attribute never returns null except
@@ -159,25 +135,19 @@ Note: this document is also available by doing
     my $window = $browser->GetContentDOMWindow;
     my $doc = $window->GetDocument;
 
-
 =back
 
 =head2 $referringuri = $webnavigation->B<GetReferringURI>()
 
 =over
 
-
-
   * The referring URI.
-
 
 =back
 
 =head2 $webnavigation->B<GoBack>()
 
 =over
-
-
 
   * Tells the object to navigate to the previous session history item.  When
   * a page is loaded from session history, all content is loaded from the
@@ -192,14 +162,11 @@ Note: this method is available in Gtk2::MozEmbed:
 
   $embed->go_back()
 
-
 =back
 
 =head2 $webnavigation->B<GoForward>()
 
 =over
-
-
 
   * Tells the object to navigate to the next Forward session history item.
   * When a page is loaded from session history, all content is loaded from
@@ -214,7 +181,6 @@ Note: this method is available in Gtk2::MozEmbed:
 
   $embed->go_forward()
 
-
 =back
 
 =head2 $webnavigation->B<GotoIndex>($index)
@@ -223,18 +189,15 @@ Note: this method is available in Gtk2::MozEmbed:
 
 =over
 
-=item * $index (integer (long)) 
+=item * $index (integer (long))
 
 =back
-
-
 
   * Tells the object to navigate to the session history item at index.
   *
   * @return NS_OK -               GotoIndex was successful.
   *         NS_ERROR_UNEXPECTED - This call was unexpected at this time.  Most
   *                               likely you can't goto that index
-
 
 =back
 
@@ -244,11 +207,9 @@ Note: this method is available in Gtk2::MozEmbed:
 
 =over
 
-=item * $reloadFlags (integer (long)) 
+=item * $reloadFlags (integer (long))
 
 =back
-
-
 
   * Tells the Object to reload the current page.
   *
@@ -262,7 +223,6 @@ Note: this method is available in Gtk2::MozEmbed:
 (See also the section "flags Gtk2::MozEmbed::Reload"
 in `perldoc Gtk2::MozEmbed::main`.)
 
-
 =back
 
 =head2 $webnavigation->B<Stop>($stopflags)
@@ -271,11 +231,9 @@ in `perldoc Gtk2::MozEmbed::main`.)
 
 =over
 
-=item * $stopFlags (integer (long)) 
+=item * $stopFlags (integer (long))
 
 =back
-
-
 
   * Stops a load of a URI.
   *
@@ -285,9 +243,7 @@ Note: this method is available in Gtk2::MozEmbed:
 
   $embed->stop_load();
 
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -298,7 +254,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

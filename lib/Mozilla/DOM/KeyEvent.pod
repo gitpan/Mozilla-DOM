@@ -14,7 +14,7 @@ HasFeature('KeyEvents', '2.0') (and '3.0' and '') claimed (on my
 system) that KeyEvents were not supported, I found that you can in fact
 do key events.
 
-The following constants are available to be compared with L</GetKeyCode>.
+The following constants are available to be compared with GetKeyCode.
 You can access these either through the (mouse or key) event object,
 like $event->DOM_VK_TAB, export them all with
 C<use Mozilla::DOM::KeyEvent qw(:keycodes)>, or export them individually.
@@ -226,7 +226,8 @@ then I can put it back in.
 
 =head1 SEE ALSO
 
-L<Mozilla::DOM>, L<F<E<sol>usrE<sol>includeE<sol>mozillaE<sol>nsIDOMKeyEvent.h>>, L<sections 1.7.4 and Appendix A of the DOM level 3 specification>
+L<Mozilla::DOM>,
+sections 1.7.4 and Appendix A of the DOM level 3 specification
 
 =head1 COPYRIGHT
 

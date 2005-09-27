@@ -13,10 +13,8 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
  * The nsIDOMDocumentType interface in the DOM Core provides an
  * interface to the list of entities that are defined for the document.
  *
- * For more information on this interface please see 
+ * For more information on this interface please see
  * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-CoreE<sol>>
-
-=cut
 
 =head1 CLASS METHODS
 
@@ -24,79 +22,19 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $namednodemap = $documenttype->B<GetEntities>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $str = $documenttype->B<GetInternalSubset>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $name = $documenttype->B<GetName>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $namednodemap = $documenttype->B<GetNotations>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $id = $documenttype->B<GetPublicId>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $id = $documenttype->B<GetSystemId>()
-
-=over
-
-
-
-
-
-
-=back
-
 
 =head1 SEE ALSO
 
@@ -107,7 +45,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

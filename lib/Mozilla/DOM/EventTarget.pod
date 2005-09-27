@@ -69,7 +69,7 @@ If multiple identical EventListeners are registered on the same
 EventTarget with the same parameters, the duplicate instances are
 discarded. They do not cause the EventListener to be called twice,
 and since they are discarded they do not need to be removed with the
-L</RemoveEventListener> method.
+RemoveEventListener method.
 
 =over 4
 

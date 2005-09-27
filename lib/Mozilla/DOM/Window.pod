@@ -16,11 +16,128 @@ L<Supports|Mozilla::DOM::Supports>.
  * This interface is not officially defined by any standard bodies, it
  * originates from the defacto DOM Level 0 standard.
 
+Note: the following methods aren't wrapped: GetScrollbars, GetScrollX,
+GetScrollY, ScrollTo, ScrollBy, ScrollByLines, ScrollByPages.
+(Only GetScrollbars would be non-trivial to wrap, just didn't
+get around to the others yet.)
+
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::Window->B<GetIID>()
 
 Pass this to QueryInterface.
+
+=head1 METHODS
+
+=head2 $document = $window->B<GetDocument>()
+
+=over
+
+   * Accessor for the document in this window.
+
+=back
+
+=head2 $document_collection = $window->B<GetFrames>()
+
+=over
+
+   * Accessor for the child windows in this window.
+
+=back
+
+=head2 $name = $window->B<GetName>()
+
+=over
+
+Get the name of this window.
+
+This corresponds to window.name in JavaScript.
+
+=back
+
+=head2 $window = $window->B<GetParent>()
+
+=over
+
+   * Accessor for this window's parent window, or the window itself if
+   * there is no parent, or if the parent is of different type
+   * (i.e. this does not cross chrome-content boundaries).
+
+=back
+
+=head2 $selection = $window->B<GetSelection>()
+
+=over
+
+   * Method for accessing this window's selection object.
+
+=back
+
+=head2 $num = $window->B<GetTextZoom>()
+
+=over
+
+   * Set/Get the document scale factor as a multiplier on the default
+   * size. When setting this attribute, a NS_ERROR_NOT_IMPLEMENTED
+   * error may be returned by implementations not supporting
+   * zoom. Implementations not supporting zoom should return 1.0 all
+   * the time for the Get operation. 1.0 is equals normal size,
+   * i.e. no zoom.
+
+=back
+
+=head2 $window = $window->B<GetTop>()
+
+=over
+
+   * Accessor for the root of this hierarchy of windows. This root may
+   * be the window itself if there is no parent, or if the parent is
+   * of different type (i.e. this does not cross chrome-content
+   * boundaries).
+   *
+   * This property is "replaceable" in JavaScript */
+
+=back
+
+=head2 $window->B<SetName>($name)
+
+=over
+
+=over
+
+=item * $name (string)
+
+=back
+
+Set the name of this window.
+
+"This attribute is 'replaceable' in JavaScript";
+where it corresponds to window.name.
+
+=back
+
+=head2 $window->B<SetTextZoom>($num)
+
+=over
+
+=over
+
+=item * $zoom (double)
+
+=back
+
+=back
+
+=head2 $window->B<SizeToContent>()
+
+=over
+
+   * Method for sizing this window to the content in the window.
+
+XXX: doesn't seem to work. Maybe window resize is disabled,
+or maybe Gtk2 prevents it.
+
+=back
 
 =begin comment
 
@@ -212,118 +329,6 @@ Pass this to QueryInterface.
 #	RETVAL
 
 =end comment
-
-=head1 METHODS
-
-=head2 $document = $window->B<GetDocument>()
-
-=over
-
-   * Accessor for the document in this window.
-
-=back
-
-=head2 $document_collection = $window->B<GetFrames>()
-
-=over
-
-   * Accessor for the child windows in this window.
-
-=back
-
-=head2 $name = $window->B<GetName>()
-
-=over
-
-Get the name of this window.
-
-This corresponds to window.name in JavaScript.
-
-=back
-
-=head2 $window = $window->B<GetParent>()
-
-=over
-
-   * Accessor for this window's parent window, or the window itself if
-   * there is no parent, or if the parent is of different type
-   * (i.e. this does not cross chrome-content boundaries).
-
-=back
-
-=head2 $selection = $window->B<GetSelection>()
-
-=over
-
-   * Method for accessing this window's selection object.
-
-=back
-
-=head2 $num = $window->B<GetTextZoom>()
-
-=over
-
-   * Set/Get the document scale factor as a multiplier on the default
-   * size. When setting this attribute, a NS_ERROR_NOT_IMPLEMENTED
-   * error may be returned by implementations not supporting
-   * zoom. Implementations not supporting zoom should return 1.0 all
-   * the time for the Get operation. 1.0 is equals normal size,
-   * i.e. no zoom.
-
-=back
-
-=head2 $window = $window->B<GetTop>()
-
-=over
-
-   * Accessor for the root of this hierarchy of windows. This root may
-   * be the window itself if there is no parent, or if the parent is
-   * of different type (i.e. this does not cross chrome-content
-   * boundaries).
-   *
-   * This property is "replaceable" in JavaScript */
-
-=back
-
-=head2 $window->B<SetName>($name)
-
-=over
-
-=over
-
-=item * $name (string)
-
-=back
-
-Set the name of this window.
-
-"This attribute is 'replaceable' in JavaScript";
-where it corresponds to window.name.
-
-=back
-
-=head2 $window->B<SetTextZoom>($num)
-
-=over
-
-=over
-
-=item * $zoom (double)
-
-=back
-
-=back
-
-=head2 $window->B<SizeToContent>()
-
-=over
-
-   * Method for sizing this window to the content in the window.
-
-XXX: doesn't seem to work. Maybe window resize is disabled,
-or maybe Gtk2 prevents it.
-
-=back
 
 =head1 SEE ALSO
 

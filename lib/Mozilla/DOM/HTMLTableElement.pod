@@ -16,65 +16,21 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLTableElement->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $retval = $htmltableelement->B<CreateCaption>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $retval = $htmltableelement->B<CreateTFoot>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $retval = $htmltableelement->B<CreateTHead>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $htmltableelement->B<DeleteCaption>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $htmltableelement->B<DeleteRow>($index)
 
@@ -82,192 +38,43 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $index (integer (long)) 
+=item * $index (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
 =head2 $htmltableelement->B<DeleteTFoot>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $htmltableelement->B<DeleteTHead>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $align = $htmltableelement->B<GetAlign>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $bgcolor = $htmltableelement->B<GetBgColor>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $border = $htmltableelement->B<GetBorder>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $caption = $htmltableelement->B<GetCaption>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $cellpadding = $htmltableelement->B<GetCellPadding>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $cellspacing = $htmltableelement->B<GetCellSpacing>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $frame = $htmltableelement->B<GetFrame>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $rows = $htmltableelement->B<GetRows>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $rules = $htmltableelement->B<GetRules>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $summary = $htmltableelement->B<GetSummary>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $tbodies = $htmltableelement->B<GetTBodies>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $tfoot = $htmltableelement->B<GetTFoot>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $thead = $htmltableelement->B<GetTHead>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $width = $htmltableelement->B<GetWidth>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $retval = $htmltableelement->B<InsertRow>($index)
 
@@ -275,14 +82,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $index (integer (long)) 
+=item * $index (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -292,14 +94,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $align (string) 
+=item * $align (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -309,14 +106,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $bgcolor (string) 
+=item * $bgcolor (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -326,14 +118,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $border (string) 
+=item * $border (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -343,14 +130,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $caption (Mozilla::DOM::HTMLTableCaptionElement) 
+=item * $caption (Mozilla::DOM::HTMLTableCaptionElement)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -360,14 +142,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $cellpadding (string) 
+=item * $cellpadding (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -377,14 +154,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $cellspacing (string) 
+=item * $cellspacing (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -394,14 +166,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $frame (string) 
+=item * $frame (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -411,14 +178,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $rules (string) 
+=item * $rules (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -428,14 +190,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $summary (string) 
+=item * $summary (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -445,14 +202,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $tfoot (Mozilla::DOM::HTMLTableSectionElement) 
+=item * $tfoot (Mozilla::DOM::HTMLTableSectionElement)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -462,14 +214,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $thead (Mozilla::DOM::HTMLTableSectionElement) 
+=item * $thead (Mozilla::DOM::HTMLTableSectionElement)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -479,17 +226,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $width (string) 
+=item * $width (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -500,7 +241,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

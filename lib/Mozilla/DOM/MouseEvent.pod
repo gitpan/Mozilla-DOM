@@ -187,7 +187,8 @@ then I can put it back in.
 
 =head1 SEE ALSO
 
-L<Mozilla::DOM>, L<F<E<sol>usrE<sol>includeE<sol>mozillaE<sol>nsIDOMMouseEvent.h>>, L<section 1.6.2 of the DOM level 2 specification>
+L<Mozilla::DOM>,
+section 1.6.2 of the DOM level 2 specification
 
 =head1 COPYRIGHT
 

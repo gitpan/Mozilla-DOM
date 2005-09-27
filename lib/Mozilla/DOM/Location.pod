@@ -8,159 +8,17 @@ Mozilla::DOM::Location is a wrapper around an instance of Mozilla's
 nsIDOMLocation interface. This class inherits from
 L<Supports|Mozilla::DOM::Supports>.
 
-
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::Location->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
-
-=head2 $location->B<Assign>($url)
-
-=over
-
-=over
-
-=item * $url (string) 
-
-=back
-
-
-
-
-
-
-=back
 
 =head2 $hash = $location->B<GetHash>()
 
 =over
-
-
-
-
-
-
-=back
-
-=head2 $host = $location->B<GetHost>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $hostname = $location->B<GetHostname>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $href = $location->B<GetHref>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $pathname = $location->B<GetPathname>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $port = $location->B<GetPort>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $protocol = $location->B<GetProtocol>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $search = $location->B<GetSearch>()
-
-=over
-
-
-
-
-
-
-=back
-
-=head2 $location->B<Reload>($forceget)
-
-=over
-
-=over
-
-=item * $forceget (boolean) 
-
-=back
-
-
-
-
-
-
-=back
-
-=head2 $location->B<Replace>($url)
-
-=over
-
-=over
-
-=item * $url (string) 
-
-=back
-
-
-
-
-
 
 =back
 
@@ -170,14 +28,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $aHash (string) 
+=item * $aHash (string)
 
 =back
 
+=back
 
+=head2 $host = $location->B<GetHost>()
 
-
-
+=over
 
 =back
 
@@ -187,14 +46,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $aHost (string) 
+=item * $aHost (string)
 
 =back
 
+=back
 
+=head2 $hostname = $location->B<GetHostname>()
 
-
-
+=over
 
 =back
 
@@ -204,14 +64,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $aHostname (string) 
+=item * $aHostname (string)
 
 =back
 
+=back
 
+=head2 $href = $location->B<GetHref>()
 
-
-
+=over
 
 =back
 
@@ -221,14 +82,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $aHref (string) 
+=item * $aHref (string)
 
 =back
 
+=back
 
+=head2 $pathname = $location->B<GetPathname>()
 
-
-
+=over
 
 =back
 
@@ -238,14 +100,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $aPathname (string) 
+=item * $aPathname (string)
 
 =back
 
+=back
 
+=head2 $port = $location->B<GetPort>()
 
-
-
+=over
 
 =back
 
@@ -255,14 +118,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $aPort (string) 
+=item * $aPort (string)
 
 =back
 
+=back
 
+=head2 $protocol = $location->B<GetProtocol>()
 
-
-
+=over
 
 =back
 
@@ -272,14 +136,15 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $aProtocol (string) 
+=item * $aProtocol (string)
 
 =back
 
+=back
 
+=head2 $search = $location->B<GetSearch>()
 
-
-
+=over
 
 =back
 
@@ -289,14 +154,45 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $aSearch (string) 
+=item * $aSearch (string)
 
 =back
 
+=back
 
+=head2 $location->B<Assign>($url)
 
+=over
 
+=over
 
+=item * $url (string)
+
+=back
+
+=back
+
+=head2 $location->B<Reload>($forceget)
+
+=over
+
+=over
+
+=item * $forceget (boolean)
+
+=back
+
+=back
+
+=head2 $location->B<Replace>($url)
+
+=over
+
+=over
+
+=item * $url (string)
+
+=back
 
 =back
 
@@ -304,13 +200,7 @@ Pass this to QueryInterface.
 
 =over
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -321,7 +211,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

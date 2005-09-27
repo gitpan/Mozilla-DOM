@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $CVSHeader: Mozilla-DOM/mozilladom2perl.h,v 1.15 2005/08/28 19:29:55 slanning Exp $
+ * $CVSHeader: Mozilla-DOM/mozilladom2perl.h,v 1.16 2005/09/25 17:41:34 slanning Exp $
  */
 
 #ifndef _MOZILLADOM2PERL_H_
@@ -77,7 +77,9 @@ extern "C" {
 #include "nsIDOMDocumentType.h"
 #include "nsIDOMDocumentView.h"
 #include "nsIDOMElement.h"
+#include "nsIDOMEntity.h"
 #include "nsIDOMEntityReference.h"
+#include "nsIDOMNSEvent.h"
 #include "nsIDOMEvent.h"
 #include "nsIDOMEventListener.h"
 #include "nsIDOMEventTarget.h"
@@ -87,10 +89,13 @@ extern "C" {
 #include "nsIDOMMutationEvent.h"
 #include "nsIDOMNamedNodeMap.h"
 #include "nsIDOMNodeList.h"
+#include "nsIDOMNotation.h"
 #include "nsIDOMProcessingInstruction.h"
 #include "nsIDOMRange.h"
+#include "nsIDOMNSRange.h"
 #include "nsIDOMText.h"
 #include "nsIDOMUIEvent.h"
+#include "nsIDOMNSUIEvent.h"
 #include "nsIDOMWindow.h"
 #include "nsIDOMWindow2.h"
 #include "nsIDOMWindowInternal.h"
@@ -101,32 +106,41 @@ extern "C" {
 #include "nsIDOMScreen.h"
 
 #include "nsIDOMHTMLAreaElement.h"
-#include "nsIDOMHTMLDirectoryElement.h"
+#include "nsIDOMNSHTMLAreaElement.h"
 #include "nsIDOMHTMLAnchorElement.h"
+#include "nsIDOMNSHTMLAnchorElement.h"
 #include "nsIDOMHTMLAppletElement.h"
 #include "nsIDOMHTMLBRElement.h"
 #include "nsIDOMHTMLBaseElement.h"
 #include "nsIDOMHTMLBaseFontElement.h"
 #include "nsIDOMHTMLBodyElement.h"
 #include "nsIDOMHTMLButtonElement.h"
+#include "nsIDOMNSHTMLButtonElement.h"
 #include "nsIDOMHTMLCollection.h"
 #include "nsIDOMHTMLDListElement.h"
+#include "nsIDOMHTMLDirectoryElement.h"
 #include "nsIDOMHTMLDivElement.h"
+#include "nsIDOMNSHTMLDocument.h"
 #include "nsIDOMHTMLElement.h"
 #include "nsIDOMNSHTMLElement.h"
 #include "nsIDOMHTMLEmbedElement.h"
 #include "nsIDOMHTMLFieldSetElement.h"
 #include "nsIDOMHTMLFontElement.h"
-#include "nsIDOMHTMLFrameElement.h"
 #include "nsIDOMHTMLFormElement.h"
+#include "nsIDOMNSHTMLFormElement.h"
+#include "nsIDOMHTMLFrameElement.h"
+#include "nsIDOMNSHTMLFrameElement.h"
 #include "nsIDOMHTMLFrameSetElement.h"
 #include "nsIDOMHTMLHRElement.h"
+#include "nsIDOMNSHTMLHRElement.h"
 #include "nsIDOMHTMLHeadElement.h"
 #include "nsIDOMHTMLHeadingElement.h"
 #include "nsIDOMHTMLHtmlElement.h"
 #include "nsIDOMHTMLIFrameElement.h"
 #include "nsIDOMHTMLImageElement.h"
+#include "nsIDOMNSHTMLImageElement.h"
 #include "nsIDOMHTMLInputElement.h"
+#include "nsIDOMNSHTMLInputElement.h"
 #include "nsIDOMHTMLIsIndexElement.h"
 #include "nsIDOMHTMLLIElement.h"
 #include "nsIDOMHTMLLabelElement.h"
@@ -140,6 +154,7 @@ extern "C" {
 #include "nsIDOMHTMLObjectElement.h"
 #include "nsIDOMHTMLOptGroupElement.h"
 #include "nsIDOMHTMLOptionElement.h"
+#include "nsIDOMNSHTMLOptionElement.h"
 #include "nsIDOMHTMLOptionsCollection.h"
 #include "nsIDOMHTMLParagraphElement.h"
 #include "nsIDOMHTMLParamElement.h"
@@ -147,6 +162,7 @@ extern "C" {
 #include "nsIDOMHTMLQuoteElement.h"
 #include "nsIDOMHTMLScriptElement.h"
 #include "nsIDOMHTMLSelectElement.h"
+#include "nsIDOMNSHTMLSelectElement.h"
 #include "nsIDOMHTMLStyleElement.h"
 #include "nsIDOMHTMLTableCaptionElem.h"   /* grr */
 #include "nsIDOMHTMLTableCellElement.h"
@@ -155,6 +171,7 @@ extern "C" {
 #include "nsIDOMHTMLTableRowElement.h"
 #include "nsIDOMHTMLTableSectionElem.h"   /* grr */
 #include "nsIDOMHTMLTextAreaElement.h"
+#include "nsIDOMNSHTMLTextAreaElement.h"
 #include "nsIDOMHTMLTitleElement.h"
 #include "nsIDOMHTMLUListElement.h"
 
@@ -195,7 +212,9 @@ MOZDOM_DECL_I_TYPEMAPPERS(Supports)
 MOZDOM_DECL_DOM_TYPEMAPPERS(AbstractView)
 MOZDOM_DECL_DOM_TYPEMAPPERS(DocumentView)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Event)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NSEvent)
 MOZDOM_DECL_DOM_TYPEMAPPERS(UIEvent)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NSUIEvent)
 MOZDOM_DECL_DOM_TYPEMAPPERS(DocumentEvent)
 MOZDOM_DECL_DOM_TYPEMAPPERS(MutationEvent)
 MOZDOM_DECL_DOM_TYPEMAPPERS(KeyEvent)
@@ -216,8 +235,10 @@ MOZDOM_DECL_DOM_TYPEMAPPERS(Node)
 MOZDOM_DECL_DOM_TYPEMAPPERS(NodeList)
 MOZDOM_DECL_DOM_TYPEMAPPERS(NamedNodeMap)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Element)
+MOZDOM_DECL_DOM_TYPEMAPPERS(Entity)
 MOZDOM_DECL_DOM_TYPEMAPPERS(EntityReference)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Attr)
+MOZDOM_DECL_DOM_TYPEMAPPERS(Notation)
 MOZDOM_DECL_DOM_TYPEMAPPERS(ProcessingInstruction)
 MOZDOM_DECL_DOM_TYPEMAPPERS(CDATASection)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Comment)
@@ -225,38 +246,48 @@ MOZDOM_DECL_DOM_TYPEMAPPERS(CharacterData)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Text)
 MOZDOM_DECL_DOM_TYPEMAPPERS(DOMImplementation)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Range)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NSRange)
 MOZDOM_DECL_DOM_TYPEMAPPERS(History)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Location)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Navigator)
 MOZDOM_DECL_DOM_TYPEMAPPERS(Screen)
 
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLAreaElement)
-MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLDirectoryElement)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NSHTMLAreaElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLAnchorElement)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NSHTMLAnchorElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLAppletElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLBRElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLBaseElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLBaseFontElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLBodyElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLButtonElement)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NSHTMLButtonElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLCollection)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLDListElement)
+MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLDirectoryElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLDivElement)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NSHTMLDocument)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(NSHTMLElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLEmbedElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLFieldSetElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLFontElement)
-MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLFrameElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLFormElement)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NSHTMLFormElement)
+MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLFrameElement)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NSHTMLFrameElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLFrameSetElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLHRElement)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NSHTMLHRElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLHeadElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLHeadingElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLHtmlElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLIFrameElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLImageElement)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NSHTMLImageElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLInputElement)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NSHTMLInputElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLIsIndexElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLLIElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLLabelElement)
@@ -270,6 +301,7 @@ MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLOListElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLObjectElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLOptGroupElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLOptionElement)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NSHTMLOptionElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLOptionsCollection)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLParagraphElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLParamElement)
@@ -277,6 +309,7 @@ MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLPreElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLQuoteElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLScriptElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLSelectElement)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NSHTMLSelectElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLStyleElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLTableCaptionElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLTableCellElement)
@@ -285,6 +318,7 @@ MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLTableElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLTableRowElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLTableSectionElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLTextAreaElement)
+MOZDOM_DECL_DOM_TYPEMAPPERS(NSHTMLTextAreaElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLTitleElement)
 MOZDOM_DECL_DOM_TYPEMAPPERS(HTMLUListElement)
 

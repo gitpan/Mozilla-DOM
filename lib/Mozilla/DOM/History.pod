@@ -8,88 +8,25 @@ Mozilla::DOM::History is a wrapper around an instance of Mozilla's
 nsIDOMHistory interface. This class inherits from
 L<Supports|Mozilla::DOM::Supports>.
 
-
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::History->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $history->B<Back>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $history->B<Forward>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $current = $history->B<GetCurrent>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $length = $history->B<GetLength>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $next = $history->B<GetNext>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $previous = $history->B<GetPrevious>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $history->B<Go>($delta)
 
@@ -97,14 +34,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $aDelta (integer (long)) 
+=item * $aDelta (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -114,17 +46,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $index (integer (long)) 
+=item * $index (integer (long))
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -135,7 +61,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

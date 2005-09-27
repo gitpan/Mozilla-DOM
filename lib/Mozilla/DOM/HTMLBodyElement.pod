@@ -16,87 +16,25 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLBodyElement->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $alink = $htmlbodyelement->B<GetALink>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $background = $htmlbodyelement->B<GetBackground>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $bgcolor = $htmlbodyelement->B<GetBgColor>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $link = $htmlbodyelement->B<GetLink>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $text = $htmlbodyelement->B<GetText>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $vlink = $htmlbodyelement->B<GetVLink>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $htmlbodyelement->B<SetALink>($alink)
 
@@ -104,14 +42,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $alink (string) 
+=item * $alink (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -121,14 +54,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $background (string) 
+=item * $background (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -138,14 +66,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $bgcolor (string) 
+=item * $bgcolor (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -155,14 +78,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $link (string) 
+=item * $link (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -172,14 +90,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $text (string) 
+=item * $text (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -189,17 +102,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $vlink (string) 
+=item * $vlink (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -210,7 +117,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

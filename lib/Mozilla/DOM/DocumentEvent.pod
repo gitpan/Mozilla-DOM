@@ -11,7 +11,7 @@ L<Supports|Mozilla::DOM::Supports>.
  * The nsIDOMDocumentEvent interface is the interface to the event
  * factory method on a DOM document object.
  *
- * For more information on this interface please see 
+ * For more information on this interface please see
  * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-EventsE<sol>>
 
 (In particular, sections 1.5 and 1.6. Very important to read that

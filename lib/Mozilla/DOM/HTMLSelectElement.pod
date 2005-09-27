@@ -16,19 +16,11 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLSelectElement->B<GetIID>()
 
 Pass this to QueryInterface.
-
-=cut
-
-
-
 
 =head1 METHODS
 
@@ -38,161 +30,39 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $element (Mozilla::DOM::HTMLElement) 
+=item * $element (Mozilla::DOM::HTMLElement)
 
-=item * $before (Mozilla::DOM::HTMLElement) 
+=item * $before (Mozilla::DOM::HTMLElement)
 
 =back
-
-
-
-
-
 
 =back
 
 =head2 $htmlselectelement->B<Blur>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $htmlselectelement->B<Focus>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $bool = $htmlselectelement->B<GetDisabled>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $form = $htmlselectelement->B<GetForm>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $length = $htmlselectelement->B<GetLength>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $bool = $htmlselectelement->B<GetMultiple>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $name = $htmlselectelement->B<GetName>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $options = $htmlselectelement->B<GetOptions>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $selectedindex = $htmlselectelement->B<GetSelectedIndex>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $size = $htmlselectelement->B<GetSize>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $tabindex = $htmlselectelement->B<GetTabIndex>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $type = $htmlselectelement->B<GetType>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $value = $htmlselectelement->B<GetValue>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $htmlselectelement->B<Remove>($index)
 
@@ -200,14 +70,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $index (integer (long)) 
+=item * $index (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -217,14 +82,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $disabled (boolean) 
+=item * $disabled (boolean)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -234,14 +94,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $length (integer (long)) 
+=item * $length (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -251,14 +106,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $multiple (boolean) 
+=item * $multiple (boolean)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -268,14 +118,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $name (string) 
+=item * $name (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -285,14 +130,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $selectedindex (integer (long)) 
+=item * $selectedindex (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -302,14 +142,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $size (integer (long)) 
+=item * $size (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -319,14 +154,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $tabindex (integer (long)) 
+=item * $tabindex (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -336,17 +166,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $value (string) 
+=item * $value (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -357,7 +181,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

@@ -15,42 +15,17 @@ L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
  * For more information on this interface please see 
  * L<http:E<sol>E<sol>www.w3.orgE<sol>TRE<sol>DOM-Level-2-CoreE<sol>>
 
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::ProcessingInstruction->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $data = $processinginstruction->B<GetData>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $str = $processinginstruction->B<GetTarget>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $processinginstruction->B<SetData>($data)
 
@@ -58,17 +33,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $data (string) 
+=item * $data (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -79,7 +48,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

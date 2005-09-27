@@ -8,6 +8,16 @@ The following is a list of all the POD files distributed with this module.
 Much of this documentation was copied from Mozilla headers and the
 DOM Level 2 specifications.
 
+=begin comment
+
+After "=over" below, do:
+
+  ESC 1 ESC ! ls *.pod
+  Replace .pod with \n
+  Macro to make it look like  =item L<Mozilla::DOM::AbstractView>
+
+=end comment
+
 =head1 POD LIST
 
 =over
@@ -32,11 +42,15 @@ DOM Level 2 specifications.
 
 =item L<Mozilla::DOM::DocumentFragment>
 
+=item L<Mozilla::DOM::DocumentRange>
+
 =item L<Mozilla::DOM::DocumentType>
 
 =item L<Mozilla::DOM::DocumentView>
 
 =item L<Mozilla::DOM::Element>
+
+=item L<Mozilla::DOM::Entity>
 
 =item L<Mozilla::DOM::EntityReference>
 
@@ -168,6 +182,40 @@ DOM Level 2 specifications.
 
 =item L<Mozilla::DOM::MutationEvent>
 
+=item L<Mozilla::DOM::NSDocument>
+
+=item L<Mozilla::DOM::NSEvent>
+
+=item L<Mozilla::DOM::NSHTMLAnchorElement>
+
+=item L<Mozilla::DOM::NSHTMLAreaElement>
+
+=item L<Mozilla::DOM::NSHTMLButtonElement>
+
+=item L<Mozilla::DOM::NSHTMLDocument>
+
+=item L<Mozilla::DOM::NSHTMLElement>
+
+=item L<Mozilla::DOM::NSHTMLFormElement>
+
+=item L<Mozilla::DOM::NSHTMLFrameElement>
+
+=item L<Mozilla::DOM::NSHTMLHRElement>
+
+=item L<Mozilla::DOM::NSHTMLImageElement>
+
+=item L<Mozilla::DOM::NSHTMLInputElement>
+
+=item L<Mozilla::DOM::NSHTMLOptionElement>
+
+=item L<Mozilla::DOM::NSHTMLSelectElement>
+
+=item L<Mozilla::DOM::NSHTMLTextAreaElement>
+
+=item L<Mozilla::DOM::NSRange>
+
+=item L<Mozilla::DOM::NSUIEvent>
+
 =item L<Mozilla::DOM::NamedNodeMap>
 
 =item L<Mozilla::DOM::Navigator>
@@ -175,6 +223,8 @@ DOM Level 2 specifications.
 =item L<Mozilla::DOM::Node>
 
 =item L<Mozilla::DOM::NodeList>
+
+=item L<Mozilla::DOM::Notation>
 
 =item L<Mozilla::DOM::ProcessingInstruction>
 

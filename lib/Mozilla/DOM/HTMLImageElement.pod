@@ -16,153 +16,37 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLImageElement->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $align = $htmlimageelement->B<GetAlign>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $alt = $htmlimageelement->B<GetAlt>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $border = $htmlimageelement->B<GetBorder>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $height = $htmlimageelement->B<GetHeight>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $hspace = $htmlimageelement->B<GetHspace>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $bool = $htmlimageelement->B<GetIsMap>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $longdesc = $htmlimageelement->B<GetLongDesc>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $name = $htmlimageelement->B<GetName>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $src = $htmlimageelement->B<GetSrc>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $usemap = $htmlimageelement->B<GetUseMap>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $vspace = $htmlimageelement->B<GetVspace>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $width = $htmlimageelement->B<GetWidth>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $htmlimageelement->B<SetAlign>($align)
 
@@ -170,14 +54,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $align (string) 
+=item * $align (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -187,14 +66,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $alt (string) 
+=item * $alt (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -204,14 +78,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $border (string) 
+=item * $border (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -221,14 +90,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $height (integer (long)) 
+=item * $height (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -238,14 +102,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $hspace (integer (long)) 
+=item * $hspace (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -255,14 +114,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $ismap (boolean) 
+=item * $ismap (boolean)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -272,14 +126,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $longdesc (string) 
+=item * $longdesc (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -289,14 +138,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $name (string) 
+=item * $name (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -306,14 +150,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $src (string) 
+=item * $src (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -323,14 +162,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $usemap (string) 
+=item * $usemap (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -340,14 +174,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $vspace (integer (long)) 
+=item * $vspace (integer (long))
 
 =back
-
-
-
-
-
 
 =back
 
@@ -357,17 +186,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $width (integer (long)) 
+=item * $width (integer (long))
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -378,7 +201,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

@@ -18,10 +18,6 @@ Pass this to QueryInterface.
 
 =head2 $windowroot = $window2->B<GetWindowRoot>()
 
-=over
-
-=back
-
 =head1 SEE ALSO
 
 L<Mozilla::DOM>

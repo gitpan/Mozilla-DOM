@@ -16,87 +16,25 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLEmbedElement->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $align = $htmlembedelement->B<GetAlign>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $height = $htmlembedelement->B<GetHeight>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $name = $htmlembedelement->B<GetName>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $src = $htmlembedelement->B<GetSrc>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $type = $htmlembedelement->B<GetType>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $width = $htmlembedelement->B<GetWidth>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $htmlembedelement->B<SetAlign>($align)
 
@@ -104,14 +42,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $align (string) 
+=item * $align (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -121,14 +54,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $height (string) 
+=item * $height (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -138,14 +66,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $name (string) 
+=item * $name (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -155,14 +78,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $src (string) 
+=item * $src (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -172,14 +90,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $type (string) 
+=item * $type (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -189,17 +102,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $width (string) 
+=item * $width (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -210,7 +117,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

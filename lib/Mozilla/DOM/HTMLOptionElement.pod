@@ -16,109 +16,29 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLOptionElement->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $bool = $htmloptionelement->B<GetDefaultSelected>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $bool = $htmloptionelement->B<GetDisabled>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $form = $htmloptionelement->B<GetForm>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $index = $htmloptionelement->B<GetIndex>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $label = $htmloptionelement->B<GetLabel>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $bool = $htmloptionelement->B<GetSelected>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $text = $htmloptionelement->B<GetText>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $value = $htmloptionelement->B<GetValue>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $htmloptionelement->B<SetDefaultSelected>($defaultselected)
 
@@ -126,14 +46,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $defaultselected (boolean) 
+=item * $defaultselected (boolean)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -143,14 +58,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $disabled (boolean) 
+=item * $disabled (boolean)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -160,14 +70,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $label (string) 
+=item * $label (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -177,14 +82,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $selected (boolean) 
+=item * $selected (boolean)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -194,17 +94,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $value (string) 
+=item * $value (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -215,7 +109,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

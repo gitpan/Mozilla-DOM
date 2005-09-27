@@ -1,4 +1,7 @@
-Add Mozilla::DOM::Entity and Notation, add remaining nsIDOMNS* interfaces
+How can we set headers?
+
+How can we tell if a request was successul?
+(nsIWebProgressListener?)
 
 Split DOM.xs into separate files. I'd like to have ones
 for Event, Node, HTMLElement.. (would break interface, though)
@@ -22,10 +25,9 @@ Check out content/base/src/ns*.cpp and dom/src/base/ns*.cpp.
 What is EventReceiver? WebProgressListener?
 
 Can IInputStream be gotten from IDocShellTreeItem ?
-# XXX: embedding/6496.txt how to create StringInputStream,
-# though I think it's changed to ByteArrayInputStream now;
-# see embedding/6662.txt.
-
+# [note to self: embedding/6496.txt how to create StringInputStream,
+#  though I think it's changed to ByteArrayInputStream now;
+#  see embedding/6662.txt.]
 
 Find a reference for different interfaces of each class
 (DocumentEvent for Document, etc.), what interfaces are
@@ -34,14 +36,6 @@ to scour Mozilla's .cpp files. I did
 find . -name '*.cpp' -exec fgrep -H _MAP_ {} \;
 which seems to kind of list QI-able interfaces.
 See dom/src/base/nsDOMClassInfo.cpp.
-
-Mozilla::Automate - I was going to call it Mozilla::Mechanize
-and have an identical interface to WWW::Mechanize, but recently
-I'm thinking that would be too restrictive. WWW::Mechanize
-is great as a coating on top of LWP::UserAgent, but what more
-can we do with full DOM access?
-[see Mozilla::Mechanize - I still think the interface could
-be improved on, though]
 
 Fill out missing documentation.
 Document how to add this to a module using ExtUtils::Depends.

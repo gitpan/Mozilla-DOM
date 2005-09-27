@@ -1,6 +1,6 @@
 # This example demonstrates WebNavigation.
 #
-# $CVSHeader: Mozilla-DOM/examples/WebNav.pm,v 1.1 2005/08/28 19:30:14 slanning Exp $
+# $CVSHeader: Mozilla-DOM/examples/WebNav.pm,v 1.2 2005/09/25 17:41:38 slanning Exp $
 
 
 package WebNav;

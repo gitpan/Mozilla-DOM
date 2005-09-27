@@ -16,65 +16,21 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLMetaElement->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $content = $htmlmetaelement->B<GetContent>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $httpequiv = $htmlmetaelement->B<GetHttpEquiv>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $name = $htmlmetaelement->B<GetName>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $scheme = $htmlmetaelement->B<GetScheme>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $htmlmetaelement->B<SetContent>($content)
 
@@ -82,14 +38,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $content (string) 
+=item * $content (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -99,14 +50,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $httpequiv (string) 
+=item * $httpequiv (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -116,14 +62,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $name (string) 
+=item * $name (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -133,17 +74,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $scheme (string) 
+=item * $scheme (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -154,7 +89,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

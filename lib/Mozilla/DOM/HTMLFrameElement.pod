@@ -16,120 +16,31 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLFrameElement->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $contentdocument = $htmlframeelement->B<GetContentDocument>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $frameborder = $htmlframeelement->B<GetFrameBorder>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $longdesc = $htmlframeelement->B<GetLongDesc>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $marginheight = $htmlframeelement->B<GetMarginHeight>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $marginwidth = $htmlframeelement->B<GetMarginWidth>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $name = $htmlframeelement->B<GetName>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $bool = $htmlframeelement->B<GetNoResize>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $scrolling = $htmlframeelement->B<GetScrolling>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $src = $htmlframeelement->B<GetSrc>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $htmlframeelement->B<SetFrameBorder>($frameborder)
 
@@ -137,14 +48,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $frameborder (string) 
+=item * $frameborder (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -154,14 +60,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $longdesc (string) 
+=item * $longdesc (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -171,14 +72,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $marginheight (string) 
+=item * $marginheight (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -188,14 +84,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $marginwidth (string) 
+=item * $marginwidth (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -205,14 +96,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $name (string) 
+=item * $name (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -222,14 +108,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $noresize (boolean) 
+=item * $noresize (boolean)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -239,14 +120,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $scrolling (string) 
+=item * $scrolling (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -256,17 +132,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $src (string) 
+=item * $src (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -277,7 +147,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

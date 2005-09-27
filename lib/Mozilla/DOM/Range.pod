@@ -14,7 +14,7 @@ L<Supports|Mozilla::DOM::Supports>.
  * http://www.w3.org/TR/DOM-Level-2-Traversal-Range/
 
 The constants START_TO_START, START_TO_END, END_TO_END, and END_TO_START
-are available for the "how" argument to L</CompareBoundaryPoints>.
+are available for the "how" argument to CompareBoundaryPoints.
 You can export them all with C<use Mozilla::DOM::Range qw(:how)>
 or export them individually.
 

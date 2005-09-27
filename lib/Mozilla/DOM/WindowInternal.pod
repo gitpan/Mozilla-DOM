@@ -125,153 +125,53 @@ Pass this to QueryInterface.
 
 =head2 $bool = $windowinternal->B<GetClosed>()
 
-=over
-
-=back
-
 =head2 $content = $windowinternal->B<GetContent>()
-
-=over
-
-=back
 
 =head2 $defaultstatus = $windowinternal->B<GetDefaultStatus>()
 
-=over
-
-=back
-
 =head2 $frameelement = $windowinternal->B<GetFrameElement>()
-
-=over
-
-=back
 
 =head2 $bool = $windowinternal->B<GetFullScreen>()
 
-=over
-
-=back
-
 =head2 $history = $windowinternal->B<GetHistory>()
-
-=over
-
-=back
 
 =head2 $innerheight = $windowinternal->B<GetInnerHeight>()
 
-=over
-
-=back
-
 =head2 $innerwidth = $windowinternal->B<GetInnerWidth>()
-
-=over
-
-=back
 
 =head2 $length = $windowinternal->B<GetLength>()
 
-=over
-
-=back
-
 =head2 $location = $windowinternal->B<GetLocation>()
-
-=over
-
-=back
 
 =head2 $navigator = $windowinternal->B<GetNavigator>()
 
-=over
-
-=back
-
 =head2 $opener = $windowinternal->B<GetOpener>()
-
-=over
-
-=back
 
 =head2 $outerheight = $windowinternal->B<GetOuterHeight>()
 
-=over
-
-=back
-
 =head2 $outerwidth = $windowinternal->B<GetOuterWidth>()
-
-=over
-
-=back
 
 =head2 $pagexoffset = $windowinternal->B<GetPageXOffset>()
 
-=over
-
-=back
-
 =head2 $pageyoffset = $windowinternal->B<GetPageYOffset>()
-
-=over
-
-=back
 
 =head2 $screen = $windowinternal->B<GetScreen>()
 
-=over
-
-=back
-
 =head2 $screenx = $windowinternal->B<GetScreenX>()
-
-=over
-
-=back
 
 =head2 $screeny = $windowinternal->B<GetScreenY>()
 
-=over
-
-=back
-
 =head2 $scrollmaxx = $windowinternal->B<GetScrollMaxX>()
-
-=over
-
-=back
 
 =head2 $scrollmaxy = $windowinternal->B<GetScrollMaxY>()
 
-=over
-
-=back
-
 =head2 $self = $windowinternal->B<GetSelf>()
-
-=over
-
-=back
 
 =head2 $status = $windowinternal->B<GetStatus>()
 
-=over
-
-=back
-
 =head2 $window = $windowinternal->B<GetWindow>()
 
-=over
-
-=back
-
 =head2 $windowinternal->B<Home>()
-
-=over
-
-=back
 
 =head2 $windowinternal->B<MoveBy>($dif, $dif)
 
@@ -337,10 +237,6 @@ Pass this to QueryInterface.
 
 =head2 $windowinternal->B<Print>()
 
-=over
-
-=back
-
 =head2 $retval = $windowinternal->B<Prompt>($message, $initial, $title, $savepassword)
 
 =over
@@ -387,15 +283,15 @@ Pass this to QueryInterface.
 
 =back
 
-=head2 $windowinternal->B<Scroll>($scroll, $scroll)
+=head2 $windowinternal->B<Scroll>($scrollx, $scrolly)
 
 =over
 
 =over
 
-=item * $xScroll (integer (long))
+=item * $scrollx (integer (long))
 
-=item * $yScroll (integer (long))
+=item * $scrolly (integer (long))
 
 =back
 

@@ -16,120 +16,31 @@ L<HTMLElement|Mozilla::DOM::HTMLElement>.
  *
  * @status FROZEN
 
-
-=cut
-
 =head1 CLASS METHODS
 
 =head2 $iid = Mozilla::DOM::HTMLLinkElement->B<GetIID>()
 
 Pass this to QueryInterface.
 
-=cut
-
-
-
-
 =head1 METHODS
 
 =head2 $charset = $htmllinkelement->B<GetCharset>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $bool = $htmllinkelement->B<GetDisabled>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $href = $htmllinkelement->B<GetHref>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $hreflang = $htmllinkelement->B<GetHreflang>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $media = $htmllinkelement->B<GetMedia>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $rel = $htmllinkelement->B<GetRel>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $rev = $htmllinkelement->B<GetRev>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $target = $htmllinkelement->B<GetTarget>()
 
-=over
-
-
-
-
-
-
-=back
-
 =head2 $type = $htmllinkelement->B<GetType>()
-
-=over
-
-
-
-
-
-
-=back
 
 =head2 $htmllinkelement->B<SetCharset>($charset)
 
@@ -137,14 +48,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $charset (string) 
+=item * $charset (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -154,14 +60,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $disabled (boolean) 
+=item * $disabled (boolean)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -171,14 +72,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $href (string) 
+=item * $href (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -188,14 +84,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $hreflang (string) 
+=item * $hreflang (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -205,14 +96,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $media (string) 
+=item * $media (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -222,14 +108,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $rel (string) 
+=item * $rel (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -239,14 +120,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $rev (string) 
+=item * $rev (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -256,14 +132,9 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $target (string) 
+=item * $target (string)
 
 =back
-
-
-
-
-
 
 =back
 
@@ -273,17 +144,11 @@ Pass this to QueryInterface.
 
 =over
 
-=item * $type (string) 
+=item * $type (string)
 
 =back
 
-
-
-
-
-
 =back
-
 
 =head1 SEE ALSO
 
@@ -294,7 +159,6 @@ L<Mozilla::DOM>
 Copyright (C) 2005, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
-
 
 =cut
 

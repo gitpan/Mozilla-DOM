@@ -1,6 +1,6 @@
 package Mozilla::DOM;
 
-# $Id: DOM.pm,v 1.17 2005/09/05 12:43:14 slanning Exp $
+# $Id: DOM.pm,v 1.18 2005/09/25 17:41:34 slanning Exp $
 
 use 5.008;
 use strict;
@@ -9,7 +9,7 @@ use warnings;
 require DynaLoader;
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.18';
+our $VERSION = '0.19';
 
 sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 
@@ -80,9 +80,102 @@ $EXPORT_TAGS{all} = \@EXPORT_OK;
 
 # -----------------------------------------------------------------------------
 
+package Mozilla::DOM::NSEvent;
+
+our @ISA = qw(Mozilla::DOM::Supports Exporter);
+
+use constant MOUSEDOWN => 1;
+use constant MOUSEUP => 2;
+use constant MOUSEOVER => 4;
+use constant MOUSEOUT => 8;
+use constant MOUSEMOVE => 16;
+use constant MOUSEDRAG => 32;
+use constant CLICK => 64;
+use constant DBLCLICK => 128;
+use constant KEYDOWN => 256;
+use constant KEYUP => 512;
+use constant KEYPRESS => 1024;
+use constant DRAGDROP => 2048;
+use constant FOCUS => 4096;
+use constant BLUR => 8192;
+use constant SELECT => 16384;
+use constant CHANGE => 32768;
+use constant RESET => 65536;
+use constant SUBMIT => 131072;
+use constant SCROLL => 262144;
+use constant LOAD => 524288;
+use constant UNLOAD => 1048576;
+use constant XFER_DONE => 2097152;
+use constant ABORT => 4194304;
+use constant ERROR => 8388608;
+use constant LOCATE => 16777216;
+use constant MOVE => 33554432;
+use constant RESIZE => 67108864;
+use constant FORWARD => 134217728;
+use constant HELP => 268435456;
+use constant BACK => 536870912;
+use constant TEXT => 1073741824;
+use constant ALT_MASK => 1;
+use constant CONTROL_MASK => 2;
+use constant SHIFT_MASK => 4;
+use constant META_MASK => 8;
+
+our %EXPORT_TAGS = (
+    events => [qw(
+        MOUSEDOWN
+        MOUSEUP
+        MOUSEOVER
+        MOUSEOUT
+        MOUSEMOVE
+        MOUSEDRAG
+        CLICK
+        DBLCLICK
+        KEYDOWN
+        KEYUP
+        KEYPRESS
+        DRAGDROP
+        FOCUS
+        BLUR
+        SELECT
+        CHANGE
+        RESET
+        SUBMIT
+        SCROLL
+        LOAD
+        UNLOAD
+        XFER_DONE
+        ABORT
+        ERROR
+        LOCATE
+        MOVE
+        RESIZE
+        FORWARD
+        HELP
+        BACK
+        TEXT
+        ALT_MASK
+        CONTROL_MASK
+        SHIFT_MASK
+        META_MASK
+    )],
+);
+our @EXPORT_OK = map { @$_ } values(%EXPORT_TAGS);
+$EXPORT_TAGS{all} = \@EXPORT_OK;
+
+# -----------------------------------------------------------------------------
+
 package Mozilla::DOM::UIEvent;
 
 our @ISA = qw(Mozilla::DOM::Event);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::NSUIEvent;
+
+our @ISA = qw(Mozilla::DOM::Supports Exporter);
+
+use constant SCROLL_PAGE_DOWN => 32768;
+our @EXPORT_OK = qw(SCROLL_PAGE_DOWN);
 
 # -----------------------------------------------------------------------------
 
@@ -466,6 +559,12 @@ our @ISA = qw(Mozilla::DOM::Node);
 
 # -----------------------------------------------------------------------------
 
+package Mozilla::DOM::Entity;
+
+our @ISA = qw(Mozilla::DOM::Node);
+
+# -----------------------------------------------------------------------------
+
 package Mozilla::DOM::EntityReference;
 
 our @ISA = qw(Mozilla::DOM::Node);
@@ -473,6 +572,12 @@ our @ISA = qw(Mozilla::DOM::Node);
 # -----------------------------------------------------------------------------
 
 package Mozilla::DOM::Attr;
+
+our @ISA = qw(Mozilla::DOM::Node);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::Notation;
 
 our @ISA = qw(Mozilla::DOM::Node);
 
@@ -597,6 +702,28 @@ our %EXPORT_TAGS = (
         START_TO_END
         END_TO_END
         END_TO_START
+    )],
+);
+our @EXPORT_OK = map { @$_ } values(%EXPORT_TAGS);
+$EXPORT_TAGS{all} = \@EXPORT_OK;
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::NSRange;
+
+our @ISA = qw(Mozilla::DOM::Supports Exporter);
+
+use constant NODE_BEFORE            => 0;
+use constant NODE_AFTER             => 1;
+use constant NODE_BEFORE_AND_AFTER  => 2;
+use constant NODE_INSIDE            => 3;
+
+our %EXPORT_TAGS = (
+    compare => [qw(
+        NODE_BEFORE
+        NODE_AFTER
+        NODE_BEFORE_AND_AFTER
+        NODE_INSIDE
     )],
 );
 our @EXPORT_OK = map { @$_ } values(%EXPORT_TAGS);
@@ -1017,6 +1144,78 @@ our @ISA = qw(Mozilla::DOM::HTMLElement);
 package Mozilla::DOM::HTMLUListElement;
 
 our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::NSHTMLAnchorElement;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::NSHTMLAreaElement;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::NSHTMLButtonElement;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::NSHTMLDocument;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::NSHTMLFormElement;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::NSHTMLFrameElement;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::NSHTMLHRElement;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::NSHTMLImageElement;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::NSHTMLInputElement;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::NSHTMLOptionElement;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::NSHTMLSelectElement;
+
+our @ISA = qw(Mozilla::DOM::Supports);
+
+# -----------------------------------------------------------------------------
+
+package Mozilla::DOM::NSHTMLTextAreaElement;
+
+our @ISA = qw(Mozilla::DOM::Supports);
 
 # -----------------------------------------------------------------------------
 
