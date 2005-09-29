@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $CVSHeader: Mozilla-DOM/xs/DOM.xs,v 1.21 2005/09/25 17:41:47 slanning Exp $
+ * $CVSHeader: Mozilla-DOM/xs/DOM.xs,v 1.22 2005/09/27 14:26:44 slanning Exp $
  */
 
 #include "mozilladom2perl.h"
@@ -1079,7 +1079,7 @@ moz_dom_GetDocument (window)
 
 ## GetFrames(nsIDOMWindowCollection * *aFrames)
 nsIDOMWindowCollection *
-moz_dom_GetFrames (window)
+moz_dom_GetFrames_windowcollection (window)
 	nsIDOMWindow *window;
     PREINIT:
 	nsIDOMWindowCollection *frames;
@@ -2288,9 +2288,9 @@ moz_dom_GetParentNode (node)
     OUTPUT:
 	RETVAL
 
-## GetChildNodes(nsIDOMNodeList * *aChildNodes)
+# GetChildNodes(nsIDOMNodeList * *aChildNodes)
 nsIDOMNodeList *
-moz_dom_GetChildNodes (node)
+moz_dom_GetChildNodes_nodelist (node)
 	nsIDOMNode *node;
     PREINIT:
 	nsIDOMNodeList *nodelist;
@@ -2350,7 +2350,7 @@ moz_dom_GetNextSibling (node)
 
 ## GetAttributes(nsIDOMNamedNodeMap * *aAttributes)
 nsIDOMNamedNodeMap *
-moz_dom_GetAttributes (node)
+moz_dom_GetAttributes_namednodemap (node)
 	nsIDOMNode *node;
     PREINIT:
 	nsIDOMNamedNodeMap *nodemap;
@@ -2856,13 +2856,9 @@ moz_dom_CreateEntityReference (document, name)
     OUTPUT:
 	RETVAL
 
-# Gah, this returns a NodeList, not a list of Elements.
-# Which is lame because you can't call Element methods on Nodes...
-# (Maybe in list context, a list of elements could be returned instead?)
-
 ## GetElementsByTagName(const nsAString & tagname, nsIDOMNodeList **_retval)
 nsIDOMNodeList *
-moz_dom_GetElementsByTagName (document, tagname)
+moz_dom_GetElementsByTagName_nodelist (document, tagname)
 	nsIDOMDocument *document;
 	nsEmbedString tagname;
     PREINIT:
@@ -2920,7 +2916,7 @@ moz_dom_CreateAttributeNS (document, namespaceURI, qualifiedName)
 
 ## GetElementsByTagNameNS(const nsAString & namespaceURI, const nsAString & localName, nsIDOMNodeList **_retval)
 nsIDOMNodeList *
-moz_dom_GetElementsByTagNameNS (document, namespaceURI, localName)
+moz_dom_GetElementsByTagNameNS_nodelist (document, namespaceURI, localName)
 	nsIDOMDocument *document;
 	nsEmbedString namespaceURI;
 	nsEmbedString localName;
@@ -3184,7 +3180,7 @@ moz_dom_RemoveAttributeNode (element, oldAttr)
 
 ## GetElementsByTagName(const nsAString & name, nsIDOMNodeList **_retval)
 nsIDOMNodeList *
-moz_dom_GetElementsByTagName (element, name)
+moz_dom_GetElementsByTagName_nodelist (element, name)
 	nsIDOMElement *element;
 	nsEmbedString name;
     PREINIT:
@@ -3261,7 +3257,7 @@ moz_dom_SetAttributeNodeNS (element, newAttr)
 
 ## GetElementsByTagNameNS(const nsAString & namespaceURI, const nsAString & localName, nsIDOMNodeList **_retval)
 nsIDOMNodeList *
-moz_dom_GetElementsByTagNameNS (element, namespaceURI, localName)
+moz_dom_GetElementsByTagNameNS_nodelist (element, namespaceURI, localName)
 	nsIDOMElement *element;
 	nsEmbedString namespaceURI;
 	nsEmbedString localName;
@@ -3722,7 +3718,7 @@ moz_dom_GetName (documenttype)
 
 ## GetEntities(nsIDOMNamedNodeMap * *aEntities)
 nsIDOMNamedNodeMap *
-moz_dom_GetEntities (documenttype)
+moz_dom_GetEntities_namednodemap (documenttype)
 	nsIDOMDocumentType *documenttype;
     PREINIT:
 	nsIDOMNamedNodeMap *nodemap;
@@ -3734,7 +3730,7 @@ moz_dom_GetEntities (documenttype)
 
 ## GetNotations(nsIDOMNamedNodeMap * *aNotations)
 nsIDOMNamedNodeMap *
-moz_dom_GetNotations (documenttype)
+moz_dom_GetNotations_namednodemap (documenttype)
 	nsIDOMDocumentType *documenttype;
     PREINIT:
 	nsIDOMNamedNodeMap *nodemap;
@@ -7100,7 +7096,7 @@ nsIDOMHTMLFormElement::GetIID()
 
 ## GetElements(nsIDOMHTMLCollection * *aElements)
 nsIDOMHTMLCollection *
-moz_dom_GetElements (htmlformelement)
+moz_dom_GetElements_htmlcollection (htmlformelement)
 	nsIDOMHTMLFormElement *htmlformelement;
     PREINIT:
 	nsIDOMHTMLCollection * elements;
@@ -9023,7 +9019,7 @@ nsIDOMHTMLMapElement::GetIID()
 
 ## GetAreas(nsIDOMHTMLCollection * *aAreas)
 nsIDOMHTMLCollection *
-moz_dom_GetAreas (htmlmapelement)
+moz_dom_GetAreas_htmlcollection (htmlmapelement)
 	nsIDOMHTMLMapElement *htmlmapelement;
     PREINIT:
 	nsIDOMHTMLCollection * areas;
@@ -10415,7 +10411,7 @@ moz_dom_GetForm (htmlselectelement)
 
 ## GetOptions(nsIDOMHTMLOptionsCollection * *aOptions)
 nsIDOMHTMLOptionsCollection *
-moz_dom_GetOptions (htmlselectelement)
+moz_dom_GetOptions_optionscollection (htmlselectelement)
 	nsIDOMHTMLSelectElement *htmlselectelement;
     PREINIT:
 	nsIDOMHTMLOptionsCollection * options;
@@ -11185,7 +11181,7 @@ moz_dom_SetTFoot (htmltableelement, tfoot)
 
 ## GetRows(nsIDOMHTMLCollection * *aRows)
 nsIDOMHTMLCollection *
-moz_dom_GetRows (htmltableelement)
+moz_dom_GetRows_htmlcollection (htmltableelement)
 	nsIDOMHTMLTableElement *htmltableelement;
     PREINIT:
 	nsIDOMHTMLCollection * rows;
@@ -11197,7 +11193,7 @@ moz_dom_GetRows (htmltableelement)
 
 ## GetTBodies(nsIDOMHTMLCollection * *aTBodies)
 nsIDOMHTMLCollection *
-moz_dom_GetTBodies (htmltableelement)
+moz_dom_GetTBodies_htmlcollection (htmltableelement)
 	nsIDOMHTMLTableElement *htmltableelement;
     PREINIT:
 	nsIDOMHTMLCollection * tbodies;
@@ -11506,7 +11502,7 @@ moz_dom_GetSectionRowIndex (htmltablerowelement)
 
 ## GetCells(nsIDOMHTMLCollection * *aCells)
 nsIDOMHTMLCollection *
-moz_dom_GetCells (htmltablerowelement)
+moz_dom_GetCells_htmlcollection (htmltablerowelement)
 	nsIDOMHTMLTableRowElement *htmltablerowelement;
     PREINIT:
 	nsIDOMHTMLCollection * cells;
@@ -11734,7 +11730,7 @@ moz_dom_SetVAlign (htmltablesectionelement, valign)
 
 ## GetRows(nsIDOMHTMLCollection * *aRows)
 nsIDOMHTMLCollection *
-moz_dom_GetRows (htmltablesectionelement)
+moz_dom_GetRows_htmlcollection (htmltablesectionelement)
 	nsIDOMHTMLTableSectionElement *htmltablesectionelement;
     PREINIT:
 	nsIDOMHTMLCollection * rows;
@@ -12646,7 +12642,7 @@ moz_dom_SetDomain (nshtmldocument, aDomain)
 
 ## GetEmbeds(nsIDOMHTMLCollection * *aEmbeds)
 nsIDOMHTMLCollection *
-moz_dom_GetEmbeds (nshtmldocument)
+moz_dom_GetEmbeds_htmlcollection (nshtmldocument)
 	nsIDOMNSHTMLDocument *nshtmldocument;
     PREINIT:
 	nsIDOMHTMLCollection * aEmbeds;
@@ -12739,7 +12735,7 @@ moz_dom_GetCompatMode (nshtmldocument)
 
 ## GetPlugins(nsIDOMHTMLCollection * *aPlugins)
 nsIDOMHTMLCollection *
-moz_dom_GetPlugins (nshtmldocument)
+moz_dom_GetPlugins_htmlcollection (nshtmldocument)
 	nsIDOMNSHTMLDocument *nshtmldocument;
     PREINIT:
 	nsIDOMHTMLCollection * aPlugins;

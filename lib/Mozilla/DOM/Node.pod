@@ -25,14 +25,12 @@ Pass this to QueryInterface.
 
 =head2 $namednodemap = $node->B<GetAttributes>()
 
-A NamedNodeMap containing the attributes of this node (if it is an Element)
-or null otherwise.
+A L<Mozilla::DOM::NamedNodeMap|Mozilla::DOM::NamedNodeMap> containing
+the attributes of this node (if it is an Element) or null otherwise.
 
-XXX: I'm thinking that methods like this should also return
-a list in list context. It's kinda gimpy having to call GetLength
-and loop over index numbers calling Item.
-Also, why does everything return NamedNodeMap or NodeList?
-I'd rather get a list of Attr.
+In list context, returns a list of L<Mozilla::DOM::Attr|Mozilla::DOM::Attr>,
+instead. (I considered returning a hash ($attr->GetName => $attr->GetValue),
+but then you couldn't set the attributes.)
 
 =head2 $bool = $node->B<HasAttributes>()
 
@@ -40,8 +38,11 @@ Returns whether this node (if it is an element) has any attributes.
 
 =head2 $nodelist = $node->B<GetChildNodes>()
 
-A NodeList that contains all children of this node. If there are no children,
-this is a NodeList containing no nodes.
+A L<Mozilla::DOM::NodeList|Mozilla::DOM::NodeList> that contains all children
+of this node. If there are no children, this is a NodeList containing no nodes.
+
+In list context, this returns a list of L<Mozilla::DOM::Node|Mozilla::DOM::Node>,
+instead.
 
 =head2 $bool = $node->B<HasChildNodes>()
 

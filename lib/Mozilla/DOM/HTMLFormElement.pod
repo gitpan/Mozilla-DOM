@@ -114,7 +114,14 @@ Pass this to QueryInterface.
 
 =head2 $elements = $htmlformelement->B<GetElements>()
 
-$elements is a L<Mozilla::DOM::HTMLCollection>.
+$elements is a L<Mozilla::DOM::HTMLCollection|Mozilla::DOM::HTMLCollection>.
+
+In list context, returns a list of L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
+(See DOM 2 HTML spec.) I'm guessing you can QueryInterface this to
+HTMLElement, but I leave that to you:
+
+  $iid = Mozilla::DOM::HTMLElement->GetIID;
+  $htmlelement = $node->QueryInterface($iid);
 
 =head2 $length = $htmlformelement->B<GetLength>()
 

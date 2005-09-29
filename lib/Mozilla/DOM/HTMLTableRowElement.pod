@@ -42,6 +42,14 @@ Pass this to QueryInterface.
 
 =head2 $cells = $htmltablerowelement->B<GetCells>()
 
+The collection of cells in this row.
+
+$cells is a L<Mozilla::DOM::HTMLCollection|Mozilla::DOM::HTMLCollection>.
+
+In list context, returns a list of
+L<Mozilla::DOM::HTMLTableCellElement|Mozilla::DOM::HTMLTableCellElement>,
+instead. (I assume this is what they are.)
+
 =head2 $ch = $htmltablerowelement->B<GetCh>()
 
 =head2 $choff = $htmltablerowelement->B<GetChOff>()

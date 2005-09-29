@@ -12,7 +12,7 @@ use warnings;
 use Glib qw(TRUE FALSE);
 use Gtk2;
 use Gtk2::MozEmbed '0.04';
-use Mozilla::DOM '0.17';   # for exporting ::Node constants
+use Mozilla::DOM '0.20';
 use Mozilla::DOM::Node qw(:types);
 
 use Glib::Object::Subclass Gtk2::Window::;
@@ -80,14 +80,10 @@ sub net_stop_cb {
         }
 
         # Mozilla::DOM::NodeList
-        my $kids = $docelem->GetChildNodes;
-        my $numkids = $kids->GetLength;
-        print "\tnum children=$numkids\n";
-
-        foreach my $i (0 .. $numkids - 1) {
+        my @kids = $docelem->GetChildNodes;
+        foreach my $kid (@kids) {
             # Mozilla::DOM::Node
-            my $kid = $kids->Item($i);
-            print "\tchild $i: ", $kid->GetNodeName, $/;
+            print "\tchild: ", $kid->GetNodeName, $/;
 
             if ($kid->HasAttributes) {
                 # Mozilla::NamedNodeMap

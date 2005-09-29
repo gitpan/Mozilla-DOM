@@ -44,6 +44,14 @@ Pass this to QueryInterface.
 
 =head2 $rows = $htmltablesectionelement->B<GetRows>()
 
+The collection of rows in this table section.
+
+$rows is a L<Mozilla::DOM::HTMLCollection|Mozilla::DOM::HTMLCollection>.
+
+In list context, returns a list of
+L<Mozilla::DOM::HTMLTableRowElement|Mozilla::DOM::HTMLTableRowElement>,
+instead.
+
 =head2 $valign = $htmltablesectionelement->B<GetVAlign>()
 
 =head2 $retval = $htmltablesectionelement->B<InsertRow>($index)

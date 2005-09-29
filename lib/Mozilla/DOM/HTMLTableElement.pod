@@ -64,11 +64,26 @@ Pass this to QueryInterface.
 
 =head2 $rows = $htmltableelement->B<GetRows>()
 
+A collection of all the rows in the table, including all in THEAD,
+TFOOT, all TBODY elements (think of <tr>).
+
+$rows is a L<Mozilla::DOM::HTMLCollection|Mozilla::DOM::HTMLCollection>.
+
+In list context, returns a list of L<Mozilla::DOM::HTMLTableRowElement|Mozilla::DOM::HTMLTableRowElement>.
+
 =head2 $rules = $htmltableelement->B<GetRules>()
 
 =head2 $summary = $htmltableelement->B<GetSummary>()
 
 =head2 $tbodies = $htmltableelement->B<GetTBodies>()
+
+A collection of the table bodies (including implicit ones) (<tbody>).
+(I'm not sure what this is useful for.)
+
+$tbodies is a L<Mozilla::DOM::HTMLCollection|Mozilla::DOM::HTMLCollection>.
+
+In list context, returns a list of L<Mozilla::DOM::HTMLElement|Mozilla::DOM::HTMLElement>.
+(I didn't see a more specific HTML element to QueryInterface it to.)
 
 =head2 $tfoot = $htmltableelement->B<GetTFoot>()
 

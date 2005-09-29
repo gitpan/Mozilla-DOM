@@ -26,11 +26,24 @@ Pass this to QueryInterface.
 
 =head2 $namednodemap = $documenttype->B<GetEntities>()
 
+A L<Mozilla::DOM::NamedNodeMap|Mozilla::DOM::NamedNodeMap> containing
+the general entities, both external and internal, declared in the DTD.
+Parameter entities are not contained. Duplicates are discarded.
+
+In list context, returns a list of L<Mozilla::DOM::Entity|Mozilla::DOM::Entity>,
+instead.
+
 =head2 $str = $documenttype->B<GetInternalSubset>()
 
 =head2 $name = $documenttype->B<GetName>()
 
 =head2 $namednodemap = $documenttype->B<GetNotations>()
+
+A L<Mozilla::DOM::NamedNodeMap|Mozilla::DOM::NamedNodeMap> containing
+the notations declared in the DTD. Duplicates are discarded.
+
+In list context, returns a list of L<Mozilla::DOM::Notation|Mozilla::DOM::Notation>,
+instead.
 
 =head2 $id = $documenttype->B<GetPublicId>()
 

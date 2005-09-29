@@ -54,6 +54,13 @@ Pass this to QueryInterface.
 
 =head2 $options = $htmlselectelement->B<GetOptions>()
 
+The collection of OPTION elements contained by this element.
+
+$options is a L<Mozilla::DOM::OptionsCollection|Mozilla::DOM::OptionsCollection>.
+
+In list context, returns a list of
+L<Mozilla::DOM::HTMLOptionElement|Mozilla::DOM::HTMLOptionElement>.
+
 =head2 $selectedindex = $htmlselectelement->B<GetSelectedIndex>()
 
 =head2 $size = $htmlselectelement->B<GetSize>()

@@ -37,13 +37,15 @@ Pass this to QueryInterface.
 
 =back
 
-=head2 $document_collection = $window->B<GetFrames>()
-
-=over
+=head2 $window_collection = $window->B<GetFrames>()
 
    * Accessor for the child windows in this window.
 
-=back
+In scalar context, returns a
+L<Mozilla::DOM::WindowCollection|Mozilla::DOM::WindowCollection>.
+
+In list context, returns a list of L<Mozilla::DOM::Window|Mozilla::DOM::Window>
+(I think... whatever $window_collection->Item($n) is.)
 
 =head2 $name = $window->B<GetName>()
 

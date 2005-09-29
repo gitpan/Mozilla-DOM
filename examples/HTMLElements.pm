@@ -14,7 +14,7 @@ use Cwd 'getcwd';
 use Glib qw(TRUE FALSE);
 use Gtk2;
 use Gtk2::MozEmbed '0.04';
-use Mozilla::DOM '0.11';   # for HTML*Element classes
+use Mozilla::DOM '0.20';   # for HTML*Element classes
 
 use Glib::Object::Subclass Gtk2::Window::;
 
@@ -41,16 +41,16 @@ sub net_stop_cb {
     my $docelem = $doc->GetDocumentElement;
 
     # Get the select element (I've omitted error checking)
-    my $selectlist = $docelem->GetElementsByTagName('select');
-    my $selectnode = $selectlist->Item(0);
+#    my $selectlist = $docelem->GetElementsByTagName('select');
+#    my $selectnode = $selectlist->Item(0);
+    my @selectelement = $docelem->GetElementsByTagName('select');
 
-    # $selectnode is a Node, unfortunately, so we have to switch it
+    # $selectelement[0] is an Element, so we have to switch it
     # to HTMLSelectElement before calling any of its methods.
     my $siid = Mozilla::DOM::HTMLSelectElement->GetIID;
-    my $select = $selectnode->QueryInterface($siid);
+    my $select = $selectelement[0]->QueryInterface($siid);
 
     # Showing how to select an option, among other things
-
     my $numopts = $select->GetLength;
     my $optselected = $select->GetSelectedIndex;
     my $optlist = $select->GetOptions;

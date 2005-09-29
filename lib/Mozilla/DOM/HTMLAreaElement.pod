@@ -30,6 +30,8 @@ Pass this to QueryInterface.
 
 =head2 $coords = $htmlareaelement->B<GetCoords>()
 
+$coords is a string, but I'm not sure what it is.
+
 =head2 $href = $htmlareaelement->B<GetHref>()
 
 =head2 $bool = $htmlareaelement->B<GetNoHref>()

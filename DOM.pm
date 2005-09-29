@@ -1,6 +1,6 @@
 package Mozilla::DOM;
 
-# $Id: DOM.pm,v 1.18 2005/09/25 17:41:34 slanning Exp $
+# $Id: DOM.pm,v 1.19 2005/09/27 14:26:33 slanning Exp $
 
 use 5.008;
 use strict;
@@ -9,7 +9,7 @@ use warnings;
 require DynaLoader;
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.19';
+our $VERSION = '0.20';
 
 sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 
@@ -29,12 +29,12 @@ Steps to do for each release:
 2) Try some examples in examples directory.
 3) create the distribution tarball (Mozilla-DOM-0.vv.tar.gz)
     make dist
-4) upload tarball to PAUSE at https://pause.perl.org/
-5) move dist tarball to `releases' directory
-6) commit to CVS and tag release
+4) move dist tarball to `releases' directory
+5) commit to CVS and tag release
     cvs commit
     cvs tag rel-0_vv-yyyy-mm-dd
-7) increment $VERSION above
+6) increment $VERSION above
+7) upload tarball to PAUSE at https://pause.perl.org/
 
 =end comment
 
@@ -471,6 +471,21 @@ package Mozilla::DOM::Window;
 
 our @ISA = qw(Mozilla::DOM::Supports);
 
+sub GetFrames {
+    my $self = shift;
+    my $windowcollection = $self->GetFrames_windowcollection;
+    if (wantarray) {
+        my $len = $windowcollection->GetLength;
+        if ($len) {
+            return map { $windowcollection->Item($_) } 0 .. $len - 1;
+        } else {
+            return ();
+        }
+    } else {
+        return $windowcollection;
+    }
+}
+
 # -----------------------------------------------------------------------------
 
 package Mozilla::DOM::Window2;
@@ -527,6 +542,42 @@ our %EXPORT_TAGS = (
 our @EXPORT_OK = map { @$_ } values(%EXPORT_TAGS);
 $EXPORT_TAGS{all} = \@EXPORT_OK;
 
+sub GetChildNodes {
+    my $self = shift;
+    my $nodelist = $self->GetChildNodes_nodelist;
+    if (wantarray) {
+        my $len = $nodelist->GetLength;
+        if ($len) {
+            return map { $nodelist->Item($_) } 0 .. $len - 1;
+        } else {
+            return ();
+        }
+    } else {
+        return $nodelist;
+    }
+}
+
+sub GetAttributes {
+    my $self = shift;
+    my $namednodemap = $self->GetAttributes_namednodemap;
+    if (wantarray) {
+        my $len = $namednodemap->GetLength;
+        if ($len) {
+            my @attrs = ();
+            my $iid = Mozilla::DOM::Attr->GetIID;
+            for my $i (0 .. $len - 1) {
+                my $attr = $namednodemap->Item($i);
+                push @attrs, $attr->QueryInterface($iid);
+            }
+            return @attrs;
+        } else {
+            return ();
+        }
+    } else {
+        return $namednodemap;
+    }
+}
+
 # -----------------------------------------------------------------------------
 
 package Mozilla::DOM::NodeList;
@@ -551,11 +602,95 @@ package Mozilla::DOM::Document;
 
 our @ISA = qw(Mozilla::DOM::Node);
 
+sub GetElementsByTagName {
+    my $self = shift;
+    my $nodelist = $self->GetElementsByTagName_nodelist(@_);
+    if (wantarray) {
+        my $len = $nodelist->GetLength;
+        if ($len) {
+            my @elements = ();
+            my $iid = Mozilla::DOM::Element->GetIID;
+            for my $i (0 .. $len - 1) {
+                my $node = $nodelist->Item($i);
+                push @elements, $node->QueryInterface($iid);
+            }
+            return @elements;
+        } else {
+            return ();
+        }
+    } else {
+        return $nodelist;
+    }
+}
+
+sub GetElementsByTagNameNS {
+    my $self = shift;
+    my $nodelist = $self->GetElementsByTagNameNS_nodelist(@_);
+    if (wantarray) {
+        my $len = $nodelist->GetLength;
+        if ($len) {
+            my @elements = ();
+            my $iid = Mozilla::DOM::Element->GetIID;
+            for my $i (0 .. $len - 1) {
+                my $node = $nodelist->Item($i);
+                push @elements, $node->QueryInterface($iid);
+            }
+            return @elements;
+        } else {
+            return ();
+        }
+    } else {
+        return $nodelist;
+    }
+}
+
 # -----------------------------------------------------------------------------
 
 package Mozilla::DOM::Element;
 
 our @ISA = qw(Mozilla::DOM::Node);
+
+sub GetElementsByTagName {
+    my $self = shift;
+    my $nodelist = $self->GetElementsByTagName_nodelist(@_);
+    if (wantarray) {
+        my $len = $nodelist->GetLength;
+        if ($len) {
+            my @elements = ();
+            my $iid = Mozilla::DOM::Element->GetIID;
+            for my $i (0 .. $len - 1) {
+                my $node = $nodelist->Item($i);
+                push @elements, $node->QueryInterface($iid);
+            }
+            return @elements;
+        } else {
+            return ();
+        }
+    } else {
+        return $nodelist;
+    }
+}
+
+sub GetElementsByTagNameNS {
+    my $self = shift;
+    my $nodelist = $self->GetElementsByTagNameNS_nodelist(@_);
+    if (wantarray) {
+        my $len = $nodelist->GetLength;
+        if ($len) {
+            my @elements = ();
+            my $iid = Mozilla::DOM::Element->GetIID;
+            for my $i (0 .. $len - 1) {
+                my $node = $nodelist->Item($i);
+                push @elements, $node->QueryInterface($iid);
+            }
+            return @elements;
+        } else {
+            return ();
+        }
+    } else {
+        return $nodelist;
+    }
+}
 
 # -----------------------------------------------------------------------------
 
@@ -628,6 +763,48 @@ our @ISA = qw(Mozilla::DOM::Supports);
 package Mozilla::DOM::DocumentType;
 
 our @ISA = qw(Mozilla::DOM::Node);
+
+sub GetEntities {
+    my $self = shift;
+    my $namednodemap = $self->GetEntities_namednodemap;
+    if (wantarray) {
+        my $len = $namednodemap->GetLength;
+        if ($len) {
+            my @entities = ();
+            my $iid = Mozilla::DOM::Entity->GetIID;
+            for my $i (0 .. $len - 1) {
+                my $entity = $namednodemap->Item($i);
+                push @entities, $entity->QueryInterface($iid);
+            }
+            return @entities;
+        } else {
+            return ();
+        }
+    } else {
+        return $namednodemap;
+    }
+}
+
+sub GetNotations {
+    my $self = shift;
+    my $namednodemap = $self->GetNotations_namednodemap;
+    if (wantarray) {
+        my $len = $namednodemap->GetLength;
+        if ($len) {
+            my @notations = ();
+            my $iid = Mozilla::DOM::Notation->GetIID;
+            for my $i (0 .. $len - 1) {
+                my $notation = $namednodemap->Item($i);
+                push @notations, $notation->QueryInterface($iid);
+            }
+            return @notations;
+        } else {
+            return ();
+        }
+    } else {
+        return $namednodemap;
+    }
+}
 
 # -----------------------------------------------------------------------------
 
@@ -917,6 +1094,21 @@ package Mozilla::DOM::HTMLFormElement;
 
 our @ISA = qw(Mozilla::DOM::HTMLElement);
 
+sub GetElements {
+    my $self = shift;
+    my $htmlcollection = $self->GetElements_htmlcollection;
+    if (wantarray) {
+        my $len = $htmlcollection->GetLength;
+        if ($len) {
+            return map { $htmlcollection->Item($_) } 0 .. $len - 1;
+        } else {
+            return ();
+        }
+    } else {
+        return $htmlcollection;
+    }
+}
+
 # -----------------------------------------------------------------------------
 
 package Mozilla::DOM::HTMLFrameSetElement;
@@ -1000,6 +1192,27 @@ our @ISA = qw(Mozilla::DOM::HTMLElement);
 package Mozilla::DOM::HTMLMapElement;
 
 our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+sub GetAreas {
+    my $self = shift;
+    my $htmlcollection = $self->GetAreas_htmlcollection;
+    if (wantarray) {
+        my $len = $htmlcollection->GetLength;
+        if ($len) {
+            my @areas = ();
+            my $iid = Mozilla::DOM::HTMLAreaElement->GetIID;
+            for my $i (0 .. $len - 1) {
+                my $area = $htmlcollection->Item($i);
+                push @areas, $area->QueryInterface($iid);
+            }
+            return @areas;
+        } else {
+            return ();
+        }
+    } else {
+        return $htmlcollection;
+    }
+}
 
 # -----------------------------------------------------------------------------
 
@@ -1085,6 +1298,27 @@ package Mozilla::DOM::HTMLSelectElement;
 
 our @ISA = qw(Mozilla::DOM::HTMLElement);
 
+sub GetOptions {
+    my $self = shift;
+    my $optionscollection = $self->GetOptions_optionscollection;
+    if (wantarray) {
+        my $len = $optionscollection->GetLength;
+        if ($len) {
+            my @options = ();
+            my $iid = Mozilla::DOM::HTMLOptionElement->GetIID;
+            for my $i (0 .. $len - 1) {
+                my $option = $optionscollection->Item($i);
+                push @options, $option->QueryInterface($iid);
+            }
+            return @options;
+        } else {
+            return ();
+        }
+    } else {
+        return $optionscollection;
+    }
+}
+
 # -----------------------------------------------------------------------------
 
 package Mozilla::DOM::HTMLStyleElement;
@@ -1115,17 +1349,101 @@ package Mozilla::DOM::HTMLTableElement;
 
 our @ISA = qw(Mozilla::DOM::HTMLElement);
 
+sub GetRows {
+    my $self = shift;
+    my $htmlcollection = $self->GetRows_htmlcollection;
+    if (wantarray) {
+        my $len = $htmlcollection->GetLength;
+        if ($len) {
+            my @rows = ();
+            my $iid = Mozilla::DOM::HTMLTableRowElement->GetIID;
+            for my $i (0 .. $len - 1) {
+                my $row = $htmlcollection->Item($i);
+                push @rows, $row->QueryInterface($iid);
+            }
+            return @rows;
+        } else {
+            return ();
+        }
+    } else {
+        return $htmlcollection;
+    }
+}
+
+sub GetTBodies {
+    my $self = shift;
+    my $htmlcollection = $self->GetTBodies_htmlcollection;
+    if (wantarray) {
+        my $len = $htmlcollection->GetLength;
+        if ($len) {
+            my @bodies = ();
+            my $iid = Mozilla::DOM::HTMLElement->GetIID;
+            for my $i (0 .. $len - 1) {
+                my $body = $htmlcollection->Item($i);
+                push @bodies, $body->QueryInterface($iid);
+            }
+            return @bodies;
+        } else {
+            return ();
+        }
+    } else {
+        return $htmlcollection;
+    }
+}
+
 # -----------------------------------------------------------------------------
 
 package Mozilla::DOM::HTMLTableRowElement;
 
 our @ISA = qw(Mozilla::DOM::HTMLElement);
 
+sub GetCells {
+    my $self = shift;
+    my $htmlcollection = $self->GetCells_htmlcollection;
+    if (wantarray) {
+        my $len = $htmlcollection->GetLength;
+        if ($len) {
+            my @cells = ();
+            my $iid = Mozilla::DOM::HTMLTableCellElement->GetIID;
+            for my $i (0 .. $len - 1) {
+                my $cell = $htmlcollection->Item($i);
+                push @cells, $cell->QueryInterface($iid);
+            }
+            return @cells;
+        } else {
+            return ();
+        }
+    } else {
+        return $htmlcollection;
+    }
+}
+
 # -----------------------------------------------------------------------------
 
 package Mozilla::DOM::HTMLTableSectionElement;
 
 our @ISA = qw(Mozilla::DOM::HTMLElement);
+
+sub GetRows {
+    my $self = shift;
+    my $htmlcollection = $self->GetRows_htmlcollection;
+    if (wantarray) {
+        my $len = $htmlcollection->GetLength;
+        if ($len) {
+            my @rows = ();
+            my $iid = Mozilla::DOM::HTMLTableRowElement->GetIID;
+            for my $i (0 .. $len - 1) {
+                my $row = $htmlcollection->Item($i);
+                push @rows, $row->QueryInterface($iid);
+            }
+            return @rows;
+        } else {
+            return ();
+        }
+    } else {
+        return $htmlcollection;
+    }
+}
 
 # -----------------------------------------------------------------------------
 
@@ -1168,6 +1486,36 @@ our @ISA = qw(Mozilla::DOM::Supports);
 package Mozilla::DOM::NSHTMLDocument;
 
 our @ISA = qw(Mozilla::DOM::Supports);
+
+sub GetEmbeds {
+    my $self = shift;
+    my $htmlcollection = $self->GetEmbeds_htmlcollection;
+    if (wantarray) {
+        my $len = $htmlcollection->GetLength;
+        if ($len) {
+            return map { $htmlcollection->Item($_) } 0 .. $len - 1;
+        } else {
+            return ();
+        }
+    } else {
+        return $htmlcollection;
+    }
+}
+
+sub GetPlugins {
+    my $self = shift;
+    my $htmlcollection = $self->GetPlugins_htmlcollection;
+    if (wantarray) {
+        my $len = $htmlcollection->GetLength;
+        if ($len) {
+            return map { $htmlcollection->Item($_) } 0 .. $len - 1;
+        } else {
+            return ();
+        }
+    } else {
+        return $htmlcollection;
+    }
+}
 
 # -----------------------------------------------------------------------------
 

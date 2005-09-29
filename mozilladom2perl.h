@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $CVSHeader: Mozilla-DOM/mozilladom2perl.h,v 1.16 2005/09/25 17:41:34 slanning Exp $
+ * $CVSHeader: Mozilla-DOM/mozilladom2perl.h,v 1.17 2005/09/27 14:26:33 slanning Exp $
  */
 
 #ifndef _MOZILLADOM2PERL_H_

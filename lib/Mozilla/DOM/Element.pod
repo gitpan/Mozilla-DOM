@@ -204,6 +204,9 @@ Pass this to QueryInterface.
 
 =head2 $nodelist = $element->B<GetElementsByTagName>($name)
 
+In scalar context, returns a L<Mozilla::DOM::NodeList|Mozilla::DOM::NodeList>.
+In list context, returns a list of L<Mozilla::DOM::Element|Mozilla::DOM::Element>s.
+
 =over
 
 =over
@@ -215,6 +218,9 @@ Pass this to QueryInterface.
 =back
 
 =head2 $nodelist = $element->B<GetElementsByTagNameNS>($namespaceURI, $localName)
+
+In scalar context, returns a L<Mozilla::DOM::NodeList|Mozilla::DOM::NodeList>.
+In list context, returns a list of L<Mozilla::DOM::Element|Mozilla::DOM::Element>s.
 
 =over
 

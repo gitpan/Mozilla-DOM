@@ -1,3 +1,26 @@
+0.20  2005-09-29
+  - patch from José Auguste-Etienne for installing with Firefox on Mandriva
+  - made certain methods perlish, by returning lists in list context:
+    o  HTMLCollection
+       - HTMLFormElement: GetElements
+       - HTMLMapElement: GetAreas
+       - HTMLTableElement: GetRows, GetTBodies
+       - HTMLTableRowElement: GetCells
+       - HTMLTableSectionElement: GetRows
+       - NSHTMLDocument: GetEmbeds, GetPlugins
+    o  HTMLOptionsCollection
+       - HTMLSelectElement: GetOptions
+    o  NamedNodeMap
+       - Node: GetAttributes
+       - DocumentType: GetEntities, GetNotations
+    o  NodeList
+       - Node: GetChildNodes
+       - Document: GetElementsByTagName, GetElementsByTagNameNS
+       - Element: GetElementsByTagName, GetElementsByTagNameNS
+    o  WindowCollection
+       - Window: GetFrames
+    See the documentation of each method for details.
+
 0.19  2005-09-27
   - added interfaces: Entity, Notation, NSRange, NSEvent, NSUIEvent,
     NSHTMLAnchorElement, NSHTMLAreaElement, NSHTMLButtonElement,

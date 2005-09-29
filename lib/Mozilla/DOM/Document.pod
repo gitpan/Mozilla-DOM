@@ -173,6 +173,9 @@ Pass this to QueryInterface.
 
 =head2 $domlist = $document->B<GetElementsByTagName>($tagname)
 
+In scalar context, returns a L<Mozilla::DOM::NodeList|Mozilla::DOM::NodeList>.
+In list context, returns a list of L<Mozilla::DOM::Element|Mozilla::DOM::Element>s.
+
 =over
 
 =over
@@ -181,13 +184,12 @@ Pass this to QueryInterface.
 
 =back
 
-Gah, this returns a NodeList, not a list of Elements.
-Which is lame because you can't call Element methods on Nodes...
-(Maybe in list context, a list of elements could be returned instead?)
-
 =back
 
 =head2 $element = $document->B<GetElementsByTagNameNS>($namespaceURI, $localName)
+
+In scalar context, returns a L<Mozilla::DOM::NodeList|Mozilla::DOM::NodeList>.
+In list context, returns a list of L<Mozilla::DOM::Element|Mozilla::DOM::Element>s.
 
 =over
 

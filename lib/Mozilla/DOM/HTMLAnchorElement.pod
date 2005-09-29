@@ -34,6 +34,8 @@ Pass this to QueryInterface.
 
 =head2 $coords = $htmlanchorelement->B<GetCoords>()
 
+$coords is a string, but I'm not sure what it is.
+
 =head2 $href = $htmlanchorelement->B<GetHref>()
 
 =head2 $hreflang = $htmlanchorelement->B<GetHreflang>()

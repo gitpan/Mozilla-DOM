@@ -28,6 +28,8 @@ Pass this to QueryInterface.
 
 =head2 $retval = $htmlcollection->B<Item>($index)
 
+This returns a L<Mozilla::DOM::Node|Mozilla::DOM::Node>.
+
 =over
 
 =over

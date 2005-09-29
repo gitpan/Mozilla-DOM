@@ -88,6 +88,9 @@ Output:
 
 =back
 
+In list context, returns a list of whatever $embeds->Item($n) returns
+(no idea).
+
 =head2 $fgcolor = $nshtmldocument->B<GetFgColor>()
 
 Output:
@@ -409,6 +412,9 @@ Output:
 =item $plugins (Mozilla::DOM::HTMLCollection)
 
 =back
+
+In list context, returns a list of whatever $plugins->Item($n) returns
+(no idea).
 
 =head1 SEE ALSO
 

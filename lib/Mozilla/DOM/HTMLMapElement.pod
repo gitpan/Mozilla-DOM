@@ -26,6 +26,12 @@ Pass this to QueryInterface.
 
 =head2 $areas = $htmlmapelement->B<GetAreas>()
 
+$areas is a L<Mozilla::DOM::HTMLCollection|Mozilla::DOM::HTMLCollection>.
+
+In list context, returns a list of
+L<Mozilla::DOM::HTMLAreaElement|Mozilla::DOM::HTMLAreaElement>.
+(See HTML 4.01 spec for the <map> element.)
+
 =head2 $name = $htmlmapelement->B<GetName>()
 
 =head2 $htmlmapelement->B<SetName>($name)

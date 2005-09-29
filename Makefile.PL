@@ -8,16 +8,18 @@ use Config;
 use Cwd qw(cwd);
 use File::Spec;
 
-# $Id: Makefile.PL,v 1.12 2005/09/25 17:41:34 slanning Exp $
+# $Id: Makefile.PL,v 1.13 2005/09/27 14:26:33 slanning Exp $
 
 my $mozpkg = 'mozilla-xpcom';
 my $ffpkg  = 'firefox-xpcom';
+my $mffpkg = 'mozilla-firefox-xpcom';
 
 our %build_reqs = (
     'perl-ExtUtils-Depends'   => '0.205',
     'perl-ExtUtils-PkgConfig' => '1.07',
     $mozpkg                   => '1.7',
     $ffpkg                    => '1.0',
+    $mffpkg                   => '1.0',
 );
 
 unless (eval "use ExtUtils::Depends '$build_reqs{'perl-ExtUtils-Depends'}';"
@@ -35,8 +37,10 @@ unless (eval "use ExtUtils::Depends '$build_reqs{'perl-ExtUtils-Depends'}';"
 }
 
 my %pkgcfg = ExtUtils::PkgConfig->find("$mozpkg >= " . $build_reqs{$mozpkg},
-                                       "$ffpkg >= " . $build_reqs{$ffpkg});
-my $pkg = $pkgcfg{pkg} =~ /mozilla/ ? $mozpkg : $ffpkg;
+                                       "$ffpkg >= " . $build_reqs{$ffpkg},
+                                       "$mffpkg >= " . $build_reqs{$mffpkg});
+
+my ($pkg) = $pkgcfg{pkg} =~ /^(\S+-xpcom)/;
 
 mkdir 'build', 0777;
 
