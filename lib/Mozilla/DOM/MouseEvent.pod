@@ -192,7 +192,7 @@ section 1.6.2 of the DOM level 2 specification
 
 =head1 COPYRIGHT
 
-Copyright (C) 2005, Scott Lanning
+Copyright (C) 2005-2007, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
 

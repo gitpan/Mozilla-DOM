@@ -16,10 +16,7 @@ L<Supports|Mozilla::DOM::Supports>.
  * This interface is not officially defined by any standard bodies, it
  * originates from the defacto DOM Level 0 standard.
 
-Note: the following methods aren't wrapped: GetScrollbars, GetScrollX,
-GetScrollY, ScrollTo, ScrollBy, ScrollByLines, ScrollByPages.
-(Only GetScrollbars would be non-trivial to wrap, just didn't
-get around to the others yet.)
+Note: the GetScrollbars is not wrapped (non-trivial to do)
 
 =head1 CLASS METHODS
 
@@ -118,7 +115,7 @@ where it corresponds to window.name.
 
 =back
 
-=head2 $window->B<SetTextZoom>($num)
+=head2 $window->B<SetTextZoom>($zoom)
 
 =over
 
@@ -171,166 +168,104 @@ or maybe Gtk2 prevents it.
 #    OUTPUT:
 #	RETVAL
 
-  /**
+=end comment
+
+=cut
+
+=head2 $x = $window->B<GetScrollX>()
+
+=over
+
    * Accessor for the current x scroll position in this window in
    * pixels.
    *
    * This attribute is "replaceable" in JavaScript
-   */
-  /* readonly attribute long scrollX; */
-#=for apidoc Mozilla::DOM::Window::GetScrollX
-#
-#=for signature $window->GetScrollX(PRInt32 *aScrollX)
-#
-#
-#
-#=cut
-#
-### GetScrollX(PRInt32 *aScrollX)
-#somereturn *
-#moz_dom_GetScrollX (window, aScrollX)
-#	nsIDOMWindow *window;
-#	PRInt32 *aScrollX ;
-#    PREINIT:
-#
-#    CODE:
-#	window->GetScrollX(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
 
-  /**
+=over
+
+=item * $x (double)
+
+=back
+
+=back
+
+=head2 $y = $window->B<GetScrollY>()
+
+=over
+
    * Accessor for the current y scroll position in this window in
    * pixels.
    *
    * This attribute is "replaceable" in JavaScript
-   */
-  /* readonly attribute long scrollY; */
-#=for apidoc Mozilla::DOM::Window::GetScrollY
-#
-#=for signature $window->GetScrollY(PRInt32 *aScrollY)
-#
-#
-#
-#=cut
-#
-### GetScrollY(PRInt32 *aScrollY)
-#somereturn *
-#moz_dom_GetScrollY (window, aScrollY)
-#	nsIDOMWindow *window;
-#	PRInt32 *aScrollY ;
-#    PREINIT:
-#
-#    CODE:
-#	window->GetScrollY(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
 
-  /**
+=over
+
+=item * $y (double)
+
+=back
+
+=back
+
+=head2 $window->B<ScrollTo>($xScroll, $yScroll)
+
+=over
+
    * Method for scrolling this window to an absolute pixel offset.
-   */
-  /* void scrollTo (in long xScroll, in long yScroll); */
-#=for apidoc Mozilla::DOM::Window::ScrollTo
-#
-#=for signature $window->ScrollTo(PRInt32 xScroll, PRInt32 yScroll)
-#
-#
-#
-#=cut
-#
-### ScrollTo(PRInt32 xScroll, PRInt32 yScroll)
-#somereturn *
-#moz_dom_ScrollTo (window, xScroll, yScroll)
-#	nsIDOMWindow *window;
-#	PRInt32 xScroll ;
-#	PRInt32 yScroll ;
-#    PREINIT:
-#
-#    CODE:
-#	window->ScrollTo(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
 
-  /**
+=over
+
+=item * $xScroll (double)
+
+=item * $yScroll (double)
+
+=back
+
+=back
+
+=head2 $window->B<ScrollBy>($xScrollDif, $yScrollDif)
+
+=over
+
    * Method for scrolling this window to a pixel offset relative to
    * the current scroll position.
-   */
-  /* void scrollBy (in long xScrollDif, in long yScrollDif); */
-#=for apidoc Mozilla::DOM::Window::ScrollBy
-#
-#=for signature $window->ScrollBy(PRInt32 xScrollDif, PRInt32 yScrollDif)
-#
-#
-#
-#=cut
-#
-### ScrollBy(PRInt32 xScrollDif, PRInt32 yScrollDif)
-#somereturn *
-#moz_dom_ScrollBy (window, xScrollDif, yScrollDif)
-#	nsIDOMWindow *window;
-#	PRInt32 xScrollDif ;
-#	PRInt32 yScrollDif ;
-#    PREINIT:
-#
-#    CODE:
-#	window->ScrollBy(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
 
-  /**
+=over
+
+=item * $xScrollDif (double)
+
+=item * $yScrollDif (double)
+
+=back
+
+=back
+
+=head2 $window->B<ScrollByLines>($numLines)
+
+=over
+
    * Method for scrolling this window by a number of lines.
-   */
-  /* void scrollByLines (in long numLines); */
-#=for apidoc Mozilla::DOM::Window::ScrollByLines
-#
-#=for signature $window->ScrollByLines(PRInt32 numLines)
-#
-#
-#
-#=cut
-#
-### ScrollByLines(PRInt32 numLines)
-#somereturn *
-#moz_dom_ScrollByLines (window, numLines)
-#	nsIDOMWindow *window;
-#	PRInt32 numLines ;
-#    PREINIT:
-#
-#    CODE:
-#	window->ScrollByLines(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
 
-  /**
+=over
+
+=item * $numLines (double)
+
+=back
+
+=back
+
+=head2 $window->B<ScrollByPages>($numPages)
+
+=over
+
    * Method for scrolling this window by a number of pages.
-   */
-  /* void scrollByPages (in long numPages); */
-#=for apidoc Mozilla::DOM::Window::ScrollByPages
-#
-#=for signature $window->ScrollByPages(PRInt32 numPages)
-#
-#
-#
-#=cut
-#
-### ScrollByPages(PRInt32 numPages)
-#somereturn *
-#moz_dom_ScrollByPages (window, numPages)
-#	nsIDOMWindow *window;
-#	PRInt32 numPages ;
-#    PREINIT:
-#
-#    CODE:
-#	window->ScrollByPages(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
 
-=end comment
+=over
+
+=item * $numPages (double)
+
+=back
+
+=back
 
 =head1 SEE ALSO
 
@@ -338,7 +273,7 @@ L<Mozilla::DOM>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2005, Scott Lanning
+Copyright (C) 2005-2007, Scott Lanning
 
 This software is licensed under the LGPL.  See L<Mozilla::DOM> for a full notice.
 

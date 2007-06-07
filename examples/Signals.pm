@@ -92,14 +92,14 @@ sub progress_all_cb {
 # When there's a change in the state of the loading of a document.
 sub net_state_cb {
     my ($embed, $state_flags, $status) = @_;
-
+    print "\tflags=$state_flags\n\tstatus=$status\n";
 }
 
 #  void (* net_state_all)       (GtkMozEmbed *embed, const char *aURI,
 #				gint state, guint status);
 sub net_state_all_cb {
     my ($embed, $uri, $state_flags, $status) = @_;
-
+    print "\turi=$uri\n\tflags=$state_flags\n\tstatus=$status\n";
 }
 
 # When the loading of a document starts.

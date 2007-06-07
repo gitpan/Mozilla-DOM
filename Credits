@@ -8,7 +8,9 @@ Y. Selkowitz
 Uwe Voelker
 Adam Kennedy
 José Auguste-Etienne
+Boris Sukholitko
 
+Thanks also to those who have bugged me to release a new version. :)
 
 In addition, I'd like to acknowledge copying from the following
 sources of code or documentation. I haven't intentionally violated
@@ -19,7 +21,8 @@ http://www.w3.org/DOM/DOMTR
 
 Mozilla header files
 http://lxr.mozilla.org/seamonkey/source/
-(*.h are normally installed under /usr/include/mozilla/ )
+(*.h are normally installed under /usr/include/mozilla/
+or /usr/include/firefox/ )
 
 Gtk2::MozEmbed
 http://search.cpan.org/dist/Gtk2-MozEmbed/

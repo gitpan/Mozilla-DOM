@@ -1,4 +1,6 @@
 #!/usr/bin/perl
+# xxx: I'd really like to make this more friendly to install....
+
 use 5.008;
 use strict;
 use warnings;
@@ -8,8 +10,10 @@ use Config;
 use Cwd qw(cwd);
 use File::Spec;
 
-# $Id: Makefile.PL,v 1.13 2005/09/27 14:26:33 slanning Exp $
+# $Id: Makefile.PL,v 1.14 2005/09/29 02:31:35 slanning Exp $
 
+# someone mentioned adding iceweasel (debian), but I don't
+# know how it's called
 my $mozpkg = 'mozilla-xpcom';
 my $ffpkg  = 'firefox-xpcom';
 my $mffpkg = 'mozilla-firefox-xpcom';
@@ -92,7 +96,7 @@ WriteMakefile(
     XSOPT         => '-C++',
     dist => {
         # don't index examples directory on CPAN
-        PREOP => 'echo -e "no_index:\n  dir:\n  - examples" >> ${DISTVNAME}/META.yml',
+        PREOP => 'echo -e "no_index:\n  directory:\n    - examples" >> ${DISTVNAME}/META.yml',
     },
     $mozdom->get_makefile_vars,
 );

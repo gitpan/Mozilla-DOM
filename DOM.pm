@@ -1,6 +1,6 @@
 package Mozilla::DOM;
 
-# $Id: DOM.pm,v 1.19 2005/09/27 14:26:33 slanning Exp $
+# $Id: DOM.pm,v 1.20 2005/09/29 02:31:35 slanning Exp $
 
 use 5.008;
 use strict;
@@ -9,7 +9,7 @@ use warnings;
 require DynaLoader;
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.20';
+our $VERSION = '0.21';
 
 sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 
@@ -1624,6 +1624,10 @@ A list of all the POD files distributed with this module.
 
 =item L<Gtk2::MozEmbed|Gtk2::MozEmbed>
 
+=item L<Mozilla::Mechanize>
+
+A WWW::Mechanize-like module using this module and Gtk2::MozEmbed.
+
 =item DOM Level 3 specification
 
 In particular the sections on Key and Mouse events.
@@ -1668,10 +1672,11 @@ GtkMozEmbed: Gtk Mozilla Embedding Widget
 
 =back
 
-with a lot of help from Torsten Schoenfeld E<lt>kaffeetisch at gmx dot deE<gt>.
+with a lot of help from Torsten Schoenfeld and Boris Sukholitko
+(see Credits)
 
 =head1 COPYRIGHT
 
-Copyright (C) 2005 by Scott Lanning
+Copyright (C) 2005-2007 by Scott Lanning
 
 =cut

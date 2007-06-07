@@ -10,8 +10,9 @@ for more details.
 
 There are examples in the `examples' directory showing how
 to use this module with Gtk2::MozEmbed. See the README file
-in that directory. See `perldoc Mozilla::DOM::index` for a list
-of all the POD files distributed with this module.
+in that directory. Check out Mozilla::Mechanize for a WWW::Mechanize-like
+module that uses Mozilla::DOM. See `perldoc Mozilla::DOM::index` for
+a list of all the POD files distributed with this module.
 
 
 Dependencies
@@ -90,6 +91,12 @@ from within the Mozilla include directory (e.g. /usr/include/mozilla).
 It will probably be under a subdirectory of /usr/include/mozilla/.
 Try adding that subdirectory to the set_inc method in Makefile.PL,
 and please report it to me.
+
+If you find that this module segfaults on Ubuntu, try this solution
+from Boris Sukholitko which worked for me:
+- add /usr/lib/firefox to /etc/ld.so.conf
+- run /sbin/ldconfig
+- remove /usr/lib/firefox/components/compreg.dat (regenerates itself)
 
 
 Bugs

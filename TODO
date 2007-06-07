@@ -1,7 +1,4 @@
-How can we set headers?
-
-How can we tell if a request was successul?
-(nsIWebProgressListener?)
+Fix EventListener.
 
 Split DOM.xs into separate files. I'd like to have ones
 for Event, Node, HTMLElement.. (would break interface, though)
@@ -16,12 +13,6 @@ nsIDOMSVG*, CSS*, XPath*, and XUL*?
 How would I even get a pointer to those?
 [Check out content/base/src/ns*.cpp and dom/src/base/ns*.cpp.
 What is EventReceiver? WebProgressListener?]
-
-Can IInputStream be gotten from IDocShellTreeItem ?
-(and can IDocShellTreeItem be gotten to?)
-# [note to self: embedding/6496.txt how to create StringInputStream,
-#  though I think it's changed to ByteArrayInputStream now;
-#  see embedding/6662.txt.]
 
 Find a reference for different interfaces of each class
 (DocumentEvent for Document, etc.), what interfaces are

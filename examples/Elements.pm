@@ -1,7 +1,7 @@
 # This example shows how to access DOM elements.
 # Refer also to the Minilla and Signals examples.
 #
-# $CVSHeader: Mozilla-DOM/examples/Elements.pm,v 1.3 2005/09/25 17:41:38 slanning Exp $
+# $CVSHeader: Mozilla-DOM/examples/Elements.pm,v 1.4 2005/09/29 02:31:39 slanning Exp $
 
 
 package Elements;

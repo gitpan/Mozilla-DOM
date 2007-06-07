@@ -25,12 +25,11 @@ sub INIT_INSTANCE {
     my $self = shift;
 
     my $embed = Gtk2::MozEmbed->new();
+    $self->add($embed);
 
     $embed->signal_connect(net_stop => \&net_stop_cb);
     $embed->signal_connect(dom_mouse_click => \&click_cb);
     $embed->signal_connect(dom_key_press => \&press_cb);
-
-    $self->add($embed);
 
     # XXX: there's got to be a way to refer to a file
     # relative to the cwd using a file:// URI, isn't there?

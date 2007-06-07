@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2005 by Scott Lanning
+ * Copyright (C) 2005-2007 by Scott Lanning
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $CVSHeader: Mozilla-DOM/xs/DOM.xs,v 1.22 2005/09/27 14:26:44 slanning Exp $
+ * $CVSHeader: Mozilla-DOM/xs/DOM.xs,v 1.23 2005/09/29 02:31:48 slanning Exp $
  */
 
 #include "mozilladom2perl.h"
@@ -1169,168 +1169,67 @@ moz_dom_GetSelection (window)
 #    OUTPUT:
 #	RETVAL
 
-  /**
-   * Accessor for the current x scroll position in this window in
-   * pixels.
-   *
-   * This attribute is "replaceable" in JavaScript
-   */
-  /* readonly attribute long scrollX; */
-#=for apidoc Mozilla::DOM::Window::GetScrollX
-#
-#=for signature $window->GetScrollX(PRInt32 *aScrollX)
-#
-#
-#
-#=cut
-#
-### GetScrollX(PRInt32 *aScrollX)
-#somereturn *
-#moz_dom_GetScrollX (window, aScrollX)
-#	nsIDOMWindow *window;
-#	PRInt32 *aScrollX ;
-#    PREINIT:
-#	
-#    CODE:
-#	window->GetScrollX(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-  /**
-   * Accessor for the current y scroll position in this window in
-   * pixels.
-   *
-   * This attribute is "replaceable" in JavaScript
-   */
-  /* readonly attribute long scrollY; */
-#=for apidoc Mozilla::DOM::Window::GetScrollY
-#
-#=for signature $window->GetScrollY(PRInt32 *aScrollY)
-#
-#
-#
-#=cut
-#
-### GetScrollY(PRInt32 *aScrollY)
-#somereturn *
-#moz_dom_GetScrollY (window, aScrollY)
-#	nsIDOMWindow *window;
-#	PRInt32 *aScrollY ;
-#    PREINIT:
-#	
-#    CODE:
-#	window->GetScrollY(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-  /**
-   * Method for scrolling this window to an absolute pixel offset.
-   */
-  /* void scrollTo (in long xScroll, in long yScroll); */
-#=for apidoc Mozilla::DOM::Window::ScrollTo
-#
-#=for signature $window->ScrollTo(PRInt32 xScroll, PRInt32 yScroll)
-#
-#
-#
-#=cut
-#
-### ScrollTo(PRInt32 xScroll, PRInt32 yScroll)
-#somereturn *
-#moz_dom_ScrollTo (window, xScroll, yScroll)
-#	nsIDOMWindow *window;
-#	PRInt32 xScroll ;
-#	PRInt32 yScroll ;
-#    PREINIT:
-#	
-#    CODE:
-#	window->ScrollTo(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-  /**
-   * Method for scrolling this window to a pixel offset relative to
-   * the current scroll position.
-   */
-  /* void scrollBy (in long xScrollDif, in long yScrollDif); */
-#=for apidoc Mozilla::DOM::Window::ScrollBy
-#
-#=for signature $window->ScrollBy(PRInt32 xScrollDif, PRInt32 yScrollDif)
-#
-#
-#
-#=cut
-#
-### ScrollBy(PRInt32 xScrollDif, PRInt32 yScrollDif)
-#somereturn *
-#moz_dom_ScrollBy (window, xScrollDif, yScrollDif)
-#	nsIDOMWindow *window;
-#	PRInt32 xScrollDif ;
-#	PRInt32 yScrollDif ;
-#    PREINIT:
-#	
-#    CODE:
-#	window->ScrollBy(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-  /**
-   * Method for scrolling this window by a number of lines.
-   */
-  /* void scrollByLines (in long numLines); */
-#=for apidoc Mozilla::DOM::Window::ScrollByLines
-#
-#=for signature $window->ScrollByLines(PRInt32 numLines)
-#
-#
-#
-#=cut
-#
-### ScrollByLines(PRInt32 numLines)
-#somereturn *
-#moz_dom_ScrollByLines (window, numLines)
-#	nsIDOMWindow *window;
-#	PRInt32 numLines ;
-#    PREINIT:
-#	
-#    CODE:
-#	window->ScrollByLines(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
-  /**
-   * Method for scrolling this window by a number of pages.
-   */
-  /* void scrollByPages (in long numPages); */
-#=for apidoc Mozilla::DOM::Window::ScrollByPages
-#
-#=for signature $window->ScrollByPages(PRInt32 numPages)
-#
-#
-#
-#=cut
-#
-### ScrollByPages(PRInt32 numPages)
-#somereturn *
-#moz_dom_ScrollByPages (window, numPages)
-#	nsIDOMWindow *window;
-#	PRInt32 numPages ;
-#    PREINIT:
-#	
-#    CODE:
-#	window->ScrollByPages(&);
-#	RETVAL = ;
-#    OUTPUT:
-#	RETVAL
-
 =end comment
 
 =cut
+
+## GetScrollX(PRInt32 *aScrollX)
+PRInt32
+moz_dom_GetScrollX (window)
+	nsIDOMWindow *window;
+    PREINIT:
+	PRInt32 aScrollX;
+    CODE:
+	window->GetScrollX(&aScrollX);
+	RETVAL = aScrollX;
+    OUTPUT:
+	RETVAL
+
+## GetScrollY(PRInt32 *aScrollY)
+PRInt32
+moz_dom_GetScrollY (window)
+	nsIDOMWindow *window;
+    PREINIT:
+	PRInt32 aScrollY;
+    CODE:
+	window->GetScrollY(&aScrollY);
+	RETVAL = aScrollY;
+    OUTPUT:
+	RETVAL
+
+## ScrollTo(PRInt32 xScroll, PRInt32 yScroll)
+void
+moz_dom_ScrollTo (window, xScroll, yScroll)
+	nsIDOMWindow *window;
+	PRInt32 xScroll;
+	PRInt32 yScroll;
+    CODE:
+        window->ScrollTo(xScroll, yScroll);
+
+## ScrollBy(PRInt32 xScrollDif, PRInt32 yScrollDif)
+void
+moz_dom_ScrollBy (window, xScrollDif, yScrollDif)
+	nsIDOMWindow *window;
+	PRInt32 xScrollDif;
+	PRInt32 yScrollDif;
+    CODE:
+	window->ScrollBy(xScrollDif, yScrollDif);
+
+## ScrollByLines(PRInt32 numLines)
+void
+moz_dom_ScrollByLines (window, numLines)
+	nsIDOMWindow *window;
+	PRInt32 numLines;
+    CODE:
+	window->ScrollByLines(numLines);
+
+## ScrollByPages(PRInt32 numPages)
+void
+moz_dom_ScrollByPages (window, numPages)
+	nsIDOMWindow *window;
+	PRInt32 numPages;
+    CODE:
+	window->ScrollByPages(numPages);
 
 # -----------------------------------------------------------------------------
 
@@ -4757,6 +4656,24 @@ nsIWebBrowser::GetIID()
     OUTPUT:
 	RETVAL
 
+### AddWebBrowserListener(nsIWeakReference *aListener, const nsIID & aIID)
+#void
+#moz_dom_AddWebBrowserListener (webbrowser, aListener, aIID)
+#	nsIWebBrowser *webbrowser;
+#	nsIWeakReference * aListener;
+#	const nsIID &  aIID;
+#    CODE:
+#	webbrowser->AddWebBrowserListener(aListener, aIID);
+#
+### RemoveWebBrowserListener(nsIWeakReference *aListener, const nsIID & aIID)
+#void
+#moz_dom_RemoveWebBrowserListener (webbrowser, aListener, aIID)
+#	nsIWebBrowser *webbrowser;
+#	nsIWeakReference * aListener;
+#	const nsIID &  aIID;
+#    CODE:
+#	webbrowser->RemoveWebBrowserListener(aListener, aIID);
+
 ## GetContentDOMWindow(nsIDOMWindow * *aContentDOMWindow)
 nsIDOMWindow *
 moz_dom_GetContentDOMWindow (browser)
@@ -4844,7 +4761,7 @@ moz_dom_GotoIndex (webnavigation, index)
 #=for signature $webnavigation->LoadURI($uri, $loadflags, $referrer, $postdata, $headers)
 #
 #  * Loads a given URI.  This will give priority to loading the requested URI
-#  * in the object implementing	this interface.  If it can't be loaded here
+#  * in the object implementing	this interface.  If it can''t be loaded here
 #  * however, the URL dispatcher will go through its normal process of content
 #  * loading.
 #  *
@@ -12665,13 +12582,14 @@ moz_dom_GetSelection (nshtmldocument)
 	RETVAL
 
 ## Open(nsIDOMDocument **_retval)
+## was: moz_dom_Open (nshtmldocument), nshtmldocument->Open(&_retval);
 nsIDOMDocument *
-moz_dom_Open (nshtmldocument)
+moz_dom_Open (nshtmldocument, nsEmbedCString & contentType , PRBool & replace)
 	nsIDOMNSHTMLDocument *nshtmldocument;
     PREINIT:
 	nsIDOMDocument * _retval;
     CODE:
-	nshtmldocument->Open(&_retval);
+        nshtmldocument->Open(contentType, replace, &_retval);
 	RETVAL = _retval;
     OUTPUT:
 	RETVAL
@@ -13979,4 +13897,3 @@ moz_dom_GetAvailTop (screen)
 	RETVAL = aAvailTop;
     OUTPUT:
 	RETVAL
-

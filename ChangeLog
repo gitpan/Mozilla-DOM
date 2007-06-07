@@ -1,3 +1,19 @@
+0.21  2007-06-07
+  - Really sorry about the delay - in addition to me being lazy,
+    gtkmozembed was segfaulting on Ubuntu!
+    If you have this problem, see the Troubleshooting section of README.
+  - patch from Boris Sukholitko for Mozilla::DOM::NSHTMLDocument open.
+    Note: this only works with newer Firefox now, where apparently the API
+    changed. I can add #ifdef to support the old version, but I'm not
+    sure which version it changed in (let me know)
+  - another patch from Boris for Mozilla::DOM::Window ScrollTo.
+    (other Scroll* methods could be wrapped). While I was at it,
+    I also wrapped GetScrollX, GetScrollY, ScrollBy, ScrollByLines,
+    ScrollByPages (all but GetScrollbars, which is too hard)
+  - minor edits of examples, docs; added Scroll example
+  - really fixed META.yml no_index this time (I think),
+    so hopefully modules in 'examples' directory aren't indexed on CPAN
+
 0.20  2005-09-29
   - patch from José Auguste-Etienne for installing with Firefox on Mandriva
   - made certain methods perlish, by returning lists in list context:
