@@ -3,7 +3,7 @@
 # from JavaScript). It also shows Screen, though I don't think
 # that's really considered a "browser object".
 #
-# $CVSHeader: Mozilla-DOM/examples/BrowserObjects.pm,v 1.2 2005/08/28 19:30:14 slanning Exp $
+# $CVSHeader: Mozilla-DOM/examples/BrowserObjects.pm,v 1.3 2007-06-06 21:46:56 slanning Exp $
 
 
 package BrowserObjects;

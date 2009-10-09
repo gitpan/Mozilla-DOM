@@ -98,21 +98,17 @@ from Boris Sukholitko which worked for me:
 - run /sbin/ldconfig
 - remove /usr/lib/firefox/components/compreg.dat (regenerates itself)
 
+On Jaunty, I've installed the libxul-unstable package, and it seems
+they don't have either the directory where libxul.so exists in
+/etc/ld.so.conf.d/ or symlinks there. As a hack, I did this....
+
+  # cat >> libxulcrap.conf
+  /usr/lib/xulrunner-devel-1.9.0.14/lib
+  ctrl-d
+  # ldconfig
+
 
 Bugs
 ----
 
-You can send bugs to me directly, or through RT at
-http://rt.cpan.org/NoAuth/Bugs.html?Dist=Mozilla-DOM .
-
-
-Contact
--------
-
-Scott Lanning  lannings at who dot int
-
-You can also use the CPAN Forum at
-http://www.cpanforum.com/dist/Mozilla-DOM .
-
-I (slanning) am usually on IRC at irc.perl.org,
-where we could create a channel.
+You can send bugs to me directly: Scott Lanning <slanning@cpan.org>

@@ -6,7 +6,7 @@
 # (Click on the button.)
 # Refer also to the Minilla, Signals, Elements, and Events examples.
 #
-# $CVSHeader: Mozilla-DOM/examples/EventListeners.pm,v 1.3 2005/08/28 19:30:14 slanning Exp $
+# $CVSHeader: Mozilla-DOM/examples/EventListeners.pm,v 1.4 2007-06-06 21:46:56 slanning Exp $
 
 
 package EventListeners;

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $CVSHeader: Mozilla-DOM/t/DOM.t,v 1.1.1.1 2005/03/31 01:21:29 slanning Exp $
+# $CVSHeader: Mozilla-DOM/t/DOM.t,v 1.2 2007-06-06 21:47:32 slanning Exp $
 
 use strict;
 use warnings;

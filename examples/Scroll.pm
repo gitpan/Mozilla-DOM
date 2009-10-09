@@ -1,7 +1,7 @@
 # This example shows how to use Window scroll methods.
 # Refer also to the Minilla and Signals examples.
 #
-# $CVSHeader: Mozilla-DOM/examples/Elements.pm,v 1.4 2005/09/29 02:31:39 slanning Exp $
+# $CVSHeader: Mozilla-DOM/examples/Scroll.pm,v 1.1 2007-06-06 21:46:56 slanning Exp $
 
 package Scroll;
 

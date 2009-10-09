@@ -4,7 +4,7 @@
 # to the other examples to see what they add. It does nothing
 # related to Mozilla::DOM.
 #
-# $CVSHeader: Mozilla-DOM/examples/Minilla.pm,v 1.3 2005/04/18 05:30:28 slanning Exp $
+# $CVSHeader: Mozilla-DOM/examples/Minilla.pm,v 1.4 2007-06-06 21:46:56 slanning Exp $
 
 
 package Minilla;

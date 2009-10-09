@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $CVSHeader: Mozilla-DOM/xs/DOM.xs,v 1.23 2005/09/29 02:31:48 slanning Exp $
+ * $CVSHeader: Mozilla-DOM/xs/DOM.xs,v 1.24 2007-06-06 21:47:36 slanning Exp $
  */
 
 #include "mozilladom2perl.h"
@@ -4351,6 +4351,11 @@ moz_dom_ComparePoint (nsrange, parent, offset)
     OUTPUT:
 	RETVAL
 
+
+### see https://developer.mozilla.org/en/Gecko_1.9_Changes_affecting_websites
+
+#ifdef NOT_SUPPORTED_ANYMORE
+
 ## IntersectsNode(nsIDOMNode *n, PRBool *_retval)
 PRBool
 moz_dom_IntersectsNode (nsrange, n)
@@ -4383,6 +4388,9 @@ moz_dom_NSDetach (nsrange)
 	nsIDOMNSRange *nsrange;
     CODE:
 	nsrange->NSDetach();
+
+#endif
+
 
 # -----------------------------------------------------------------------------
 
@@ -12615,6 +12623,11 @@ moz_dom_Clear (nshtmldocument)
     CODE:
 	nshtmldocument->Clear();
 
+
+## see https://developer.mozilla.org/en/Gecko_1.9_Changes_affecting_websites
+
+#ifdef NOT_SUPPORTED_ANYMORE
+
 ## CaptureEvents(PRInt32 eventFlags)
 void
 moz_dom_CaptureEvents (nshtmldocument, eventFlags)
@@ -12638,6 +12651,8 @@ moz_dom_RouteEvent (nshtmldocument, evt)
 	nsIDOMEvent * evt;
     CODE:
 	nshtmldocument->RouteEvent(evt);
+
+#endif
 
 ## GetCompatMode(nsAString & aCompatMode)
 nsEmbedString

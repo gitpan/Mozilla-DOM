@@ -2,7 +2,7 @@
 # in particular for an HTMLSelectElement.
 # Refer also to the Elements example.
 #
-# $CVSHeader: Mozilla-DOM/examples/HTMLElements.pm,v 1.3 2005/09/29 02:31:39 slanning Exp $
+# $CVSHeader: Mozilla-DOM/examples/HTMLElements.pm,v 1.4 2007-06-06 21:46:56 slanning Exp $
 
 
 package HTMLElements;

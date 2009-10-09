@@ -1,3 +1,14 @@
+0.22  2009-10-10 | updated to Gecko 1.9 (latest xulrunner/firefox)	 
+  - patch (in 2008, sorry...) from Boris Sukholitko to make install
+    work on Ubuntu Hardy
+  - reworked install more
+  - decided to only support Gecko 1.9 (I think), which means removing
+    (see https://developer.mozilla.org/en/Gecko_1.9_Changes_affecting_websites )
+	- NSEvent: preventBubble
+	- NSRange: IntersectsNode, CompareNode, NSDetach
+	- NSHTMLDocument: captureEvents, releaseEvents, routeEvent
+  - if there are problems finding libxul.so, see the README
+
 0.21  2007-06-07
   - Really sorry about the delay - in addition to me being lazy,
     gtkmozembed was segfaulting on Ubuntu!

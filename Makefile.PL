@@ -10,20 +10,35 @@ use Config;
 use Cwd qw(cwd);
 use File::Spec;
 
-# $Id: Makefile.PL,v 1.14 2005/09/29 02:31:35 slanning Exp $
-
-# someone mentioned adding iceweasel (debian), but I don't
-# know how it's called
-my $mozpkg = 'mozilla-xpcom';
-my $ffpkg  = 'firefox-xpcom';
-my $mffpkg = 'mozilla-firefox-xpcom';
-
+my %pkg_to_try = (
+    moz         => {
+        pkgcfg => 'mozilla-xpcom',
+        reqver => 1.7,
+    },
+    ff          => {
+        pkgcfg => 'firefox-xpcom',
+        reqver => 1.0,
+    },
+    mff         => {
+        pkgcfg => 'mozilla-firefox-xpcom',
+        reqver => 1.0,
+    },
+    xulunstable => {
+        pkgcfg => 'libxul-unstable',
+        reqver => 1.9,
+    },
+    xul         => {
+        pkgcfg => 'libxul',
+        reqver => 1.9,
+    },
+);
+my @pkgs = qw/moz ff mff xulunstable xul/;
 our %build_reqs = (
     'perl-ExtUtils-Depends'   => '0.205',
     'perl-ExtUtils-PkgConfig' => '1.07',
-    $mozpkg                   => '1.7',
-    $ffpkg                    => '1.0',
-    $mffpkg                   => '1.0',
+    (
+        map { ( $pkg_to_try{$_}{pkgcfg} => $pkg_to_try{$_}{reqver} ) } @pkgs
+    ),
 );
 
 unless (eval "use ExtUtils::Depends '$build_reqs{'perl-ExtUtils-Depends'}';"
@@ -40,11 +55,11 @@ unless (eval "use ExtUtils::Depends '$build_reqs{'perl-ExtUtils-Depends'}';"
     exit 1; # not reached
 }
 
-my %pkgcfg = ExtUtils::PkgConfig->find("$mozpkg >= " . $build_reqs{$mozpkg},
-                                       "$ffpkg >= " . $build_reqs{$ffpkg},
-                                       "$mffpkg >= " . $build_reqs{$mffpkg});
+my %pkgcfg = ExtUtils::PkgConfig->find(
+    map { $_ . ' >= ' . $build_reqs{$_} } map { $pkg_to_try{$_}{pkgcfg} } @pkgs
+);
 
-my ($pkg) = $pkgcfg{pkg} =~ /^(\S+-xpcom)/;
+my ($pkg) = $pkgcfg{pkg} =~ /^(\S+) /;
 
 mkdir 'build', 0777;
 
@@ -53,17 +68,23 @@ ExtUtils::PkgConfig->write_version_macros (
     $pkg => 'MOZ_DOM',
 );
 
-# $incdir is for "nsIDOMKeyEvent.h", etc.
 my $incdir = `pkg-config --variable=includedir $pkg`;
 my $libdir = `pkg-config --variable=libdir $pkg`;
 chomp($incdir, $libdir);
 
+unless ($libdir) {
+    $libdir = `pkg-config --variable=sdkdir $pkg`;
+    chomp($libdir);
+}
+
 my $mozdom = ExtUtils::Depends->new('Mozilla::DOM');
+
 # -I/usr/include/mozilla -I/usr/include/mozilla/xpcom
 # -I/usr/include/mozilla/string -I/usr/include/mozilla/nspr
 $mozdom->set_inc($pkgcfg{cflags}, '-I.', '-I./build',
                  "-I$incdir", "-I$incdir/dom", "-I$incdir/webbrwsr",
                  "-I$incdir/content", "-I$incdir/docshell");
+
 # -L/usr/lib/mozilla -lxpcom -lplds4 -lplc4 -lnspr4 -ldl -lc -lpthread
 $mozdom->set_libs($pkgcfg{libs});
 
@@ -85,6 +106,12 @@ $mozdom->install('mozilladom2perl.h',
                  'doctypes');
 $mozdom->save_config('build/IFiles.pm');
 
+# xxx:
+# https://developer.mozilla.org/en/Gecko_1.9_Changes_affecting_websites#intersectsNode_has_been_removed
+my @defines = ();
+push @defines, '-DMD_XUL'
+  if $pkg eq $pkg_to_try{xul}{pkgcfg} or $pkg eq $pkg_to_try{xulunstable}{pkgcfg};
+
 WriteMakefile(
     NAME          => 'Mozilla::DOM',
     VERSION_FROM  => 'DOM.pm',
@@ -99,6 +126,8 @@ WriteMakefile(
         PREOP => 'echo -e "no_index:\n  directory:\n    - examples" >> ${DISTVNAME}/META.yml',
     },
     $mozdom->get_makefile_vars,
+
+    (@defines ? ('DEFINE' => join(' ', @defines)) : ()),
 );
 
 

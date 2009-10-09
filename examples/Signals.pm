@@ -2,7 +2,7 @@
 # that can be used from Gtk2::MozEmbed. Comments already noted in
 # Minilla are omitted.
 #
-# $CVSHeader: Mozilla-DOM/examples/Signals.pm,v 1.3 2005/04/18 05:30:28 slanning Exp $
+# $CVSHeader: Mozilla-DOM/examples/Signals.pm,v 1.4 2007-06-06 21:46:56 slanning Exp $
 
 
 package Signals;
