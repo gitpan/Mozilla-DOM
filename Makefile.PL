@@ -10,6 +10,8 @@ use Config;
 use Cwd qw(cwd);
 use File::Spec;
 
+my @pkgs = qw/moz ff mff ice xulunstable xul/;
+
 my %pkg_to_try = (
     moz         => {
         pkgcfg => 'mozilla-xpcom',
@@ -23,6 +25,10 @@ my %pkg_to_try = (
         pkgcfg => 'mozilla-firefox-xpcom',
         reqver => 1.0,
     },
+    ice         => {
+        pkgcfg => 'xulrunner-xpcom',
+        reqver => 1.7,
+    },
     xulunstable => {
         pkgcfg => 'libxul-unstable',
         reqver => 1.9,
@@ -32,7 +38,7 @@ my %pkg_to_try = (
         reqver => 1.9,
     },
 );
-my @pkgs = qw/moz ff mff xulunstable xul/;
+
 our %build_reqs = (
     'perl-ExtUtils-Depends'   => '0.205',
     'perl-ExtUtils-PkgConfig' => '1.07',
@@ -72,9 +78,51 @@ my $incdir = `pkg-config --variable=includedir $pkg`;
 my $libdir = `pkg-config --variable=libdir $pkg`;
 chomp($incdir, $libdir);
 
+my $pkgconf_variable = 'libdir';
 unless ($libdir) {
     $libdir = `pkg-config --variable=sdkdir $pkg`;
     chomp($libdir);
+
+    $pkgconf_variable = 'sdkdir';
+}
+
+ExtUtils::MakeMaker::prompt(<<MSG);
+
+
+IMPORTANT NOTES:
+
+1) Due to the broken way that firefox/xulrunner libraries
+are set up (at least in Ubuntu), you might need to configure
+your LD_LIBRARY_PATH to include the directory where
+libxul.so (or whatever) is located.
+
+This script found a library in '$libdir'
+and will set the LD_LIBRARY_PATH to temporarily include that
+so the tests will (hopefully) pass. You may need to set
+that yourself somehow, for example by adding an entry
+to /etc/ld.so.conf or /etc/ld.so.conf.d/ or by doing
+
+    export LD_LIBRARY_PATH="$libdir/lib:\$LD_LIBRARY_PATH"
+
+in your ~/.bashrc file. (You might also try using something like
+\$(pkg-config --variable=$pkgconf_variable $pkg)/lib to be more general,
+but this varies depending on the distribution....)
+
+2) You might have to install a "-dev" package, so that libraries
+and header files are available.
+
+
+Good luck!  (please hit Enter now)
+
+
+MSG
+
+{
+    package MY;
+    sub test {
+        "\nLD_LIBRARY_PATH=$libdir/lib:$ENV{LD_LIBRARY_PATH}\n"
+          . shift->SUPER::test(@_)
+    }
 }
 
 my $mozdom = ExtUtils::Depends->new('Mozilla::DOM');

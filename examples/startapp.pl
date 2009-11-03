@@ -9,6 +9,16 @@
 
 use strict;
 use warnings;
+
+BEGIN {
+    print STDERR "\n**** NOTE ****\n\n",
+      "If you can't load MozEmbed.so,\n",
+      "search for LD_LIBRARY_PATH in README.\n\n",
+      "If you get a blank window or 'Can't locate auto/Gtk2/MozEmbed/get_nsIWebB.al',\n",
+      "try force installing Gtk2::MozEmbed manually as root.\n\n",
+      "**************\n\n";
+}
+
 use Glib qw(FALSE);
 use Gtk2 -init;
 

@@ -1,3 +1,9 @@
+0.23  2009-11-03 | find us some libraries
+  - added 'xulrunner-xpcom' to the list of pkg-config packages to try
+  - added note to user in Makefile.PL and also overrode MY::test in order
+    to set LD_LIBRARY_PATH so that the tests can find libxul.so
+    (thanks to Vincent Pit for the tip on overriding MY::test)
+
 0.22  2009-10-10 | updated to Gecko 1.9 (latest xulrunner/firefox)	 
   - patch (in 2008, sorry...) from Boris Sukholitko to make install
     work on Ubuntu Hardy

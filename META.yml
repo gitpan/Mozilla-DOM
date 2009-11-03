@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Mozilla-DOM
-version:            0.22
+version:            0.23
 abstract:           Perl wrapping of the Mozilla/Gecko DOM
 author:  []
 license:            unknown

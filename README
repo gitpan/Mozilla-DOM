@@ -30,15 +30,14 @@ Mozilla::DOM depends on:
     or
   `pkg-config --modversion firefox-xpcom` >= 1.0
 
-(I have no idea if Firefox works.)
+Update: those are fairly ancient now. You might also use "XULRunner",
+so your package could be 'libxul' or 'libxul-unstable', for example.
+If your package name is different, please let me know; the various
+distributions of Linux like to mix things up a bit...
 
 
 Installation
 ------------
-
-Note: I've only built this on Debian Linux with Mozilla 1.7.5
-and 1.7.10. People running Gentoo with Mozilla 1.7.6 have reported
-being able to build it.
 
 To install Mozilla::DOM, run the following commands:
 
@@ -50,11 +49,11 @@ To install Mozilla::DOM, run the following commands:
 (See "Dependencies" above.)
 
 For this module to be useful, you'll probably also want
-to build and install Gtk2::MozEmbed (> 0.03) *after* you
-install this. That module includes Mozilla::DOM (through
-the magic of ExtUtils::Depends) if it's already installed.
+to build and install Gtk2::MozEmbed *after* you install this.
+That module includes Mozilla::DOM (through the magic of
+ExtUtils::Depends) if it's already installed.
 IMPORTANT: if you upgrade Mozilla::DOM, you also need
-to rebuild and reinstall Gtk2::MozEmbed.
+to rebuild and reinstall Gtk2::MozEmbed (possibly "force install").
 
 
 Experimental features
@@ -92,20 +91,44 @@ It will probably be under a subdirectory of /usr/include/mozilla/.
 Try adding that subdirectory to the set_inc method in Makefile.PL,
 and please report it to me.
 
+*
+
 If you find that this module segfaults on Ubuntu, try this solution
 from Boris Sukholitko which worked for me:
 - add /usr/lib/firefox to /etc/ld.so.conf
 - run /sbin/ldconfig
 - remove /usr/lib/firefox/components/compreg.dat (regenerates itself)
 
-On Jaunty, I've installed the libxul-unstable package, and it seems
-they don't have either the directory where libxul.so exists in
-/etc/ld.so.conf.d/ or symlinks there. As a hack, I did this....
+*
 
+On Ubuntu Jaunty, I've installed the libxul-unstable package, and it seems
+they don't have either the directory in /etc/ld.so.conf.d/ or symlinks
+to it, so you get an error complaining that 'libxul.so' can't be found.
+As a hack, I did this....
+
+  # cd /etc/ld.so.conf.d/
   # cat >> libxulcrap.conf
   /usr/lib/xulrunner-devel-1.9.0.14/lib
   ctrl-d
   # ldconfig
+
+(You might also cat that onto /etc/ld.so.conf .)
+
+A better way might be to do
+
+  export LD_LIBRARY_PATH="$(pkg-config --variable=sdkdir libxul-unstable)/lib":$LD_LIBRARY_PATH
+
+in your ~/.bashrc .
+(Note: "sdkdir" might be "libdir" and "libxul-unstable" might be lots of things...)
+
+*
+
+If you get something like this:
+
+  make: *** No rule to make target `/usr/lib/perl5/5.8.7/i386-linux/CORE/
+EXTERN.h', needed by `xs/DOM.o'. Stop. 
+
+you probably need to install a "perl-dev" package.
 
 
 Bugs

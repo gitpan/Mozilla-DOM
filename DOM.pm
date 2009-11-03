@@ -9,7 +9,7 @@ use warnings;
 require DynaLoader;
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.22';
+our $VERSION = '0.23';
 
 sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 
